@@ -1,110 +1,521 @@
 \section{Method Taxonomy}
-\label{sec:method-taxonomy}
+\label{sec:method_taxonomy}
+
+This section reviews representative methods for open-vocabulary and reasoning segmentation according to their technical routes. 
+Rather than following a paper-by-paper chronological order, we organize existing methods based on the main foundation-model capability they exploit. 
+This taxonomy is more suitable for this survey because recent segmentation systems differ not only in publication time, but also in how they introduce language, generate masks, perform semantic alignment, and support reasoning-oriented grounding.
+
+As summarized in Table~\ref{tab:method_taxonomy}, existing methods can be broadly grouped into five major routes. 
+CLIP-based methods adapt image-text alignment to dense prediction and mainly address open-vocabulary category recognition. 
+Diffusion-based methods reuse spatial-semantic representations learned by text-to-image generative models. 
+SAM-based methods introduce promptable and class-agnostic mask priors, which can be further combined with vision-language models for semantic recognition. 
+Unified vision-language models attempt to handle pixel-level, image-level, and language-level tasks within a shared decoding framework. 
+MLLM-based methods further connect language reasoning with mask prediction, thereby extending segmentation from text-defined recognition to instruction-driven reasoning and pixel grounding.
+
+\begin{table}[!htbp]
+\centering
+\footnotesize
+\caption{Technical taxonomy of open-vocabulary and reasoning segmentation methods.}
+\label{tab:method_taxonomy}
+\begin{tabularx}{\linewidth}{p{0.22\linewidth} p{0.20\linewidth} X X}
+\hline
+\textbf{Method family} & \textbf{Representative methods} & \textbf{Core mechanism} & \textbf{Main limitation} \\
+\hline
+
+CLIP-based open-vocabulary segmentation 
+& OVSeg, SAN, PnP-OVSS 
+& Transfers image-text alignment to mask-level or pixel-level recognition through region classification, side adaptation, or feature mining. 
+& Strong semantic openness, but weak native dense localization and sensitivity to prompts or region proposals. \\
+
+Diffusion-based segmentation 
+& ODISE 
+& Reuses intermediate representations from text-to-image diffusion models for open-vocabulary panoptic segmentation. 
+& Rich spatial-semantic features, but high training and inference cost. \\
+
+SAM-based promptable and open-vocabulary segmentation 
+& SAM, ESC-Net, Trident 
+& Uses promptable class-agnostic masks or combines SAM with CLIP, DINO, and other vision foundation models. 
+& High-quality mask priors, but native semantic recognition is limited. \\
+
+Unified vision-language segmentation models 
+& X-Decoder 
+& Builds a generalized decoder for pixel-level, image-level, and language-level outputs. 
+& Strong task unification, but training and task balancing are complex. \\
+
+MLLM-based reasoning segmentation and grounding 
+& LISA, GLaMM 
+& Connects language-model reasoning or generated phrases with segmentation decoders for mask prediction. 
+& Supports complex instructions and grounding, but faces hallucination, boundary accuracy, and evaluation challenges. \\
+
+\hline
+\end{tabularx}
+\end{table}
+
+The following subsections elaborate these routes in order. 
+For each route, we first describe the motivation behind the method family, then summarize the basic pipeline, and finally discuss representative methods and their limitations. 
+This organization highlights the main technical transition of the field: from category-level open-vocabulary recognition, to promptable mask generation, to unified vision-language decoding, and finally to reasoning-based pixel grounding.
 
 \subsection{CLIP-based open-vocabulary segmentation}
-\label{subsec:clip-based-ovss}
-Writing plan: explain why CLIP is attractive for open-vocabulary segmentation and why direct CLIP application is insufficient for pixel-level prediction. The central tension is strong image-text alignment versus weak dense localization.
+\label{subsec:clip_based_ovss}
+
+CLIP-based methods are one of the earliest and most influential routes for open-vocabulary semantic segmentation (OVSS). 
+The basic motivation is to transfer the image-text alignment learned by vision-language pretraining to dense visual prediction. 
+Given a set of category names or text prompts, CLIP can encode these textual concepts into a semantic embedding space, where visual features can be compared with text features for category recognition. 
+This property makes CLIP attractive for open-vocabulary segmentation, because the target categories no longer need to be restricted to a fixed segmentation training taxonomy.
+
+However, directly applying CLIP to segmentation is non-trivial. 
+CLIP is mainly trained with image-level contrastive supervision, where the model learns to align a whole image with a corresponding text description. 
+Such supervision provides strong semantic transfer ability, but it does not explicitly optimize pixel-level localization, object boundary accuracy, or dense region discrimination. 
+As a result, CLIP-based OVSS methods usually need additional mechanisms to bridge the gap between image-level semantic alignment and mask-level or pixel-level prediction. 
+Existing methods can be broadly divided into three representative routes: mask-adapted region classification, efficient side adaptation, and training-free feature mining.
 
 \subsubsection{Mask-adapted region classification}
-\label{subsubsec:mask-adapted-clip}
-Discuss OVSeg as the canonical two-stage route: class-agnostic mask proposal followed by mask-adapted CLIP classification \citep{liang2023ovseg}. Explain the masked-region distribution shift and why mask prompt tuning or adaptation is needed.
+
+A direct way to use CLIP for OVSS is to decouple segmentation into two stages: class-agnostic mask generation and open-vocabulary mask classification. 
+In this route, a segmentation module first produces a set of candidate masks, and CLIP is then used to classify each masked region according to the text-defined category set. 
+The advantage of this design is its modularity. 
+The mask proposal module focuses on spatial localization, while CLIP provides open-vocabulary semantic recognition through text-image similarity.
+
+OVSeg is a representative method following this route \cite{Liang2023}. 
+It observes that simply cropping or masking an object region and feeding it into CLIP may introduce a distribution shift, because CLIP is pretrained on natural image-text pairs rather than masked object regions. 
+To address this issue, OVSeg adapts CLIP to masked visual inputs and improves its ability to recognize categories from region-level evidence. 
+In this way, CLIP is no longer used only as an image-level recognizer, but is adapted into a mask-level classifier for open-vocabulary segmentation.
+
+This route clearly separates semantic recognition and spatial localization, which makes it conceptually simple and compatible with different mask proposal generators. 
+However, its performance depends heavily on the quality of the candidate masks. 
+If the proposal stage misses the target object or produces inaccurate boundaries, the CLIP classifier cannot recover the correct segmentation result. 
+Moreover, repeated CLIP classification over many mask proposals may introduce additional inference cost. 
+Therefore, mask-adapted region classification provides a strong baseline for open-vocabulary recognition, but its dense prediction ability remains constrained by the proposal quality and region-classification pipeline.
 
 \subsubsection{Efficient side adaptation}
-\label{subsubsec:side-adapter}
-Discuss SAN as an efficient alternative to repeated proposal classification. Emphasize the side adapter, attention bias, and proposal-wise recognition with a mostly frozen CLIP backbone \citep{xu2023san}.
+
+Another route aims to improve the efficiency and segmentation awareness of CLIP-based OVSS without repeatedly classifying independent mask proposals. 
+Instead of treating CLIP only as a frozen region classifier, side-adaptation methods introduce additional lightweight modules that help adapt CLIP features to dense prediction. 
+The key idea is to preserve the open-vocabulary semantic knowledge of CLIP while adding segmentation-oriented structures for pixel-level recognition.
+
+SAN is a representative side-adaptation method \cite{Xu2023b}. 
+It introduces a side adapter network to assist CLIP in open-vocabulary semantic segmentation. 
+The side adapter is designed to extract segmentation-aware information while keeping the main CLIP backbone largely preserved. 
+Through this design, the model can use CLIP's text-aligned semantic space for open-vocabulary recognition and use the side branch to enhance dense localization. 
+Compared with proposal-based methods, this route avoids repeatedly applying CLIP to a large number of candidate masks and provides a more integrated segmentation pipeline.
+
+The main advantage of side adaptation is the balance between semantic transfer and computational efficiency. 
+By adding task-specific dense prediction modules around a strong vision-language backbone, the model can better adapt image-text alignment to segmentation without fully retraining the foundation model. 
+However, this route still requires segmentation-specific training and careful architectural design. 
+The adapter must be strong enough to capture spatial details, while not destroying the transferable semantic structure of CLIP. 
+Thus, side adaptation improves the practicality of CLIP-based OVSS, but it does not completely remove the dependence on task-specific supervision and dense prediction modules.
 
 \subsubsection{Training-free VLM feature mining}
-\label{subsubsec:pnp-ovss}
-Discuss PnP-OVSS as a 2024 training-free route that mines localization cues from off-the-shelf VLMs \citep{luo2024pnpovss}. Explain the advantage of removing task-specific segmentation training and the limitation of heuristic sensitivity.
 
-\placeholderfigure{Planned figure: comparison of CLIP-based OVSS pipelines.}{fig:clip-ovss-pipelines}{Figure plan: redraw three columns for OVSeg, SAN, and PnP-OVSS: proposal-classification, side-adapter recognition, and training-free feature mining.}
+A more recent direction investigates whether open-vocabulary segmentation can emerge from off-the-shelf vision-language models without segmentation-specific training. 
+Instead of training a new adapter or mask classifier, training-free methods mine spatial cues from pretrained foundation models and transform these cues into segmentation outputs. 
+This route is motivated by the observation that large vision-language models may contain implicit localization information, even if they are not explicitly trained for dense prediction.
+
+PnP-OVSS is a representative training-free method in this direction \cite{Luo2024}. 
+It explores how open-vocabulary semantic segmentation can be obtained from off-the-shelf vision-language models by extracting and combining internal visual-linguistic cues. 
+Different from OVSeg and SAN, which require adaptation or segmentation-oriented training, PnP-OVSS attempts to reduce task-specific training cost and make open-vocabulary segmentation more plug-and-play. 
+This design is especially attractive when annotated segmentation data are limited or when the target domain changes frequently.
+
+The strength of training-free feature mining lies in its flexibility and low adaptation cost. 
+Since the method does not require additional segmentation training, it can better preserve the generality of pretrained foundation models and can be applied to new vocabularies with minimal modification. 
+However, the lack of task-specific optimization also brings limitations. 
+The extracted localization cues may be noisy, and the final segmentation quality can be sensitive to feature selection, prompt design, and heuristic fusion strategies. 
+Therefore, training-free CLIP-based OVSS reduces annotation and training requirements, but it may sacrifice stability and boundary precision compared with trained segmentation models.
+
+Overall, CLIP-based OVSS establishes the fundamental connection between language-defined categories and dense visual prediction. 
+Mask-adapted region classification uses CLIP as an open-vocabulary classifier over candidate masks, side adaptation introduces segmentation-aware modules around CLIP, and training-free feature mining attempts to extract segmentation ability directly from pretrained vision-language models. 
+These methods demonstrate the strong semantic openness of CLIP-style representations, but they also reveal a central limitation: image-text alignment alone is insufficient for accurate pixel-level localization. 
+This limitation motivates later methods that introduce stronger spatial priors, generative representations, promptable mask models, or unified vision-language decoders.
 
 \subsection{Diffusion-based open-vocabulary segmentation}
-\label{subsec:diffusion-ovss}
-Writing plan: introduce the idea that text-to-image diffusion models learn spatially meaningful intermediate representations, which can be repurposed for discriminative segmentation.
+\label{subsec:diffusion_based_segmentation}
+
+Diffusion-based methods provide another important route for open-vocabulary segmentation. 
+Different from CLIP-based methods that mainly rely on image-text contrastive alignment, diffusion-based methods exploit the spatial-semantic representations learned by text-to-image generative models. 
+Large-scale text-to-image diffusion models are trained to generate images from textual descriptions, and their denoising networks must capture object structure, part-level information, scene layout, and text-conditioned semantics during the generation process. 
+These properties make diffusion representations potentially useful not only for image generation, but also for discriminative dense prediction.
+
+The motivation of this route is that generative models may encode richer spatial information than image-level vision-language models. 
+CLIP provides strong open-vocabulary semantic alignment, but it is not explicitly optimized to preserve pixel-level structure. 
+In contrast, the internal features of diffusion models are produced through spatial denoising operations and are therefore more closely related to image layout and object boundaries. 
+If these features can be effectively extracted and decoded, they can serve as a spatial-semantic representation for open-vocabulary segmentation.
 
 \subsubsection{Diffusion features as spatial-semantic representations}
-\label{subsubsec:diffusion-features}
-Discuss why the internal UNet features of text-to-image diffusion models can contain object- and part-level semantics. Use ODISE as the main example \citep{xu2023odise}.
+
+The key idea of diffusion-based segmentation is to reuse intermediate features from pretrained text-to-image diffusion models. 
+During the denoising process, the model gradually transforms noisy latent representations into visually coherent images conditioned on text prompts. 
+To achieve this, the denoising network needs to represent both semantic concepts and their spatial arrangement. 
+Therefore, intermediate diffusion features can contain information about object categories, regions, and contextual structure.
+
+ODISE is a representative method following this idea \cite{Xu2023a}. 
+It studies open-vocabulary panoptic segmentation with text-to-image diffusion models and shows that diffusion features can be transferred to segmentation tasks. 
+Instead of using diffusion models only as image generators, ODISE treats their internal representations as a source of visual knowledge for dense prediction. 
+These features are then connected with segmentation components to produce masks and assign open-vocabulary semantic labels.
+
+This design changes the role of generative models in segmentation. 
+The diffusion model is not used to synthesize additional training images, but to provide pretrained spatial-semantic features. 
+Compared with image-level CLIP representations, such features may better preserve dense visual structure. 
+This makes diffusion-based methods especially relevant for panoptic segmentation, where the model needs to handle both stuff regions and thing instances in a unified output.
 
 \subsubsection{Combining generative and discriminative components}
-\label{subsubsec:diffusion-discriminative}
-Explain how ODISE combines frozen diffusion features, a mask generator, and CLIP-based text classification for open-vocabulary panoptic segmentation \citep{xu2023odise}.
 
-\subsubsection{Strengths and costs}
-\label{subsubsec:diffusion-costs}
-Summarize the main advantage as broad spatial-semantic knowledge and the main limitation as high training and inference cost.
+Although diffusion models contain useful spatial-semantic knowledge, they do not directly output segmentation masks. 
+Therefore, diffusion-based segmentation systems usually combine generative representations with discriminative segmentation modules. 
+In ODISE, the pretrained diffusion model provides rich visual features, while the segmentation head or mask decoder converts these features into dense predictions. 
+Open-vocabulary classification is further supported by text embeddings, so that predicted regions can be associated with category names beyond the closed training vocabulary.
 
-\placeholderfigure{Planned figure: ODISE-style diffusion feature pipeline.}{fig:odise-pipeline}{Figure plan: show a text-to-image diffusion UNet feeding a mask decoder and a text-conditioned open-vocabulary classifier.}
+This combination is important because open-vocabulary segmentation requires both semantic transfer and spatial prediction. 
+The diffusion backbone contributes broad text-conditioned visual knowledge learned from large-scale generative pretraining. 
+The segmentation module provides the task-specific ability to group pixels into masks and produce panoptic outputs. 
+The text classifier or language embedding space then enables recognition under an open vocabulary. 
+Thus, diffusion-based methods can be understood as hybrid systems that transfer generative spatial knowledge into discriminative segmentation.
 
-\subsection{Promptable segmentation foundation models}
-\label{subsec:promptable-sam}
-Writing plan: present SAM as the foundation model that changes segmentation from category prediction to prompt-conditioned mask generation \citep{kirillov2023sam}.
+Compared with CLIP-based region classification, this route has a stronger connection to dense visual structure. 
+Instead of classifying externally generated masks with an image-text model, diffusion-based methods attempt to build segmentation predictions from representations that already encode spatial layouts. 
+This provides a different solution to the semantic-localization gap discussed in Section~\ref{subsec:clip_based_ovss}. 
+However, the system also becomes more complex because it must integrate pretrained generative features, segmentation decoding, and open-vocabulary classification into one pipeline.
+
+\subsubsection{Strengths and limitations}
+
+The main advantage of diffusion-based segmentation lies in the richness of its pretrained representations. 
+Since text-to-image diffusion models learn from large-scale image-text data and perform spatially structured generation, their intermediate features can capture object-level, part-level, and scene-level information. 
+This gives diffusion-based methods a strong foundation for open-vocabulary panoptic segmentation, where semantic recognition and mask structure must be jointly considered. 
+ODISE demonstrates that generative diffusion features can be repurposed for dense prediction and can complement contrastive vision-language representations \cite{Xu2023a}.
+
+However, this route also has clear limitations. 
+First, diffusion models are computationally heavy, and extracting or adapting their features usually introduces higher training and inference costs than lightweight CLIP adapters. 
+Second, the architecture is more complex because it combines components from generative modeling, mask prediction, and open-vocabulary classification. 
+Third, although diffusion features may provide stronger spatial-semantic information, they still require careful adaptation to discriminative segmentation objectives. 
+The representations learned for image generation are not automatically optimal for boundary accuracy, category separation, or panoptic consistency.
+
+Overall, diffusion-based open-vocabulary segmentation expands the technical landscape beyond contrastive image-text alignment. 
+It shows that text-to-image generative models can serve as powerful spatial-semantic feature extractors for dense prediction. 
+At the same time, its high computational cost and system complexity limit its practicality compared with more efficient CLIP-based or SAM-enhanced methods. 
+Therefore, diffusion-based methods are best understood as a representation-rich but cost-intensive route within the broader taxonomy of open-vocabulary segmentation.
+
+\subsection{SAM-based promptable and open-vocabulary segmentation}
+\label{subsec:sam_based_segmentation}
+
+SAM-based methods represent another important route in the development of open-vocabulary and reasoning segmentation. 
+Different from CLIP-based methods, which mainly provide open-vocabulary semantic alignment, the Segment Anything Model (SAM) focuses on promptable mask generation. 
+It changes the formulation of segmentation from category prediction to prompt-conditioned mask prediction. 
+Given an image and a prompt such as a point, box, or mask, SAM produces high-quality class-agnostic segmentation masks. 
+This design makes SAM a strong foundation model for spatial localization, even though it does not directly assign semantic category labels to the predicted masks.
+
+The importance of SAM lies in its separation between mask generation and semantic recognition. 
+Traditional segmentation models usually learn category-specific dense prediction from annotated datasets, while SAM learns a more general promptable segmentation capability from large-scale mask data. 
+As a result, SAM can generalize to a wide range of visual domains and object shapes under different prompt types. 
+For open-vocabulary segmentation, this property is especially useful because accurate masks are often the bottleneck when transferring text-level semantic alignment to pixel-level prediction. 
+SAM therefore provides a spatial prior that can be combined with CLIP, DINO, MLLMs, or other vision foundation models to obtain class-aware or language-grounded masks.
 
 \subsubsection{SAM and promptable segmentation}
-\label{subsubsec:sam-promptable}
-Explain point, box, and mask prompts; the image encoder, prompt encoder, and mask decoder; and the SA-1B data engine \citep{kirillov2023sam}. Stress that SAM produces high-quality class-agnostic masks rather than semantic labels.
+
+SAM introduces promptable segmentation as a general mask generation task \cite{Kirillov2023}. 
+Its architecture contains three main components: an image encoder, a prompt encoder, and a mask decoder. 
+The image encoder extracts visual features from the input image. 
+The prompt encoder converts user-provided prompts, such as points, boxes, or masks, into prompt embeddings. 
+The mask decoder then combines image embeddings and prompt embeddings to predict segmentation masks. 
+Through this design, segmentation is controlled by prompts rather than by a fixed set of semantic categories.
+
+This promptable formulation differs from closed-set semantic segmentation and open-vocabulary category recognition. 
+SAM does not directly answer which category a region belongs to. 
+Instead, it answers which pixels correspond to a given spatial prompt. 
+Therefore, its output is class-agnostic: the predicted mask can be accurate in shape and boundary, but the model itself does not provide an open-vocabulary semantic label. 
+This distinction is important for positioning SAM in the taxonomy. 
+SAM should not be treated as a complete open-vocabulary semantic segmentation method by itself; rather, it is a powerful mask generator that can support open-vocabulary or reasoning-oriented systems when combined with semantic or language modules.
+
+Another important contribution of SAM is the SA-1B data engine \cite{Kirillov2023}. 
+By collecting large-scale mask annotations and training a promptable model on them, SAM demonstrates that mask generation can benefit from foundation-model scaling. 
+This has a strong impact on later segmentation research. 
+Instead of training a segmentation model only for a fixed task or dataset, many later methods use SAM as a reusable spatial component. 
+In this sense, SAM provides a general mask prior for subsequent open-vocabulary segmentation, interactive segmentation, and reasoning segmentation pipelines.
 
 \subsubsection{SAM-enhanced open-vocabulary segmentation}
-\label{subsubsec:sam-enhanced-ovss}
-Discuss ESC-Net as a 2025 example that embeds SAM decoder blocks into one-stage OVSS while retaining CLIP-based category semantics \citep{lee2025escnet}. The section should explain how SAM supplies spatial priors while CLIP supplies text-category alignment.
+
+Since SAM provides high-quality masks but lacks native semantic recognition, a natural direction is to combine SAM with vision-language models. 
+In such systems, SAM is usually responsible for spatial mask generation, while CLIP or other text-aligned models are responsible for category-level semantic recognition. 
+This combination directly addresses the semantic-localization gap discussed in Section~\ref{subsec:clip_based_ovss}. 
+CLIP-style models provide open-vocabulary category alignment, but their dense localization ability is limited. 
+SAM provides accurate masks, but it does not determine the semantic category of each mask. 
+Combining the two allows open-vocabulary segmentation systems to use their complementary strengths.
+
+ESC-Net is a representative SAM-enhanced method for open-vocabulary semantic segmentation \cite{Lee2025}. 
+It incorporates SAM-related segmentation capability into a one-stage OVSS framework while retaining CLIP-based category semantics. 
+The motivation is to use SAM-style mask priors to strengthen spatial prediction, thereby improving the dense localization ability of open-vocabulary segmentation. 
+Compared with simple two-stage pipelines that first generate masks and then classify them, SAM-enhanced methods aim to integrate spatial priors more tightly into the segmentation process. 
+This helps the model produce class-aware masks with stronger boundary quality and better open-vocabulary transfer.
+
+This route shows that SAM can serve as more than an interactive segmentation tool. 
+When its mask-generation ability is embedded into an open-vocabulary framework, it becomes a structural prior for dense prediction. 
+However, the effectiveness of this design still depends on how well semantic alignment and mask generation are coupled. 
+If the semantic branch and the mask branch are weakly connected, the system may still suffer from mismatches between the recognized category and the localized region. 
+Therefore, SAM-enhanced OVSS must carefully design the interaction between language-aligned semantics and promptable mask features.
 
 \subsubsection{Training-free VFM composition}
-\label{subsubsec:vfm-composition}
-Discuss Trident as a 2025 training-free foundation-model composition route, combining complementary signals such as CLIP, DINO, and SAM \citep{shi2025trident}. Highlight the trade-off between no task-specific training and multi-model inference complexity.
 
-\placeholderfigure{Planned figure: SAM and SAM-derived OVSS routes.}{fig:sam-routes}{Figure plan: start from SAM's image encoder, prompt encoder, and mask decoder, then branch to ESC-Net's CLIP-SAM fusion and Trident's training-free CLIP/DINO/SAM composition.}
+Another route is to compose multiple vision foundation models without task-specific segmentation training. 
+Instead of relying on a single model, this strategy combines complementary signals from different pretrained models. 
+For example, CLIP can provide open-vocabulary semantic alignment, DINO can provide discriminative visual features, and SAM can provide high-quality class-agnostic masks. 
+The goal is to exploit the strengths of different foundation models while avoiding expensive segmentation-specific training.
+
+Trident is a representative method following this training-free composition route \cite{Shi2025}. 
+It combines multiple vision foundation models to achieve open-vocabulary segmentation without additional task-specific training. 
+In this type of framework, SAM is typically used to provide candidate masks or spatial structures, while other foundation models contribute semantic or feature-level cues. 
+The final segmentation result is obtained by integrating these signals through a designed fusion strategy. 
+This approach is attractive because it reduces the need for annotated segmentation data and can be adapted to new vocabularies or domains with relatively low training cost.
+
+The strength of training-free VFM composition lies in its flexibility. 
+Since it does not require retraining a large segmentation model, it can preserve the generality of pretrained foundation models and support open-vocabulary transfer in a plug-and-play manner. 
+It also reflects a broader trend in recent segmentation research: instead of building all capabilities into one model, different foundation models are combined to provide semantic alignment, visual representation, and mask generation. 
+This is especially useful when no single model can simultaneously provide strong language understanding, accurate localization, and efficient inference.
+
+However, this route also has limitations. 
+First, multi-model composition can increase inference complexity because several foundation models may need to be executed together. 
+Second, the final performance may depend on heuristic fusion rules, prompt design, and the compatibility among different feature spaces. 
+Third, although training-free methods reduce annotation cost, they may lack the task-specific optimization needed for stable boundary precision and fine-grained category discrimination. 
+Therefore, training-free VFM composition provides a flexible and annotation-efficient solution, but its reliability and efficiency remain important concerns.
+
+Overall, SAM-based methods highlight the importance of spatial priors in open-vocabulary and reasoning segmentation. 
+While CLIP-based methods establish the connection between text-defined categories and visual recognition, SAM provides a complementary capability by generating accurate class-agnostic masks. 
+SAM-enhanced methods further combine promptable masks with open-vocabulary semantic alignment, while training-free VFM composition integrates SAM with other foundation models such as CLIP and DINO. 
+These developments show that high-quality mask generation is a necessary component for reliable open-vocabulary segmentation. 
+At the same time, SAM's limited native semantic understanding indicates that mask priors must be combined with language-aware models to support category recognition, reasoning, and pixel grounding.
 
 \subsection{Unified vision-language segmentation models}
-\label{subsec:unified-vl-segmentation}
-Writing plan: explain why unified decoders are an intermediate stage between specialized segmentation models and MLLM-based reasoning systems.
+\label{subsec:unified_vl_segmentation}
+
+Unified vision-language segmentation models provide a different route from the modular pipelines discussed above. 
+CLIP-based methods, diffusion-based methods, and SAM-based methods usually combine separate components for semantic alignment, mask generation, and dense decoding. 
+Although such modular designs are flexible, they often require task-specific adaptation or carefully designed fusion strategies. 
+Unified vision-language models instead attempt to handle multiple visual and language tasks within a shared architecture. 
+The goal is to build a general model that can produce pixel-level, image-level, and language-level outputs through a unified decoding mechanism.
+
+This route is important because open-vocabulary segmentation is no longer an isolated dense prediction task. 
+A model may need to segment categories defined by text, localize objects described by referring expressions, retrieve image-text pairs, answer visual questions, or generate captions. 
+These tasks differ in output format, but they are all related to the alignment between visual representations and language representations. 
+Therefore, a unified model can potentially reduce the gap among segmentation, recognition, and language understanding by sharing representations and decoders across tasks.
 
 \subsubsection{Pixel, image, and language outputs in one decoder}
-\label{subsubsec:xdecoder-unified-output}
-Discuss X-Decoder as a generalized decoder for segmentation, referring, retrieval, captioning, and VQA transfer \citep{zou2023xdecoder}. Explain how pixel-level and language-level outputs are represented in a shared model.
+
+X-Decoder is a representative unified vision-language model for this direction \cite{Zou2023}. 
+It proposes a generalized decoding framework that connects pixel-level segmentation, image-level understanding, and language-level tasks. 
+Instead of designing separate heads for each task, X-Decoder uses a shared decoder to process different types of queries and produce different forms of outputs. 
+This design allows the model to support tasks such as semantic segmentation, referring segmentation, image-text retrieval, captioning, and visual question answering within a unified framework.
+
+The main idea is to represent different task requirements through different queries. 
+For segmentation tasks, the decoder needs to produce pixel-level masks. 
+For image-level or language-level tasks, the decoder needs to produce embeddings or language-related outputs. 
+By sharing the decoding process, X-Decoder attempts to connect dense prediction with broader vision-language understanding. 
+This makes it broader than CLIP-based mask classification, where the main operation is usually to compare visual regions with text embeddings.
+
+From the perspective of this survey, X-Decoder represents a transition from segmentation-specific models to generalist vision-language models. 
+It does not only ask whether a text-defined category can be segmented, but also whether the same architecture can support multiple forms of visual-language interaction. 
+This is important for open-vocabulary and reasoning segmentation because later systems increasingly require both dense localization and flexible language interfaces.
 
 \subsubsection{Generic queries and semantic queries}
-\label{subsubsec:xdecoder-queries}
-Explain generic queries, text queries, and semantic query interaction. This part should clarify why X-Decoder is broader than CLIP-based mask classification but still different from MLLM reasoning.
+
+A key mechanism in X-Decoder is the use of different query types to support different tasks \cite{zou2023xdecoder}. 
+Generic queries are used to capture general visual regions or object-level structures, while semantic or text-related queries introduce language information into the decoding process. 
+Through the interaction between visual features and language-conditioned queries, the decoder can produce outputs that are suitable for segmentation and other vision-language tasks.
+
+This query-based formulation provides a more integrated way to connect language and masks. 
+In CLIP-based OVSS, language is often introduced after mask generation, where text embeddings are used to classify proposed regions. 
+In SAM-based pipelines, language understanding is usually supplied by an additional model because SAM itself produces class-agnostic masks. 
+In contrast, unified decoder models aim to let visual queries and language queries interact inside the same decoding process. 
+This makes the model more suitable for tasks where segmentation and language understanding are jointly required.
+
+However, unified decoding also introduces new difficulties. 
+Different tasks may require different levels of visual detail and semantic abstraction. 
+For example, segmentation requires accurate spatial boundaries, while captioning and VQA require high-level semantic reasoning. 
+Training a single decoder to handle all these outputs requires careful task balancing and large-scale multi-task supervision. 
+If one task dominates the training process, the model may lose performance on other tasks. 
+Therefore, the unified decoder route improves task generality, but it also increases the complexity of optimization and evaluation.
 
 \subsubsection{Transition toward generalist vision-language models}
-\label{subsubsec:xdecoder-transition}
-Position X-Decoder as a bridge: it unifies dense and language tasks, but it does not provide the same free-form reasoning and grounded conversation interface as LISA or GLaMM \citep{lai2024lisa,rasheed2024glamm,zou2023xdecoder}.
 
-\placeholderfigure{Planned figure: generalized decoding in X-Decoder.}{fig:xdecoder-generalized}{Figure plan: redraw an image encoder, text encoder, and shared decoder with outputs for segmentation masks, retrieval embeddings, captions, and VQA responses.}
+Unified vision-language segmentation models can be viewed as an intermediate stage between specialized open-vocabulary segmentation systems and MLLM-based reasoning segmentation systems. 
+Compared with CLIP-based or SAM-based pipelines, unified models provide a more general interface for handling multiple vision-language tasks. 
+They reduce the need to design a separate architecture for each task and show that segmentation can be integrated with retrieval, captioning, and visual question answering. 
+This makes them an important step toward general-purpose visual understanding.
+
+However, unified decoder models are still different from MLLM-based reasoning segmentation. 
+Models such as X-Decoder can unify several task formats, but they do not provide the same level of free-form language reasoning, instruction following, or conversational interaction as MLLM-based systems. 
+In reasoning segmentation, the model may need to infer an implicit target from complex instructions, commonsense knowledge, or multi-step visual reasoning. 
+This requires stronger language understanding than simply conditioning a decoder on text queries.
+
+Therefore, unified vision-language segmentation models occupy a bridge position in the overall taxonomy. 
+They go beyond specialized open-vocabulary segmentation by integrating pixel-level and language-level tasks into one framework. 
+At the same time, they do not fully solve the problem of reasoning-based pixel grounding. 
+This limitation motivates the next route, where multimodal large language models are used to interpret complex instructions and connect language reasoning with mask prediction.
 
 \subsection{MLLM-based reasoning segmentation and pixel grounding}
-\label{subsec:mllm-reasoning}
-Writing plan: describe the shift from text labels to complex instructions. The key question is how a language token or generated phrase becomes a pixel mask.
+\label{subsec:mllm_reasoning_segmentation}
+
+MLLM-based reasoning segmentation represents a further shift from text-defined category recognition to instruction-driven pixel grounding. 
+In CLIP-based open-vocabulary segmentation, the language input is usually a category name or a short text prompt. 
+In referring segmentation, the language input describes a target object more specifically. 
+However, in reasoning segmentation, the target may be implicit and must be inferred from a complex instruction, visual context, commonsense knowledge, or multi-step reasoning. 
+Therefore, the central question is no longer only how to align a text label with a mask, but how to convert language understanding and reasoning results into pixel-level segmentation.
+
+This route is driven by the rapid development of multimodal large language models (MLLMs). 
+MLLMs provide stronger instruction-following and language reasoning capabilities than conventional vision-language encoders. 
+They can interpret complex user queries, understand relationships among objects, and generate natural-language responses conditioned on images. 
+To use these capabilities for segmentation, MLLM-based methods need a mechanism that connects language representations inside the MLLM with a mask prediction module. 
+This connection is usually implemented through special tokens, hidden embeddings, phrase-level representations, or segmentation decoders.
 
 \subsubsection{Reasoning segmentation with segmentation tokens}
-\label{subsubsec:lisa-seg-token}
-Discuss LISA's use of a special segmentation token and its hidden embedding to drive a mask decoder \citep{lai2024lisa}. Explain the role of MLLM understanding, SAM-style segmentation backends, and instruction-formatted training data.
+
+A representative design is to introduce a special segmentation token into the language output space. 
+The token acts as an interface between the MLLM and the segmentation module. 
+When the model receives a reasoning query, the MLLM first interprets the instruction and identifies the target to be segmented. 
+The hidden representation associated with the segmentation token is then passed to a mask decoder, which converts the reasoning result into a pixel-level mask. 
+In this formulation, the segmentation token is not merely a textual symbol; it serves as a bridge between language reasoning and dense visual prediction.
+
+LISA is a representative method following this direction \cite{Lai2024}. 
+It formulates reasoning segmentation via large language models and uses a special segmentation token to connect the MLLM output with mask prediction. 
+The MLLM is responsible for interpreting complex instructions, while the segmentation backend produces the final mask according to the token representation. 
+This design allows the model to segment targets that may not be explicitly named by a category label. 
+For example, the model may need to infer the target from an action, a relation, or a scene-level constraint before producing the segmentation mask.
+
+This mechanism differs from CLIP-based open-vocabulary segmentation. 
+CLIP-based methods usually compare visual features with text embeddings derived from category names or prompts. 
+By contrast, LISA-style reasoning segmentation relies on the contextual representation produced by an MLLM after instruction understanding. 
+The predicted mask is therefore conditioned not only on a textual category, but also on the reasoning process encoded in the language model. 
+This makes the method more suitable for queries where the target object is implicit, ambiguous, or defined by functional and relational constraints.
+
+At the same time, the segmentation-token design also reveals a structural dependency. 
+The MLLM must generate or activate the correct token representation, and the mask decoder must accurately interpret this representation. 
+If the language model misunderstands the query, the segmentation module may receive an incorrect target signal. 
+If the mask decoder lacks sufficient spatial precision, the reasoning result may be correct but the predicted boundary may still be inaccurate. 
+Therefore, reasoning segmentation requires both reliable instruction understanding and accurate mask generation.
 
 \subsubsection{Grounded conversation generation}
-\label{subsubsec:glamm-grounded-conversation}
-Discuss GLaMM as a grounded multimodal model that links generated phrase-level entities to pixel masks \citep{rasheed2024glamm}. Contrast this with single-target reasoning segmentation.
+
+Grounded multimodal conversation extends reasoning segmentation from single-target mask prediction to language generation with pixel-level grounding. 
+In this setting, the model may not only answer a user query, but also associate generated phrases or entities with corresponding masks in the image. 
+Thus, the output is no longer limited to one segmentation mask. 
+It may include a natural-language response and multiple phrase-level grounding results. 
+This formulation is closer to interactive visual understanding, where users expect the model to explain the scene and indicate the visual evidence behind its response.
+
+GLaMM is a representative method in this direction \cite{Rasheed2024}. 
+It is designed as a grounded multimodal model that links generated phrase-level entities to pixel-level masks. 
+Compared with single-target reasoning segmentation, grounded conversation requires the model to maintain consistency among three elements: the generated text, the visual entities mentioned in the text, and the masks that ground these entities. 
+For example, when the model generates an answer containing several object phrases, each phrase should correspond to the correct visual region rather than to a vague or unrelated mask.
+
+This phrase-grounding formulation broadens the role of segmentation in multimodal systems. 
+Segmentation is no longer only the final answer to a query. 
+Instead, it becomes a mechanism for making language generation spatially explicit. 
+When a generated phrase is linked to a mask, the model provides visual evidence for its response and makes the output more interpretable. 
+This is especially important for complex scenes, where multiple similar objects may appear and textual references can be ambiguous.
+
+However, grounded conversation is also more difficult to train and evaluate than single-target segmentation. 
+The model must learn not only to generate fluent and semantically correct language, but also to align each grounded phrase with the correct pixel region. 
+Errors may occur at different levels. 
+A phrase may be linguistically plausible but visually unsupported. 
+A mask may cover the correct object category but the wrong instance. 
+A generated response may mention an object that does not exist in the image. 
+Therefore, phrase-level pixel grounding requires a more fine-grained notion of correctness than conventional segmentation metrics.
 
 \subsubsection{Risks: hallucination, evaluation, and mask precision}
-\label{subsubsec:mllm-risks}
-Explain that MLLM-based methods can understand richer language but introduce hallucination risk, heavier training and inference, and more complex evaluation. The subsection should separate reasoning correctness from boundary accuracy.
 
-\placeholderfigure{Planned figure: MLLM-to-mask mechanisms.}{fig:mllm-to-mask}{Figure plan: compare LISA's segmentation-token-to-mask path with GLaMM's phrase-level grounded conversation path.}
+Although MLLM-based methods improve the ability to handle complex language, they also introduce new risks. 
+The first risk is hallucination. 
+Since MLLMs are optimized for language generation and instruction following, they may produce plausible responses that are not fully grounded in the image. 
+In segmentation tasks, this risk is especially problematic because an ungrounded or hallucinated response may still be paired with a mask, giving the appearance of spatial evidence. 
+Thus, MLLM-based segmentation must be evaluated not only by whether the generated text is reasonable, but also by whether the mask faithfully supports the text.
+
+The second risk is the mismatch between reasoning correctness and mask precision. 
+A model may correctly infer the target object from a complex instruction but produce an imprecise mask boundary. 
+Conversely, it may generate a high-quality mask for a visible object while misunderstanding the intended target. 
+These two types of errors should be distinguished. 
+Reasoning correctness concerns whether the model identifies the right target under the language query, while mask precision concerns whether the predicted region accurately covers the target at the pixel level. 
+A reliable reasoning segmentation system must satisfy both requirements.
+
+The third challenge is evaluation. 
+Traditional metrics such as mIoU or mask IoU are useful for measuring spatial overlap, but they cannot fully reflect language understanding, instruction following, or grounding faithfulness. 
+For reasoning segmentation and grounded conversation, evaluation should consider whether the model understands the query, whether it grounds the correct entity, whether the generated response is visually supported, and whether the mask is spatially accurate. 
+This makes evaluation more complex than in closed-set or category-level open-vocabulary segmentation.
+
+Computational cost is another limitation. 
+MLLM-based segmentation systems usually combine a large language model, a visual encoder, and a segmentation decoder. 
+This makes training and inference heavier than lightweight CLIP adapters or conventional segmentation networks. 
+In addition, instruction tuning and grounded data construction can be expensive, because the model needs examples that connect complex language with pixel-level masks. 
+Therefore, although MLLM-based methods provide stronger reasoning and interaction ability, their deployment cost and data requirement remain important obstacles.
+
+Overall, MLLM-based reasoning segmentation and pixel grounding extend the field from open-vocabulary recognition to language-driven visual reasoning. 
+LISA-style methods show how a segmentation token can connect MLLM reasoning with mask prediction, while GLaMM-style methods further connect generated phrases with pixel-level masks in grounded conversation. 
+These methods make segmentation a more general interface between visual perception and natural-language reasoning. 
+However, they also introduce challenges in hallucination control, reasoning faithfulness, mask precision, evaluation design, and computational efficiency. 
+These challenges motivate the later discussion of datasets, metrics, cross-method trade-offs, and future research directions.
 
 \subsection{Extensions to video, 3D, and complex scenes}
-\label{subsec:video-3d-extensions}
-Writing plan: keep this subsection shorter because the local ten-paper set mainly covers 2D image segmentation. Use it as a forward-looking bridge to video reasoning segmentation, 3D or multiview grounding, and multi-context visual grounding.
+\label{subsec:extensions}
+
+The methods discussed above mainly focus on single-image segmentation, where the input is a static image and the output is a semantic map, an object mask, or a phrase-grounded mask. 
+However, real-world visual understanding often involves more complex settings, such as videos, 3D scenes, multiview observations, and multiple related images. 
+In these settings, the model must not only recognize open-vocabulary concepts or reason about language instructions, but also maintain consistency across time, viewpoints, spatial structures, or contextual scenes. 
+Therefore, video, 3D, and complex-scene extensions can be viewed as natural next steps for open-vocabulary and reasoning segmentation.
+
+These extensions do not change the core objective of language-guided segmentation, but they introduce additional constraints. 
+For video segmentation, the main challenge is temporal consistency. 
+For 3D and multiview grounding, the main challenge is spatial consistency across viewpoints and object instances. 
+For complex multi-context scenes, the main challenge is reasoning and disambiguation across multiple visual inputs. 
+Thus, the extension from single images to more complex settings requires segmentation models to combine semantic openness, mask precision, reasoning ability, and consistency modeling.
 
 \subsubsection{Video reasoning segmentation}
-\label{subsubsec:video-reasoning}
-Explain that video adds temporal consistency, object persistence, motion cues, and memory. Add VRS-HQ or GLUS citations after their source files are added to the project bibliography.
+
+Video reasoning segmentation extends reasoning segmentation from static images to temporal sequences. 
+Compared with image-level reasoning segmentation, the target may appear, disappear, move, or change its appearance over time. 
+The model must therefore identify the correct object under a language instruction and maintain its mask consistently across frames. 
+This requires temporal modeling in addition to language understanding and mask prediction.
+
+The key difficulty in video settings is that segmentation errors can accumulate over time. 
+If the model loses the target object in one frame, the following frames may also be affected. 
+Moreover, natural-language instructions may refer to motion, temporal order, or object interaction, such as an object that a person picks up, follows, or leaves behind. 
+These queries require the model to reason about actions and temporal relations rather than only static visual attributes. 
+Therefore, video reasoning segmentation requires the integration of object persistence, motion cues, temporal memory, and language-guided mask prediction.
+
+From the perspective of foundation models, video reasoning segmentation also raises the question of how image-based mask priors can be extended to temporal domains. 
+SAM-style models can provide strong mask proposals for individual frames, while MLLM-based reasoning models can interpret complex instructions. 
+However, a reliable video system must further associate masks across frames and ensure that the grounded object remains consistent over time. 
+This makes temporal grounding and memory design important components for future video-based extensions.
 
 \subsubsection{3D and multiview grounding}
-\label{subsubsec:three-d-grounding}
-Explain that 3D and multiview scenes require spatial consistency across views, camera poses, and object instances. This should be treated as an extension of pixel grounding beyond single images.
+
+Another extension is 3D and multiview grounding. 
+In this setting, the target is not only a 2D pixel region in a single image, but may correspond to a 3D object, a spatial region, or an entity observed from multiple camera views. 
+The model must therefore align language descriptions with spatial structures across different viewpoints. 
+This requires a stronger form of grounding than single-image segmentation, because the same object may appear with different scales, occlusions, and visual appearances in different views.
+
+The main challenge is cross-view consistency. 
+A language query may refer to an object that is partially visible in one view but more clearly visible in another. 
+The model needs to determine whether visual regions from different images correspond to the same physical object. 
+This involves camera geometry, object correspondence, spatial layout, and instance-level identity. 
+Therefore, 3D and multiview grounding can be regarded as an extension of pixel grounding from image coordinates to scene-level spatial coordinates.
+
+This direction is important for embodied AI, robotics, augmented reality, and scene-level visual understanding. 
+In these applications, the model should not only segment an object in one image, but also understand where the object is located in the physical environment. 
+Open-vocabulary and reasoning capabilities are especially useful because users may refer to objects with flexible language, functional descriptions, or spatial relations. 
+However, extending current segmentation foundation models to 3D scenes remains difficult due to limited annotated data, high memory cost, and the need for consistent cross-view representation.
 
 \subsubsection{Complex multi-context scenes}
-\label{subsubsec:multi-context-scenes}
-Explain that multi-image or multi-context grounding stresses MLLM reasoning and object disambiguation. Add MC-Bench or related citations after the corresponding source files are included.
 
-\placeholderfigure{Planned figure: extension path from image segmentation to video, 3D, and multi-context grounding.}{fig:extensions}{Figure plan: draw image, video, 3D/multiview, and multi-context settings, with the added challenge under each setting.}
+Complex multi-context scenes further extend the problem from a single visual input to multiple related images, scenes, or contexts. 
+In this setting, the target object may need to be identified by comparing different images, resolving contextual ambiguity, or reasoning over multiple visual clues. 
+For example, a user may ask the model to segment the object that appears in one image but not in another, the tool used for a certain action across several frames, or the object that best matches a description under a given scenario. 
+Such tasks require the model to combine visual grounding with multi-context reasoning.
+
+The main challenge is object disambiguation. 
+In a single image, a referring expression may already be ambiguous when multiple similar objects appear. 
+In multi-context settings, this ambiguity becomes stronger because the model must compare objects across different images or scenes. 
+The model must determine which visual evidence is relevant to the query and which context should be used for grounding. 
+Therefore, complex-scene grounding requires stronger reasoning ability than category-level open-vocabulary segmentation.
+
+MLLM-based methods provide a promising foundation for this direction because they can process complex instructions and maintain a broader semantic context. 
+However, they also face higher risks of hallucination and grounding inconsistency. 
+When multiple images or contexts are involved, the model may generate plausible but visually unsupported explanations, or it may ground a phrase to the wrong image or object instance. 
+Thus, complex multi-context grounding requires more careful evaluation of both language faithfulness and mask-level correctness.
+
+Overall, video, 3D, and complex-scene extensions show that open-vocabulary and reasoning segmentation is moving beyond single-image mask prediction. 
+These directions require models to preserve the strengths of current foundation-model-based segmentation, including semantic openness, promptable mask generation, and language reasoning, while further addressing temporal consistency, spatial consistency, and multi-context disambiguation. 
+Although these topics are not the central focus of this survey, they reveal important challenges for future open-world segmentation systems and will be revisited in the discussion of datasets, evaluation metrics, and future directions.

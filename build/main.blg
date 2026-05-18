@@ -5,11 +5,20 @@ Reallocating 'name_of_file' (item size: 1) to 16 items.
 The style file: elsarticle-harv.bst
 Reallocating 'name_of_file' (item size: 1) to 11 items.
 Database file #1: references.bib
-Warning--I didn't find a database entry for "liang2023open"
-Warning--I didn't find a database entry for "xu2023side"
-Warning--I didn't find a database entry for "kirillov2023segment"
-Warning--I didn't find a database entry for "xu2023open"
-Warning--I didn't find a database entry for "zou2023generalized"
+Warning--I didn't find a database entry for "Long2015"
+Warning--I didn't find a database entry for "He2017"
+Warning--I didn't find a database entry for "Kirillov2019"
+Warning--I didn't find a database entry for "Radford2021"
+Warning--I didn't find a database entry for "Liang2023"
+Warning--I didn't find a database entry for "Xu2023b"
+Warning--I didn't find a database entry for "Kirillov2023"
+Warning--I didn't find a database entry for "Lai2024"
+Warning--I didn't find a database entry for "Rasheed2024"
+Warning--I didn't find a database entry for "Luo2024"
+Warning--I didn't find a database entry for "Xu2023a"
+Warning--I didn't find a database entry for "Lee2025"
+Warning--I didn't find a database entry for "Shi2025"
+Warning--I didn't find a database entry for "Zou2023"
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Warning--empty pages in he2017mask
 Warning--empty pages in kirillov2019panoptic
@@ -25,7 +34,7 @@ Warning--empty pages in xu2023san
 Warning--empty pages in zou2023xdecoder
 You've used 14 entries,
             2990 wiz_defined-function locations,
-            687 strings with 8297 characters,
+            710 strings with 8463 characters,
 and the built_in function-call counts, 12485 in all, are:
 = -- 806
 > -- 836
@@ -64,4 +73,4 @@ warning$ -- 12
 while$ -- 48
 width$ -- 0
 write$ -- 184
-(There were 17 warnings)
+(There were 26 warnings)
