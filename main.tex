@@ -1,0 +1,62 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\journal{Computer Vision Review}
+
+\newcommand{\placeholderfigure}[3]{%
+\begin{figure}[t]
+\centering
+\fbox{\begin{minipage}{0.90\linewidth}\centering\vspace{0.8em}#3\vspace{0.8em}\end{minipage}}
+\caption{#1}
+\label{#2}
+\end{figure}}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Open-Vocabulary and Reasoning Segmentation with Vision-Language Foundation Models: A Survey}
+
+\author{Author Name}
+\affiliation{organization={School or Department},
+            addressline={University or Institution},
+            city={},
+            postcode={},
+            state={},
+            country={}}
+
+\begin{abstract}
+This survey outline reviews open-vocabulary and reasoning segmentation with vision-language foundation models. The planned manuscript follows the transition from closed-set segmentation to CLIP-based open-vocabulary segmentation, promptable segmentation with SAM, unified vision-language decoding, and multimodal large language model based reasoning segmentation and pixel grounding. The final manuscript will emphasize method taxonomy, datasets, evaluation metrics, advantages, limitations, and future challenges across representative work from 2023 to 2025.
+\end{abstract}
+
+\begin{highlights}
+\item The survey is organized around technical routes rather than a paper-by-paper chronology.
+\item The core comparison covers CLIP-based OVSS, diffusion-based segmentation, SAM-based prompting, unified decoders, and MLLM-based reasoning segmentation.
+\item The outline records where each section should discuss content, figures, datasets, metrics, and cross-method limitations.
+\end{highlights}
+
+\begin{keyword}
+Open-vocabulary segmentation \sep reasoning segmentation \sep vision-language models \sep SAM \sep CLIP \sep pixel grounding
+\end{keyword}
+
+\end{frontmatter}
+
+\input{section/01_introduction}
+\input{section/02_background_objective}
+\input{section/03_method_taxonomy}
+\input{section/04_datasets_metrics}
+\input{section/05_comparison}
+\input{section/06_challenges_future}
+\input{section/07_conclusion}
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+
+\end{document}

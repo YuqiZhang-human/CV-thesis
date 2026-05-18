@@ -1,0 +1,209 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{liang2023ovseg,xu2023san}
+\citation{kirillov2023sam}
+\citation{xu2023odise,zou2023xdecoder}
+\citation{lai2024lisa,rasheed2024glamm}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:introduction}{{1}{1}{Introduction}{section.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Closed-set segmentation in open-world scenes}{1}{subsection.1.1}\protected@file@percent }
+\newlabel{subsec:intro-closed-set}{{1.1}{1}{Closed-set segmentation in open-world scenes}{subsection.1.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Foundation models as the driver of open-vocabulary and reasoning segmentation}{1}{subsection.1.2}\protected@file@percent }
+\newlabel{subsec:intro-foundation-models}{{1.2}{1}{Foundation models as the driver of open-vocabulary and reasoning segmentation}{subsection.1.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Planned overview figure: timeline and taxonomy of open-vocabulary and reasoning segmentation from 2023 to 2025. The figure should place OVSeg, SAN, ODISE, SAM, X-Decoder, PnP-OVSS, LISA, GLaMM, ESC-Net, and Trident along both a temporal axis and a method-family axis.}}{2}{figure.1}\protected@file@percent }
+\newlabel{fig:intro-timeline}{{1}{2}{Planned overview figure: timeline and taxonomy of open-vocabulary and reasoning segmentation from 2023 to 2025. The figure should place OVSeg, SAN, ODISE, SAM, X-Decoder, PnP-OVSS, LISA, GLaMM, ESC-Net, and Trident along both a temporal axis and a method-family axis}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Scope and organization of this survey}{2}{subsection.1.3}\protected@file@percent }
+\newlabel{subsec:intro-scope}{{1.3}{2}{Scope and organization of this survey}{subsection.1.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background and Objective}{2}{section.2}\protected@file@percent }
+\newlabel{sec:background}{{2}{2}{Background and Objective}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Closed-set segmentation and its limitation}{2}{subsection.2.1}\protected@file@percent }
+\newlabel{subsec:closed-set}{{2.1}{2}{Closed-set segmentation and its limitation}{subsection.2.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Semantic segmentation}{2}{subsubsection.2.1.1}\protected@file@percent }
+\newlabel{subsubsec:semantic-segmentation}{{2.1.1}{2}{Semantic segmentation}{subsubsection.2.1.1}{}}
+\citation{xu2023odise}
+\citation{liang2023ovseg,xu2023san}
+\citation{lai2024lisa}
+\citation{rasheed2024glamm}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}Instance segmentation}{3}{subsubsection.2.1.2}\protected@file@percent }
+\newlabel{subsubsec:instance-segmentation}{{2.1.2}{3}{Instance segmentation}{subsubsection.2.1.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}Panoptic segmentation}{3}{subsubsection.2.1.3}\protected@file@percent }
+\newlabel{subsubsec:panoptic-segmentation}{{2.1.3}{3}{Panoptic segmentation}{subsubsection.2.1.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Open-vocabulary segmentation}{3}{subsection.2.2}\protected@file@percent }
+\newlabel{subsec:open-vocabulary-background}{{2.2}{3}{Open-vocabulary segmentation}{subsection.2.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Text-defined label spaces}{3}{subsubsection.2.2.1}\protected@file@percent }
+\newlabel{subsubsec:text-defined-labels}{{2.2.1}{3}{Text-defined label spaces}{subsubsection.2.2.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Zero-shot and cross-dataset transfer}{3}{subsubsection.2.2.2}\protected@file@percent }
+\newlabel{subsubsec:zero-shot-transfer}{{2.2.2}{3}{Zero-shot and cross-dataset transfer}{subsubsection.2.2.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Reasoning segmentation and pixel grounding}{3}{subsection.2.3}\protected@file@percent }
+\newlabel{subsec:reasoning-background}{{2.3}{3}{Reasoning segmentation and pixel grounding}{subsection.2.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Referring segmentation versus reasoning segmentation}{3}{subsubsection.2.3.1}\protected@file@percent }
+\newlabel{subsubsec:referring-vs-reasoning}{{2.3.1}{3}{Referring segmentation versus reasoning segmentation}{subsubsection.2.3.1}{}}
+\citation{liang2023ovseg}
+\citation{xu2023san}
+\citation{luo2024pnpovss}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Planned background figure: task hierarchy from closed-set segmentation to open-vocabulary segmentation, referring segmentation, reasoning segmentation, and grounded conversation.}}{4}{figure.2}\protected@file@percent }
+\newlabel{fig:background-task-hierarchy}{{2}{4}{Planned background figure: task hierarchy from closed-set segmentation to open-vocabulary segmentation, referring segmentation, reasoning segmentation, and grounded conversation}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Pixel grounding in multimodal conversation}{4}{subsubsection.2.3.2}\protected@file@percent }
+\newlabel{subsubsec:pixel-grounding}{{2.3.2}{4}{Pixel grounding in multimodal conversation}{subsubsection.2.3.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Method Taxonomy}{4}{section.3}\protected@file@percent }
+\newlabel{sec:method-taxonomy}{{3}{4}{Method Taxonomy}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}CLIP-based open-vocabulary segmentation}{4}{subsection.3.1}\protected@file@percent }
+\newlabel{subsec:clip-based-ovss}{{3.1}{4}{CLIP-based open-vocabulary segmentation}{subsection.3.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Mask-adapted region classification}{4}{subsubsection.3.1.1}\protected@file@percent }
+\newlabel{subsubsec:mask-adapted-clip}{{3.1.1}{4}{Mask-adapted region classification}{subsubsection.3.1.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Efficient side adaptation}{4}{subsubsection.3.1.2}\protected@file@percent }
+\newlabel{subsubsec:side-adapter}{{3.1.2}{4}{Efficient side adaptation}{subsubsection.3.1.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Training-free VLM feature mining}{4}{subsubsection.3.1.3}\protected@file@percent }
+\newlabel{subsubsec:pnp-ovss}{{3.1.3}{4}{Training-free VLM feature mining}{subsubsection.3.1.3}{}}
+\citation{xu2023odise}
+\citation{xu2023odise}
+\citation{kirillov2023sam}
+\citation{kirillov2023sam}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Planned figure: comparison of CLIP-based OVSS pipelines.}}{5}{figure.3}\protected@file@percent }
+\newlabel{fig:clip-ovss-pipelines}{{3}{5}{Planned figure: comparison of CLIP-based OVSS pipelines}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Planned figure: ODISE-style diffusion feature pipeline.}}{5}{figure.4}\protected@file@percent }
+\newlabel{fig:odise-pipeline}{{4}{5}{Planned figure: ODISE-style diffusion feature pipeline}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Diffusion-based open-vocabulary segmentation}{5}{subsection.3.2}\protected@file@percent }
+\newlabel{subsec:diffusion-ovss}{{3.2}{5}{Diffusion-based open-vocabulary segmentation}{subsection.3.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Diffusion features as spatial-semantic representations}{5}{subsubsection.3.2.1}\protected@file@percent }
+\newlabel{subsubsec:diffusion-features}{{3.2.1}{5}{Diffusion features as spatial-semantic representations}{subsubsection.3.2.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Combining generative and discriminative components}{5}{subsubsection.3.2.2}\protected@file@percent }
+\newlabel{subsubsec:diffusion-discriminative}{{3.2.2}{5}{Combining generative and discriminative components}{subsubsection.3.2.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Strengths and costs}{5}{subsubsection.3.2.3}\protected@file@percent }
+\newlabel{subsubsec:diffusion-costs}{{3.2.3}{5}{Strengths and costs}{subsubsection.3.2.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Promptable segmentation foundation models}{5}{subsection.3.3}\protected@file@percent }
+\newlabel{subsec:promptable-sam}{{3.3}{5}{Promptable segmentation foundation models}{subsection.3.3}{}}
+\citation{lee2025escnet}
+\citation{shi2025trident}
+\citation{zou2023xdecoder}
+\citation{lai2024lisa,rasheed2024glamm,zou2023xdecoder}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Planned figure: SAM and SAM-derived OVSS routes.}}{6}{figure.5}\protected@file@percent }
+\newlabel{fig:sam-routes}{{5}{6}{Planned figure: SAM and SAM-derived OVSS routes}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}SAM and promptable segmentation}{6}{subsubsection.3.3.1}\protected@file@percent }
+\newlabel{subsubsec:sam-promptable}{{3.3.1}{6}{SAM and promptable segmentation}{subsubsection.3.3.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2}SAM-enhanced open-vocabulary segmentation}{6}{subsubsection.3.3.2}\protected@file@percent }
+\newlabel{subsubsec:sam-enhanced-ovss}{{3.3.2}{6}{SAM-enhanced open-vocabulary segmentation}{subsubsection.3.3.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3}Training-free VFM composition}{6}{subsubsection.3.3.3}\protected@file@percent }
+\newlabel{subsubsec:vfm-composition}{{3.3.3}{6}{Training-free VFM composition}{subsubsection.3.3.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Unified vision-language segmentation models}{6}{subsection.3.4}\protected@file@percent }
+\newlabel{subsec:unified-vl-segmentation}{{3.4}{6}{Unified vision-language segmentation models}{subsection.3.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}Pixel, image, and language outputs in one decoder}{6}{subsubsection.3.4.1}\protected@file@percent }
+\newlabel{subsubsec:xdecoder-unified-output}{{3.4.1}{6}{Pixel, image, and language outputs in one decoder}{subsubsection.3.4.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.2}Generic queries and semantic queries}{6}{subsubsection.3.4.2}\protected@file@percent }
+\newlabel{subsubsec:xdecoder-queries}{{3.4.2}{6}{Generic queries and semantic queries}{subsubsection.3.4.2}{}}
+\citation{lai2024lisa}
+\citation{rasheed2024glamm}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Planned figure: generalized decoding in X-Decoder.}}{7}{figure.6}\protected@file@percent }
+\newlabel{fig:xdecoder-generalized}{{6}{7}{Planned figure: generalized decoding in X-Decoder}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.3}Transition toward generalist vision-language models}{7}{subsubsection.3.4.3}\protected@file@percent }
+\newlabel{subsubsec:xdecoder-transition}{{3.4.3}{7}{Transition toward generalist vision-language models}{subsubsection.3.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}MLLM-based reasoning segmentation and pixel grounding}{7}{subsection.3.5}\protected@file@percent }
+\newlabel{subsec:mllm-reasoning}{{3.5}{7}{MLLM-based reasoning segmentation and pixel grounding}{subsection.3.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.1}Reasoning segmentation with segmentation tokens}{7}{subsubsection.3.5.1}\protected@file@percent }
+\newlabel{subsubsec:lisa-seg-token}{{3.5.1}{7}{Reasoning segmentation with segmentation tokens}{subsubsection.3.5.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.2}Grounded conversation generation}{7}{subsubsection.3.5.2}\protected@file@percent }
+\newlabel{subsubsec:glamm-grounded-conversation}{{3.5.2}{7}{Grounded conversation generation}{subsubsection.3.5.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.3}Risks: hallucination, evaluation, and mask precision}{7}{subsubsection.3.5.3}\protected@file@percent }
+\newlabel{subsubsec:mllm-risks}{{3.5.3}{7}{Risks: hallucination, evaluation, and mask precision}{subsubsection.3.5.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Extensions to video, 3D, and complex scenes}{7}{subsection.3.6}\protected@file@percent }
+\newlabel{subsec:video-3d-extensions}{{3.6}{7}{Extensions to video, 3D, and complex scenes}{subsection.3.6}{}}
+\citation{kirillov2023sam}
+\citation{xu2023san,xu2023odise,lee2025escnet,shi2025trident}
+\citation{liang2023ovseg,xu2023san,luo2024pnpovss}
+\citation{liang2023ovseg,xu2023san}
+\citation{xu2023san,liang2023ovseg}
+\citation{xu2023odise,zou2023xdecoder}
+\citation{lai2024lisa,rasheed2024glamm,zou2023xdecoder}
+\citation{lai2024lisa}
+\citation{rasheed2024glamm}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Planned figure: MLLM-to-mask mechanisms.}}{8}{figure.7}\protected@file@percent }
+\newlabel{fig:mllm-to-mask}{{7}{8}{Planned figure: MLLM-to-mask mechanisms}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Planned figure: extension path from image segmentation to video, 3D, and multi-context grounding.}}{8}{figure.8}\protected@file@percent }
+\newlabel{fig:extensions}{{8}{8}{Planned figure: extension path from image segmentation to video, 3D, and multi-context grounding}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.1}Video reasoning segmentation}{8}{subsubsection.3.6.1}\protected@file@percent }
+\newlabel{subsubsec:video-reasoning}{{3.6.1}{8}{Video reasoning segmentation}{subsubsection.3.6.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.2}3D and multiview grounding}{8}{subsubsection.3.6.2}\protected@file@percent }
+\newlabel{subsubsec:three-d-grounding}{{3.6.2}{8}{3D and multiview grounding}{subsubsection.3.6.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.3}Complex multi-context scenes}{8}{subsubsection.3.6.3}\protected@file@percent }
+\newlabel{subsubsec:multi-context-scenes}{{3.6.3}{8}{Complex multi-context scenes}{subsubsection.3.6.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Datasets and Evaluation Metrics}{8}{section.4}\protected@file@percent }
+\newlabel{sec:datasets-metrics}{{4}{8}{Datasets and Evaluation Metrics}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Dataset groups}{8}{subsection.4.1}\protected@file@percent }
+\newlabel{subsec:dataset-groups}{{4.1}{8}{Dataset groups}{subsection.4.1}{}}
+\citation{liang2023ovseg,xu2023san,luo2024pnpovss,lee2025escnet,shi2025trident}
+\citation{xu2023odise,zou2023xdecoder}
+\citation{lai2024lisa,rasheed2024glamm}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Core datasets for open-vocabulary and promptable segmentation.}}{9}{table.1}\protected@file@percent }
+\newlabel{tab:datasets-core}{{1}{9}{Core datasets for open-vocabulary and promptable segmentation}{table.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Evaluation metrics}{9}{subsection.4.2}\protected@file@percent }
+\newlabel{subsec:evaluation-metrics}{{4.2}{9}{Evaluation metrics}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Dense segmentation metrics}{9}{subsubsection.4.2.1}\protected@file@percent }
+\newlabel{subsubsec:dense-metrics}{{4.2.1}{9}{Dense segmentation metrics}{subsubsection.4.2.1}{}}
+\citation{xu2023san,luo2024pnpovss,lee2025escnet,shi2025trident}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Datasets for language-guided, reasoning, grounding, and future video settings.}}{10}{table.2}\protected@file@percent }
+\newlabel{tab:datasets-grounding}{{2}{10}{Datasets for language-guided, reasoning, grounding, and future video settings}{table.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Planned figure: dataset and metric map.}}{10}{figure.9}\protected@file@percent }
+\newlabel{fig:dataset-metric-map}{{9}{10}{Planned figure: dataset and metric map}{figure.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Language-guided and reasoning metrics}{10}{subsubsection.4.2.2}\protected@file@percent }
+\newlabel{subsubsec:reasoning-metrics}{{4.2.2}{10}{Language-guided and reasoning metrics}{subsubsection.4.2.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Efficiency and deployment metrics}{10}{subsubsection.4.2.3}\protected@file@percent }
+\newlabel{subsubsec:efficiency-metrics}{{4.2.3}{10}{Efficiency and deployment metrics}{subsubsection.4.2.3}{}}
+\citation{liang2023ovseg,xu2023san,luo2024pnpovss}
+\citation{xu2023odise}
+\citation{kirillov2023sam,lee2025escnet,shi2025trident}
+\citation{zou2023xdecoder}
+\citation{lai2024lisa,rasheed2024glamm}
+\citation{liang2023ovseg,xu2023san,kirillov2023sam}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Comparison of segmentation-centered method families.}}{11}{table.3}\protected@file@percent }
+\newlabel{tab:method-comparison-segmentation}{{3}{11}{Comparison of segmentation-centered method families}{table.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Comparison of Advantages and Shortcomings}{11}{section.5}\protected@file@percent }
+\newlabel{sec:comparison}{{5}{11}{Comparison of Advantages and Shortcomings}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Cross-method comparison}{11}{subsection.5.1}\protected@file@percent }
+\newlabel{subsec:cross-method-comparison}{{5.1}{11}{Cross-method comparison}{subsection.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Trade-off axes}{11}{subsection.5.2}\protected@file@percent }
+\newlabel{subsec:tradeoff-axes}{{5.2}{11}{Trade-off axes}{subsection.5.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Semantic openness versus spatial precision}{11}{subsubsection.5.2.1}\protected@file@percent }
+\newlabel{subsubsec:semantic-vs-spatial}{{5.2.1}{11}{Semantic openness versus spatial precision}{subsubsection.5.2.1}{}}
+\citation{liang2023ovseg,xu2023san,lee2025escnet,luo2024pnpovss,shi2025trident}
+\citation{zou2023xdecoder,lai2024lisa,rasheed2024glamm}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparison of generalist, reasoning, and extension-oriented method families.}}{12}{table.4}\protected@file@percent }
+\newlabel{tab:method-comparison-generalist}{{4}{12}{Comparison of generalist, reasoning, and extension-oriented method families}{table.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Training-based adaptation versus training-free composition}{12}{subsubsection.5.2.2}\protected@file@percent }
+\newlabel{subsubsec:training-vs-training-free}{{5.2.2}{12}{Training-based adaptation versus training-free composition}{subsubsection.5.2.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Task-specific segmentation versus generalist reasoning}{12}{subsubsection.5.2.3}\protected@file@percent }
+\newlabel{subsubsec:specialist-vs-generalist}{{5.2.3}{12}{Task-specific segmentation versus generalist reasoning}{subsubsection.5.2.3}{}}
+\citation{lee2025escnet,shi2025trident}
+\citation{lai2024lisa,rasheed2024glamm}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Planned figure: capability trade-off map.}}{13}{figure.10}\protected@file@percent }
+\newlabel{fig:capability-tradeoff}{{10}{13}{Planned figure: capability trade-off map}{figure.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Challenges and Future Directions}{13}{section.6}\protected@file@percent }
+\newlabel{sec:future-directions}{{6}{13}{Challenges and Future Directions}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}From open vocabulary to reliable open-world segmentation}{13}{subsection.6.1}\protected@file@percent }
+\newlabel{subsec:reliable-open-world}{{6.1}{13}{From open vocabulary to reliable open-world segmentation}{subsection.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Integrating semantic alignment and mask priors}{13}{subsection.6.2}\protected@file@percent }
+\newlabel{subsec:semantic-mask-integration}{{6.2}{13}{Integrating semantic alignment and mask priors}{subsection.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Reducing hallucination in reasoning segmentation}{13}{subsection.6.3}\protected@file@percent }
+\newlabel{subsec:hallucination-reasoning}{{6.3}{13}{Reducing hallucination in reasoning segmentation}{subsection.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Evaluation beyond mIoU}{13}{subsection.6.4}\protected@file@percent }
+\newlabel{subsec:evaluation-beyond-miou}{{6.4}{13}{Evaluation beyond mIoU}{subsection.6.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Video, 3D, and multi-context grounding}{13}{subsection.6.5}\protected@file@percent }
+\newlabel{subsec:future-video-3d}{{6.5}{13}{Video, 3D, and multi-context grounding}{subsection.6.5}{}}
+\bibstyle{elsarticle-harv}
+\bibdata{references}
+\bibcite{kirillov2023sam}{{1}{2023}{{Kirillov et~al.}}{{Kirillov, Mintun, Ravi, Mao, Rolland, Gustafson, Xiao, Whitehead, Berg, Lo, Dollar and Girshick}}}
+\bibcite{lai2024lisa}{{2}{2024}{{Lai et~al.}}{{Lai, Tian, Chen, Li, Yuan, Liu and Jia}}}
+\bibcite{lee2025escnet}{{3}{2025}{{Lee et~al.}}{{Lee, Cho, Lee, Yang, Choi, Kim and Lee}}}
+\bibcite{liang2023ovseg}{{4}{2023}{{Liang et~al.}}{{Liang, Wu, Dai, Li, Zhao, Zhang, Zhang, Vajda and Marculescu}}}
+\bibcite{luo2024pnpovss}{{5}{2024}{{Luo et~al.}}{{Luo, Khandelwal, Sigal and Li}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Planned figure: open problems map.}}{14}{figure.11}\protected@file@percent }
+\newlabel{fig:open-problems}{{11}{14}{Planned figure: open problems map}{figure.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{14}{section.7}\protected@file@percent }
+\newlabel{sec:conclusion}{{7}{14}{Conclusion}{section.7}{}}
+\bibcite{rasheed2024glamm}{{6}{2024}{{Rasheed et~al.}}{{Rasheed, Maaz, Shaji, Shaker, Khan, Cholakkal, Anwer, Xing, Yang and Khan}}}
+\bibcite{shi2025trident}{{7}{2025}{{Shi et~al.}}{{Shi, Dong and Xu}}}
+\bibcite{xu2023odise}{{8}{2023a}{{Xu et~al.}}{{Xu, Liu, Vahdat, Byeon, Wang and De~Mello}}}
+\bibcite{xu2023san}{{9}{2023b}{{Xu et~al.}}{{Xu, Zhang, Wei, Hu and Bai}}}
+\bibcite{zou2023xdecoder}{{10}{2023}{{Zou et~al.}}{{Zou, Dou, Yang, Gan, Li, Li, Dai, Behl, Wang, Yuan, Peng, Wang, Lee and Gao}}}
+\gdef \@abspage@last{16}

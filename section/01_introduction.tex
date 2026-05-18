@@ -1,0 +1,16 @@
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Closed-set segmentation in open-world scenes}
+\label{subsec:intro-closed-set}
+Writing plan: start from the standard formulation of semantic, instance, and panoptic segmentation, where the label space is fixed during training and evaluation. Emphasize that this closed-set assumption is fragile in open-world scenes because new object categories, long-tail concepts, and user-specific categories are not covered by the training taxonomy. This paragraph should motivate why open-vocabulary segmentation is not only a benchmark variation but also a necessary step toward deployable visual understanding.
+
+\subsection{Foundation models as the driver of open-vocabulary and reasoning segmentation}
+\label{subsec:intro-foundation-models}
+Writing plan: explain the 2023--2025 transition. CLIP-style image-text alignment enables category names to act as classifiers in open-vocabulary segmentation, as represented by OVSeg and SAN \citep{liang2023ovseg,xu2023san}. SAM reframes segmentation as prompt-conditioned mask generation \citep{kirillov2023sam}. Diffusion features and unified decoders broaden the task from semantic maps to panoptic and multimodal outputs \citep{xu2023odise,zou2023xdecoder}. MLLM-based methods then connect complex language instructions with pixel masks \citep{lai2024lisa,rasheed2024glamm}.
+
+\subsection{Scope and organization of this survey}
+\label{subsec:intro-scope}
+Writing plan: state that the survey focuses on ten representative papers from 2023 to 2025. The paper should be organized by technical route: closed-set segmentation, open-vocabulary segmentation, promptable segmentation, vision-language semantic alignment, MLLM-driven reasoning segmentation and pixel grounding, and extensions to video, 3D, and complex scenes. Mention that later sections compare data, metrics, strengths, weaknesses, and unresolved challenges.
+
+\placeholderfigure{Planned overview figure: timeline and taxonomy of open-vocabulary and reasoning segmentation from 2023 to 2025. The figure should place OVSeg, SAN, ODISE, SAM, X-Decoder, PnP-OVSS, LISA, GLaMM, ESC-Net, and Trident along both a temporal axis and a method-family axis.}{fig:intro-timeline}{Figure plan: draw a two-dimensional map with years on the horizontal axis and method families on the vertical axis.}

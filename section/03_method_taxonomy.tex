@@ -1,0 +1,110 @@
+\section{Method Taxonomy}
+\label{sec:method-taxonomy}
+
+\subsection{CLIP-based open-vocabulary segmentation}
+\label{subsec:clip-based-ovss}
+Writing plan: explain why CLIP is attractive for open-vocabulary segmentation and why direct CLIP application is insufficient for pixel-level prediction. The central tension is strong image-text alignment versus weak dense localization.
+
+\subsubsection{Mask-adapted region classification}
+\label{subsubsec:mask-adapted-clip}
+Discuss OVSeg as the canonical two-stage route: class-agnostic mask proposal followed by mask-adapted CLIP classification \citep{liang2023ovseg}. Explain the masked-region distribution shift and why mask prompt tuning or adaptation is needed.
+
+\subsubsection{Efficient side adaptation}
+\label{subsubsec:side-adapter}
+Discuss SAN as an efficient alternative to repeated proposal classification. Emphasize the side adapter, attention bias, and proposal-wise recognition with a mostly frozen CLIP backbone \citep{xu2023san}.
+
+\subsubsection{Training-free VLM feature mining}
+\label{subsubsec:pnp-ovss}
+Discuss PnP-OVSS as a 2024 training-free route that mines localization cues from off-the-shelf VLMs \citep{luo2024pnpovss}. Explain the advantage of removing task-specific segmentation training and the limitation of heuristic sensitivity.
+
+\placeholderfigure{Planned figure: comparison of CLIP-based OVSS pipelines.}{fig:clip-ovss-pipelines}{Figure plan: redraw three columns for OVSeg, SAN, and PnP-OVSS: proposal-classification, side-adapter recognition, and training-free feature mining.}
+
+\subsection{Diffusion-based open-vocabulary segmentation}
+\label{subsec:diffusion-ovss}
+Writing plan: introduce the idea that text-to-image diffusion models learn spatially meaningful intermediate representations, which can be repurposed for discriminative segmentation.
+
+\subsubsection{Diffusion features as spatial-semantic representations}
+\label{subsubsec:diffusion-features}
+Discuss why the internal UNet features of text-to-image diffusion models can contain object- and part-level semantics. Use ODISE as the main example \citep{xu2023odise}.
+
+\subsubsection{Combining generative and discriminative components}
+\label{subsubsec:diffusion-discriminative}
+Explain how ODISE combines frozen diffusion features, a mask generator, and CLIP-based text classification for open-vocabulary panoptic segmentation \citep{xu2023odise}.
+
+\subsubsection{Strengths and costs}
+\label{subsubsec:diffusion-costs}
+Summarize the main advantage as broad spatial-semantic knowledge and the main limitation as high training and inference cost.
+
+\placeholderfigure{Planned figure: ODISE-style diffusion feature pipeline.}{fig:odise-pipeline}{Figure plan: show a text-to-image diffusion UNet feeding a mask decoder and a text-conditioned open-vocabulary classifier.}
+
+\subsection{Promptable segmentation foundation models}
+\label{subsec:promptable-sam}
+Writing plan: present SAM as the foundation model that changes segmentation from category prediction to prompt-conditioned mask generation \citep{kirillov2023sam}.
+
+\subsubsection{SAM and promptable segmentation}
+\label{subsubsec:sam-promptable}
+Explain point, box, and mask prompts; the image encoder, prompt encoder, and mask decoder; and the SA-1B data engine \citep{kirillov2023sam}. Stress that SAM produces high-quality class-agnostic masks rather than semantic labels.
+
+\subsubsection{SAM-enhanced open-vocabulary segmentation}
+\label{subsubsec:sam-enhanced-ovss}
+Discuss ESC-Net as a 2025 example that embeds SAM decoder blocks into one-stage OVSS while retaining CLIP-based category semantics \citep{lee2025escnet}. The section should explain how SAM supplies spatial priors while CLIP supplies text-category alignment.
+
+\subsubsection{Training-free VFM composition}
+\label{subsubsec:vfm-composition}
+Discuss Trident as a 2025 training-free foundation-model composition route, combining complementary signals such as CLIP, DINO, and SAM \citep{shi2025trident}. Highlight the trade-off between no task-specific training and multi-model inference complexity.
+
+\placeholderfigure{Planned figure: SAM and SAM-derived OVSS routes.}{fig:sam-routes}{Figure plan: start from SAM's image encoder, prompt encoder, and mask decoder, then branch to ESC-Net's CLIP-SAM fusion and Trident's training-free CLIP/DINO/SAM composition.}
+
+\subsection{Unified vision-language segmentation models}
+\label{subsec:unified-vl-segmentation}
+Writing plan: explain why unified decoders are an intermediate stage between specialized segmentation models and MLLM-based reasoning systems.
+
+\subsubsection{Pixel, image, and language outputs in one decoder}
+\label{subsubsec:xdecoder-unified-output}
+Discuss X-Decoder as a generalized decoder for segmentation, referring, retrieval, captioning, and VQA transfer \citep{zou2023xdecoder}. Explain how pixel-level and language-level outputs are represented in a shared model.
+
+\subsubsection{Generic queries and semantic queries}
+\label{subsubsec:xdecoder-queries}
+Explain generic queries, text queries, and semantic query interaction. This part should clarify why X-Decoder is broader than CLIP-based mask classification but still different from MLLM reasoning.
+
+\subsubsection{Transition toward generalist vision-language models}
+\label{subsubsec:xdecoder-transition}
+Position X-Decoder as a bridge: it unifies dense and language tasks, but it does not provide the same free-form reasoning and grounded conversation interface as LISA or GLaMM \citep{lai2024lisa,rasheed2024glamm,zou2023xdecoder}.
+
+\placeholderfigure{Planned figure: generalized decoding in X-Decoder.}{fig:xdecoder-generalized}{Figure plan: redraw an image encoder, text encoder, and shared decoder with outputs for segmentation masks, retrieval embeddings, captions, and VQA responses.}
+
+\subsection{MLLM-based reasoning segmentation and pixel grounding}
+\label{subsec:mllm-reasoning}
+Writing plan: describe the shift from text labels to complex instructions. The key question is how a language token or generated phrase becomes a pixel mask.
+
+\subsubsection{Reasoning segmentation with segmentation tokens}
+\label{subsubsec:lisa-seg-token}
+Discuss LISA's use of a special segmentation token and its hidden embedding to drive a mask decoder \citep{lai2024lisa}. Explain the role of MLLM understanding, SAM-style segmentation backends, and instruction-formatted training data.
+
+\subsubsection{Grounded conversation generation}
+\label{subsubsec:glamm-grounded-conversation}
+Discuss GLaMM as a grounded multimodal model that links generated phrase-level entities to pixel masks \citep{rasheed2024glamm}. Contrast this with single-target reasoning segmentation.
+
+\subsubsection{Risks: hallucination, evaluation, and mask precision}
+\label{subsubsec:mllm-risks}
+Explain that MLLM-based methods can understand richer language but introduce hallucination risk, heavier training and inference, and more complex evaluation. The subsection should separate reasoning correctness from boundary accuracy.
+
+\placeholderfigure{Planned figure: MLLM-to-mask mechanisms.}{fig:mllm-to-mask}{Figure plan: compare LISA's segmentation-token-to-mask path with GLaMM's phrase-level grounded conversation path.}
+
+\subsection{Extensions to video, 3D, and complex scenes}
+\label{subsec:video-3d-extensions}
+Writing plan: keep this subsection shorter because the local ten-paper set mainly covers 2D image segmentation. Use it as a forward-looking bridge to video reasoning segmentation, 3D or multiview grounding, and multi-context visual grounding.
+
+\subsubsection{Video reasoning segmentation}
+\label{subsubsec:video-reasoning}
+Explain that video adds temporal consistency, object persistence, motion cues, and memory. Add VRS-HQ or GLUS citations after their source files are added to the project bibliography.
+
+\subsubsection{3D and multiview grounding}
+\label{subsubsec:three-d-grounding}
+Explain that 3D and multiview scenes require spatial consistency across views, camera poses, and object instances. This should be treated as an extension of pixel grounding beyond single images.
+
+\subsubsection{Complex multi-context scenes}
+\label{subsubsec:multi-context-scenes}
+Explain that multi-image or multi-context grounding stresses MLLM reasoning and object disambiguation. Add MC-Bench or related citations after the corresponding source files are included.
+
+\placeholderfigure{Planned figure: extension path from image segmentation to video, 3D, and multi-context grounding.}{fig:extensions}{Figure plan: draw image, video, 3D/multiview, and multi-context settings, with the added challenge under each setting.}
