@@ -1,0 +1,24 @@
+\section{Challenges and Future Directions}
+\label{sec:future-directions}
+
+\subsection{From open vocabulary to reliable open-world segmentation}
+\label{subsec:reliable-open-world}
+Writing plan: argue that recognizing unseen category names is not enough. Future systems must handle label ambiguity, synonyms, rare categories, domain shift, and negative prompts.
+
+\subsection{Integrating semantic alignment and mask priors}
+\label{subsec:semantic-mask-integration}
+Writing plan: discuss why CLIP, SAM, DINO, diffusion, and MLLM components are often complementary. Use ESC-Net and Trident as examples of 2025 methods that explicitly combine foundation-model strengths \citep{lee2025escnet,shi2025trident}.
+
+\subsection{Reducing hallucination in reasoning segmentation}
+\label{subsec:hallucination-reasoning}
+Writing plan: discuss hallucination and faithfulness in LISA- and GLaMM-style systems \citep{lai2024lisa,rasheed2024glamm}. Separate language plausibility from pixel-level correctness.
+
+\subsection{Evaluation beyond mIoU}
+\label{subsec:evaluation-beyond-miou}
+Writing plan: argue that mIoU is insufficient for reasoning segmentation, grounded conversation, video, and 3D grounding. Future evaluation should include language faithfulness, grounding faithfulness, temporal consistency, and efficiency.
+
+\subsection{Video, 3D, and multi-context grounding}
+\label{subsec:future-video-3d}
+Writing plan: describe temporal consistency, spatial consistency, and multi-context reasoning as natural extensions. Add citations for VRS-HQ, GLUS, MC-Bench, or related papers after those source files are incorporated into the local bibliography.
+
+\placeholderfigure{Planned figure: open problems map.}{fig:open-problems}{Figure plan: organize future challenges by semantic complexity and spatial-temporal complexity, then place open-vocabulary segmentation, reasoning segmentation, video, 3D, and multi-context grounding on the map.}

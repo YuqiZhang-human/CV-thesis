@@ -1,0 +1,33 @@
+\section{Introduction}
+
+Image segmentation is a fundamental dense prediction problem in computer vision. 
+Classical segmentation tasks are commonly formulated under a closed-set assumption, where the label space is predefined during training and remains fixed during evaluation. 
+Semantic segmentation assigns a category label to each pixel, instance segmentation further separates different object instances, and panoptic segmentation unifies stuff and thing categories into a coherent scene-level representation~\cite{long2015fully,he2017mask,kirillov2019panoptic}. 
+Although these formulations have supported substantial progress in scene understanding, the fixed-category assumption limits their applicability in open-world scenarios, where visual systems must handle unseen categories, long-tail concepts, and user-specified object names beyond the training taxonomy.
+
+Open-vocabulary segmentation has therefore emerged as an important step toward more deployable visual understanding. 
+Different from closed-set segmentation, open-vocabulary segmentation allows the target label space to be defined by text at inference time, such as category names or natural-language prompts. 
+This transition is largely driven by vision-language foundation models, especially CLIP, which learns transferable visual representations from large-scale image-text supervision and enables textual concepts to be used as visual classifiers~\cite{radford2021learning}. 
+Based on this image-text alignment, recent methods such as OVSeg and SAN adapt CLIP-style recognition to dense prediction by combining mask proposals, side adapters, or region-level recognition mechanisms~\cite{liang2023open,xu2023side}. 
+These methods demonstrate that segmentation can move beyond a fixed training vocabulary, while also revealing the tension between open semantic recognition and accurate pixel-level localization.
+
+Meanwhile, segmentation foundation models and unified vision-language models further reshape the technical landscape. 
+The Segment Anything Model (SAM) reframes segmentation as prompt-conditioned mask generation and shows strong zero-shot transfer across image domains and segmentation prompts~\cite{kirillov2023segment}. 
+Rather than predicting category labels directly, SAM provides high-quality class-agnostic masks, which makes it a strong spatial prior for subsequent open-vocabulary segmentation pipelines. 
+In parallel, diffusion-based and unified-decoder approaches broaden the task formulation. 
+ODISE exploits representations from text-to-image diffusion models for open-vocabulary panoptic segmentation, while X-Decoder introduces a generalized decoding framework that connects pixel-level segmentation with image-level and language-level outputs~\cite{xu2023open,zou2023generalized}. 
+These developments suggest that modern segmentation is increasingly shaped by the interaction between semantic alignment, mask generation, and multimodal decoding.
+
+More recently, the focus has further shifted from category-level openness to language-driven reasoning and pixel grounding. 
+In open-vocabulary segmentation, the target is usually specified by an explicit category name or text label. 
+However, in reasoning segmentation, the target object may be implicit and must be inferred from complex instructions, commonsense knowledge, or scene context. 
+LISA formalizes this setting by introducing reasoning segmentation with large language models, where a special segmentation token is used to connect language understanding with mask prediction~\cite{lai2024lisa}. 
+GLaMM extends this direction toward grounded multimodal conversation, where generated phrases can be associated with corresponding pixel-level masks~\cite{rasheed2024glamm}. 
+This shift indicates that segmentation is becoming not only an open-vocabulary recognition problem, but also a grounding interface between visual perception and natural-language reasoning.
+
+This survey reviews open-vocabulary and reasoning segmentation with vision-language foundation models. 
+Instead of organizing the literature as a paper-by-paper chronology, we structure the survey around major technical routes, including CLIP-based open-vocabulary semantic segmentation, diffusion-based segmentation, SAM-based promptable segmentation, unified vision-language decoders, and MLLM-based reasoning segmentation and pixel grounding. 
+We further discuss extensions to video, 3D, and complex multi-context scenes. 
+Across these method families, the survey compares their task assumptions, model inputs, supervision forms, output types, datasets, evaluation metrics, advantages, and limitations. 
+The goal is to clarify how the field has evolved from closed-set dense prediction to open-vocabulary recognition, and further toward reliable language-guided pixel grounding in open-world visual understanding.
+\placeholderfigure{Planned overview figure: timeline and taxonomy of open-vocabulary and reasoning segmentation from 2023 to 2025. The figure should place OVSeg, SAN, ODISE, SAM, X-Decoder, PnP-OVSS, LISA, GLaMM, ESC-Net, and Trident along both a temporal axis and a method-family axis.}{fig:intro-timeline}{Figure plan: draw a two-dimensional map with years on the horizontal axis and method families on the vertical axis.}

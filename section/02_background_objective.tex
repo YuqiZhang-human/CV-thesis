@@ -1,0 +1,44 @@
+\section{Background and Objective}
+\label{sec:background}
+
+\subsection{Closed-set segmentation and its limitation}
+\label{subsec:closed-set}
+Writing plan: define the classical dense prediction tasks before introducing open-vocabulary methods. The goal is to clarify what changes when segmentation is no longer restricted to a fixed label set.
+
+\subsubsection{Semantic segmentation}
+\label{subsubsec:semantic-segmentation}
+Explain that semantic segmentation assigns one class label to each pixel. It is suitable for scene parsing but does not distinguish different instances of the same category.
+
+\subsubsection{Instance segmentation}
+\label{subsubsec:instance-segmentation}
+Explain that instance segmentation predicts object-level masks and instance identities, but it normally assumes a predefined set of object categories.
+
+\subsubsection{Panoptic segmentation}
+\label{subsubsec:panoptic-segmentation}
+Explain that panoptic segmentation unifies thing and stuff prediction. Use ODISE as the later open-vocabulary panoptic example \citep{xu2023odise}.
+
+\subsection{Open-vocabulary segmentation}
+\label{subsec:open-vocabulary-background}
+Writing plan: define open-vocabulary semantic segmentation as dense classification over categories that may not appear in the segmentation training set. Emphasize that text prompts or category names provide the label space at inference time.
+
+\subsubsection{Text-defined label spaces}
+\label{subsubsec:text-defined-labels}
+Explain how category names or prompt templates become text embeddings. This should prepare the reader for CLIP-based methods such as OVSeg and SAN \citep{liang2023ovseg,xu2023san}.
+
+\subsubsection{Zero-shot and cross-dataset transfer}
+\label{subsubsec:zero-shot-transfer}
+Explain that open-vocabulary performance is usually measured by transferring from one training dataset to unseen datasets such as ADE20K, PASCAL VOC, PASCAL Context, and COCO-Stuff. Note that mIoU remains common but does not fully capture vocabulary ambiguity.
+
+\subsection{Reasoning segmentation and pixel grounding}
+\label{subsec:reasoning-background}
+Writing plan: introduce the shift from category names to complex natural-language instructions. The key distinction is that the target object may be implicit and must be inferred from language, commonsense, scene context, or conversation.
+
+\subsubsection{Referring segmentation versus reasoning segmentation}
+\label{subsubsec:referring-vs-reasoning}
+Explain that referring segmentation usually localizes an explicitly described object, whereas reasoning segmentation may require implicit constraints such as ``the object that the man is holding''. LISA should be introduced here as the representative reasoning segmentation method \citep{lai2024lisa}.
+
+\subsubsection{Pixel grounding in multimodal conversation}
+\label{subsubsec:pixel-grounding}
+Explain that pixel grounding connects generated words, phrases, or entities to masks. GLaMM should be positioned as the representative grounded conversation method \citep{rasheed2024glamm}.
+
+\placeholderfigure{Planned background figure: task hierarchy from closed-set segmentation to open-vocabulary segmentation, referring segmentation, reasoning segmentation, and grounded conversation.}{fig:background-task-hierarchy}{Figure plan: show how the input changes from a fixed class list, to text labels, to referring expressions, to reasoning queries and multimodal dialogue.}

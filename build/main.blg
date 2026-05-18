@@ -1,0 +1,67 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+Reallocating 'name_of_file' (item size: 1) to 16 items.
+The style file: elsarticle-harv.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Database file #1: references.bib
+Warning--I didn't find a database entry for "liang2023open"
+Warning--I didn't find a database entry for "xu2023side"
+Warning--I didn't find a database entry for "kirillov2023segment"
+Warning--I didn't find a database entry for "xu2023open"
+Warning--I didn't find a database entry for "zou2023generalized"
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--empty pages in he2017mask
+Warning--empty pages in kirillov2019panoptic
+Warning--empty pages in kirillov2023sam
+Warning--empty pages in lai2024lisa
+Warning--empty pages in liang2023ovseg
+Warning--empty pages in long2015fully
+Warning--empty pages in luo2024pnpovss
+Warning--empty pages in radford2021learning
+Warning--empty pages in rasheed2024glamm
+Warning--empty pages in xu2023odise
+Warning--empty pages in xu2023san
+Warning--empty pages in zou2023xdecoder
+You've used 14 entries,
+            2990 wiz_defined-function locations,
+            687 strings with 8297 characters,
+and the built_in function-call counts, 12485 in all, are:
+= -- 806
+> -- 836
+< -- 2
++ -- 318
+- -- 303
+* -- 1538
+:= -- 1863
+add.period$ -- 28
+call.type$ -- 14
+change.case$ -- 171
+chr.to.int$ -- 13
+cite$ -- 26
+duplicate$ -- 836
+empty$ -- 730
+format.name$ -- 345
+if$ -- 2242
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 187
+newline$ -- 71
+num.names$ -- 56
+pop$ -- 379
+preamble$ -- 1
+purify$ -- 157
+quote$ -- 0
+skip$ -- 258
+stack$ -- 0
+substring$ -- 250
+swap$ -- 680
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 126
+warning$ -- 12
+while$ -- 48
+width$ -- 0
+write$ -- 184
+(There were 17 warnings)

@@ -1,0 +1,113 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Inproceedings
+\bibitem[{Kirillov et~al.(2023)Kirillov, Mintun, Ravi, Mao, Rolland, Gustafson,
+  Xiao, Whitehead, Berg, Lo, Dollar and Girshick}]{kirillov2023sam}
+\bibinfo{author}{Kirillov, A.}, \bibinfo{author}{Mintun, E.},
+  \bibinfo{author}{Ravi, N.}, \bibinfo{author}{Mao, H.},
+  \bibinfo{author}{Rolland, C.}, \bibinfo{author}{Gustafson, L.},
+  \bibinfo{author}{Xiao, T.}, \bibinfo{author}{Whitehead, S.},
+  \bibinfo{author}{Berg, A.C.}, \bibinfo{author}{Lo, W.Y.},
+  \bibinfo{author}{Dollar, P.}, \bibinfo{author}{Girshick, R.},
+  \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Segment anything}, in:
+  \bibinfo{booktitle}{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision (ICCV)}.
+%Type = Inproceedings
+\bibitem[{Lai et~al.(2024)Lai, Tian, Chen, Li, Yuan, Liu and Jia}]{lai2024lisa}
+\bibinfo{author}{Lai, X.}, \bibinfo{author}{Tian, Z.}, \bibinfo{author}{Chen,
+  Y.}, \bibinfo{author}{Li, Y.}, \bibinfo{author}{Yuan, Y.},
+  \bibinfo{author}{Liu, S.}, \bibinfo{author}{Jia, J.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Lisa: Reasoning segmentation via large language
+  model}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR)}.
+%Type = Inproceedings
+\bibitem[{Lee et~al.(2025)Lee, Cho, Lee, Yang, Choi, Kim and
+  Lee}]{lee2025escnet}
+\bibinfo{author}{Lee, M.}, \bibinfo{author}{Cho, S.}, \bibinfo{author}{Lee,
+  J.}, \bibinfo{author}{Yang, S.}, \bibinfo{author}{Choi, H.},
+  \bibinfo{author}{Kim, I.J.}, \bibinfo{author}{Lee, S.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Effective sam combination for open-vocabulary
+  semantic segmentation}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR)}, pp.
+  \bibinfo{pages}{26081--26090}.
+%Type = Inproceedings
+\bibitem[{Liang et~al.(2023)Liang, Wu, Dai, Li, Zhao, Zhang, Zhang, Vajda and
+  Marculescu}]{liang2023ovseg}
+\bibinfo{author}{Liang, F.}, \bibinfo{author}{Wu, B.}, \bibinfo{author}{Dai,
+  X.}, \bibinfo{author}{Li, K.}, \bibinfo{author}{Zhao, Y.},
+  \bibinfo{author}{Zhang, H.}, \bibinfo{author}{Zhang, P.},
+  \bibinfo{author}{Vajda, P.}, \bibinfo{author}{Marculescu, D.},
+  \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Open-vocabulary semantic segmentation with
+  mask-adapted clip}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR)}.
+%Type = Inproceedings
+\bibitem[{Luo et~al.(2024)Luo, Khandelwal, Sigal and Li}]{luo2024pnpovss}
+\bibinfo{author}{Luo, J.}, \bibinfo{author}{Khandelwal, S.},
+  \bibinfo{author}{Sigal, L.}, \bibinfo{author}{Li, B.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Emergent open-vocabulary semantic segmentation from
+  off-the-shelf vision-language models}, in: \bibinfo{booktitle}{Proceedings of
+  the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}.
+%Type = Inproceedings
+\bibitem[{Rasheed et~al.(2024)Rasheed, Maaz, Shaji, Shaker, Khan, Cholakkal,
+  Anwer, Xing, Yang and Khan}]{rasheed2024glamm}
+\bibinfo{author}{Rasheed, H.}, \bibinfo{author}{Maaz, M.},
+  \bibinfo{author}{Shaji, S.}, \bibinfo{author}{Shaker, A.},
+  \bibinfo{author}{Khan, S.}, \bibinfo{author}{Cholakkal, H.},
+  \bibinfo{author}{Anwer, R.M.}, \bibinfo{author}{Xing, E.},
+  \bibinfo{author}{Yang, M.H.}, \bibinfo{author}{Khan, F.S.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Glamm: Pixel grounding large multimodal model}, in:
+  \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition (CVPR)}.
+%Type = Inproceedings
+\bibitem[{Shi et~al.(2025)Shi, Dong and Xu}]{shi2025trident}
+\bibinfo{author}{Shi, Y.}, \bibinfo{author}{Dong, M.}, \bibinfo{author}{Xu,
+  C.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Harnessing vision foundation models for
+  high-performance, training-free open vocabulary segmentation}, in:
+  \bibinfo{booktitle}{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision (ICCV)}, pp. \bibinfo{pages}{23487--23497}.
+%Type = Inproceedings
+\bibitem[{Xu et~al.(2023a)Xu, Liu, Vahdat, Byeon, Wang and
+  De~Mello}]{xu2023odise}
+\bibinfo{author}{Xu, J.}, \bibinfo{author}{Liu, S.}, \bibinfo{author}{Vahdat,
+  A.}, \bibinfo{author}{Byeon, W.}, \bibinfo{author}{Wang, X.},
+  \bibinfo{author}{De~Mello, S.}, \bibinfo{year}{2023}a.
+\newblock \bibinfo{title}{Open-vocabulary panoptic segmentation with
+  text-to-image diffusion models}, in: \bibinfo{booktitle}{Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}.
+%Type = Inproceedings
+\bibitem[{Xu et~al.(2023b)Xu, Zhang, Wei, Hu and Bai}]{xu2023san}
+\bibinfo{author}{Xu, M.}, \bibinfo{author}{Zhang, Z.}, \bibinfo{author}{Wei,
+  F.}, \bibinfo{author}{Hu, H.}, \bibinfo{author}{Bai, X.},
+  \bibinfo{year}{2023}b.
+\newblock \bibinfo{title}{Side adapter network for open-vocabulary semantic
+  segmentation}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference
+  on Computer Vision and Pattern Recognition (CVPR)}.
+%Type = Inproceedings
+\bibitem[{Zou et~al.(2023)Zou, Dou, Yang, Gan, Li, Li, Dai, Behl, Wang, Yuan,
+  Peng, Wang, Lee and Gao}]{zou2023xdecoder}
+\bibinfo{author}{Zou, X.}, \bibinfo{author}{Dou, Z.Y.}, \bibinfo{author}{Yang,
+  J.}, \bibinfo{author}{Gan, Z.}, \bibinfo{author}{Li, L.},
+  \bibinfo{author}{Li, C.}, \bibinfo{author}{Dai, X.}, \bibinfo{author}{Behl,
+  H.}, \bibinfo{author}{Wang, J.}, \bibinfo{author}{Yuan, L.},
+  \bibinfo{author}{Peng, N.}, \bibinfo{author}{Wang, L.}, \bibinfo{author}{Lee,
+  Y.J.}, \bibinfo{author}{Gao, J.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Generalized decoding for pixel, image, and language},
+  in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference on Computer
+  Vision and Pattern Recognition (CVPR)}.
+
+\end{thebibliography}
