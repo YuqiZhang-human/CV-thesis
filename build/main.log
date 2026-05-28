@@ -1,31 +1,35 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.5.18)  18 MAY 2026 22:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.5.18)  25 MAY 2026 15:41
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**e:/SWJTU/ComputerVision/article/main.tex
-(e:/SWJTU/ComputerVision/article/main.tex
+**./main.tex
+(main.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
 (elsarticle.cls
 Document Class: elsarticle 2024/04/04, 3.4: Elsevier Ltd
-(D:\Program Files\MiKTeX\tex/latex/base\fontenc.sty
+(D:\ProgramFiles\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-) (D:\Program Files\MiKTeX\tex/latex/l3kernel\expl3.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/l3kernel\expl3.sty
 Package: expl3 2026-03-20 L3 programming layer (loader) 
- (D:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+
+(D:\ProgramFiles\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count275
-)) (D:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse.sty
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/l3packages/xparse\xparse.sty
 Package: xparse 2025-10-09 L3 Experimental document command parser
-) (D:\Program Files\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count276
 )
 \@bls=\dimen150
- (D:\Program Files\MiKTeX\tex/latex/base\article.cls
+
+(D:\ProgramFiles\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
-(D:\Program Files\MiKTeX\tex/latex/base\size12.clo
+(D:\ProgramFiles\MiKTeX\tex/latex/base\size12.clo
 File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count277
@@ -39,20 +43,26 @@ File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen151
-) (D:\Program Files\MiKTeX\tex/latex/graphics\graphicx.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
- (D:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks17
-) (D:\Program Files\MiKTeX\tex/latex/graphics\graphics.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
- (D:\Program Files\MiKTeX\tex/latex/graphics\trig.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-) (D:\Program Files\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
- (D:\Program Files\MiKTeX\tex/latex/graphics-def\pdftex.def
+
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen152
@@ -77,7 +87,9 @@ File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 \@enLab=\toks19
 \@sep=\skip51
 \@@sep=\skip52
- (e:\SWJTU\ComputerVision\article\build\main.spl) (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/latex/natbib\natbib.sty
+
+(E:\SWJTU\ComputerVision\article\build\main.spl)
+(D:\ProgramFiles\MiKTeX\tex/latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip53
 \bibsep=\skip54
@@ -88,9 +100,11 @@ LaTeX Info: Redefining \cite on input line 694.
 \openout3 = `main.spl'.
 
 \appnamewidth=\dimen157
-) (D:\Program Files\MiKTeX\tex/latex/amsfonts\amssymb.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
- (D:\Program Files\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks20
 \symAMSa=\mathgroup4
@@ -98,21 +112,25 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (D:\Program Files\MiKTeX\tex/latex/amsmath\amsmath.sty
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
 \@mathmargin=\skip55
 
 For additional information on amsmath, use the `?' option.
-(D:\Program Files\MiKTeX\tex/latex/amsmath\amstext.sty
+(D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amstext.sty
 Package: amstext 2024/11/17 v2.01 AMS text
- (D:\Program Files\MiKTeX\tex/latex/amsmath\amsgen.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks21
 \ex@=\dimen158
-)) (D:\Program Files\MiKTeX\tex/latex/amsmath\amsbsy.sty
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen159
-) (D:\Program Files\MiKTeX\tex/latex/amsmath\amsopn.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count292
@@ -162,7 +180,8 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \mathdisplay@stack=\toks25
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
-) (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/latex/booktabs\booktabs.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen167
 \lightrulewidth=\dimen168
@@ -181,9 +200,11 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count306
 \@lastruleclass=\count307
 \@thisrulewidth=\dimen179
-) (D:\Program Files\MiKTeX\tex/latex/tools\tabularx.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
- (D:\Program Files\MiKTeX\tex/latex/tools\array.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \col@sep=\dimen180
 \ar@mcellbox=\box61
@@ -200,56 +221,437 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \TX@delta=\dimen186
 \TX@cols=\count308
 \TX@ftn=\toks27
-) (D:\Program Files\MiKTeX\tex/latex/url\url.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-) (D:\Program Files\MiKTeX\tex/latex/hyperref\hyperref.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/frontendlayer\tikz.sty
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex
+\pgfutil@everybye=\toks28
+\pgfutil@tempdima=\dimen187
+\pgfutil@tempdimb=\dimen188
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfutil-latex.def
+\pgfutil@abb=\box63
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfrcs.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf\pgf.revision.tex)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
+))
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.sty
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.sty
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgfsys.code.tex
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks29
+\pgfkeys@temptoks=\toks30
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfkeyslibraryfiltered.code.t
+ex
+\pgfkeys@tmptoks=\toks31
+))
+\pgf@x=\dimen189
+\pgf@y=\dimen190
+\pgf@xa=\dimen191
+\pgf@ya=\dimen192
+\pgf@xb=\dimen193
+\pgf@yb=\dimen194
+\pgf@xc=\dimen195
+\pgf@yc=\dimen196
+\pgf@xd=\dimen197
+\pgf@yd=\dimen198
+\w@pgf@writea=\write4
+\r@pgf@reada=\read2
+\c@pgf@counta=\count309
+\c@pgf@countb=\count310
+\c@pgf@countc=\count311
+\c@pgf@countd=\count312
+\t@pgf@toka=\toks32
+\t@pgf@tokb=\toks33
+\t@pgf@tokc=\toks34
+\pgf@sys@id@count=\count313
+ (D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count314
+\pgfsyssoftpath@bigbuffer@items=\count315
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcore.code.tex
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathutil.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathparser.code.tex
+\pgfmath@dimen=\dimen199
+\pgfmath@count=\count316
+\pgfmath@box=\box64
+\pgfmath@toks=\toks35
+\pgfmath@stack@operand=\toks36
+\pgfmath@stack@operation=\toks37
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.trigonometric.cod
+e.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.random.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.comparison.code.t
+ex) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.base.code.tex
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.round.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.misc.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.integerarithmetic
+s.code.tex) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathcalc.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count317
+))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfint.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen256
+\pgf@picmaxx=\dimen257
+\pgf@picminy=\dimen258
+\pgf@picmaxy=\dimen259
+\pgf@pathminx=\dimen260
+\pgf@pathmaxx=\dimen261
+\pgf@pathminy=\dimen262
+\pgf@pathmaxy=\dimen263
+\pgf@xx=\dimen264
+\pgf@xy=\dimen265
+\pgf@yx=\dimen266
+\pgf@yy=\dimen267
+\pgf@zx=\dimen268
+\pgf@zy=\dimen269
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathconstruct.code.te
+x
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen270
+\pgf@path@lasty=\dimen271
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen272
+\pgf@shorten@start@additional=\dimen273
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box65
+\pgf@hbox=\box66
+\pgf@layerbox@main=\box67
+\pgf@picture@serial@count=\count318
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen274
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransformations.code.
+tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen275
+\pgf@pt@y=\dimen276
+\pgf@pt@temp=\dimen277
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathprocessing.code.t
+ex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen278
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen279
+\pgf@sys@shading@range@num=\count319
+\pgf@shadingcount=\count320
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box68
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransparency.code.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/modules\pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box69
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/modules\pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-0-65.sty
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen280
+\pgf@nodesepend=\dimen281
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-1-18.sty
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/utilities\pgffor.sty
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/utilities\pgfkeys.sty
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/math\pgfmath.sty
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgffor.code.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen282
+\pgffor@skip=\dimen283
+\pgffor@stack=\toks38
+\pgffor@toks=\toks39
+))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/libraries\pgflibraryplothandlers.code.t
+ex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count321
+\pgfplotmarksize=\dimen284
+)
+\tikz@lastx=\dimen285
+\tikz@lasty=\dimen286
+\tikz@lastxsaved=\dimen287
+\tikz@lastysaved=\dimen288
+\tikz@lastmovetox=\dimen289
+\tikz@lastmovetoy=\dimen290
+\tikzleveldistance=\dimen291
+\tikzsiblingdistance=\dimen292
+\tikz@figbox=\box70
+\tikz@figbox@bg=\box71
+\tikz@tempbox=\box72
+\tikz@tempbox@bg=\box73
+\tikztreelevel=\count322
+\tikznumberofchildren=\count323
+\tikznumberofcurrentchild=\count324
+\tikz@fig@count=\count325
+ (D:\ProgramFiles\MiKTeX\tex/generic/pgf/modules\pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count326
+\pgfmatrixcurrentcolumn=\count327
+\pgf@matrix@numberofcolumns=\count328
+)
+\tikz@expandcount=\count329
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrar
+ytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (D:\ProgramFiles\MiKTeX\tex/latex/pgfplots\pgfplots.sty
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.revision.tex)
+Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotscore.code.tex
+\t@pgfplots@toka=\toks40
+\t@pgfplots@tokb=\toks41
+\t@pgfplots@tokc=\toks42
+\pgfplots@tmpa=\dimen293
+\c@pgfplots@coordindex=\count330
+\c@pgfplots@scanlineindex=\count331
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/sys\pgfplotssysgeneric.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/libs\pgfplotslibrary.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/oldpgfcompatib\pgfplotsoldpgfsupp_
+loader.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/libraries\pgflibraryfpu.code.tex)
+Package pgfplots: loading complementary utilities for your pgf version...
+\t@pgf@toka=\toks43
+\t@pgf@tokb=\toks44
+\t@pgf@tokc=\toks45
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/oldpgfcompatib\pgfplotsoldpgfsupp_
+pgfutil-common-lists.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotsutil.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsliststructur
+e.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsliststructur
+eext.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsarray.code.t
+ex
+\c@pgfplotsarray@tmp=\count332
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsmatrix.code.
+tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/numtable\pgfplotstableshared.code.
+tex
+\c@pgfplotstable@counta=\count333
+\t@pgfplotstable@a=\toks46
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsdeque.code.t
+ex) (D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotsbinary.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotsbinary.data.code.tex)
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotsutil.verb.code.tex)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/libs\pgflibrarypgfplots.surfshadin
+g.code.tex
+\c@pgfplotslibrarysurf@no=\count334
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/sys\pgflibrarypgfplots.surfshading
+.pgfsys-pdftex.def)))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotscolormap.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotscolor.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotsstackedplots.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotsplothandlers.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotsmeshplothandler.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotsmeshplotimage.code.tex)))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.scaling.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotscoordprocessing.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.errorbars.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.markers.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotsticks.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.paths.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrar
+ydecorations.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/modules\pgfmoduledecorations.code.tex
+\pgfdecoratedcompleteddistance=\dimen294
+\pgfdecoratedremainingdistance=\dimen295
+\pgfdecoratedinputsegmentcompleteddistance=\dimen296
+\pgfdecoratedinputsegmentremainingdistance=\dimen297
+\pgf@decorate@distancetomove=\dimen298
+\pgf@decorate@repeatstate=\count335
+\pgfdecorationsegmentamplitude=\dimen299
+\pgfdecorationsegmentlength=\dimen300
+)
+\tikz@lib@dec@box=\box74
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrar
+ydecorations.pathmorphing.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/libraries/decorations\pgflibrarydecorat
+ions.pathmorphing.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrar
+ydecorations.pathreplacing.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/libraries/decorations\pgflibrarydecorat
+ions.pathreplacing.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/libs\tikzlibrarypgfplots.contourlu
+a.code.tex)
+\pgfplots@numplots=\count336
+\pgfplots@xmin@reg=\dimen301
+\pgfplots@xmax@reg=\dimen302
+\pgfplots@ymin@reg=\dimen303
+\pgfplots@ymax@reg=\dimen304
+\pgfplots@zmin@reg=\dimen305
+\pgfplots@zmax@reg=\dimen306
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrar
+yplotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/libraries\pgflibraryplotmarks.code.tex
+File: pgflibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (D:\ProgramFiles\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2026-04-24 v7.01q Hypertext links for LaTeX
- (D:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty
+
+(D:\ProgramFiles\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
-) (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-) (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/generic/pdfescape\pdfescape.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pdfescape\pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
- (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+
+(D:\ProgramFiles\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-) (D:\Program Files\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
- (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/generic/infwarerr\infwarerr.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/infwarerr\infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)) (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/latex/hycolor\hycolor.sty
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (D:\Program Files\MiKTeX\tex/latex/hyperref\nameref.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
- (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/latex/refcount\refcount.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
- (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count309
-) (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/generic/stringenc\stringenc.sty
-Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
+\c@section@level=\count337
 )
-\@linkdim=\dimen187
-\Hy@linkcounter=\count310
-\Hy@pagecounter=\count311
- (D:\Program Files\MiKTeX\tex/latex/hyperref\pd1enc.def
+(D:\ProgramFiles\MiKTeX\tex/generic/stringenc\stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+\@linkdim=\dimen307
+\Hy@linkcounter=\count338
+\Hy@pagecounter=\count339
+
+(D:\ProgramFiles\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2026-04-24 v7.01q Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/generic/intcalc\intcalc.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count312
- (D:\Program Files\MiKTeX\tex/latex/hyperref\puenc.def
+\Hy@SavedSpaceFactor=\count340
+
+(D:\ProgramFiles\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2026-04-24 v7.01q Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -261,17 +663,20 @@ Package hyperref Info: Plain pages OFF on input line 4214.
 Package hyperref Info: Backreferencing OFF on input line 4219.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4466.
-\c@Hy@tempcnt=\count313
+\c@Hy@tempcnt=\count341
 LaTeX Info: Redefining \url on input line 4805.
-\XeTeXLinkMargin=\dimen188
- (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/generic/bitset\bitset.sty
+\XeTeXLinkMargin=\dimen308
+
+(D:\ProgramFiles\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
- (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
 ))
-\Fld@menulength=\count314
-\Field@Width=\dimen189
-\Fld@charsize=\dimen190
+\Fld@menulength=\count342
+\Field@Width=\dimen309
+\Fld@charsize=\dimen310
 Package hyperref Info: Hyper figures OFF on input line 6091.
 Package hyperref Info: Link nesting OFF on input line 6096.
 Package hyperref Info: Hyper index ON on input line 6099.
@@ -279,949 +684,3027 @@ Package hyperref Info: backreferencing OFF on input line 6106.
 Package hyperref Info: Link coloring OFF on input line 6111.
 Package hyperref Info: Link coloring with OCG OFF on input line 6116.
 Package hyperref Info: PDF/A mode OFF on input line 6121.
-\Hy@abspage=\count315
-\c@Item=\count316
-\c@Hfootnote=\count317
+\Hy@abspage=\count343
+\c@Item=\count344
+\c@Hfootnote=\count345
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
- (D:\Program Files\MiKTeX\tex/latex/hyperref\hpdftex.def
+
+(D:\ProgramFiles\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2026-04-24 v7.01q Hyperref driver for pdfTeX
-\Fld@listcount=\count318
-\c@bookmark@seq@number=\count319
- (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
+\Fld@listcount=\count346
+\c@bookmark@seq@number=\count347
+
+(D:\ProgramFiles\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
- (C:\Users\YuqiZhang_31408_i9\AppData\Roaming\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
+
+(D:\ProgramFiles\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+84.
 )
 \Hy@SectionHShift=\skip60
-) (e:\SWJTU\ComputerVision\article\build\main.aux)
+)
+(E:\SWJTU\ComputerVision\article\build\main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
- (D:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+
+(D:\ProgramFiles\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count320
-\scratchdimen=\dimen191
-\scratchbox=\box63
-\nofMPsegments=\count321
-\nofMParguments=\count322
-\everyMPshowfont=\toks28
-\MPscratchCnt=\count323
-\MPscratchDim=\dimen192
-\MPnumerator=\count324
-\makeMPintoPDFobject=\count325
-\everyMPtoPDFconversion=\toks29
-) (D:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+\scratchcounter=\count348
+\scratchdimen=\dimen311
+\scratchbox=\box75
+\nofMPsegments=\count349
+\nofMParguments=\count350
+\everyMPshowfont=\toks47
+\MPscratchCnt=\count351
+\MPscratchDim=\dimen312
+\MPnumerator=\count352
+\makeMPintoPDFobject=\count353
+\everyMPtoPDFconversion=\toks48
+) (D:\ProgramFiles\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (D:\Program Files\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(D:\ProgramFiles\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 21.
- (e:\SWJTU\ComputerVision\article\build\main.out) (e:\SWJTU\ComputerVision\article\build\main.out)
-\@outlinefile=\write4
-\openout4 = `main.out'.
+Package pgfplots notification 'compat/show suggested version=true': document ha
+s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
+
+Package hyperref Info: Link coloring OFF on input line 25.
+(E:\SWJTU\ComputerVision\article\build\main.out)
+(E:\SWJTU\ComputerVision\article\build\main.out)
+\@outlinefile=\write5
+\openout5 = `main.out'.
 
 
-Overfull \hbox (13.63466pt too wide) in paragraph at lines 39--39
-\T1/cmr/bx/n/12 Open-Vocabulary and Rea-son-ing Seg-men-ta-tion with Vision-Language
+Overfull \hbox (13.63466pt too wide) in paragraph at lines 43--43
+\T1/cmr/bx/n/12 Open-Vocabulary and Rea-son-ing Seg-men-ta-tion with Vision-Lan
+guage
  []
 
 [1
 
-{C:/Users/YuqiZhang_31408_i9/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 49.
- (D:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
+{C:/Users/YuqiZhang/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 53.
+
+
+(D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 49.
- (D:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
+LaTeX Font Info:    Trying to load font information for U+msb on input line 53.
+
+
+(D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (section/01_introduction.tex
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+)
+(section/01_introduction.tex
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.13 
-      [1
+l.6 
+     [1
 
 
-] [2]
-<Fig/intro_overview.png, id=254, 1927.2pt x 1084.05pt>
+]
+<Fig/Numberofpublications.png, id=272, 1792.44656pt x 1150.2975pt>
+File: Fig/Numberofpublications.png Graphic file (type png)
+<use Fig/Numberofpublications.png>
+Package pdftex.def Info: Fig/Numberofpublications.png  used on input line 11.
+(pdftex.def)             Requested size: 335.40024pt x 215.24146pt.
+ [2]
+<Fig/intro_overview.png, id=299, 1927.2pt x 1084.05pt>
 File: Fig/intro_overview.png Graphic file (type png)
 <use Fig/intro_overview.png>
-Package pdftex.def Info: Fig/intro_overview.png  used on input line 32.
-(pdftex.def)             Requested size: 390.0pt x 219.37006pt.
-) (section/02_background_objective.tex
-Overfull \hbox (1.17104pt too wide) in paragraph at lines 37--1
-\T1/cmr/m/n/12 vocabulary se-man-tic seg-men-ta-tion, diffusion-based seg-men-ta-tion, SAM-based
+Package pdftex.def Info: Fig/intro_overview.png  used on input line 20.
+(pdftex.def)             Requested size: 382.19833pt x 214.98662pt.
+ [3 <./Fig/Numberofpublications.png (PNG copy)>] [4 <./Fig/intro_overview.png>]
+) (section/02_background.tex [5] [6]
+<Fig/background_development_axes.pdf, id=382, 437.34828pt x 235.58948pt>
+File: Fig/background_development_axes.pdf Graphic file (type pdf)
+<use Fig/background_development_axes.pdf>
+Package pdftex.def Info: Fig/background_development_axes.pdf  used on input lin
+e 21.
+(pdftex.def)             Requested size: 382.19833pt x 205.88145pt.
+ [7] [8 <./Fig/background_development_axes.pdf>]
+<Fig/background_taxonomy.pdf, id=456, 641.75758pt x 328.86462pt>
+File: Fig/background_taxonomy.pdf Graphic file (type pdf)
+<use Fig/background_taxonomy.pdf>
+Package pdftex.def Info: Fig/background_taxonomy.pdf  used on input line 44.
+(pdftex.def)             Requested size: 382.19833pt x 195.85501pt.
+ [9]) (section/03_foundations.tex [10 <./Fig/background_taxonomy.pdf>] [11]
+<Fig/foundation_paradigms.pdf, id=522, 414.55879pt x 186.52887pt>
+File: Fig/foundation_paradigms.pdf Graphic file (type pdf)
+<use Fig/foundation_paradigms.pdf>
+Package pdftex.def Info: Fig/foundation_paradigms.pdf  used on input line 26.
+(pdftex.def)             Requested size: 382.19833pt x 171.97862pt.
+ [12 <./Fig/foundation_paradigms.pdf>] [13] [14] [15])
+(section/04_datasets_and_evaluation.tex
+Overfull \hbox (9.20644pt too wide) in paragraph at lines 8--9
+[]\T1/cmr/m/n/12 Open-vocabulary se-man-tic seg-men-ta-tion still re-lies heav-
+ily on clas-sic closed-
  []
-
-
-Overfull \hbox (4.29953pt too wide) in paragraph at lines 37--1
-\T1/cmr/m/n/12 prompt-able seg-men-ta-tion, uni-fied vision-language de-coders, and MLLM-based
- []
-
-[3 <./Fig/intro_overview.png>]
-
-Package natbib Warning: Citation `Long2015' on page 4 undefined on input line 12.
-
-
-Package natbib Warning: Citation `He2017' on page 4 undefined on input line 12.
-
-
-Package natbib Warning: Citation `Kirillov2019' on page 4 undefined on input line 12.
-
-[4]
-
-Package natbib Warning: Citation `Radford2021' on page 5 undefined on input line 26.
-
-
-Package natbib Warning: Citation `Liang2023' on page 5 undefined on input line 28.
-
-
-Package natbib Warning: Citation `Xu2023b' on page 5 undefined on input line 28.
-
-
-Package natbib Warning: Citation `Radford2021' on page 5 undefined on input line 49.
-
-
-Package natbib Warning: Citation `Liang2023' on page 5 undefined on input line 49.
-
-
-Package natbib Warning: Citation `Xu2023b' on page 5 undefined on input line 49.
-
-[5]
-
-Package natbib Warning: Citation `Kirillov2023' on page 6 undefined on input line 72.
-
-
-Package natbib Warning: Citation `Lai2024' on page 6 undefined on input line 73.
-
-[6] [7]
-
-Package natbib Warning: Citation `Lai2024' on page 8 undefined on input line 98.
-
-
-Package natbib Warning: Citation `Rasheed2024' on page 8 undefined on input line 106.
-
-
-Overfull \hbox (12.55667pt too wide) in paragraph at lines 116--120
-\T1/cmr/m/n/12 tween open-vocabulary seg-men-ta-tion and mul-ti-modal rea-son-ing sys-tems. Open-
- []
-
-[8]
-Overfull \hbox (12.13498pt too wide) in paragraph at lines 131--135
-\T1/cmr/m/n/12 vocabulary seg-men-ta-tion, diffusion-based open-vocabulary seg-men-ta-tion, SAM-
- []
-
-
-Overfull \hbox (1.04889pt too wide) in paragraph at lines 131--135
-\T1/cmr/m/n/12 based prompt-able and open-vocabulary seg-men-ta-tion, uni-fied vision-language
- []
-
-[9]
-
-LaTeX Warning: Reference `sec:datasets_metrics' on page 10 undefined on input line 177.
-
-
-LaTeX Warning: Reference `sec:future' on page 10 undefined on input line 179.
-
-) (section/03_method_taxonomy.tex [10]
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/bx/n/10 Representative
- []
-
-
-Underfull \hbox (badness 6188) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 CLIP-based open-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 OVSeg, SAN,
- []
-
-
-Underfull \hbox (badness 3108) in paragraph at lines 51--51
-\T1/cmr/m/n/10 level or pixel-level
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 Strong se-man-
- []
-
-
-Underfull \hbox (badness 6188) in paragraph at lines 51--51
-\T1/cmr/m/n/10 tic open-ness, but
- []
-
-
-Underfull \hbox (badness 2837) in paragraph at lines 51--51
-\T1/cmr/m/n/10 weak na-tive dense
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 Diffusion-based
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 Reuses in-ter-me-di-
- []
-
-
-Underfull \hbox (badness 5802) in paragraph at lines 51--51
-\T1/cmr/m/n/10 ate rep-re-sen-ta-tions
- []
-
-
-Underfull \hbox (badness 6995) in paragraph at lines 51--51
-\T1/cmr/m/n/10 from text-to-image
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 open-vocabulary
- []
-
-
-Underfull \hbox (badness 1769) in paragraph at lines 51--51
-\T1/cmr/m/n/10 panop-tic seg-men-ta-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 Rich spatial-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 semantic fea-tures,
- []
-
-
-Underfull \hbox (badness 7540) in paragraph at lines 51--51
-\T1/cmr/m/n/10 but high train-ing
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 SAM-based
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 prompt-able and
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 open-vocabulary
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 SAM, ESC-Net,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 Uses prompt-able
- []
-
-
-Underfull \hbox (badness 4144) in paragraph at lines 51--51
-\T1/cmr/m/n/10 or com-bines SAM
- []
-
-
-Underfull \hbox (badness 1314) in paragraph at lines 51--51
-\T1/cmr/m/n/10 with CLIP, DINO,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 and other vi-sion
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 High-quality mask
- []
-
-
-Underfull \hbox (badness 4060) in paragraph at lines 51--51
-\T1/cmr/m/n/10 pri-ors, but na-tive
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 Unified vision-
- []
-
-
-Underfull \hbox (badness 5490) in paragraph at lines 51--51
-\T1/cmr/m/n/10 de-coder for pixel-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 level, image-level,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 and language-level
- []
-
-
-Underfull \hbox (badness 4144) in paragraph at lines 51--51
-\T1/cmr/m/n/10 tion, but train-ing
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 MLLM-based
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 rea-son-ing seg-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 men-ta-tion and
- []
-
-
-Underfull \hbox (badness 1448) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 Connects language-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 gen-er-ated phrases
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 with seg-men-ta-tion
- []
-
-
-Underfull \hbox (badness 2980) in paragraph at lines 51--51
-\T1/cmr/m/n/10 de-coders for mask
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]|\T1/cmr/m/n/10 Supports com-plex
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 in-struc-tions and
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-\T1/cmr/m/n/10 ground-ing, but
- []
-
-
-Underfull \hbox (badness 3503) in paragraph at lines 51--51
-\T1/cmr/m/n/10 faces hal-lu-ci-na-tion,
- []
-
-
-Underfull \hbox (badness 1448) in paragraph at lines 51--51
-\T1/cmr/m/n/10 bound-ary ac-cu-racy,
- []
-
-[11] [12]
-
-Package natbib Warning: Citation `Liang2023' on page 13 undefined on input line 79.
-
-[13]
-Overfull \hbox (0.39629pt too wide) in paragraph at lines 92--95
-\T1/cmr/m/n/12 adaptation meth-ods in-tro-duce ad-di-tional lightweight mod-ules that help adapt
- []
-
-
-Package natbib Warning: Citation `Xu2023b' on page 14 undefined on input line 96.
-
-
-Overfull \hbox (14.23187pt too wide) in paragraph at lines 110--113
-\T1/cmr/m/n/12 tion can emerge from off-the-shelf vision-language mod-els with-out segmentation-
- []
-
-
-Overfull \hbox (2.37166pt too wide) in paragraph at lines 110--113
-\T1/cmr/m/n/12 specific train-ing. In-stead of train-ing a new adapter or mask clas-si-fier, training-
- []
-
-[14]
-
-Package natbib Warning: Citation `Luo2024' on page 15 undefined on input line 114.
-
-
-Overfull \hbox (21.83272pt too wide) in paragraph at lines 133--137
-[]\T1/cmr/m/n/12 Diffusion-based meth-ods pro-vide an-other im-por-tant route for open-vocabulary
- []
-
-
-Overfull \hbox (1.48451pt too wide) in paragraph at lines 133--137
-\T1/cmr/m/n/12 seg-men-ta-tion. Dif-fer-ent from CLIP-based meth-ods that mainly rely on image-
- []
-
-
-Overfull \hbox (12.33913pt too wide) in paragraph at lines 133--137
-\T1/cmr/m/n/12 text con-trastive align-ment, diffusion-based meth-ods ex-ploit the spatial-semantic
- []
-
-[15]
-
-Package natbib Warning: Citation `Xu2023a' on page 16 undefined on input line 150.
 
 [16]
-Overfull \hbox (1.8278pt too wide) in paragraph at lines 162--166
-[]\T1/cmr/m/n/12 Although dif-fu-sion mod-els con-tain use-ful spatial-semantic knowl-edge, they
+Overfull \hbox (1.56693pt too wide) in paragraph at lines 14--15
+\T1/cmr/m/n/12 uses an au-to-matic gen-er-a-tion pipeline to scale rea-son-ing 
+seg-men-ta-tion data ([]X
+ []
+
+[17]
+Overfull \hbox (27.03384pt too wide) in paragraph at lines 16--17
+\T1/cmr/m/n/12 fer be-yond static 2D nat-u-ral im-ages. Video datasets such as 
+Vi-CaS, VideoGLaMM,
+ []
+
+[18] [19] [20] [21]) (section/05_open_vocabulary_segmentation.tex [22] [23]
+
+pdfTeX warning: pdflatex (file ./Fig/fig_CLIPer.pdf): PDF inclusion: found PDF 
+version <1.6>, but at most version <1.5> allowed
+<Fig/fig_CLIPer.pdf, id=1152, 310.08247pt x 304.19547pt>
+File: Fig/fig_CLIPer.pdf Graphic file (type pdf)
+<use Fig/fig_CLIPer.pdf>
+Package pdftex.def Info: Fig/fig_CLIPer.pdf  used on input line 39.
+(pdftex.def)             Requested size: 382.19833pt x 374.9612pt.
+[24] [25 <./Fig/fig_CLIPer.pdf>]
+<Fig/fig_MASK.pdf, id=1200, 924.26984pt x 143.71573pt>
+File: Fig/fig_MASK.pdf Graphic file (type pdf)
+<use Fig/fig_MASK.pdf>
+Package pdftex.def Info: Fig/fig_MASK.pdf  used on input line 56.
+(pdftex.def)             Requested size: 382.19833pt x 59.42819pt.
+ [26 <./Fig/fig_MASK.pdf>]
+
+pdfTeX warning: pdflatex (file ./Fig/fig_USE.pdf): PDF inclusion: found PDF ver
+sion <1.6>, but at most version <1.5> allowed
+<Fig/fig_USE.pdf, id=1249, 180.08983pt x 75.75623pt>
+File: Fig/fig_USE.pdf Graphic file (type pdf)
+<use Fig/fig_USE.pdf>
+Package pdftex.def Info: Fig/fig_USE.pdf  used on input line 67.
+(pdftex.def)             Requested size: 382.19833pt x 160.79776pt.
+[27 <./Fig/fig_USE.pdf>]
+Overfull \hbox (2.68037pt too wide) in paragraph at lines 78--79
+\T1/cmr/m/n/12 tends this mo-ti-va-tion to-ward language-grounded hi-er-ar-chi-
+cal open-vocabulary
  []
 
+[28] [29]) (section/06_promptable_and_grounded_segmentation.tex [30]
+Overfull \hbox (0.26581pt too wide) in paragraph at lines 4--5
+[]\T1/cmr/m/n/12 The pre-vi-ous sec-tion re-viewed open-vocabulary seg-men-ta-t
+ion as the trans-
+ []
+
+[31]
+
+pdfTeX warning: pdflatex (file ./Fig/fig_SAM2.pdf): PDF inclusion: found PDF ve
+rsion <1.7>, but at most version <1.5> allowed
+<Fig/fig_SAM2.pdf, id=1420, 1273.75874pt x 321.2pt>
+File: Fig/fig_SAM2.pdf Graphic file (type pdf)
+<use Fig/fig_SAM2.pdf>
+Package pdftex.def Info: Fig/fig_SAM2.pdf  used on input line 35.
+(pdftex.def)             Requested size: 382.19833pt x 96.37544pt.
+
+Overfull \hbox (6.54301pt too wide) in paragraph at lines 43--44
+\T1/cmr/m/n/12 language-prompted set-tings. Sam-bor in-te-grates SAM with an op
+en-vocabulary
+ []
+
+
+Overfull \hbox (3.0597pt too wide) in paragraph at lines 43--44
+\T1/cmr/m/n/12 goes fur-ther by fram-ing prompt-able seg-men-ta-tion as a uni-f
+ied MLLM-centered
+ []
+
+[32 <./Fig/fig_SAM2.pdf>]
+<Fig/fig_DINO.pdf, id=1604, 1280.785pt x 882.29625pt>
+File: Fig/fig_DINO.pdf Graphic file (type pdf)
+<use Fig/fig_DINO.pdf>
+Package pdftex.def Info: Fig/fig_DINO.pdf  used on input line 54.
+(pdftex.def)             Requested size: 382.19833pt x 263.27733pt.
+ [33] [34 <./Fig/fig_DINO.pdf>]
+Overfull \hbox (4.67467pt too wide) in paragraph at lines 67--68
+\T1/cmr/m/n/12 Prompt-RIS bridges CLIP and SAM through cross-modal prompt-ing: 
+prompt-
+ []
+
+[35]
+
+pdfTeX warning: pdflatex (file ./Fig/fig_OneRef.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<Fig/fig_OneRef.pdf, id=1725, 550.49463pt x 201.00093pt>
+File: Fig/fig_OneRef.pdf Graphic file (type pdf)
+<use Fig/fig_OneRef.pdf>
+Package pdftex.def Info: Fig/fig_OneRef.pdf  used on input line 72.
+(pdftex.def)             Requested size: 382.19833pt x 139.55568pt.
+[36 <./Fig/fig_OneRef.pdf>]
+<Fig/fig_Glamm.pdf, id=1845, 1195.46625pt x 424.58624pt>
+File: Fig/fig_Glamm.pdf Graphic file (type pdf)
+<use Fig/fig_Glamm.pdf>
+Package pdftex.def Info: Fig/fig_Glamm.pdf  used on input line 90.
+(pdftex.def)             Requested size: 382.19833pt x 135.7408pt.
+ [37]
+Overfull \hbox (0.83513pt too wide) in paragraph at lines 102--103
+\T1/cmr/m/n/12 Prompt-RIS uses bidi-rec-tional cross-modal prompt-ing to pro-du
+ce bet-ter SAM
+ []
+
+[38 <./Fig/fig_Glamm.pdf>]
+Overfull \hbox (16.6835pt too wide) in paragraph at lines 110--111
+[]\T1/cmr/m/n/12 Second, the most com-mon ar-chi-tec-tural pat-tern is de-com-p
+o-si-tion. Grounded-
+ []
+
+
+Overfull \hbox (3.16779pt too wide) in paragraph at lines 110--111
+\T1/cmr/m/n/12 Re-fer-ring meth-ods de-com-pose ex-pres-sions into words, phras
+es, pri-mary nouns,
+ []
+
+
+Overfull \hbox (13.90549pt too wide) in paragraph at lines 112--113
+\T1/cmr/m/n/12 ences, grounded cap-tions, region-conditioned chat, and multi-tu
+rn video ground-
+ []
+
+[39]) (section/07_reasoning_segmentation.tex)
+(section/08_extended_scenarios.tex) (section/09_comparison_and_discussion.tex)
+(section/10_future_directions.tex) (section/11_conclusion.tex)
+(E:\SWJTU\ComputerVision\article\build\main.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 17--33
+\T1/cmtt/m/n/12 CVPR2025 / html / Athar _ ViCaS _ A _ Dataset _ for _ Combining
+ _ Holistic _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--33
+\T1/cmtt/m/n/12 and _ Pixel-[]level _ Video _ Understanding _ CVPR _ 2025 _ pap
+er . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Underfull \hbox (badness 1769) in paragraph at lines 17--33
+\T1/cmr/m/n/12 seg-men-ta-tion plus rea-son-ing/LLM/instruction sig-nal Source 
+re-jected
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--33
+\T1/cmr/m/n/12 file: gs_reasoning_seg_rejected_allowed_venue_topic.json Source
+ []
+
+
+Underfull \hbox (badness 2277) in paragraph at lines 17--33
+\T1/cmr/m/n/12 search pre-fix: gs_reasoning_seg Scholar meta-data: A Athar, X
+ []
+
+
+Underfull \hbox (badness 1231) in paragraph at lines 17--33
+\T1/cmr/m/n/12 Deng, LC Chen - Pro-ceed-ings of the Com-puter ..., 2025 - ope-
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 17--33
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 393 Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (271.79073pt too wide) in paragraph at lines 17--33
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Athar_ViCa
+S_A_Dataset_for_Combining_Holistic_and_Pixel-
+ []
+
+[40] [41]
+Underfull \hbox (badness 10000) in paragraph at lines 34--48
+\T1/cmr/m/n/12 URL: []$\T1/cmtt/m/n/12 https : / / proceedings . neurips . cc /
+ paper _ files / paper / 2024 /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--48
+\T1/cmtt/m/n/12 hash / 0cf3e7eefb9d643e93e16ff1d94090a7-[]Abstract-[]Conference
+ .
+ []
+
+
+Underfull \hbox (badness 1571) in paragraph at lines 34--48
+\T1/cmtt/m/n/12 html$[]\T1/cmr/m/n/12 , doi:[]$\T1/cmtt/m/n/12 10 . 52202 / 079
+017-[]0219$[]\T1/cmr/m/n/12 . data-CID: 0Aq59vR2oQkJ Google
+ []
+
+
+Underfull \hbox (badness 1067) in paragraph at lines 34--48
+\T1/cmr/m/n/12 Scholar cited by: 117 Fil-tered venue: NeurIPS Scholar meta-data
+:
+ []
+
+
+Overfull \hbox (112.4508pt too wide) in paragraph at lines 34--48
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2024/file/0cf3e
+7eefb9d643e93e16ff1d94090a7-
+ []
+
+
+Underfull \hbox (badness 2653) in paragraph at lines 49--62
+\T1/cmr/m/n/12 con-trast-ing, in: CVPR.  URL: []$\T1/cmtt/m/n/12 http : / / ope
+naccess . thecvf . com /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 49--62
+\T1/cmtt/m/n/12 content / CVPR2024 / html / Shang _ Prompt-[]Driven _ Referring
+ _ Image _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 49--62
+\T1/cmtt/m/n/12 Segmentation _ with _ Instance _ Contrasting _ CVPR _ 2024 _ pa
+per . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Overfull \hbox (8.7719pt too wide) in paragraph at lines 49--62
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2024/papers/Shang_Promp
+t-
+ []
+
+
+Overfull \hbox (122.41487pt too wide) in paragraph at lines 49--62
+\T1/cmr/m/n/12 Driven_Referring_Image_Segmentation_with_Instance_Contrasting_CV
+PR_2024_paper.pdf. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--84
+\T1/cmtt/m/n/12 Refer _ to _ Any _ Segmentation _ Mask _ Group _ With _ Vision-
+[]Language _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--84
+\T1/cmtt/m/n/12 Prompts _ ICCV _ 2025 _ paper . html$[]\T1/cmr/m/n/12 . data-CI
+D: zDgU6lq64O4J Google
+ []
+
+
+Underfull \hbox (badness 1424) in paragraph at lines 71--84
+\T1/cmr/m/n/12 Scholar cited by: 5 Fil-tered venue: ICCV Scholar meta-data: S
+ []
+
+
+Overfull \hbox (270.40501pt too wide) in paragraph at lines 71--84
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Cao_Refer_
+to_Any_Segmentation_Mask_Group_With_Vision-
+ []
+
+[42]
+Underfull \hbox (badness 1953) in paragraph at lines 85--98
+\T1/cmr/m/n/12 tailed 3D Re-fer-ring Ex-pres-sion Seg-men-ta-tion, in: AAAI.  U
+RL:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--112
+\T1/cmtt/m/n/12 com / content / CVPR2024 / html / Chng _ Mask _ Grounding _ for
+ _ Referring _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--112
+\T1/cmtt/m/n/12 Image _ Segmentation _ CVPR _ 2024 _ paper . html$[]\T1/cmr/m/n
+/12 . data-CID: 85RcUN-
+ []
+
+
+Overfull \hbox (393.68462pt too wide) in paragraph at lines 99--112
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2024/papers/Chng_Mask_
+Grounding_for_Referring_Image_Segmentation_CVPR_2024_paper.pdf. 
+ []
+
+
+Underfull \hbox (badness 2418) in paragraph at lines 125--141
+\T1/cmr/m/n/12 wis-dom in sam2 for text-driven video seg-men-ta-tion, in: CVPR.
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 125--141
+\T1/cmr/m/n/12 URL: []$\T1/cmtt/m/n/12 http : / / openaccess . thecvf . com / c
+ontent / CVPR2025 / html /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 125--141
+\T1/cmtt/m/n/12 Cuttano _ SAMWISE _ Infusing _ Wisdom _ in _ SAM2 _ for _ Text-
+[]Driven _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 125--141
+\T1/cmtt/m/n/12 Video _ Segmentation _ CVPR _ 2025 _ paper . html$[]\T1/cmr/m/n
+/12 . data-CID: vpg-MIs-
+ []
+
+
+Underfull \hbox (badness 4492) in paragraph at lines 125--141
+\T1/cmr/m/n/12 BFJ2YJ Google Scholar cited by: 46 Fil-tered venue: CVPR
+ []
+
+
+Underfull \hbox (badness 2368) in paragraph at lines 125--141
+\T1/cmr/m/n/12 Re-jected rea-son: al-lowed venue/year but ti-tle lacks ex-plici
+t seg-
+ []
+
+
+Underfull \hbox (badness 7468) in paragraph at lines 125--141
+\T1/cmr/m/n/12 men-ta-tion plus rea-son-ing/LLM/instruction sig-nal Source re-j
+ected
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 125--141
+\T1/cmr/m/n/12 file: gs_reasoning_seg_rejected_allowed_venue_topic.json Source
+ []
+
+
+Underfull \hbox (badness 3657) in paragraph at lines 125--141
+\T1/cmr/m/n/12 search pre-fix: gs_reasoning_seg Scholar meta-data: C Cut-tano,
+ []
+
+
+Underfull \hbox (badness 3428) in paragraph at lines 125--141
+\T1/cmr/m/n/12 G Triv-i-gno, G Rosi... - Pro-ceed-ings of the ..., 2025 - ope-
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 125--141
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 192 Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (254.906pt too wide) in paragraph at lines 125--141
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2025/papers/Cuttano_SAM
+WISE_Infusing_Wisdom_in_SAM2_for_Text-
+ []
+
+[43]
+Underfull \hbox (badness 2310) in paragraph at lines 142--154
+[]\T1/cmr/m/n/12 D Zhang, F Liu, Q Tang - ... Con-fer-ence on Com-puter Vi-sion
+,
+ []
+
+
+Underfull \hbox (badness 2245) in paragraph at lines 142--154
+\T1/cmr/m/n/12 2025, 2025.  Cor-rclip: Re-con-struct-ing patch cor-re-la-tions 
+in clip
+ []
+
+
+Underfull \hbox (badness 4353) in paragraph at lines 142--154
+\T1/cmr/m/n/12 for open-vocabulary se-man-tic seg-men-ta-tion, in: ICCV.  URL:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--154
+[]$\T1/cmtt/m/n/12 https : / / openaccess . thecvf . com / content / ICCV2025 /
+ html / Zhang _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--154
+\T1/cmtt/m/n/12 CorrCLIP _ Reconstructing _ Patch _ Correlations _ in _ CLIP _ 
+for _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--154
+\T1/cmtt/m/n/12 Open-[]Vocabulary _ Semantic _ Segmentation _ ICCV _ 2025 _ pap
+er . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Overfull \hbox (335.42099pt too wide) in paragraph at lines 142--154
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Zhang_Corr
+CLIP_Reconstructing_Patch_Correlations_in_CLIP_for_Open-
+ []
+
+
+Underfull \hbox (badness 1314) in paragraph at lines 155--167
+[]\T1/cmr/m/n/12 Dai, Q., Yang, S., 2024.  Cur-ricu-lum point prompt-ing for we
+akly-
+ []
+
+
+Underfull \hbox (badness 7397) in paragraph at lines 155--167
+\T1/cmr/m/n/12 supervised re-fer-ring im-age seg-men-ta-tion, in: CVPR.  URL:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 155--167
+[]$\T1/cmtt/m/n/12 http : / / openaccess . thecvf . com / content / CVPR2024 / 
+html / Dai _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 155--167
+\T1/cmtt/m/n/12 Curriculum _ Point _ Prompting _ for _ Weakly-[]Supervised _ Re
+ferring _
+ []
+
+
+Underfull \hbox (badness 1603) in paragraph at lines 155--167
+\T1/cmr/m/n/12 Q Dai, S Yang - Pro-ceed-ings of the IEEE/CVF Con-fer-ence ...,
+ []
+
+
+Overfull \hbox (190.58284pt too wide) in paragraph at lines 155--167
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2024/papers/Dai_Curric
+ulum_Point_Prompting_for_Weakly-
+ []
+
+
+Underfull \hbox (badness 2050) in paragraph at lines 168--186
+[]\T1/cmr/m/n/12 Deng, X., Yang, L., Yu, Q., Athar, A., 2026.  Coconut-pancap:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--186
+\T1/cmr/m/n/12 Joint panop-tic seg-men-ta-tion and grounded cap-tions for fine-
+
+ []
+
+
+Underfull \hbox (badness 7777) in paragraph at lines 168--186
+\T1/cmr/m/n/12 grained un-der-stand-ing and gen-er-a-tion, in: NeurIPS.  URL:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--186
+[]$\T1/cmtt/m/n/12 https : / / proceedings . neurips . cc / paper _ files / pap
+er / 2025 / hash /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--186
+\T1/cmtt/m/n/12 528470fcd715697580bc06a16f4129fd-[]Abstract-[]Datasets _ and _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--186
+\T1/cmtt/m/n/12 Benchmarks _ Track . html$[]\T1/cmr/m/n/12 , doi:[]$\T1/cmtt/m/
+n/12 10 . 48550 / arxiv . 2502 . 02589$[]\T1/cmr/m/n/12 . data-
+ []
+
+
+Underfull \hbox (badness 3029) in paragraph at lines 168--186
+\T1/cmr/m/n/12 CID: nLIl-hePi9ocJ Google Scholar cited by: 10 Fil-tered venue:
+ []
+
+
+Underfull \hbox (badness 2088) in paragraph at lines 168--186
+\T1/cmr/m/n/12 NeurIPS Re-jected rea-son: al-lowed venue/year but ti-tle lacks 
+ex-
+ []
+
+
+Underfull \hbox (badness 6575) in paragraph at lines 168--186
+\T1/cmr/m/n/12 plicit seg-men-ta-tion plus rea-son-ing/LLM/instruction sig-nal 
+Source
+ []
+
+
+Underfull \hbox (badness 7631) in paragraph at lines 168--186
+\T1/cmr/m/n/12 re-jected file: gs_reasoning_seg_rejected_allowed_venue_topic.js
+on
+ []
+
+
+Underfull \hbox (badness 6625) in paragraph at lines 168--186
+\T1/cmr/m/n/12 Source search pre-fix: gs_reasoning_seg Scholar meta-data: X
+ []
+
+
+Underfull \hbox (badness 3019) in paragraph at lines 168--186
+\T1/cmr/m/n/12 ceed-ings.neurips.cc Scholar re-sult num-ber: 452 Scholar full t
+ext:
+ []
+
+
+Overfull \hbox (117.99796pt too wide) in paragraph at lines 168--186
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2025/file/52847
+0fcd715697580bc06a16f4129fd-
+ []
+
+[44]
+Underfull \hbox (badness 4505) in paragraph at lines 212--225
+[]\T1/cmr/m/n/12 G Rosi, F Cer-melli - Pro-ceed-ings of the Com-puter Vi-sion .
+..,
+ []
+
+
+Underfull \hbox (badness 3354) in paragraph at lines 212--225
+\T1/cmr/m/n/12 2025, 2025.  Show or Tell? A Bench-mark To Eval-u-ate Vi-
+ []
+
+
+Underfull \hbox (badness 1412) in paragraph at lines 212--225
+\T1/cmr/m/n/12 sual and Tex-tual Prompts in Se-man-tic Seg-men-ta-tion, in: CVP
+R.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--225
+\T1/cmr/m/n/12 URL: []$\T1/cmtt/m/n/12 https : / / openaccess . thecvf . com / 
+content / CVPR2025W /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--225
+\T1/cmtt/m/n/12 PixFoundation / html / Rosi _ Show _ or _ Tell _ A _ Benchmark 
+_ To _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--225
+\T1/cmtt/m/n/12 Evaluate _ Visual _ and _ Textual _ CVPRW _ 2025 _ paper . html
+$[]\T1/cmr/m/n/12 . data-CID:
+ []
+
+
+Underfull \hbox (badness 1062) in paragraph at lines 212--225
+\T1/cmr/m/n/12 fZj2hH_rcqwJ Google Scholar cited by: 0 Fil-tered venue: CVPR
+ []
+
+
+Underfull \hbox (badness 2753) in paragraph at lines 212--225
+\T1/cmr/m/n/12 puter Vi-sion ..., 2025 - ope-nac-cess.thecvf.com Scholar full t
+ext:
+ []
+
+
+Overfull \hbox (557.45961pt too wide) in paragraph at lines 212--225
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025W/PixFoundation/pa
+pers/Rosi_Show_or_Tell_A_Benchmark_To_Evaluate_Visual_and_Textual_CVPRW_2025_pa
+per.pdf. 
+ []
+
+
+Underfull \hbox (badness 1292) in paragraph at lines 226--241
+\T1/cmr/m/n/12 24044.  URL: []$\T1/cmtt/m/n/12 https : / / openaccess . thecvf 
+. com / content / ICCV2025 /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--241
+\T1/cmtt/m/n/12 html / Ge _ CLIP-[]Adapted _ Region-[]to-[]Text _ Learning _ fo
+r _ Generative _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--241
+\T1/cmtt/m/n/12 Open-[]Vocabulary _ Semantic _ Segmentation _ ICCV _ 2025 _ pap
+er . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Underfull \hbox (badness 2970) in paragraph at lines 226--241
+\T1/cmr/m/n/12 Region-to-Text Learn-ing for Gen-er-a-tive Open-Vocabulary Se-ma
+n-tic
+ []
+
+
+Underfull \hbox (badness 1661) in paragraph at lines 226--241
+\T1/cmr/m/n/12 Seg-men-ta-tion[C]//Proceedings of the IEEE/CVF In-ter-na-tional
+ Con-
+ []
+
+
+Underfull \hbox (badness 1147) in paragraph at lines 226--241
+\T1/cmr/m/n/12 fer-ence on Com-puter Vi-sion. 2025: 24034-24044. Scholar full t
+ext:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--241
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Ge_CLIP-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--241
+\T1/cmr/m/n/12 Adapted_Region-to-Text_Learning_for_Generative_Open-
+ []
+
+[45]
+Underfull \hbox (badness 2828) in paragraph at lines 242--261
+\T1/cmr/m/n/12 X Zhou, L Hong, Z Chen, J Li... - Pro-ceed-ings of the ...,
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 242--261
+\T1/cmr/m/n/12 2026 - ojs.aaai.org Scholar re-sult num-ber: 330 Scholar full te
+xt:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 262--276
+\T1/cmr/m/n/12 URL: []$\T1/cmtt/m/n/12 https : / / proceedings . neurips . cc /
+ paper _ files / paper / 2024 /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 262--276
+\T1/cmtt/m/n/12 hash / a124b5e7385d35e5c8ad05d192106e19-[]Abstract-[]Conference
+ .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 262--276
+\T1/cmtt/m/n/12 html$[]\T1/cmr/m/n/12 , doi:[]$\T1/cmtt/m/n/12 10 . 48550 / arx
+iv . 2403 . 09593$[]\T1/cmr/m/n/12 . data-CID: XKV7O92g31sJ
+ []
+
+
+Underfull \hbox (badness 4726) in paragraph at lines 262--276
+\T1/cmr/m/n/12 Google Scholar cited by: 7 Fil-tered venue: NeurIPS Scholar
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 262--276
+\T1/cmr/m/n/12 meta-data: H Huang, S Peng, D Zhang... - Ad-vances in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 262--276
+\T1/cmr/m/n/12 Neu-ral ..., 2024 - pro-ceed-ings.neurips.cc Scholar full text:
+ []
+
+
+Overfull \hbox (123.8716pt too wide) in paragraph at lines 262--276
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2024/file/a124b
+5e7385d35e5c8ad05d192106e19-
+ []
+
+
+Underfull \hbox (badness 6236) in paragraph at lines 277--291
+\T1/cmtt/m/n/12 39822$[]\T1/cmr/m/n/12 , doi:[]$\T1/cmtt/m/n/12 10 . 1609 / aaa
+i . v40i31 . 39822$[]\T1/cmr/m/n/12 . data-CID: p8FLqpdytGoJ
+ []
+
+
+Underfull \hbox (badness 1303) in paragraph at lines 277--291
+\T1/cmr/m/n/12 Google Scholar cited by: 7 Fil-tered venue: AAAI Scholar meta-
+ []
+
+
+Underfull \hbox (badness 8113) in paragraph at lines 277--291
+\T1/cmr/m/n/12 data: H Wang, L Qiao, Z Jie, Z Huang, C Feng... -
+ []
+
+
+Underfull \hbox (badness 6592) in paragraph at lines 277--291
+\T1/cmr/m/n/12 Pro-ceed-ings of the ..., 2026 - ojs.aaai.org Scholar full text:
+
+ []
+
+
+Underfull \hbox (badness 4341) in paragraph at lines 292--309
+\T1/cmr/m/n/12 Suite: Mea-sur-ing Com-plex Multi-Granular Pixel Ground-ing, in:
+
+ []
+
+
+Underfull \hbox (badness 1158) in paragraph at lines 292--309
+\T1/cmr/m/n/12 ICCV.  URL: []$\T1/cmtt/m/n/12 https : / / openaccess . thecvf .
+ com / content / ICCV2025 /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 292--309
+\T1/cmtt/m/n/12 html / Hu _ GroundingSuite _ Measuring _ Complex _ Multi-[]Gran
+ular _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 292--309
+\T1/cmtt/m/n/12 Pixel _ Grounding _ ICCV _ 2025 _ paper . html$[]\T1/cmr/m/n/12
+ . data-CID: eS-uyJ242FeYJ
+ []
+
+
+Underfull \hbox (badness 6316) in paragraph at lines 292--309
+\T1/cmr/m/n/12 Google Scholar cited by: 6 Fil-tered venue: ICCV Re-jected
+ []
+
+
+Underfull \hbox (badness 7851) in paragraph at lines 292--309
+\T1/cmr/m/n/12 rea-son: al-lowed venue/year but ti-tle lacks ex-plicit seg-men-
+ta-
+ []
+
+
+Underfull \hbox (badness 8038) in paragraph at lines 292--309
+\T1/cmr/m/n/12 tion plus rea-son-ing/LLM/instruction sig-nal Source re-jected f
+ile:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 292--309
+\T1/cmr/m/n/12 gs_reasoning_seg_rejected_allowed_venue_topic.json Source search
+
+ []
+
+
+Underfull \hbox (badness 2941) in paragraph at lines 292--309
+\T1/cmr/m/n/12 pre-fix: gs_reasoning_seg Scholar meta-data: R Hu, L Zhu, Y
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 292--309
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 680 Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (189.58455pt too wide) in paragraph at lines 292--309
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Hu_Groundi
+ngSuite_Measuring_Complex_Multi-
+ []
+
+[46]
+Underfull \hbox (badness 10000) in paragraph at lines 310--327
+\T1/cmr/m/n/12 URL: []$\T1/cmtt/m/n/12 https : / / proceedings . neurips . cc /
+ paper _ files / paper / 2025 /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 310--327
+\T1/cmtt/m/n/12 hash / a78b27a56bf8505f96710e9ffa9d5edf-[]Abstract-[]Datasets _
+ and _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 310--327
+\T1/cmtt/m/n/12 Benchmarks _ Track . html$[]\T1/cmr/m/n/12 , doi:[]$\T1/cmtt/m/
+n/12 10 . 48550 / arxiv . 2507 . 07781$[]\T1/cmr/m/n/12 . data-
+ []
+
+
+Underfull \hbox (badness 2644) in paragraph at lines 310--327
+\T1/cmr/m/n/12 CID: xmfpP5FPaIIJ Google Scholar cited by: 8 Fil-tered venue:
+ []
+
+
+Underfull \hbox (badness 2088) in paragraph at lines 310--327
+\T1/cmr/m/n/12 NeurIPS Re-jected rea-son: al-lowed venue/year but ti-tle lacks 
+ex-
+ []
+
+
+Underfull \hbox (badness 6575) in paragraph at lines 310--327
+\T1/cmr/m/n/12 plicit seg-men-ta-tion plus rea-son-ing/LLM/instruction sig-nal 
+Source
+ []
+
+
+Underfull \hbox (badness 7631) in paragraph at lines 310--327
+\T1/cmr/m/n/12 re-jected file: gs_reasoning_seg_rejected_allowed_venue_topic.js
+on
+ []
+
+
+Underfull \hbox (badness 7540) in paragraph at lines 310--327
+\T1/cmr/m/n/12 Source search pre-fix: gs_reasoning_seg Scholar meta-data: J
+ []
+
+
+Underfull \hbox (badness 3019) in paragraph at lines 310--327
+\T1/cmr/m/n/12 ceed-ings.neurips.cc Scholar re-sult num-ber: 111 Scholar full t
+ext:
+ []
+
+
+Overfull \hbox (113.4297pt too wide) in paragraph at lines 310--327
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2025/file/a78b2
+7a56bf8505f96710e9ffa9d5edf-
+ []
+
+
+Underfull \hbox (badness 3769) in paragraph at lines 328--346
+\T1/cmr/m/n/12 World Re-fer-ring Ex-pres-sion Com-pre-hen-sion, in: AAAI.  URL:
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 328--346
+[]$\T1/cmtt/m/n/12 https : / / ojs . aaai . org / index . php / AAAI / article 
+/ view / 37419$[]\T1/cmr/m/n/12 ,
+ []
+
+
+Underfull \hbox (badness 3838) in paragraph at lines 328--346
+\T1/cmr/m/n/12 doi:[]$\T1/cmtt/m/n/12 10 . 1609 / aaai . v40i7 . 37419$[]\T1/cm
+r/m/n/12 . data-CID: 0-UgPRupGVMJ Google
+ []
+
+
+Underfull \hbox (badness 3219) in paragraph at lines 328--346
+\T1/cmr/m/n/12 Scholar cited by: Fil-tered venue: AAAI Re-jected rea-son: al-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 328--346
+\T1/cmr/m/n/12 gs_ris_20260522_rejected_allowed_venue_topic.json Source search
+ []
+
+
+Underfull \hbox (badness 2452) in paragraph at lines 328--346
+\T1/cmr/m/n/12 pre-fix: gs_ris_20260522 Scholar meta-data: L Huang, S Zhong,
+ []
+
+
+Underfull \hbox (badness 1122) in paragraph at lines 328--346
+\T1/cmr/m/n/12 Z Zhang, Y Liu - ... of the AAAI Con-fer-ence on Ar-ti-fi-cial .
+..,
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 328--346
+\T1/cmr/m/n/12 2026 - ojs.aaai.org Scholar re-sult num-ber: 206 Scholar full te
+xt:
+ []
+
+[47]
+Underfull \hbox (badness 1184) in paragraph at lines 347--363
+[]\T1/cmr/m/n/12 Huang, S., He, S., Wen, B., 2025a.  ZoRI: To-wards dis-crim-i-
+na-tive
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 347--363
+[]$\T1/cmtt/m/n/12 https : / / ojs . aaai . org / index . php / AAAI / article 
+/ view / 32388$[]\T1/cmr/m/n/12 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 347--363
+\T1/cmr/m/n/12 doi:[]$\T1/cmtt/m/n/12 10 . 1609 / aaai . v39i4 . 32388$[]\T1/cm
+r/m/n/12 . data-CID: AatH0Y1rAlcJ Google
+ []
+
+
+Underfull \hbox (badness 1137) in paragraph at lines 347--363
+\T1/cmr/m/n/12 Scholar cited by: 12 Fil-tered venue: AAAI Re-jected rea-son: al
+-
+ []
+
+
+Underfull \hbox (badness 1596) in paragraph at lines 347--363
+\T1/cmr/m/n/12 lowed venue/year but ti-tle not di-rect vision-language seg-men-
+ta-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 347--363
+\T1/cmr/m/n/12 Source re-jected file: gs_vlseg_rejected_allowed_venue_topic.jso
+n
+ []
+
+
+Underfull \hbox (badness 7081) in paragraph at lines 347--363
+\T1/cmr/m/n/12 Source search pre-fix: gs_vlseg Scholar meta-data: S Huang,
+ []
+
+
+Underfull \hbox (badness 3323) in paragraph at lines 347--363
+\T1/cmr/m/n/12 S He, B Wen - Pro-ceed-ings of the AAAI Con-fer-ence on ...,
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 347--363
+\T1/cmr/m/n/12 2025 - ojs.aaai.org Scholar re-sult num-ber: 406 Scholar full te
+xt:
+ []
+
+
+Underfull \hbox (badness 6542) in paragraph at lines 364--382
+[]\T1/cmr/m/n/12 Huang, S., Ling, R., Li, H., Hui, T., Tang, Z., Wei, X.,
+ []
+
+
+Underfull \hbox (badness 1102) in paragraph at lines 364--382
+\T1/cmr/m/n/12 Google Scholar cited by: 22 Fil-tered venue: AAAI Re-jected rea-
+
+ []
+
+
+Underfull \hbox (badness 1540) in paragraph at lines 364--382
+\T1/cmr/m/n/12 son: al-lowed venue/year but ti-tle not strict RIS/RES Source re
+-
+ []
+
+
+Underfull \hbox (badness 2772) in paragraph at lines 364--382
+\T1/cmr/m/n/12 search pre-fix: gs_ris_20260522 Scholar meta-data: S Huang, R
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 364--382
+\T1/cmr/m/n/12 2025 - ojs.aaai.org Scholar re-sult num-ber: 688 Scholar full te
+xt:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 383--400
+\T1/cmr/m/n/12 URL: []$\T1/cmtt/m/n/12 https : / / openaccess . thecvf . com / 
+content / ICCV2025 / html /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 383--400
+\T1/cmtt/m/n/12 Huang _ Inter2Former _ Dynamic _ Hybrid _ Attention _ for _ Eff
+icient _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 383--400
+\T1/cmtt/m/n/12 High-[]Precision _ Interactive _ Segmentation _ ICCV _ 2025 _ p
+aper . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Underfull \hbox (badness 1189) in paragraph at lines 383--400
+\T1/cmr/m/n/12 ICCV Re-jected rea-son: al-lowed venue/year but ti-tle lacks ex-
+plicit
+ []
+
+
+Underfull \hbox (badness 1769) in paragraph at lines 383--400
+\T1/cmr/m/n/12 seg-men-ta-tion plus rea-son-ing/LLM/instruction sig-nal Source 
+re-jected
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 383--400
+\T1/cmr/m/n/12 file: gs_reasoning_seg_rejected_allowed_venue_topic.json Source
+ []
+
+
+Underfull \hbox (badness 5756) in paragraph at lines 383--400
+\T1/cmr/m/n/12 search pre-fix: gs_reasoning_seg Scholar meta-data: Y Huang,
+ []
+
+
+Underfull \hbox (badness 1681) in paragraph at lines 383--400
+\T1/cmr/m/n/12 L Chen, J Ji, L Cao... - Pro-ceed-ings of the ..., 2025 - ope-
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 383--400
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 695 Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (306.40594pt too wide) in paragraph at lines 383--400
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Huang_Inte
+r2Former_Dynamic_Hybrid_Attention_for_Efficient_High-
+ []
+
+[48]
+Underfull \hbox (badness 10000) in paragraph at lines 401--417
+\T1/cmtt/m/n/12 / / openaccess . thecvf . com / content / CVPR2024 / html / Hua
+ng _ FocSAM _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 401--417
+\T1/cmtt/m/n/12 Delving _ Deeply _ into _ Focused _ Objects _ in _ Segmenting _
+ Anything _
+ []
+
+
+Underfull \hbox (badness 7631) in paragraph at lines 401--417
+\T1/cmr/m/n/12 re-jected file: gs_reasoning_seg_rejected_allowed_venue_topic.js
+on
+ []
+
+
+Underfull \hbox (badness 1442) in paragraph at lines 401--417
+\T1/cmr/m/n/12 Z Lan, L Cao, X Lin... - Pro-ceed-ings of the ..., 2024 - ope-
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 401--417
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 751 Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (514.48686pt too wide) in paragraph at lines 401--417
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2024/papers/Huang_FocSA
+M_Delving_Deeply_into_Focused_Objects_in_Segmenting_Anything_CVPR_2024_paper.pd
+f. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 418--429
+\T1/cmtt/m/n/12 CVPR2024W / MMFM / html / Wang _ LLM-[]Seg _ Bridging _ Image _
+ Segmentation _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 418--429
+\T1/cmtt/m/n/12 and _ Large _ Language _ Model _ Reasoning _ CVPRW _ 2024 _ pap
+er . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Overfull \hbox (55.47015pt too wide) in paragraph at lines 418--429
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2024W/MMFM/papers/Wang
+_LLM-
+ []
+
+
+Overfull \hbox (186.6242pt too wide) in paragraph at lines 418--429
+\T1/cmr/m/n/12 Seg_Bridging_Image_Segmentation_and_Large_Language_Model_Reasoni
+ng_CVPRW_2024_paper.pdf. 
+ []
+
+
+Underfull \hbox (badness 1661) in paragraph at lines 430--447
+\T1/cmr/m/n/12 CVPR.  URL: []$\T1/cmtt/m/n/12 http : / / openaccess . thecvf . 
+com / content / CVPR2025 /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--447
+\T1/cmtt/m/n/12 html / Jose _ DINOv2 _ Meets _ Text _ A _ Unified _ Framework _
+ for _ Image-[] _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--447
+\T1/cmtt/m/n/12 and _ Pixel-[]Level _ CVPR _ 2025 _ paper . html$[]\T1/cmr/m/n/
+12 . data-CID: lmy56tZ5lCwJ
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--447
+\T1/cmr/m/n/12 Source re-jected file: gs_vlseg_rejected_allowed_venue_topic.jso
+n
+ []
+
+
+Underfull \hbox (badness 4316) in paragraph at lines 430--447
+\T1/cmr/m/n/12 Source search pre-fix: gs_vlseg Scholar meta-data: C Jose, T
+ []
+
+
+Underfull \hbox (badness 2913) in paragraph at lines 430--447
+\T1/cmr/m/n/12 Moutakanni, D Kang... - Pro-ceed-ings of the ..., 2025 - ope-
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 430--447
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 133 Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (273.24881pt too wide) in paragraph at lines 430--447
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Jose_DINOv
+2_Meets_Text_A_Unified_Framework_for_Image-
+ []
+
+[49]
+Underfull \hbox (badness 2556) in paragraph at lines 480--494
+\T1/cmr/m/n/12 2025.  Cliper: Hi-er-ar-chi-cally im-prov-ing spa-tial rep-re-se
+n-ta-tion of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 480--494
+[]$\T1/cmtt/m/n/12 https : / / openaccess . thecvf . com / content / ICCV2025 /
+ html / Sun _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 480--494
+\T1/cmtt/m/n/12 CLIPer _ Hierarchically _ Improving _ Spatial _ Representation 
+_ of _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 480--494
+\T1/cmtt/m/n/12 CLIP _ for _ Open-[]Vocabulary _ Semantic _ ICCV _ 2025 _ paper
+ . html$[]\T1/cmr/m/n/12 . data-
+ []
+
+
+Overfull \hbox (384.45898pt too wide) in paragraph at lines 480--494
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Sun_CLIPer
+_Hierarchically_Improving_Spatial_Representation_of_CLIP_for_Open-
+ []
+
+
+Underfull \hbox (badness 1533) in paragraph at lines 505--520
+\T1/cmtt/m/n/12 1609 / aaai . v40i8 . 37521$[]\T1/cmr/m/n/12 . data-CID: ZSKbg9
+XpMq0J Google Scholar
+ []
+
+
+Underfull \hbox (badness 2073) in paragraph at lines 505--520
+\T1/cmr/m/n/12 H, Zhang D, et al. Ex-plor-ing ef-fi-cient open-vocabulary seg-m
+en-ta-
+ []
+
+[50]
+Underfull \hbox (badness 10000) in paragraph at lines 532--545
+[]$\T1/cmtt/m/n/12 https : / / openaccess . thecvf . com / content / ICCV2025 /
+ html / Liang _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 532--545
+\T1/cmtt/m/n/12 ReferDINO _ Referring _ Video _ Object _ Segmentation _ with _ 
+Visual _
+ []
+
+
+Overfull \hbox (583.3187pt too wide) in paragraph at lines 532--545
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Liang_Refe
+rDINO_Referring_Video_Object_Segmentation_with_Visual_Grounding_Foundations_ICC
+V_2025_paper.pdf. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 568--581
+\T1/cmtt/m/n/12 Hybrid _ Global-[]Local _ Representation _ with _ Augmented _ S
+patial _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 568--581
+\T1/cmtt/m/n/12 Guidance _ for _ Zero-[]Shot _ Referring _ CVPR _ 2025 _ paper 
+. html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 568--581
+\T1/cmr/m/n/12 data-CID: bwiOb6alS2gJ Google Scholar cited by: 14 Fil-
+ []
+
+
+Underfull \hbox (badness 4108) in paragraph at lines 568--581
+\T1/cmr/m/n/12 tered venue: CVPR Scholar meta-data: T Liu, S Li - Pro-
+ []
+
+
+Underfull \hbox (badness 3826) in paragraph at lines 568--581
+\T1/cmr/m/n/12 ceed-ings of the IEEE/CVF Con-fer-ence on ..., 2025 - ope-nac-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 568--581
+\T1/cmr/m/n/12 cess.thecvf.com Scholar re-sult num-ber: 58 Scholar full text:
+ []
+
+
+Overfull \hbox (38.93387pt too wide) in paragraph at lines 568--581
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Liu_Hybrid
+_Global-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 568--581
+\T1/cmr/m/n/12 Local_Representation_with_Augmented_Spatial_Guidance_for_Zero-
+ []
+
+[51]
+Underfull \hbox (badness 10000) in paragraph at lines 582--597
+\T1/cmtt/m/n/12 / / openaccess . thecvf . com / content / CVPR2025 / html / Liu
+ _ Towards _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 582--597
+\T1/cmtt/m/n/12 Efficient _ Foundation _ Model _ for _ Zero-[]shot _ Amodal _ S
+egmentation _
+ []
+
+
+Underfull \hbox (badness 7631) in paragraph at lines 582--597
+\T1/cmr/m/n/12 re-jected file: gs_reasoning_seg_rejected_allowed_venue_topic.js
+on
+ []
+
+
+Underfull \hbox (badness 1231) in paragraph at lines 582--597
+\T1/cmr/m/n/12 Source search pre-fix: gs_reasoning_seg Scholar meta-data: Z Liu
+,
+ []
+
+
+Underfull \hbox (badness 1137) in paragraph at lines 582--597
+\T1/cmr/m/n/12 L Qiao, X Chu, L Ma... - Pro-ceed-ings of the ..., 2025 - ope-
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 582--597
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 639 Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (217.7318pt too wide) in paragraph at lines 582--597
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Liu_Toward
+s_Efficient_Foundation_Model_for_Zero-
+ []
+
+
+Underfull \hbox (badness 4193) in paragraph at lines 606--623
+\T1/cmr/m/n/12 the Dots: Training-Free Vi-sual Ground-ing via Agen-tic Rea-son-
+
+ []
+
+
+Underfull \hbox (badness 2951) in paragraph at lines 606--623
+\T1/cmr/m/n/12 ing, in: AAAI.  URL: []$\T1/cmtt/m/n/12 https : / / ojs . aaai .
+ org / index . php / AAAI /
+ []
+
+
+Underfull \hbox (badness 2042) in paragraph at lines 606--623
+\T1/cmr/m/n/12 by: Fil-tered venue: AAAI Re-jected rea-son: al-lowed venue/year
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 606--623
+\T1/cmr/m/n/12 but ti-tle not strict MLLM seg-men-ta-tion Source re-jected file
+:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 606--623
+\T1/cmr/m/n/12 gs_mllmseg_20260522_rejected_allowed_venue_topic.json Source
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 606--623
+\T1/cmr/m/n/12 2026 - ojs.aaai.org Scholar re-sult num-ber: 923 Scholar full te
+xt:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 624--638
+\T1/cmtt/m/n/12 com / content / CVPR2025 / html / Lee _ Effective _ SAM _ Combi
+nation _ for _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 624--638
+\T1/cmtt/m/n/12 Open-[]Vocabulary _ Semantic _ Segmentation _ CVPR _ 2025 _ pap
+er . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Overfull \hbox (175.40749pt too wide) in paragraph at lines 624--638
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Lee_Effect
+ive_SAM_Combination_for_Open-
+ []
+
+[52]
+Underfull \hbox (badness 10000) in paragraph at lines 639--653
+\T1/cmtt/m/n/12 / / openaccess . thecvf . com / content / CVPR2025W / PixFounda
+tion / html /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 639--653
+\T1/cmtt/m/n/12 Aydin _ ITACLIP _ Boosting _ Training-[]Free _ Semantic _ Segme
+ntation _
+ []
+
+
+Underfull \hbox (badness 1448) in paragraph at lines 639--653
+\T1/cmtt/m/n/12 with _ Image _ Text _ and _ Architectural _ CVPRW _ 2025 _ pape
+r . html$[]\T1/cmr/m/n/12 . data-
+ []
+
+
+Overfull \hbox (221.95291pt too wide) in paragraph at lines 639--653
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025W/PixFoundation/pa
+pers/Aydin_ITACLIP_Boosting_Training-
+ []
+
+
+Overfull \hbox (135.8241pt too wide) in paragraph at lines 639--653
+\T1/cmr/m/n/12 Free_Semantic_Segmentation_with_Image_Text_and_Architectural_CVP
+RW_2025_paper.pdf. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 664--680
+\T1/cmtt/m/n/12 html / Munasinghe _ VideoGLaMM _ _A _ Large _ Multimodal _ Mode
+l _ for _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 664--680
+\T1/cmtt/m/n/12 Pixel-[]Level _ Visual _ Grounding _ CVPR _ 2025 _ paper . html
+$[]\T1/cmr/m/n/12 . data-CID:
+ []
+
+
+Underfull \hbox (badness 2368) in paragraph at lines 664--680
+\T1/cmr/m/n/12 Re-jected rea-son: al-lowed venue/year but ti-tle lacks ex-plici
+t seg-
+ []
+
+
+Underfull \hbox (badness 7468) in paragraph at lines 664--680
+\T1/cmr/m/n/12 men-ta-tion plus rea-son-ing/LLM/instruction sig-nal Source re-j
+ected
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 664--680
+\T1/cmr/m/n/12 file: gs_reasoning_seg_rejected_allowed_venue_topic.json Source
+ []
+
+
+Underfull \hbox (badness 1082) in paragraph at lines 664--680
+\T1/cmr/m/n/12 search pre-fix: gs_reasoning_seg Scholar meta-data: S Mu-nas-ing
+he,
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 664--680
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 510 Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (311.76434pt too wide) in paragraph at lines 664--680
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Munasinghe
+_VideoGLaMM__A_Large_Multimodal_Model_for_Pixel-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 681--697
+[]\T1/cmr/m/n/12 Noori M, Os-owiechi D, Var-gas Hakim G, 2026.  Test-time
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 681--697
+\T1/cmr/m/n/12 adap-ta-tion of vision-language mod-els for open-vocabulary se-
+ []
+
+
+Underfull \hbox (badness 6842) in paragraph at lines 681--697
+\T1/cmr/m/n/12 man-tic seg-men-ta-tion, in: NeurIPS, pp. 74741--74778.  URL:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 681--697
+[]$\T1/cmtt/m/n/12 https : / / proceedings . neurips . cc / paper _ files / pap
+er / 2025 / hash /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 681--697
+\T1/cmtt/m/n/12 6c5b82193c5d8e6aa5806239676ddc97-[]Abstract-[]Conference . html
+$[]\T1/cmr/m/n/12 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 681--697
+\T1/cmr/m/n/12 doi:[]$\T1/cmtt/m/n/12 10 . 48550 / arxiv . 2505 . 21844$[]\T1/c
+mr/m/n/12 . data-CID: 4Zt5bfZZZwkJ Google
+ []
+
+
+Overfull \hbox (123.87154pt too wide) in paragraph at lines 681--697
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2025/file/6c5b8
+2193c5d8e6aa5806239676ddc97-
+ []
+
+[53]
+Underfull \hbox (badness 1043) in paragraph at lines 698--714
+[]\T1/cmr/m/n/12 Peng, Z., Wang, W., Dong, L., Hao, Y., 2024.  Ground-ing mul-t
+i-
+ []
+
+
+Underfull \hbox (badness 2689) in paragraph at lines 698--714
+\T1/cmr/m/n/12 modal large lan-guage mod-els to the world, in: ICLR.  URL:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 698--714
+[]$\T1/cmtt/m/n/12 https : / / proceedings . iclr . cc / paper _ files / paper 
+/ 2024 / hash /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 698--714
+\T1/cmtt/m/n/12 e112a4671e8779aa9f640a0e3f81bd26-[]Abstract-[]Conference . html
+$[]\T1/cmr/m/n/12 ,
+ []
+
+
+Underfull \hbox (badness 3058) in paragraph at lines 698--714
+\T1/cmr/m/n/12 doi:[]$\T1/cmtt/m/n/12 10 . 48550 / arxiv . 2306 . 14824$[]\T1/c
+mr/m/n/12 . data-CID: hQsLFD93VtYJ Google
+ []
+
+
+Underfull \hbox (badness 1888) in paragraph at lines 698--714
+\T1/cmr/m/n/12 lowed venue/year but ti-tle not strict MLLM seg-men-ta-tion Sour
+ce
+ []
+
+
+Underfull \hbox (badness 1701) in paragraph at lines 698--714
+\T1/cmr/m/n/12 Source search pre-fix: gs_mllmseg_20260522 Scholar meta-data: Z
+ []
+
+
+Underfull \hbox (badness 1859) in paragraph at lines 698--714
+\T1/cmr/m/n/12 Peng, W Wang, L Dong, Y Hao... - In-ter-na-tional ..., 2024 -
+ []
+
+
+Underfull \hbox (badness 3746) in paragraph at lines 698--714
+\T1/cmr/m/n/12 pro-ceed-ings.iclr.cc Scholar re-sult num-ber: 132 Scholar full 
+text:
+ []
+
+
+Overfull \hbox (98.02788pt too wide) in paragraph at lines 698--714
+\T1/cmr/m/n/12 https://proceedings.iclr.cc/paper_files/paper/2024/file/e112a467
+1e8779aa9f640a0e3f81bd26-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 715--729
+\T1/cmtt/m/n/12 ICCV2025 / html / Chen _ Training-[]Free _ Class _ Purification
+ _ for _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 715--729
+\T1/cmtt/m/n/12 Open-[]Vocabulary _ Semantic _ Segmentation _ ICCV _ 2025 _ pap
+er . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Overfull \hbox (9.00237pt too wide) in paragraph at lines 715--729
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Chen_Train
+ing-
+ []
+
+
+Overfull \hbox (138.73442pt too wide) in paragraph at lines 715--729
+\T1/cmr/m/n/12 Free_Class_Purification_for_Open-Vocabulary_Semantic_Segmentatio
+n_ICCV_2025_paper.pdf. 
+ []
+
+
+Underfull \hbox (badness 1661) in paragraph at lines 730--743
+\T1/cmr/m/n/12 seg-men-ta-tion as-sis-tant for satel-lite im-agery, in: NeurIPS
+.  URL:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 730--743
+[]$\T1/cmtt/m/n/12 https : / / proceedings . neurips . cc / paper _ files / pap
+er / 2025 / hash /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 730--743
+\T1/cmtt/m/n/12 a38a009bb015775b7685b5ef3c206310-[]Abstract-[]Datasets _ and _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 730--743
+\T1/cmtt/m/n/12 Benchmarks _ Track . html$[]\T1/cmr/m/n/12 , doi:[]$\T1/cmtt/m/
+n/12 10 . 48550 / arxiv . 2505 . 02829$[]\T1/cmr/m/n/12 . data-
+ []
+
+
+Overfull \hbox (122.89264pt too wide) in paragraph at lines 730--743
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2025/file/a38a0
+09bb015775b7685b5ef3c206310-
+ []
+
+[54]
+Underfull \hbox (badness 2564) in paragraph at lines 744--757
+[]\T1/cmr/m/n/12 R Qor-bani, G Vil-lani... - ... Com-puter Vi-sion ..., 2025, 2
+025.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 744--757
+\T1/cmr/m/n/12 Se-man-tic li-brary adap-ta-tion: Lora re-trieval and fu-sion fo
+r
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 744--757
+\T1/cmr/m/n/12 open-vocabulary se-man-tic seg-men-ta-tion, in: CVPR.  URL:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 744--757
+[]$\T1/cmtt/m/n/12 http : / / openaccess . thecvf . com / content / CVPR2025 / 
+html / Qorbani _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 744--757
+\T1/cmtt/m/n/12 Semantic _ Library _ Adaptation _ LoRA _ Retrieval _ and _ Fusi
+on _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 744--757
+\T1/cmtt/m/n/12 for _ Open-[]Vocabulary _ Semantic _ CVPR _ 2025 _ paper . html
+$[]\T1/cmr/m/n/12 . data-
+ []
+
+
+Underfull \hbox (badness 2662) in paragraph at lines 744--757
+\T1/cmr/m/n/12 CID: y8jVpKfLbRsJ Google Scholar cited by: 8 Fil-tered venue:
+ []
+
+
+Underfull \hbox (badness 2443) in paragraph at lines 744--757
+\T1/cmr/m/n/12 CVPR Scholar meta-data: R Qor-bani, G Vil-lani... - ... Com-
+ []
+
+
+Underfull \hbox (badness 2753) in paragraph at lines 744--757
+\T1/cmr/m/n/12 puter Vi-sion ..., 2025 - ope-nac-cess.thecvf.com Scholar full t
+ext:
+ []
+
+
+Overfull \hbox (367.10767pt too wide) in paragraph at lines 744--757
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2025/papers/Qorbani_Sem
+antic_Library_Adaptation_LoRA_Retrieval_and_Fusion_for_Open-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 771--787
+\T1/cmtt/m/n/12 content / CVPR2024 / html / Rasheed _ GLaMM _ Pixel _ Grounding
+ _ Large _
+ []
+
+
+Underfull \hbox (badness 1540) in paragraph at lines 771--787
+\T1/cmr/m/n/12 son: al-lowed venue/year but ti-tle not strict RIS/RES Source re
+-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 771--787
+\T1/cmr/m/n/12 jected file: gs_ris_20260522_rejected_allowed_venue_topic.json
+ []
+
+
+Underfull \hbox (badness 8189) in paragraph at lines 771--787
+\T1/cmr/m/n/12 Source search pre-fix: gs_ris_20260522 Scholar meta-data: H
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 771--787
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 292 Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (405.59554pt too wide) in paragraph at lines 771--787
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2024/papers/Rasheed_GLa
+MM_Pixel_Grounding_Large_Multimodal_Model_CVPR_2024_paper.pdf. 
+ []
+
+[55]
+Underfull \hbox (badness 1983) in paragraph at lines 802--819
+\T1/cmr/m/n/12 ellm: Pixel rea-son-ing with large mul-ti-modal model, in: CVPR.
+
+ []
+
+
+Underfull \hbox (badness 4072) in paragraph at lines 802--819
+\T1/cmr/m/n/12 URL: []$\T1/cmtt/m/n/12 http : / / openaccess . thecvf . com / c
+ontent / CVPR2024 / html / Ren _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 802--819
+\T1/cmtt/m/n/12 PixelLM _ Pixel _ Reasoning _ with _ Large _ Multimodal _ Model
+ _ CVPR _
+ []
+
+
+Underfull \hbox (badness 7631) in paragraph at lines 802--819
+\T1/cmr/m/n/12 re-jected file: gs_reasoning_seg_rejected_allowed_venue_topic.js
+on
+ []
+
+
+Overfull \hbox (417.57307pt too wide) in paragraph at lines 802--819
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2024/papers/Ren_PixelL
+M_Pixel_Reasoning_with_Large_Multimodal_Model_CVPR_2024_paper.pdf. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 820--833
+\T1/cmtt/m/n/12 CVPR2025W / EarthVision / html / Dutta _ AerOSeg _ Harnessing _
+ SAM _ for _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 820--833
+\T1/cmtt/m/n/12 Open-[]Vocabulary _ Segmentation _ in _ Remote _ Sensing _ Imag
+es _ CVPRW _
+ []
+
+
+Overfull \hbox (257.49016pt too wide) in paragraph at lines 820--833
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025W/EarthVision/pape
+rs/Dutta_AerOSeg_Harnessing_SAM_for_Open-
+ []
+
+
+Overfull \hbox (66.45076pt too wide) in paragraph at lines 820--833
+\T1/cmr/m/n/12 Vocabulary_Segmentation_in_Remote_Sensing_Images_CVPRW_2025_pape
+r.pdf. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 834--848
+\T1/cmtt/m/n/12 / / openaccess . thecvf . com / content / ICCV2025 / html / Jin
+ _ Feature _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 834--848
+\T1/cmtt/m/n/12 Purification _ Matters _ Suppressing _ Outlier _ Propagation _ 
+for _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 834--848
+\T1/cmtt/m/n/12 Training-[]Free _ Open-[]Vocabulary _ Semantic _ ICCV _ 2025 _ 
+paper . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Overfull \hbox (375.30434pt too wide) in paragraph at lines 834--848
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Jin_Featur
+e_Purification_Matters_Suppressing_Outlier_Propagation_for_Training-
+ []
+
+[56]
+Underfull \hbox (badness 2856) in paragraph at lines 849--862
+[]\T1/cmr/m/n/12 SG Xiao, R Kabra, Y Li, D Lee... - Ad-vances in Neu-ral ...,
+ []
+
+
+Underfull \hbox (badness 2653) in paragraph at lines 849--862
+\T1/cmr/m/n/12 2026, 2026.  Open-world-sam: Ex-tend-ing sam2 for uni-ver-sal im
+-
+ []
+
+
+Underfull \hbox (badness 2932) in paragraph at lines 849--862
+\T1/cmr/m/n/12 age seg-men-ta-tion with lan-guage prompts, in: NeurIPS.  URL:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 849--862
+[]$\T1/cmtt/m/n/12 https : / / proceedings . neurips . cc / paper _ files / pap
+er / 2025 / hash /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 849--862
+\T1/cmtt/m/n/12 32fa3ddb3a6350cd1ab68e25f1c59982-[]Abstract-[]Conference . html
+$[]\T1/cmr/m/n/12 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 849--862
+\T1/cmr/m/n/12 doi:[]$\T1/cmtt/m/n/12 10 . 48550 / arxiv . 2507 . 05427$[]\T1/c
+mr/m/n/12 . data-CID: uj-1n5OM8iQJ Google
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 863--878
+\T1/cmtt/m/n/12 ICCV2025 / html / Shi _ Harnessing _ Vision _ Foundation _ Mode
+ls _ for _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 863--878
+\T1/cmtt/m/n/12 High-[]Performance _ Training-[]Free _ Open _ Vocabulary _ Segm
+entation _
+ []
+
+
+Overfull \hbox (222.4875pt too wide) in paragraph at lines 863--878
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Shi_Harnes
+sing_Vision_Foundation_Models_for_High-
+ []
+
+
+Overfull \hbox (80.19467pt too wide) in paragraph at lines 863--878
+\T1/cmr/m/n/12 Performance_Training-Free_Open_Vocabulary_Segmentation_ICCV_2025
+_paper.pdf. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 879--894
+[]$\T1/cmtt/m/n/12 https : / / proceedings . neurips . cc / paper _ files / pap
+er / 2024 / hash /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 879--894
+\T1/cmtt/m/n/12 1119587863e78451f080da2a768c4935-[]Abstract-[]Conference . html
+$[]\T1/cmr/m/n/12 ,
+ []
+
+
+Underfull \hbox (badness 1320) in paragraph at lines 879--894
+\T1/cmr/m/n/12 cited by: 26 Fil-tered venue: NeurIPS Scholar ci-ta-tion: Shin H
+,
+ []
+
+
+Underfull \hbox (badness 3612) in paragraph at lines 879--894
+\T1/cmr/m/n/12 Kim C, Hong S, et al. To-wards open-vocabulary se-man-tic seg-
+ []
+
+
+Underfull \hbox (badness 1394) in paragraph at lines 879--894
+\T1/cmr/m/n/12 men-ta-tion with-out se-man-tic la-bels[J]. Ad-vances in Neu-ral
+ In-for-ma-
+ []
+
+
+Underfull \hbox (badness 2245) in paragraph at lines 879--894
+\T1/cmr/m/n/12 tion Pro-cess-ing Sys-tems, 2024, 37: 9153-9177. Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (120.93478pt too wide) in paragraph at lines 879--894
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2024/file/11195
+87863e78451f080da2a768c4935-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 895--911
+[]$\T1/cmtt/m/n/12 https : / / openaccess . thecvf . com / content / CVPR2025W 
+/ DG-[]EBF /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 895--911
+\T1/cmtt/m/n/12 html / Sikdar _ PiCaZo _ Pixel-[]Aligned _ Contrastive _ Learni
+ng _ for _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 895--911
+\T1/cmtt/m/n/12 Zero-[]Shot _ Domain _ Adaptation _ CVPRW _ 2025 _ paper . html
+$[]\T1/cmr/m/n/12 . data-
+ []
+
+
+Underfull \hbox (badness 2809) in paragraph at lines 895--911
+\T1/cmr/m/n/12 CID: iZn5G004PJcJ Google Scholar cited by: 6 Fil-tered venue:
+ []
+
+
+Underfull \hbox (badness 3657) in paragraph at lines 895--911
+\T1/cmr/m/n/12 CVPR Re-jected rea-son: al-lowed venue/year but ti-tle lacks ex-
+
+ []
+
+
+Underfull \hbox (badness 6575) in paragraph at lines 895--911
+\T1/cmr/m/n/12 plicit seg-men-ta-tion plus rea-son-ing/LLM/instruction sig-nal 
+Source
+ []
+
 
-Package natbib Warning: Citation `Xu2023a' on page 17 undefined on input line 183.
+Underfull \hbox (badness 7631) in paragraph at lines 895--911
+\T1/cmr/m/n/12 re-jected file: gs_reasoning_seg_rejected_allowed_venue_topic.js
+on
+ []
+
+
+Underfull \hbox (badness 6625) in paragraph at lines 895--911
+\T1/cmr/m/n/12 Source search pre-fix: gs_reasoning_seg Scholar meta-data: A
+ []
+
+
+Underfull \hbox (badness 3128) in paragraph at lines 895--911
+\T1/cmr/m/n/12 Sik-dar, A Kishor, I Kadam... - Pro-ceed-ings of the ..., 2025
+ []
+
+
+Underfull \hbox (badness 3536) in paragraph at lines 895--911
+\T1/cmr/m/n/12 - ope-nac-cess.thecvf.com Scholar re-sult num-ber: 931 Scholar f
+ull
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 895--911
+\T1/cmr/m/n/12 text: https://openaccess.thecvf.com/content/CVPR2025W/DG-
+ []
+
+
+Overfull \hbox (32.0314pt too wide) in paragraph at lines 895--911
+\T1/cmr/m/n/12 EBF/papers/Sikdar_PiCaZo_Pixel-Aligned_Contrastive_Learning_for_
+Zero-
+ []
+
+[57]
+Underfull \hbox (badness 10000) in paragraph at lines 912--927
+\T1/cmr/m/n/12 URL: []$\T1/cmtt/m/n/12 https : / / proceedings . neurips . cc /
+ paper _ files / paper / 2025 /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 912--927
+\T1/cmtt/m/n/12 hash / 433f75a8dd75fa81f38e19efcfd2fc0e-[]Abstract-[]Conference
+ .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 912--927
+\T1/cmtt/m/n/12 html$[]\T1/cmr/m/n/12 , doi:[]$\T1/cmtt/m/n/12 10 . 48550 / arx
+iv . 2505 . 18812$[]\T1/cmr/m/n/12 . data-CID: O7nwgJLe5oYJ
+ []
+
+
+Underfull \hbox (badness 1502) in paragraph at lines 912--927
+\T1/cmr/m/n/12 Source search pre-fix: gs_mllmseg_20260522 Scholar meta-data: Y
+ []
+
+
+Overfull \hbox (108.86136pt too wide) in paragraph at lines 912--927
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2025/file/433f7
+5a8dd75fa81f38e19efcfd2fc0e-
+ []
+
+
+Underfull \hbox (badness 5091) in paragraph at lines 928--945
+[]\T1/cmr/m/n/12 Tang, W., Sun, Y., Gu, Q., Li, Z., 2026.  Vi-sual po-si-tion
+ []
+
+
+Underfull \hbox (badness 1533) in paragraph at lines 928--945
+\T1/cmr/m/n/12 prompt for mllm based vi-sual ground-ing.  IEEE Trans-ac-tions o
+n
+ []
+
+[58]
+Underfull \hbox (badness 2922) in paragraph at lines 946--960
+[]\T1/cmr/m/n/12 V Vats, A Rathee, J Davis - Pro-ceed-ings of the AAAI Con-fer-
+
+ []
+
+
+Underfull \hbox (badness 2042) in paragraph at lines 946--960
+\T1/cmr/m/n/12 ence on ..., 2026, 2026.  Guideline-Consistent Seg-men-ta-tion v
+ia
+ []
+
+
+Underfull \hbox (badness 3343) in paragraph at lines 946--960
+\T1/cmr/m/n/12 Multi-Agent Re-fine-ment, in: AAAI.  URL: []$\T1/cmtt/m/n/12 htt
+ps : / / ojs . aaai .
+ []
+
+
+Underfull \hbox (badness 5231) in paragraph at lines 961--979
+[]\T1/cmr/m/n/12 Wang, H., Wang, S., Zhong, Y., Yang, Z., Wang, J., 2026.
+ []
+
+
+Underfull \hbox (badness 1960) in paragraph at lines 961--979
+\T1/cmr/m/n/12 son-ing in mul-ti-modal large lan-guage mod-els, in: AAAI.  URL:
+
+ []
+
+
+Underfull \hbox (badness 4416) in paragraph at lines 961--979
+\T1/cmtt/m/n/12 1609 / aaai . v40i12 . 37937$[]\T1/cmr/m/n/12 . data-CID: IsMrs
+h0-lCEJ Google Scholar
+ []
+
+
+Underfull \hbox (badness 3354) in paragraph at lines 961--979
+\T1/cmr/m/n/12 cited by: 19 Fil-tered venue: AAAI Re-jected rea-son: al-lowed
+ []
+
+
+Underfull \hbox (badness 1661) in paragraph at lines 961--979
+\T1/cmr/m/n/12 search pre-fix: gs_mllmseg_20260522 Scholar meta-data: H Wang,
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 961--979
+\T1/cmr/m/n/12 2026 - ojs.aaai.org Scholar re-sult num-ber: 329 Scholar full te
+xt:
+ []
+
+
+Underfull \hbox (badness 3312) in paragraph at lines 996--1013
+[]\T1/cmr/m/n/12 Wang, Y., Xu, H., Liu, Y., Li, J., 2025b.  Sam2-love: Seg-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 996--1013
+\T1/cmr/m/n/12 ment any-thing model 2 in language-aided audio-visual scenes,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 996--1013
+\T1/cmr/m/n/12 in: CVPR.  URL: []$\T1/cmtt/m/n/12 http : / / openaccess . thecv
+f . com / content /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 996--1013
+\T1/cmtt/m/n/12 CVPR2025 / html / Wang _ SAM2-[]LOVE _ Segment _ Anything _ Mod
+el _ 2 _ in _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 996--1013
+\T1/cmtt/m/n/12 Language-[]aided _ Audio-[]Visual _ Scenes _ CVPR _ 2025 _ pape
+r . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Underfull \hbox (badness 2426) in paragraph at lines 996--1013
+\T1/cmr/m/n/12 data-CID: Uuh5pNmDNgIJ Google Scholar cited by: 19 Fil-tered
+ []
+
+
+Underfull \hbox (badness 2368) in paragraph at lines 996--1013
+\T1/cmr/m/n/12 ex-plicit seg-men-ta-tion plus rea-son-ing/LLM/instruction sig-n
+al Source
+ []
+
+
+Underfull \hbox (badness 7631) in paragraph at lines 996--1013
+\T1/cmr/m/n/12 re-jected file: gs_reasoning_seg_rejected_allowed_venue_topic.js
+on
+ []
+
+
+Underfull \hbox (badness 6625) in paragraph at lines 996--1013
+\T1/cmr/m/n/12 Source search pre-fix: gs_reasoning_seg Scholar meta-data: Y
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 996--1013
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 316 Scholar full te
+xt:
+ []
+
+
+Overfull \hbox (4.09523pt too wide) in paragraph at lines 996--1013
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Wang_SAM2-
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 996--1013
+\T1/cmr/m/n/12 LOVE_Segment_Anything_Model_2_in_Language-aided_Audio-
+ []
+
+[59]
+Underfull \hbox (badness 1769) in paragraph at lines 1014--1029
+\T1/cmr/m/n/12 CID: -dhJ3GeyfUYJ Google Scholar cited by: 14 Fil-tered venue:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1030--1044
+\T1/cmtt/m/n/12 CVPR2024 / html / Lai _ LISA _ Reasoning _ Segmentation _ via _
+ Large _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1030--1044
+\T1/cmtt/m/n/12 Language _ Model _ CVPR _ 2024 _ paper . html$[]\T1/cmr/m/n/12 
+. data-CID: Fonas8emAQEJ
+ []
+
+
+Underfull \hbox (badness 3219) in paragraph at lines 1030--1044
+\T1/cmr/m/n/12 puter vi-sion ..., 2024 - ope-nac-cess.thecvf.com Scholar full t
+ext:
+ []
+
+
+Overfull \hbox (417.02055pt too wide) in paragraph at lines 1030--1044
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2024/papers/Lai_LISA_Re
+asoning_Segmentation_via_Large_Language_Model_CVPR_2024_paper.pdf. 
+ []
+
+
+Underfull \hbox (badness 1270) in paragraph at lines 1045--1058
+\T1/cmr/m/n/12 2024.  Open-vocabulary se-man-tic seg-men-ta-tion with im-age em
+-bed-
+ []
+
+
+Underfull \hbox (badness 1881) in paragraph at lines 1045--1058
+\T1/cmr/m/n/12 ding bal-anc-ing, in: CVPR.  URL: []$\T1/cmtt/m/n/12 https : / /
+ openaccess . thecvf .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1045--1058
+\T1/cmtt/m/n/12 com / content / CVPR2024 / html / Shan _ Open-[]Vocabulary _ Se
+mantic _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1045--1058
+\T1/cmtt/m/n/12 Segmentation _ with _ Image _ Embedding _ Balancing _ CVPR _ 20
+24 _
+ []
+
 
-[17] [18]
+Underfull \hbox (badness 10000) in paragraph at lines 1045--1058
+\T1/cmtt/m/n/12 paper . html ? ref = https : / / git . chanpinqingbaoju . com$[
+]\T1/cmr/m/n/12 . data-CID:
+ []
+
+
+Underfull \hbox (badness 1097) in paragraph at lines 1045--1058
+\T1/cmr/m/n/12 Scholar meta-data: X Shan, D Wu, G Zhu, Y Shao... - ... on
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1045--1058
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2024/papers/Shan_Open-
+ []
+
+
+Overfull \hbox (150.9995pt too wide) in paragraph at lines 1045--1058
+\T1/cmr/m/n/12 Vocabulary_Semantic_Segmentation_with_Image_Embedding_Balancing_
+CVPR_2024_paper.pdf. 
+ []
+
+[60]
+Underfull \hbox (badness 10000) in paragraph at lines 1059--1072
+\T1/cmtt/m/n/12 content / CVPR2024 / html / Wang _ USE _ Universal _ Segment _ 
+Embeddings _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1059--1072
+\T1/cmtt/m/n/12 for _ Open-[]Vocabulary _ Image _ Segmentation _ CVPR _ 2024 _ 
+paper . html$[]\T1/cmr/m/n/12 .
+ []
+
+
+Overfull \hbox (237.20622pt too wide) in paragraph at lines 1059--1072
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2024/papers/Wang_USE_U
+niversal_Segment_Embeddings_for_Open-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1073--1087
+\T1/cmtt/m/n/12 content / ICCV2025 / html / Xuan _ ReME _ A _ Data-[]Centric _ 
+Framework _ for _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1073--1087
+\T1/cmtt/m/n/12 Training-[]Free _ Open-[]Vocabulary _ Segmentation _ ICCV _ 202
+5 _ paper .
+ []
+
+
+Overfull \hbox (51.56696pt too wide) in paragraph at lines 1073--1087
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Xuan_ReME_
+A_Data-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1073--1087
+\T1/cmr/m/n/12 Centric_Framework_for_Training-Free_Open-
+ []
+
+
+Underfull \hbox (badness 4072) in paragraph at lines 1088--1102
+\T1/cmr/m/n/12 URL: []$\T1/cmtt/m/n/12 http : / / openaccess . thecvf . com / c
+ontent / CVPR2024 / html / Xia _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1088--1102
+\T1/cmtt/m/n/12 GSVA _ Generalized _ Segmentation _ via _ Multimodal _ Large _ 
+Language _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1088--1102
+\T1/cmtt/m/n/12 Models _ CVPR _ 2024 _ paper . html$[]\T1/cmr/m/n/12 . data-CID
+: Zkx1oc_tHi4J Google
+ []
+
+
+Overfull \hbox (505.11983pt too wide) in paragraph at lines 1088--1102
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2024/papers/Xia_GSVA_Ge
+neralized_Segmentation_via_Multimodal_Large_Language_Models_CVPR_2024_paper.pdf
+. 
+ []
+
+
+Underfull \hbox (badness 2435) in paragraph at lines 1103--1120
+[]\T1/cmr/m/n/12 Xiao, L., Yang, X., Peng, F., Wang, Y., 2024.  Oneref: Uni-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1120
+\T1/cmr/m/n/12 fied one-tower ex-pres-sion ground-ing and seg-men-ta-tion with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1120
+\T1/cmr/m/n/12 mask re-fer-ring mod-el-ing, in: NeurIPS.  URL: []$\T1/cmtt/m/n/
+12 https :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1120
+\T1/cmtt/m/n/12 / / proceedings . neurips . cc / paper _ files / paper / 2024 /
+ hash /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1120
+\T1/cmtt/m/n/12 fcd812a51b8f8d05cfea22e3c9c4b369-[]Abstract-[]Conference . html
+$[]\T1/cmr/m/n/12 ,
+ []
+
+
+Underfull \hbox (badness 3668) in paragraph at lines 1103--1120
+\T1/cmr/m/n/12 doi:[]$\T1/cmtt/m/n/12 10 . 48550 / arxiv . 2410 . 08021$[]\T1/c
+mr/m/n/12 . data-CID: NsOZeA-heYTcJ Google
+ []
+
+
+Underfull \hbox (badness 4792) in paragraph at lines 1103--1120
+\T1/cmr/m/n/12 lowed venue/year but ti-tle not strict RIS/RES Source re-jected
+ []
+
 
-Package natbib Warning: Citation `Kirillov2023' on page 19 undefined on input line 213.
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1120
+\T1/cmr/m/n/12 file: gs_ris_20260522_rejected_allowed_venue_topic.json Source
+ []
+
+
+Underfull \hbox (badness 4341) in paragraph at lines 1103--1120
+\T1/cmr/m/n/12 search pre-fix: gs_ris_20260522 Scholar meta-data: L Xiao, X
+ []
+
+
+Underfull \hbox (badness 3019) in paragraph at lines 1103--1120
+\T1/cmr/m/n/12 ceed-ings.neurips.cc Scholar re-sult num-ber: 130 Scholar full t
+ext:
+ []
+
+
+Overfull \hbox (115.7138pt too wide) in paragraph at lines 1103--1120
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2024/file/fcd81
+2a51b8f8d05cfea22e3c9c4b369-
+ []
+
+[61]
+Underfull \hbox (badness 2050) in paragraph at lines 1130--1146
+\T1/cmr/m/n/12 lan-guage model, in: CVPR.  URL: []$\T1/cmtt/m/n/12 http : / / o
+penaccess . thecvf .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1130--1146
+\T1/cmtt/m/n/12 com / content / CVPR2024 / html / Xu _ Pixel-[]Aligned _ Langua
+ge _ Model _
+ []
+
+
+Underfull \hbox (badness 1418) in paragraph at lines 1130--1146
+\T1/cmtt/m/n/12 CVPR _ 2024 _ paper . html$[]\T1/cmr/m/n/12 . data-CID: cMpM-Fr
+SW8WoJ Google Scholar
+ []
+
+
+Underfull \hbox (badness 2903) in paragraph at lines 1130--1146
+\T1/cmr/m/n/12 cited by: 46 Fil-tered venue: CVPR Re-jected rea-son: al-lowed
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1130--1146
+\T1/cmr/m/n/12 re-jected file: gs_vlseg_rejected_allowed_venue_topic.json Sourc
+e
+ []
+
+
+Underfull \hbox (badness 3417) in paragraph at lines 1130--1146
+\T1/cmr/m/n/12 search pre-fix: gs_vlseg Scholar meta-data: J Xu, X Zhou, S
+ []
+
+
+Underfull \hbox (badness 1688) in paragraph at lines 1130--1146
+\T1/cmr/m/n/12 Yan, X Gu, A Arnab... - Pro-ceed-ings of the ..., 2024 - ope-
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 1130--1146
+\T1/cmr/m/n/12 nac-cess.thecvf.com Scholar re-sult num-ber: 421 Scholar full te
+xt:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1130--1146
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2024/papers/Xu_Pixel-
+ []
 
+[62]
+Underfull \hbox (badness 2671) in paragraph at lines 1171--1184
+[]\T1/cmr/m/n/12 Y Be-nig-mim, M Fa-hes, TH Vu... - ... Com-puter Vi-sion, 2025
+,
+ []
+
+
+Underfull \hbox (badness 7925) in paragraph at lines 1171--1184
+\T1/cmr/m/n/12 2025.  Floss: Free lunch in open-vocabulary se-man-tic seg-
+ []
 
-Package natbib Warning: Citation `Kirillov2023' on page 19 undefined on input line 227.
 
-[19]
+Underfull \hbox (badness 10000) in paragraph at lines 1171--1184
+\T1/cmr/m/n/12 men-ta-tion, in: ICCV.  URL: []$\T1/cmtt/m/n/12 https : / / open
+access . thecvf .
+ []
 
-Package natbib Warning: Citation `Lee2025' on page 20 undefined on input line 242.
 
-[20]
+Underfull \hbox (badness 10000) in paragraph at lines 1171--1184
+\T1/cmtt/m/n/12 com / content / ICCV2025 / html / Benigmim _ FLOSS _ Free _ Lun
+ch _ in _
+ []
 
-Package natbib Warning: Citation `Shi2025' on page 21 undefined on input line 261.
 
-[21]
-Overfull \hbox (3.52884pt too wide) in paragraph at lines 293--297
-[]\T1/cmr/m/n/12 This route is im-por-tant be-cause open-vocabulary seg-men-ta-tion is no longer
+Underfull \hbox (badness 10000) in paragraph at lines 1171--1184
+\T1/cmtt/m/n/12 Open-[]vocabulary _ Semantic _ Segmentation _ ICCV _ 2025 _ pap
+er . html$[]\T1/cmr/m/n/12 .
  []
 
+
+Underfull \hbox (badness 3019) in paragraph at lines 1171--1184
+\T1/cmr/m/n/12 Com-puter Vi-sion, 2025 - ope-nac-cess.thecvf.com Scholar full t
+ext:
+ []
 
-Package natbib Warning: Citation `Zou2023' on page 22 undefined on input line 300.
 
-[22] [23]
-Overfull \hbox (3.22415pt too wide) in paragraph at lines 346--350
-\T1/cmr/m/n/12 po-si-tion in the over-all tax-on-omy. They go be-yond spe-cial-ized open-vocabulary
+Overfull \hbox (155.66782pt too wide) in paragraph at lines 1171--1184
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Benigmim_F
+LOSS_Free_Lunch_in_Open-
  []
 
 
-Overfull \hbox (3.87288pt too wide) in paragraph at lines 346--350
-\T1/cmr/m/n/12 frame-work. At the same time, they do not fully solve the prob-lem of reasoning-
+Underfull \hbox (badness 1127) in paragraph at lines 1185--1198
+\T1/cmr/m/n/12 seg-men-ta-tion, in: CVPR.  URL: []$\T1/cmtt/m/n/12 http : / / o
+penaccess . thecvf . com /
  []
 
-[24]
 
-Package natbib Warning: Citation `Lai2024' on page 25 undefined on input line 374.
+Underfull \hbox (badness 10000) in paragraph at lines 1185--1198
+\T1/cmtt/m/n/12 content / CVPR2025 / html / Li _ Mask-[]Adapter _ The _ Devil _
+ is _ in _ the _
+ []
+
 
-[25]
+Underfull \hbox (badness 10000) in paragraph at lines 1185--1198
+\T1/cmtt/m/n/12 Masks _ for _ Open-[]Vocabulary _ Segmentation _ CVPR _ 2025 _ 
+paper . html$[]\T1/cmr/m/n/12 .
+ []
 
-Package natbib Warning: Citation `Rasheed2024' on page 26 undefined on input line 400.
 
-[26] [27] [28] [29]) (section/04_datasets_metrics.tex
-Overfull \hbox (13.60963pt too wide) in paragraph at lines 519--1
-[]\T1/cmr/m/n/12 Overall, video, 3D, and complex-scene ex-ten-sions show that open-vocabulary
+Underfull \hbox (badness 10000) in paragraph at lines 1185--1198
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Li_Mask-
  []
+
 
-[30]
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Promptable seg-
+Underfull \hbox (badness 10000) in paragraph at lines 1185--1198
+\T1/cmr/m/n/12 Adapter_The_Devil_is_in_the_Masks_for_Open-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 agnostic mask
+Underfull \hbox (badness 10000) in paragraph at lines 1199--1212
+\T1/cmtt/m/n/12 content / ICCV2025 / html / Liu _ Stepping _ Out _ of _ Similar
+ _ Semantic _
  []
 
 
-Underfull \hbox (badness 6542) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 Net, Tri-dent ([]Xu
+Underfull \hbox (badness 10000) in paragraph at lines 1199--1212
+\T1/cmtt/m/n/12 Space _ for _ Open-[]Vocabulary _ Segmentation _ ICCV _ 2025 _ 
+paper . html$[]\T1/cmr/m/n/12 .
  []
 
 
-Underfull \hbox (badness 7631) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 et al.[], []2025[]; []Shi
+Overfull \hbox (249.0005pt too wide) in paragraph at lines 1199--1212
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/ICCV2025/papers/Liu_Steppi
+ng_Out_of_Similar_Semantic_Space_for_Open-
  []
 
 
-Underfull \hbox (badness 1019) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Rich scene cat-e-
+Underfull \hbox (badness 10000) in paragraph at lines 1213--1226
+[]\T1/cmr/m/n/12 Y Miao, JN Za-ech, X Wang... - Ad-vances in ..., 2026,
  []
 
 
-Underfull \hbox (badness 2591) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 gories for open-
+Underfull \hbox (badness 10000) in paragraph at lines 1213--1226
+\T1/cmr/m/n/12 2026.  Langhops: Lan-guage grounded hi-er-ar-chi-cal open-
  []
 
 
-Underfull \hbox (badness 1681) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Semantic seg-men-
+Underfull \hbox (badness 8132) in paragraph at lines 1213--1226
+\T1/cmr/m/n/12 vocabulary part seg-men-ta-tion, in: NeurIPS.  URL: []$\T1/cmtt/
+m/n/12 https :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 OVSS meth-ods
+Underfull \hbox (badness 10000) in paragraph at lines 1213--1226
+\T1/cmtt/m/n/12 / / proceedings . neurips . cc / paper _ files / paper / 2025 /
+ hash /
  []
 
 
-Underfull \hbox (badness 3590) in paragraph at lines 24--24
-[]\T1/cmr/m/n/10.95 Xu et al.[], []2023b[];
+Underfull \hbox (badness 10000) in paragraph at lines 1213--1226
+\T1/cmtt/m/n/12 fc797c61eb18f7b3ce9a74af0ef0d876-[]Abstract-[]Conference . html
+$[]\T1/cmr/m/n/12 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Compact and
+Underfull \hbox (badness 10000) in paragraph at lines 1213--1226
+\T1/cmr/m/n/12 doi:[]$\T1/cmtt/m/n/12 10 . 48550 / arxiv . 2510 . 25263$[]\T1/c
+mr/m/n/12 . data-CID: 8RZCJftj558J
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 com-mon zero-
+Underfull \hbox (badness 10000) in paragraph at lines 1213--1226
+\T1/cmr/m/n/12 Google Scholar cited by: 2 Fil-tered venue: NeurIPS
  []
 
 
-Underfull \hbox (badness 1681) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Semantic seg-men-
+Underfull \hbox (badness 10000) in paragraph at lines 1213--1226
+\T1/cmr/m/n/12 Scholar meta-data: Y Miao, JN Za-ech, X Wang... - Ad-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 OVSS meth-ods
+Underfull \hbox (badness 6741) in paragraph at lines 1213--1226
+\T1/cmr/m/n/12 vances in ..., 2026 - pro-ceed-ings.neurips.cc Scholar full text
+:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Broader dense
+Overfull \hbox (112.77705pt too wide) in paragraph at lines 1213--1226
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2025/file/fc797
+c61eb18f7b3ce9a74af0ef0d876-
  []
 
+[63]
+Underfull \hbox (badness 2035) in paragraph at lines 1227--1246
+\T1/cmr/m/n/12 Y Yang, R Jing, J Xu, K Zhang... - Pro-ceed-ings of the ...,
+ []
+
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 se-man-tic la-bels
+Underfull \hbox (badness 2556) in paragraph at lines 1227--1246
+\T1/cmr/m/n/12 2026 - ojs.aaai.org Scholar re-sult num-ber: 67 Scholar full tex
+t:
  []
 
 
-Underfull \hbox (badness 1681) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Semantic seg-men-
+Underfull \hbox (badness 5607) in paragraph at lines 1247--1264
+[]\T1/cmr/m/n/12 Yan, Z., Li, Z., He, Y., Wang, C., Li, K., Li, X., 2025.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 eval-u-a-tion ([]Xu
+Underfull \hbox (badness 6047) in paragraph at lines 1247--1264
+\T1/cmr/m/n/12 Task pref-er-ence op-ti-miza-tion: Im-prov-ing mul-ti-modal larg
+e lan-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Stuff cat-e-gories
+Underfull \hbox (badness 3701) in paragraph at lines 1247--1264
+\T1/cmr/m/n/12 guage mod-els with vi-sion task align-ment, in: CVPR.  URL:
  []
 
 
-Underfull \hbox (badness 1460) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 and dense scene
+Underfull \hbox (badness 10000) in paragraph at lines 1247--1264
+[]$\T1/cmtt/m/n/12 http : / / openaccess . thecvf . com / content / CVPR2025 / 
+html / Yan _ Task _
  []
 
 
-Underfull \hbox (badness 3118) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Panoptic seg-men-
+Underfull \hbox (badness 10000) in paragraph at lines 1247--1264
+\T1/cmtt/m/n/12 Preference _ Optimization _ Improving _ Multimodal _ Large _ La
+nguage _
  []
 
+
+Overfull \hbox (606.47128pt too wide) in paragraph at lines 1247--1264
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Yan_Task_P
+reference_Optimization_Improving_Multimodal_Large_Language_Models_with_Vision_C
+VPR_2025_paper.pdf. 
+ []
 
-Underfull \hbox (badness 3657) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 ODISE, X-Decoder
+[64]
+Underfull \hbox (badness 10000) in paragraph at lines 1278--1291
+\T1/cmr/m/n/12 URL: []$\T1/cmtt/m/n/12 http : / / openaccess . thecvf . com / c
+ontent / CVPR2025 / html /
  []
 
 
-Underfull \hbox (badness 1817) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 ([]Xu et al.[], []2023a[];
+Underfull \hbox (badness 10000) in paragraph at lines 1278--1291
+\T1/cmtt/m/n/12 Yang _ Exploring _ CLIPs _ Dense _ Knowledge _ for _ Weakly _ S
+upervised _
  []
 
 
-Underfull \hbox (badness 2753) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Joint thing and
+Underfull \hbox (badness 10000) in paragraph at lines 1278--1291
+\T1/cmtt/m/n/12 Semantic _ Segmentation _ CVPR _ 2025 _ paper . html$[]\T1/cmr/
+m/n/12 . data-CID:
  []
 
 
-Underfull \hbox (badness 1442) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 f-COCO+ / Re-f-
+Overfull \hbox (568.13214pt too wide) in paragraph at lines 1278--1291
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Yang_Explo
+ring_CLIPs_Dense_Knowledge_for_Weakly_Supervised_Semantic_Segmentation_CVPR_202
+5_paper.pdf. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]\T1/cmr/m/n/10.95 2024[]; []Rasheed
+Underfull \hbox (badness 2856) in paragraph at lines 1292--1307
+[]\T1/cmr/m/n/12 Ye, K., Luan, Y., Chen, Z., Meng, G., Dai, P., 2026.  RIS-
  []
 
 
-Underfull \hbox (badness 2617) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 et al.[], []2024[]; []Zou
+Underfull \hbox (badness 4378) in paragraph at lines 1292--1307
+\T1/cmr/m/n/12 LAD: A Bench-mark and Model for Re-fer-ring Im-age Seg-men-ta-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Language-
+Underfull \hbox (badness 1931) in paragraph at lines 1292--1307
+\T1/cmr/m/n/12 tion in Low-Altitude Drone Im-agery, in: AAAI.  URL: []$\T1/cmtt
+/m/n/12 https :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 guided ob-ject
+Underfull \hbox (badness 1810) in paragraph at lines 1292--1307
+\T1/cmtt/m/n/12 / / ojs . aaai . org / index . php / AAAI / article / view / 38
+181$[]\T1/cmr/m/n/12 , doi:[]$\T1/cmtt/m/n/12 10 . 1609 /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Reasoning seg-
+Underfull \hbox (badness 1286) in paragraph at lines 1292--1307
+\T1/cmtt/m/n/12 aaai . v40i14 . 38181$[]\T1/cmr/m/n/12 . data-CID: WvCI7p928goJ
+ Google Scholar cited
  []
 
 
-Underfull \hbox (badness 1953) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 LISA ([]Lai et al.[],
+Underfull \hbox (badness 1622) in paragraph at lines 1292--1307
+\T1/cmr/m/n/12 by: Fil-tered venue: AAAI Scholar meta-data: K Ye, YS Luan,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Complex im-
+Underfull \hbox (badness 3668) in paragraph at lines 1292--1307
+\T1/cmr/m/n/12 Z Chen, G Meng, P Dai... - Pro-ceed-ings of the AAAI ...,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 plicit queries
+Underfull \hbox (badness 1845) in paragraph at lines 1292--1307
+\T1/cmr/m/n/12 2026 - ojs.aaai.org Scholar re-sult num-ber: 172 Scholar full te
+xt:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 re-quir-ing rea-
+Underfull \hbox (badness 10000) in paragraph at lines 1308--1324
+[]$\T1/cmtt/m/n/12 https : / / proceedings . iclr . cc / paper _ files / paper 
+/ 2024 / hash /
  []
 
 
-Underfull \hbox (badness 2753) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 GLaMM ([]Rasheed
+Underfull \hbox (badness 10000) in paragraph at lines 1308--1324
+\T1/cmtt/m/n/12 fd6613131889a4b656206c50a8bd7790-[]Abstract-[]Conference . html
+$[]\T1/cmr/m/n/12 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Phrase-level
+Underfull \hbox (badness 4608) in paragraph at lines 1308--1324
+\T1/cmr/m/n/12 doi:[]$\T1/cmtt/m/n/12 10 . 48550 / arxiv . 2310 . 07704$[]\T1/c
+mr/m/n/12 . data-CID: IgX6VY8FbIYJ Google
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 masks for
+Underfull \hbox (badness 1888) in paragraph at lines 1308--1324
+\T1/cmr/m/n/12 lowed venue/year but ti-tle not strict MLLM seg-men-ta-tion Sour
+ce
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 gen-er-ated re-
+Underfull \hbox (badness 1502) in paragraph at lines 1308--1324
+\T1/cmr/m/n/12 Source search pre-fix: gs_mllmseg_20260522 Scholar meta-data: H
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Video rea-son-ing
+Underfull \hbox (badness 1622) in paragraph at lines 1308--1324
+\T1/cmr/m/n/12 - pro-ceed-ings.iclr.cc Scholar re-sult num-ber: 590 Scholar ful
+l text:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Video rea-son-ing
+Overfull \hbox (102.92245pt too wide) in paragraph at lines 1308--1324
+\T1/cmr/m/n/12 https://proceedings.iclr.cc/paper_files/paper/2024/file/fd661313
+1889a4b656206c50a8bd7790-
  []
 
-[31]) (section/05_comparison.tex
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 Representative pa-
+[65]
+Underfull \hbox (badness 10000) in paragraph at lines 1334--1351
+\T1/cmtt/m/n/12 / / openaccess . thecvf . com / content / CVPR2024 / html / Yua
+n _ Osprey _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 CLIP-based
+Underfull \hbox (badness 10000) in paragraph at lines 1334--1351
+\T1/cmtt/m/n/12 Pixel _ Understanding _ with _ Visual _ Instruction _ Tuning _ 
+CVPR _ 2024 _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]\T1/cmr/m/n/10.95 2023[]; []Xu et al.[],
+Underfull \hbox (badness 7631) in paragraph at lines 1334--1351
+\T1/cmr/m/n/12 re-jected file: gs_reasoning_seg_rejected_allowed_venue_topic.js
+on
  []
 
 
-Underfull \hbox (badness 1655) in paragraph at lines 21--21
-[]\T1/cmr/m/n/10.95 2023b[]; []Luo et al.[],
+Underfull \hbox (badness 1014) in paragraph at lines 1334--1351
+\T1/cmr/m/n/12 W Li, J Liu, D Tang, X Luo... - Pro-ceed-ings of the ..., 2024
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 Strong open-
+Overfull \hbox (438.75676pt too wide) in paragraph at lines 1334--1351
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2024/papers/Yuan_Osprey
+_Pixel_Understanding_with_Visual_Instruction_Tuning_CVPR_2024_paper.pdf. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 vocabulary
+Underfull \hbox (badness 1142) in paragraph at lines 1369--1383
+\T1/cmr/m/n/12 2025, 2025.  Parameter-efficient fine-tuning in hy-per-spher-i-c
+al space
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 se-man-tics and
+Underfull \hbox (badness 3590) in paragraph at lines 1369--1383
+\T1/cmr/m/n/12 for open-vocabulary se-man-tic seg-men-ta-tion, in: CVPR.  URL:
  []
 
 
-Underfull \hbox (badness 2626) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 prompt sen-si-tiv-
+Underfull \hbox (badness 10000) in paragraph at lines 1369--1383
+[]$\T1/cmtt/m/n/12 http : / / openaccess . thecvf . com / content / CVPR2025 / 
+html / Peng _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 Diffusion-based
+Underfull \hbox (badness 10000) in paragraph at lines 1369--1383
+\T1/cmtt/m/n/12 Parameter-[]efficient _ Fine-[]tuning _ in _ Hyperspherical _ S
+pace _ for _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 pro-vide rich
+Underfull \hbox (badness 10000) in paragraph at lines 1369--1383
+\T1/cmtt/m/n/12 Open-[]vocabulary _ Semantic _ Segmentation _ CVPR _ 2025 _ pap
+er . html$[]\T1/cmr/m/n/12 .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 spatial-semantic
+Overfull \hbox (16.76443pt too wide) in paragraph at lines 1369--1383
+\T1/cmr/m/n/12 http://openaccess.thecvf.com/content/CVPR2025/papers/Peng_Parame
+ter-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 rep-re-sen-ta-tions
+Underfull \hbox (badness 10000) in paragraph at lines 1369--1383
+\T1/cmr/m/n/12 efficient_Fine-tuning_in_Hyperspherical_Space_for_Open-
  []
+
+[66]
+Underfull \hbox (badness 1472) in paragraph at lines 1384--1397
+[]\T1/cmr/m/n/12 Z Zhao, X Li, L Shi, N Iman-pour... - ... of the Com-puter Vi-
+
+ []
+
 
+Underfull \hbox (badness 1221) in paragraph at lines 1384--1397
+\T1/cmr/m/n/12 sion ..., 2025, 2025.  DPSeg: dual-prompt cost vol-ume learn-ing
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 and sup-port
  []
 
 
-Underfull \hbox (badness 2671) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 and the sys-tem
+Underfull \hbox (badness 3590) in paragraph at lines 1384--1397
+\T1/cmr/m/n/12 for open-vocabulary se-man-tic seg-men-ta-tion, in: CVPR.  URL:
  []
 
 
-Underfull \hbox (badness 3302) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 than lightweight
+Underfull \hbox (badness 10000) in paragraph at lines 1384--1397
+[]$\T1/cmtt/m/n/12 https : / / openaccess . thecvf . com / content / CVPR2025 /
+ html / Zhao _
  []
 
 
-Underfull \hbox (badness 6364) in paragraph at lines 21--21
-[]\T1/cmr/m/n/10.95 2023[]; []Lee et al.[],
+Underfull \hbox (badness 10000) in paragraph at lines 1384--1397
+\T1/cmtt/m/n/12 DPSeg _ Dual-[]Prompt _ Cost _ Volume _ Learning _ for _ Open-[
+]Vocabulary _
  []
 
 
-Underfull \hbox (badness 7631) in paragraph at lines 21--21
-[]\T1/cmr/m/n/10.95 2025[]; []Shi et al.[],
+Underfull \hbox (badness 10000) in paragraph at lines 1384--1397
+\T1/cmtt/m/n/12 Semantic _ Segmentation _ CVPR _ 2025 _ paper . html$[]\T1/cmr/
+m/n/12 . data-CID:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 High-quality
+Overfull \hbox (36.56923pt too wide) in paragraph at lines 1384--1397
+\T1/cmr/m/n/12 https://openaccess.thecvf.com/content/CVPR2025/papers/Zhao_DPSeg
+_Dual-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 gen-er-al-iza-tion
+Underfull \hbox (badness 10000) in paragraph at lines 1384--1397
+\T1/cmr/m/n/12 Prompt_Cost_Volume_Learning_for_Open-
  []
 
 
-Underfull \hbox (badness 1281) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 or com-po-si-tional
+Underfull \hbox (badness 10000) in paragraph at lines 1398--1415
+[]$\T1/cmtt/m/n/12 https : / / link . springer . com / chapter / 10 . 1007 / 97
+8-[]3-[]031-[]72775-[]7 _
  []
 
 
-Underfull \hbox (badness 1077) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 foun-da-tion mod-
+Underfull \hbox (badness 3735) in paragraph at lines 1398--1415
+\T1/cmtt/m/n/12 2$[]\T1/cmr/m/n/12 , doi:[]$\T1/cmtt/m/n/12 10 . 1007 / 978-[]3
+-[]031-[]72775-[]7 _ 2$[]\T1/cmr/m/n/12 . data-CID: XXXdC9rXMWsJ
  []
 
 
-Underfull \hbox (badness 5681) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 Native se-man-tic
+Underfull \hbox (badness 1502) in paragraph at lines 1398--1415
+\T1/cmr/m/n/12 Source search pre-fix: gs_mllmseg_20260522 Scholar meta-data: H
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 un-der-stand-ing
+Underfull \hbox (badness 3078) in paragraph at lines 1416--1434
+[]\T1/cmr/m/n/12 Zhang, T., Li, X., Fei, H., Yuan, H., neu-ral, S.W.A.i., 2024b
+.
  []
 
 
-Underfull \hbox (badness 5490) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 is lim-ited; ad-
+Underfull \hbox (badness 10000) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 Omg-llava: Bridg-ing image-level, object-level, pixel-level rea-
+
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 di-tional CLIP,
+Underfull \hbox (badness 10000) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 son-ing and un-der-stand-ing, in: NeurIPS.  URL: []$\T1/cmtt/m/n
+/12 https :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 com-po-nents are
+Underfull \hbox (badness 10000) in paragraph at lines 1416--1434
+\T1/cmtt/m/n/12 / / proceedings . neurips . cc / paper _ files / paper / 2024 /
+ hash /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T1/cmr/m/n/10.95 Representative pa-
+Underfull \hbox (badness 10000) in paragraph at lines 1416--1434
+\T1/cmtt/m/n/12 83eb86be3e2f9fd66c44d9073c51ba4d-[]Abstract-[]Conference . html
+$[]\T1/cmr/m/n/12 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T1/cmr/m/n/10.95 X-Decoder ([]Zou
+Underfull \hbox (badness 10000) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 doi:[]$\T1/cmtt/m/n/12 10 . 48550 / arxiv . 2406 . 19389$[]\T1/c
+mr/m/n/12 . data-CID: ey3DgXTuVL4J
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 lan-guage tasks
+Underfull \hbox (badness 1910) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 Google Scholar cited by: 215 Fil-tered venue: NeurIPS Re-jected
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T1/cmr/m/n/10.95 MLLM-based
+Underfull \hbox (badness 7851) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 rea-son: al-lowed venue/year but ti-tle lacks ex-plicit seg-men-
+ta-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 rea-son-ing seg-
+Underfull \hbox (badness 8038) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 tion plus rea-son-ing/LLM/instruction sig-nal Source re-jected f
+ile:
  []
+
 
+Underfull \hbox (badness 10000) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 gs_reasoning_seg_rejected_allowed_venue_topic.json Source search
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 language in-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 struc-tions,
+Underfull \hbox (badness 1895) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 pre-fix: gs_reasoning_seg Scholar meta-data: T Zhang, X Li, H
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 com-mon-sense
+Underfull \hbox (badness 2521) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 Fei, H Yuan, S Wu... - Ad-vances in neu-ral ..., 2024 - pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 rea-son-ing, and
+Underfull \hbox (badness 3019) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 ceed-ings.neurips.cc Scholar re-sult num-ber: 125 Scholar full t
+ext:
  []
 
+
+Overfull \hbox (120.28217pt too wide) in paragraph at lines 1416--1434
+\T1/cmr/m/n/12 https://proceedings.neurips.cc/paper_files/paper/2024/file/83eb8
+6be3e2f9fd66c44d9073c51ba4d-
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 pixel ground-ing
+[67]
+Underfull \hbox (badness 10000) in paragraph at lines 1435--1449
+[]$\T1/cmtt/m/n/12 https : / / link . springer . com / chapter / 10 . 1007 / 97
+8-[]3-[]031-[]72904-[]1 _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T1/cmr/m/n/10.95 Hallucination,
+Underfull \hbox (badness 3536) in paragraph at lines 1435--1449
+\T1/cmtt/m/n/12 18$[]\T1/cmr/m/n/12 , doi:[]$\T1/cmtt/m/n/12 10 . 1007 / 978-[]
+3-[]031-[]72904-[]1 _ 18$[]\T1/cmr/m/n/12 . data-CID: 7Khap52wFA0J
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 fine bound-ary
+Overfull \hbox (14.06221pt too wide) in paragraph at lines 1435--1449
+\T1/cmr/m/n/12 https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/09460.p
+df. 
  []
 
 
-Underfull \hbox (badness 5345) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 ac-cu-racy, heavy
+Underfull \hbox (badness 5008) in paragraph at lines 1459--1477
+[]\T1/cmr/m/n/12 Zhou, J., Zhou, Y., Han, M., Wang, T., Chang, X., 2026a.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 train-ing cost,
+Underfull \hbox (badness 8094) in paragraph at lines 1459--1477
+\T1/cmr/m/n/12 Think be-fore you seg-ment: An object-aware rea-son-ing agent
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 and eval-u-a-tion
+Underfull \hbox (badness 10000) in paragraph at lines 1459--1477
+\T1/cmr/m/n/12 for re-fer-ring audio-visual seg-men-ta-tion, in: AAAI.  URL:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 complex-scene
+Underfull \hbox (badness 10000) in paragraph at lines 1459--1477
+[]$\T1/cmtt/m/n/12 https : / / ojs . aaai . org / index . php / AAAI / article 
+/ view / 38373$[]\T1/cmr/m/n/12 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T1/cmr/m/n/10.95 Closer to real
+Underfull \hbox (badness 10000) in paragraph at lines 1459--1477
+\T1/cmr/m/n/12 doi:[]$\T1/cmtt/m/n/12 10 . 1609 / aaai . v40i16 . 38373$[]\T1/c
+mr/m/n/12 . data-CID: 2d6i75zINYsJ Google
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 mem-ory, com-
+Underfull \hbox (badness 1137) in paragraph at lines 1459--1477
+\T1/cmr/m/n/12 Scholar cited by: 12 Fil-tered venue: AAAI Re-jected rea-son: al
+-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 pu-ta-tion, and
+Underfull \hbox (badness 1888) in paragraph at lines 1459--1477
+\T1/cmr/m/n/12 lowed venue/year but ti-tle not strict MLLM seg-men-ta-tion Sour
+ce
  []
 
 
-Underfull \hbox (badness 6825) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 than in single-
+Underfull \hbox (badness 1852) in paragraph at lines 1459--1477
+\T1/cmr/m/n/12 Source search pre-fix: gs_mllmseg_20260522 Scholar meta-data: J
  []
 
-[32] [33]) (section/06_challenges_future.tex
-Overfull \hbox (2.08897pt too wide) in paragraph at lines 6--7
-[]\T1/cmr/m/n/12 Writing plan: ar-gue that rec-og-niz-ing un-seen cat-e-gory names is not enough.
+[68]
+Underfull \hbox (badness 1062) in paragraph at lines 1493--1505
+\T1/cmtt/m/n/12 1609 / aaai . v40i16 . 38405$[]\T1/cmr/m/n/12 . data-CID: C3IBz
+Z7yDK4J Google Scholar
  []
 
-[34]
-Overfull \hbox (4.23688pt too wide) in paragraph at lines 14--15
-[]\T1/cmr/m/n/12 Writing plan: dis-cuss hal-lu-ci-na-tion and faith-ful-ness in LISA- and GLaMM-
+
+Underfull \hbox (badness 1097) in paragraph at lines 1493--1505
+\T1/cmr/m/n/12 cited by: 9 Fil-tered venue: AAAI Scholar meta-data: L Zhu, B
+ []
+
+
+Underfull \hbox (badness 1303) in paragraph at lines 1493--1505
+\T1/cmr/m/n/12 Ouyang, Y Zhang, T Cheng, R Hu... - Pro-ceed-ings of the ...,
  []
 
-[35]) (section/07_conclusion.tex) (e:\SWJTU\ComputerVision\article\build\main.bbl [36] [37])
 
-Package natbib Warning: There were undefined citations.
+Underfull \hbox (badness 2556) in paragraph at lines 1493--1505
+\T1/cmr/m/n/12 2026 - ojs.aaai.org Scholar re-sult num-ber: 52 Scholar full tex
+t:
+ []
 
-[38] (e:\SWJTU\ComputerVision\article\build\main.aux)
+) [69] [70] [71] (E:\SWJTU\ComputerVision\article\build\main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 3C2CDC04C65F359F7FC48E4F16A22B61;12625.
+(rerunfilecheck)             Checksum: DCD56583C44B241D9FF3D5651599235C;12598.
  ) 
 Here is how much of TeX's memory you used:
- 11234 strings out of 467691
- 171593 string characters out of 5425015
- 600226 words of memory out of 5000000
- 40015 multiletter control sequences out of 15000+600000
- 642700 words of font info for 82 fonts, out of 8000000 for 9000
+ 32080 strings out of 467691
+ 748607 string characters out of 5425557
+ 1275296 words of memory out of 5000000
+ 60372 multiletter control sequences out of 15000+600000
+ 639632 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,79p,622b,578s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\YuqiZhang_31408_i9\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\YuqiZhang_31408_i9\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\YuqiZhang_31408_i9\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\YuqiZhang_31408_i9\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\YuqiZhang_31408_i9\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\YuqiZhang_31408_i9\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\YuqiZhang_31408_i9\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\YuqiZhang_31408_i9\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\YuqiZhang_31408_i9\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk>
-Output written on e:\SWJTU\ComputerVision\article\build\main.pdf (39 pages, 6886301 bytes).
+ 84i,12n,104p,1617b,759s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
+ectt1200.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/
+ec/dpi600\ecrm0600.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour
+/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts
+/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\YuqiZhang\AppData\Local\Mi
+KTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\YuqiZhang\AppDat
+a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\YuqiZh
+ang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Us
+ers\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.
+pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600
+\ecrm1728.pk><D:/ProgramFiles/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+<D:/ProgramFiles/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:/ProgramFi
+les/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/ProgramFiles/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmmi8.pfb><D:/ProgramFiles/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmr12.pfb><D:/ProgramFiles/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmr6.pfb><D:/ProgramFiles/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/Pr
+ogramFiles/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/ProgramFiles/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><D:/ProgramFiles/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmsy8.pfb><D:/ProgramFiles/MiKTeX/fonts/type1/public/amsf
+onts/symbols/msbm10.pfb>
+Output written on E:\SWJTU\ComputerVision\article\build\main.pdf (72 pages, 119
+32969 bytes).
 PDF statistics:
- 1129 PDF objects out of 1200 (max. 8388607)
- 115 named destinations out of 1000 (max. 500000)
- 406 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3019 PDF objects out of 3580 (max. 8388607)
+ 246 named destinations out of 1000 (max. 500000)
+ 505 words of extra memory for PDF output out of 10000 (max. 10000000)
 

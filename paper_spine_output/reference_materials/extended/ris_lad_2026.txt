@@ -1,0 +1,594 @@
+                                     The Fortieth AAAI Conference on Artificial Intelligence (AAAI-26)
+
+
+
+
+         RIS-LAD: A Benchmark and Model for Referring Image Segmentation in
+                           Low-Altitude Drone Imagery
+          Kai Ye1 , YingShi Luan1 , Zhudi Chen1 , Guangyue Meng1 , Pingyang Dai1 , Liujuan Cao1 *
+    1
+        Key Laboratory of Multimedia Trusted Perception and Efficient Computing, Ministry of Education of China, Xiamen
+                                               University, 361005, P.R. China.
+
+
+
+                            Abstract                                              Low-Altitude              Multi-Viewpoint                  Remote
+                                                                                    Drone          Small & Dense      Multi-Lighting         Sensing
+  Referring Image Segmentation (RIS), which aims to segment
+  specific objects based on natural language descriptions, plays                                 The motor being      Yellow car in     The ships at the
+                                                                             Blue bus parked
+  an essential role in vision-language understanding. Despite                                    driven behind the    front of white     bottom of the
+                                                                              at the station
+  its progress in remote sensing applications, RIS under Low-                                        white car             van               image
+  Altitude Drone (LAD) scenarios remains underexplored, as                      Dense-Object
+  existing datasets and methods are typically designed for high-
+  altitude and static-view imagery. They struggled to handle the                Tiny-Object
+  unique characteristics of LAD views, such as diverse view-
+  points and high object density. In this paper, we propose RIS-
+  LAD, the first fine-grained RIS benchmark tailored for LAD                (a) Comparison of Referring Segmentation on LAD and RS Images.
+  scenarios, featuring 13,871 meticulously annotated image-
+  text-mask triplets collected from real-world drone footage                      GT                      RefSegRS                 SAARN(ours)
+  with emphasis on small, densely cluttered objects and multi-
+  view perspectives. Additionally, we propose the Semantic-                                          Category Drift
+  Aware Adaptive Reasoning Network, which decomposes and
+  adaptively routes semantic information to different network
+  stages rather than uniformly injecting all linguistic features.              Referring The motor is white and unoccupied, located on the right side
+  Specifically, the Category-Dominated Linguistic Enhance-                    Expression of the image, near the edge.
+  ment aligns visual features with object categories during early
+  encoding, while the Adaptive Reasoning Fusion Module dy-
+  namically selects semantic cues across scales to enhance rea-                                       Object Drift
+  soning in complex scenes. Extensive experiments reveal that
+  RIS-LAD presents substantial challenges to state-of-the-art                  Referring The motor is white and being driven by a person, it is located
+  RIS algorithms, and also demonstrate the effectiveness of our               Expression on the right side of the image, near the edge.
+  proposed model in addressing these challenges.                            (b) Category Drift and Object Drift caused by small and dense objects.
+
+                        Introduction                                        Figure 1: Illustration of the challenges in referring low-
+                                                                            altitude drone image segmentation (RLADIS). The method
+Low-Altitude Drones (LAD), which typically operate below                    shown in (b) is RefSegRS (Chen et al. 2025), one of the cur-
+200 meters, have become widely utilized in real-world ap-                   rent SOTA approaches for RRSIS.
+plications due to their flexible deployment and high versa-
+tility (Banafaa et al. 2024; Casanova et al. 2025; Li et al.
+2025). This trend has sparked increasing research interest in
+vision tasks under LAD scenarios, leading to the develop-                   2025; Huang et al. 2025) is a fundamental perception task
+ment of benchmarks such as VisDrone (Zhu et al. 2021) and                   that aims to segment objects from images based on descrip-
+UAV123 (Mueller, Smith, and Ghanem 2016), which sup-                        tions. Incorporating RIS into LAD systems enables LADs to
+port object detection, tracking and other related tasks (Wen                better accommodate a wider range of practical applications.
+et al. 2021; Barekatain et al. 2017; Du et al. 2018). Recently,                However, existing RIS research mainly focuses on con-
+visual understanding in LAD scenarios (Sun et al. 2025; Li                  ventional scenes or high-altitude remote sensing imagery,
+and Zhao 2025; Lin et al. 2025) has attracted growing inter-                leaving the distinctive properties of LAD imagery largely
+est, especially in multi-modal tasks. Among them, Referring                 unexplored in the current literature. Although previous Re-
+Image Segmentation (RIS) (Liu and Li 2025; Wang et al.                      ferring Remote Sensing Image Segmentation (RRSIS) stud-
+    * Corresponding author.                                                 ies (Shi and Zhang 2025; Chen et al. 2025; Pan et al. 2024)
+Copyright © 2026, Association for the Advancement of Artificial             have provided valuable insights, they are mostly based on
+Intelligence (www.aaai.org). All rights reserved.                           imagery taken from satellites or helicopters. As shown in
+
+
+                                                                    11937
+Fig. 1(a), Referring Low-Altitude Drone Image Segmenta-                                           Related Work
+tion (RLADIS) presents several unique challenges compared                   Referring Image Segmentation (RIS) aims to localize
+to RRSIS: (1) diverse viewpoints due to lower and more flex-                target objects at the pixel level in an image based on natu-
+ible camera positions; (2) diverse illumination conditions;                 ral language expressions (Hu, Rohrbach, and Darrell 2016).
+and (3) smaller and more densely distributed objects. These                 A representative line of methods focuses primarily on en-
+challenges introduce a substantial domain gap that hinders                  hancing vision-language alignment to improve segmentation
+the effective generalization of current RRSIS methods to                    performance (Chng et al. 2024; Wang et al. 2024; Shah,
+RLADIS tasks.                                                               VS, and Patel 2024). VATEX (Nguyen-Truong et al. 2025)
+   To bridge this gap, we propose RIS-LAD, the first dataset                leverages a CLIP-based prior module to generate heatmaps,
+designed for fine-grained RLADIS, accompanied by a semi-                    which enforces semantic consistency and improves contex-
+automatic annotation pipeline that ensures high-quality re-                 tual alignment between language and vision. ASDA (Yue
+ferring expression generation and annotation efficiency. The                et al. 2024) employs a dual-alignment mechanism with dy-
+dataset contains 13,871 image-text-mask triples, providing                  namic feature selection to better align visual and linguis-
+a benchmark for evaluating RLADIS methods. Furthermore,                     tic modalities. Other approaches explore novel architectural
+our analysis reveals two key challenges that hinder the direct              designs for RIS (Yang et al. 2024; Chen et al. 2024; Xia
+adaptation of RRSIS methods to RLADIS: category drift                       et al. 2024). IteRPrimE (Wang et al. 2025) refines visual
+and object drift. As shown in Fig. 1(b), category drift arises              activation maps through an iterative Grad-CAM refinement
+when the object occupies only a small region of the image,                  strategy and adopts a primary-word emphasis module to im-
+misleading the model to focus on larger, semantically similar               prove the identification of key semantic components in lan-
+objects. Object drift, on the other hand, results from a high               guage expressions. Although these approaches demonstrate
+density of instances belonging to the same category, mak-                   promising performance on conventional imagery, their ef-
+ing it difficult for the model to correctly identify the specific           fectiveness deteriorates notably when applied to LAD.
+object referenced in the expression.
+   Motivated by these drift issues, we propose the Semantic-                Referring Remote Sensing Image Segmentation (RRSIS)
+Aware Adaptive Reasoning Network (SAARN), which de-                         is a domain-specific extension of the RIS task for remote
+couples linguistic features and injects them at appropriate                 sensing images, first introduced by (Sun et al. 2022). Given
+stages of the network to ensure semantic alignment. Unlike                  the high resolution and small object sizes in remote sensing
+existing decoupling-based approaches that uniformly inject                  images, many recent approaches have adopted multi-scale
+all linguistic components across modules (Lei et al. 2024;                  feature fusion (Ma et al. 2025; Lu et al. 2025). FIANet (Lei
+Zhang et al. 2025), SAARN employs a more targeted strat-                    et al. 2024) disentangles various components of the refer-
+egy. Specifically, the Category-Dominated Linguistic En-                    ring expression and incorporates a text-aware multi-scale en-
+hancement (CDLE) module injects only class-level linguis-                   hancement module to improve multi-modal discrimination.
+tic features into the encoder. This injection aligns early vi-              RMSIN (Liu et al. 2024) designs rotation-aware modules
+sual representations with accurate category-level semantics.                to precisely segment objects based on the unique properties
+Meanwhile, global linguistic features are selectively inte-                 of remote sensing imagery. Meanwhile, pre-trained large vi-
+grated via class-guided gating, reinforcing semantic consis-                sion models have drawn growing interest in this field (Dong
+tency. In the multi-scale fusion stage, the Adaptive Reason-                et al. 2025). RSRefSeg integrates a CLIP-based (Radford
+ing Fusion Module (ARFM) performs scale-aware enhance-                      et al. 2021) module to capture implicit visual activations
+ment by dynamically weighting semantic cues across multi-                   and uses them as guidance prompts for SAM (Kirillov et al.
+scale features. This mechanism simulates a reasoning pro-                   2023). For benchmarks, existing RRSIS datasets (Dong et al.
+cess, guiding the model to infer the most semantically con-                 2024; Liu et al. 2024; Yuan et al. 2024) are mainly con-
+sistent instance among densely packed objects of the same                   structed from high-altitude sources such as Google Earth
+category.                                                                   and GF-2, which feature scenes with larger objects and
+   The main contributions of this paper are as follows:                     fixed viewpoints. Although some studies have explored low-
+                                                                            altitude scenarios (Sun et al. 2025), challenges such as tiny
+ • We propose RIS-LAD, the first fine-grained referring im-                 objects and high instance density persist due to diverse view-
+   age segmentation dataset tailored for low-altitude drone                 points. Existing LAD-based datasets like UAVid-RIS and
+   scenarios. It offers diverse LAD scenes with rich textual                VDD-RIS (Li and Zhao 2025) remain limited in object cate-
+   descriptions and high-quality segmentation masks.                        gories and expression granularity, restricting their ability to
+ • To address category drift and object drift in RLADIS, we                 support fine-grained RIS tasks.
+   propose the Semantic-Aware Adaptive Reasoning Net-
+   work (SAARN). This model focuses on aligning seman-                                         RIS-LAD Dataset
+   tic categories and selectively integrates the most relevant
+   linguistic features at optimal feature scales.                           This section introduces the construction process and key
+                                                                            characteristics of the RIS-LAD.
+ • We conducted extensive experiments to investigate the
+   challenges inherent in RLADIS and construct a dedi-                      Image and Category Selection The suitable images for
+   cated benchmark for this task. Our proposed SAARN                        the RIS task are selected from the publicly available CO-
+   achieves state-of-the-art performance on the RIS-LAD                     Drone dataset (Ye et al. 2025), which is designed for LAD-
+   benchmark.                                                               oriented object detection. The selected images encompass
+
+
+                                                                    11938
+                 Box Prompt
+
+
+                 Image
+                          SAM-2         Mask
+
+     (a) Pipeline of the mask annotation generation.
+
+                                               The motor is red
+                                               and being driven
+                                                by a person, …
+
+      Location                    Human Correction                         Figure 3: Word cloud for referring expressions in the RIS-
+       Marker                                                              LAD dataset.
+                   Prompt:
+                   The red box in the first
+                   image indicates the
+                                                                                                                    Shooting Nighttime
+                   {category name}'s                                           Dataset          Image Source
+                                                                                                                     Angle    Scene
+                   location. The second          The motor is
+                   image shows the target      black and being               RefDIOR        Google Earth              fixed       ✗
+                   {category name}.           driven by a person            NWPU-Refer      Google Earth              fixed       ✗
+                   Please describe...             in red, …                  RISBench Google Earth, GF-2, JL-1        fixed       ✗
+                                                                             RefSegRS Helicopter (above 1000m)        fixed       ✗
+     (b) Pipeline of referring expression generation.                        RRSIS-D        Google Earth              fixed       ✗
+                                                                             RIS-LAD         Drone (30m-100m)       30◦ –60◦      ✓
+Figure 2: Illustration of the semi-automatic annotation
+pipeline for RIS-LAD. Referring expression generation em-
+                                                                           Table 1: Comparison of RIS-LAD and publicly available re-
+ploys Qwen2.5-VL to produce initial descriptions condi-
+                                                                           ferring remote sensing image segmentation datasets.
+tioned on location markers and cropped object instances.
+
+
+diverse real-world urban scenes under various lighting con-                with a red bounding box that indicates the location, are then
+ditions and from different viewpoints. Following common                    fed into Qwen2.5-VL. This dual-input strategy addresses
+procedures for constructing RRSIS datasets (Yuan et al.                    challenges associated with small object sizes by the MM-
+2024; Dong et al. 2024; Yang et al. 2025), the images are                  LLM’s ability to capture fine-grained visual features and
+divided into uniform 1080 × 1080 patches, thus preserving                  generate accurate spatial descriptions when relying solely
+fine-grained details. A manual screening step is performed                 on raw coordinates. As shown in Fig. 3, we further visualize
+to ensure that the retained tiles exhibit representative char-             the linguistic diversity through word clouds generated from
+acteristics of the LAD imagery.                                            the refined referring expressions.
+   Following mainstream LAD object detection benchmarks
+(Zhu et al. 2021; Du et al. 2018; Mueller, Smith, and                      Manual Refinement and Dataset Splitting All automati-
+Ghanem 2016), we select eight representative object cate-                  cally generated annotations are carefully verified and refined
+gories: people, car, motor, bicycle, tricycle, truck, bus and              to ensure strong semantic alignment among images, refer-
+boat. These categories are commonly encountered and cru-                   ring expressions, and masks. This process yields a total of
+cial for various drone-based applications. To better reflect               13,871 high-quality image-text-mask triplets, randomly di-
+real-world challenges, we apply a size constraint to ensure                vided into training, validation, and test sets with a 7: 1: 2
+that more than 90% of the annotated instances possess a                    ratio.
+mask coverage ratio below 0.1. This constraint highlights
+the prevalence of small and visually inconspicuous objects                 Comparison of RIS-LAD and RRSIS datasets. As sum-
+in LAD scenarios.                                                          marized in Table 1, RIS-LAD exhibits distinct characteris-
+                                                                           tics that distinguish it from existing RRSIS datasets (Dong
+Mask and Expression Generation Pipeline Segment                            et al. 2024; Yang et al. 2025; Yuan et al. 2024; Liu et al.
+Anything Model 2 (SAM-2) (Ravi et al. 2024) is employed                    2024; Lu et al. 2025). First, in contrast to RRSIS datasets
+to automatically generate high-quality instance masks,                     that rely on fixed top-down viewpoints, RIS-LAD contains
+where the oriented bounding boxes from CODrone provide                     imagery captured from low-altitude drones at oblique an-
+precise prompts to guide the segmentation process.                         gles between 30◦ and 60◦ , thus offering greater variation
+   As shown in Fig. 2, referring expressions are gener-                    in perspective and object appearance. Secondly, RIS-LAD
+ated using the multi-modal large language model (MM-                       uniquely includes nighttime scenes, enabling evaluation un-
+LLM) Qwen2.5-VL (Bai et al. 2025). To capture both                         der challenging illumination conditions. Furthermore, it em-
+instance-level appearance and spatial attributes, each object              ploys a semi-automatic annotation pipeline that integrates
+is cropped and upsampled to improve visual clarity. The                    MM-LLMs with manual verification, ensuring both annota-
+cropped instance and the corresponding full image, marked                  tion quality and efficiency.
+
+
+                                                                   11939
+                               Transformer                                                Fused Category-Dominated Feature
+                                                           Visual Features
+                                  Layer
+                                  Visual                         𝑖 : 1x1
+                                                                𝜑𝑚                                       𝑖𝑐 : 1x1
+                                                                                                        𝜑𝑚
+                               Enhancement                                                                                  𝜑𝑓𝑖𝑐𝑙
+                                                                𝜔𝑞𝑖 : 1x1
+                                                                                             𝜑𝑓𝑖𝑐       𝜔𝑞𝑖𝑐 : 1x1
+                         Category-Dominated
+                                                                                                                      𝜑𝑜𝑖𝑐𝑙 : 1x1
+                              Linguistic                        𝜔𝑘𝑐 : 1x1                               𝜔𝑘𝑙 : 1x1
+                            Enhancement                                  𝑠𝑜𝑓𝑡𝑚𝑎𝑥       𝜑𝑜𝑖𝑐 : 1x1               𝑠𝑜𝑓𝑡𝑚𝑎𝑥
+                                                                𝜔𝑣𝑐 : 1x1       𝑖𝑐 : 1x1
+                                                                               𝜔𝑤                       𝜔𝑣𝑙 : 1x1     𝜔𝑤𝑖𝑐𝑙 : 1x1
+
+
+                                                                      Encoder                 Encoder                Encoder           Mask
+        Linguistic            Encoder Layer                            Layer                   Layer                  Layer           Encoder
+       Components
+            Boat                                                                                                               ARFM
+                              Pyramid Pooled Features
+         White boat
+        sailing in the                                                                                               ARFM
+                         Class-level Linguistic Features
+           middle                                                                                       ARFM
+       White [masked]        Global Linguistic Features
+        sailing in the                                       Adaptive Reasoning Fusion Module (ARFM)
+           middle        Descriptive Linguistic Features
+
+
+Figure 4: Illustration of the proposed Semantic-Aware Adaptive Reasoning Network (SAARN). The framework comprises
+two core components: Category-Dominated Linguistic Enhancement (CDLE, top) and Adaptive Reasoning Fusion Module
+(ARFM, bottom). To mitigate early-stage semantic misalignments, CDLE injects class-level linguistic features at the encoder
+stage, while ARFM adaptively integrates multi-scale and linguistic features to reason about the correct object in scenes with
+dense object distributions. ω and φ denote linear and nonlinear mappings, respectively.
+
+
+                              Method                                                 features with l, c, and d across different scales. It assigns
+                                                                                     adaptive weights based on semantic alignment and spatial
+Overview                                                                             resolutions, allowing features at each scale to emphasize the
+As shown in Fig. 4, we propose the Semantic-Aware Adap-                              most relevant linguistic cues. The final fused representation
+tive Reasoning Network (SAARN), a framework designed to                              is then passed to a mask decoder to generate the segmenta-
+address category drift and object drift in RLADIS. SAARN                             tion output.
+incorporates two key components: the Category-Dominated
+Linguistic Enhancement (CDLE) and the Adaptive Reason-
+ing Fusion Module (ARFM).                                                            Category-Dominated Linguistic Enhancement
+   Given an input image and its corresponding referring ex-
+pression, a Swin Transformer (Liu et al. 2021) encoder ex-
+tracts visual features, and the expression is decomposed                             In order to address category drift, we propose the Category-
+into global, class-level, and descriptive components, yield-                         Dominated Linguistic Enhancement (CDLE) module, which
+ing three types of linguistic features: l, c, and d. As shown                        selectively injects class-level linguistic features to precisely
+in the bottom-left of Fig. 4, these linguistic features corre-                       align early visual representations with the correct categories.
+spond to the complete expression, the category name, and                             Descriptive linguistic components are deliberately excluded
+the descriptive content excluding the category term, respec-                         to prevent alignment with visually similar but incorrect ob-
+tively. Such disentanglement facilitates targeted modeling of                        jects, thus mitigating category drift. This module is inte-
+semantic intent, object class information, and detailed spa-                         grated into each stage of the visual encoder to enable fine-
+tial or attribute cues, which aligns with the intuitive human                        grained cross-modal interaction.
+reasoning process of first locating the described region or                             The visual features, or the output from the previous en-
+identifying all category-matching objects, and then select-                          coder layer, are denoted as x ∈ RB×HW ×D , where B is
+ing the target based on specific attributes.                                         the batch size, HW is the flattened spatial resolution, and
+   At the encoder stage, CDLE injects class-level guidance                           D is the dimension of the feature. The class-level linguistic
+through c to align early visual representations with the                             features c ∈ RB×Db ×N are derived by extracting the cat-
+correct category. Subsequently, it integrates l to construct                         egory token from the referring expression and encoding it
+category-dominated fused representations, which are then                             using a pre-trained BERT model (Devlin et al. 2019). Db
+combined via residual fusion with output from the previ-                             and N denote the hidden dimension and the number of lin-
+ous layer and the Visual Enhancement module (Liu et al.                              guistic tokens, respectively. Inspired by (Yang et al. 2022),
+2024) for multi-scale fusion. In the multi-scale fusion stage,                       we project both x and c into a shared embedding space to
+ARFM employs an adaptive integration of pyramid pooled                               compute the scaled dot-product attention to align category
+
+
+                                                                             11940
+cues and visual features:                                                             Adaptive Reasoning Fusion Module
+                              ωqi (x) · (ωkc (c))
+                                                    ⊤
+                                                      !                               The Adaptive Reasoning Fusion Module (ARFM) has been
+        αc = softmax                   √                  · ωvc (c),    (1)           proposed to address the problem of object drift induced by
+                                         d                                            densely packed same-category instances in LAD scenarios.
+                                                                                      Inspired by the human perception process, in which rea-
+where each ω denotes a 1 × 1 convolutional layer applied                              soning typically begins with coarse spatial localization and
+along the channel dimension, and d is the scaling factor.                             gradually refines toward specific object attributes, ARFM
+   Although category-guided attention αc effectively cap-                             adopts a progressive fusion strategy. It establishes a dy-
+tures semantic alignment between input and class-level lin-                           namic weighting scheme between the fused multi-scale fea-
+guistic cues, it tends to over-emphasize category semantics
+while suppressing other informative visual contexts. To off-                          tures X f = {xf1 , xf2 , xf3 , xf4 } and the linguistic features l,
+set this, a residual gate mechanism is employed, which facil-                         c, and d. Thus, the model can capture scale-specific seman-
+itates adaptive weighting between αc and the original feature                         tic cues more effectively, enabling semantic-aware attention
+x:                                                                                    across spatial resolutions. Fine-grained attributes like color
+                 z c = φic   ic  c      i                                             and shape are better preserved at higher resolutions, whereas
+                         o (ωw (α ) ⊙ φm (x)),            (2)
+                                                                                      coarse spatial cues such as “top-left corner” become more
+                   f c = x + z c · φic  c
+                                    f (z ),                             (3)           distinguishable at lower resolutions.
+where φim (·) and φic                                                                    X f is first aligned using pyramid pooling, which is then
+                    o (·) denote the convolutional layer fol-
+lowed by GELU. And φic                                                                downsampled to a shared resolution and channel dimen-
+                         f (·) denotes a two-layer linear pro-                                                                ′   ′   ′
+
+jection with ReLU (Agarap 2018) and Tanh activations.                                 sion, resulting in X f p ∈ RB×C ×H ×W . These features
+   Given the global linguistic features l ∈ RB×Dl ×N and                              are then fed into the Adaptive Reasoning Fusion Block
+the category-guided feature f c , we again compute the scaled                         (ARFB), which performs cross-modal reasoning across mul-
+dot-product attention and residual gate,                                              tiple branches, guided by linguistic features. As shown in
+                                                                                      Fig. 5, ARFB contains three parallel linguistic branches that
+                                             ⊤ !
+                        ω ic c
+                            (f  ) ·  ω l
+                                         (l)                                          attend to c, d and l, respectively. X f p is projected into a
+                          q            k
+        al = softmax              √               · ωvl (l), (4)                      shared embedding space and interacts with each linguistic
+                                    d                                                 feature. Formally, for each linguistic feature s ∈ {l, d, c},
+                                                                                      we compute:
+               z l = φicl icl l     ic  c
+                      o (ωw (α ) ⊙ φm (f )),                            (5)
+                       l       c     l                                                       qs = Wsq X f p + bqs ,    ks = Wsk s + bks ,            (7)
+                  f =f +z                · φicl l
+                                            f (z ),        (6)
+                                                                                             v s = Wsv s + bvs ,       αs = MHA(qs , ks , vs )       (8)
+This design ensures that l is selectively activated in regions
+corresponding to c, thus providing a safeguard mechanism                              where Wsq , Wsk , and Wsv are learnable projection matrices
+for the fusion between l and f c . The output f l retains the                         for the query, key, and value associated with the linguistic
+discriminative semantics of the referring expression while                            branch s, and MHA(·) denotes the standard multi-head at-
+maintaining a strong alignment with the correct category.                             tention (Vaswani et al. 2017). The resulting responses αs
+This effectively mitigates attention drift toward visually or                         encode the cross-modal correlation between X f p and each
+semantically similar but incorrect instances.                                         linguistic feature.
+                                                                                         To adaptively modulate the contribution of each seman-
+        𝑐                      𝑑                     𝑙                                tic branch, a Scale Reasoning Gate (SRG) module based on
+                                                                                      X f p is introduced:
+    Linear Projection       Linear Projection       Linear Projection                              [wl , wd , wc ] = Softmax(SRG(X f p ))      (9)
+                                                                                      SRG(·) consists of a global average pooling layer followed
+                                                                                      by two convolutional layers with ReLU activation, which
+              MHA                  MHA              MHA                               produce three normalized fusion weights. The weighted at-
+                                                                                      tention is computed as,
+                                                                                                     αf = Fuse(wl αl , wd αd , wc αc )        (10)
+                                                     Channel Fusion
+                𝑋 𝑓𝑝                                     Layer                        where Fuse(·) denotes the channel fusion layer, which con-
+                            Scale Reasoning                                           sists of the channel concatenation followed by convolutional
+                                  Gate                                                projection for compression and alignment.
+                                                                  𝛼𝑓                     Finally, αf is combined with X f p via residual addi-
+                                                                                      tion and further enhanced through a feed-forward network
+      Feed-Forward
+                                                                                      (Vaswani et al. 2017), before being passed into the sub-
+         Layer             Enhanced Features                                          sequent scale-aware gate fusion module (Liu et al. 2024).
+                                                                                      ARFM adaptively incorporates different linguistic features
+Figure 5: The architecture of the Adaptive Reasoning Fusion                           into the main semantic path, placing varying emphasis on
+Block. Three types of linguistic features are enhanced via                            each feature to enable it to focus on the regions to which it
+Multi-Head Attention (MHA).                                                           is most sensitive. This improves context consistency and the
+                                                                                      quality of object boundary prediction.
+
+
+                                                                              11941
+                                      P@0.5        P@0.6           P@0.7          P@0.8         P@0.9            oIoU            mIoU
+     Method         Publication      Val Test     Val Test        Val Test       Val Test      Val Test        Val Test        Val Test
+      LAVT          CVPR 2022       33.95 31.67 31.16 27.04 26.29 23.02 19.41 17.55 9.89                8.58 44.03 41.97 32.25 30.14
+     ASDA            MM 2024        35.74 33.19 29.44 26.85 23.14 20.16 13.54 12.78 4.01                3.94 38.70 37.53 35.46 33.33
+     VATEX          WACV 2025       19.27 16.07 14.76 11.87 9.74 8.47 6.02 4.67 2.08                    1.63 24.83 24.27 20.32 18.53
+     LGCE        IEEE TGRS 2024 28.22 26.38 24.07 21.82 19.99 17.55 15.11 13.32 7.88 7.06 41.72 40.75 27.68 26.17
+     FIANet      IEEE TGRS 2024 42.91 40.21 37.61 35.22 32.59 29.93 26.43 23.71 14.83 13.21 45.24 43.39 39.61 37.44
+     RMSIN          CVPR 2024   45.85 43.36 40.97 38.11 35.24 32.36 28.01 25.08 16.33 13.75 50.17 48.82 42.08 39.60
+    RSRefSeg       IGARSS 2025 46.35 44.73 43.48 40.21 39.76 36.30 35.17 30.91 26.58 21.46 50.04 47.71 43.42 41.16
+   CADFormer       JSTARS 2025 45.34 42.20 38.90 36.99 33.60 31.92 26.86 23.60 15.40 12.63 47.37 46.47 41.36 39.32
+  SAARN(ours)                       47.06 45.02 43.12 39.34 38.25 33.37 31.81 26.24 19.27 15.31 51.54 49.60 44.30 41.67
+
+            Table 2: Comparison with state-of-the-art RIS and RRSIS methods on the proposed RIS-LAD dataset.
+
+
+                      Experiments                                                                         oIoU             mIoU
+                                                                               CDLE       ARFM      Val       Test      Val    Test
+Implementation Details
+                                                                                 ✗         ✗       49.77     48.32     42.08     39.60
+The model is trained on the proposed RIS-LAD dataset for                         ✗         ✓       51.31     49.70     43.97     40.68
+50 epochs using the AdamW (Loshchilov and Hutter 2019)                           ✓         ✗       49.82     49.28     43.31     41.02
+optimizer, with an initial learning rate of 3 × 10−5 and a                       ✓         ✓       51.54     49.60     44.30     41.67
+weight decay of 0.01. A polynomial decay schedule is em-
+ployed to progressively reduce the learning rate. All experi-                   Table 3: Ablation study of CDLE and ARFM.
+ments were performed on four NVIDIA RTX 3080 GPUs in
+a batch size of 8. The param size of SAARN is 254.703M,
+and its memory overhead is 14,214 MB during inference.                                                  oIoU             mIoU
+                                                                                  l   c    d      Val       Test      Val    Test
+   For metrics, we report Precision@0.5–0.9 (P@X), Over-
+all Intersection-over-Union (oIoU), and Mean Intersection-                       ✗    ✗    ✗     49.82     49.28     43.31     41.02
+over-Union (mIoU). While P@X highlights accurate predic-                         ✓    ✗    ✗     50.64     49.44     43.52     41.43
+tions, it may overestimate performance on small objects due                      ✓    ✗    ✓     49.90     49.30     43.47     41.17
+to their ease of enclosure. Thus, oIoU and mIoU are used as                      ✓    ✓    ✗     51.06     49.52     43.98     41.61
+                                                                                 ✓    ✓    ✓     51.54     49.60     44.30     41.67
+primary metrics to evaluate segmentation performance.
+
+Comparison with SOTA Methods                                                  Table 4: Ablation study of linguistic components.
+As shown in Table 2, the proposed SAARN achieves the
+best performance across both primary metrics: oIoU and                      Conventional RIS methods, such as ASDA and VATEX,
+mIoU. Compared to RMSIN, the state-of-the-art among pre-                 face significant performance degradation under the LAD set-
+vious methods (Yuan et al. 2024; Liu, Jiang, and Zhang                   ting, mainly due to the small size of objects and complex
+2025) that does not incorporate pre-trained large vision                 background. In particular, VATEX shows relatively limited
+models (LVMs), our approach increases oIoU from 50.17 to                 performance, partially because it relies on a frozen CLIP
+51.54 on the validation set and further achieves a significant           image encoder for visual enhancement. This leads to neg-
+mIoU improvement of 2.07 on the test set. Notably, SAARN                 ative transfer because of the difference in domain between
+achieves substantial gains under stricter localization thresh-           LAD imagery and the CLIP pre-training distribution. This
+olds, including +18.0% in P@0.9 and +13.6% in P@0.8.                     observation underscores the fundamental domain gap be-
+   By incorporating CLIP and SAM, RSRefSeg achieves                      tween RLADIS and conventional RIS.
+competitive performance on Precision@0.8–0.9. However,
+it still underperforms compared to SAARN on the core seg-
+                                                                         Ablation Study
+mentation metrics. Visualization analysis reveals that the in-
+consistent performance of RSRefSeg due to its tendency to                We conduct ablation studies on the two core modules of
+produce over-extended masks, as shown in Fig. 6. Although                SAARN, CDLE and ARFM, to validate their effectiveness.
+these masks may cover the referred object, their bound-                  As shown in Table 3, adding CDLE significantly improves
+aries exhibit severe region overgeneralization, leading to               mIoU. By reinforcing category semantics early in the pro-
+lower oIoU and mIoU. In contrast, SAARN generates more                   cess, CDLE helps the model focus on the correct object cate-
+boundary-accurate masks, resulting in stronger segmenta-                 gories, resulting in better instance-level segmentation preci-
+tion performance. Compared to FIANet, which also uti-                    sion. In addition, integrating ARFM significantly improves
+lizes linguistic decoupling and multi-scale fusion, SAARN                oIoU, increasing it from 49.82 to 51.54 on the validation
+performs notably better, owing to its superior instance-level            set. This improvement results from ARFM’s ability to dis-
+perception in dense distributions of same-class objects.                 tinguish densely distributed objects across scales, facilitat-
+
+
+                                                                 11942
+GT
+SAARN(ours)
+RMSIN
+RefSegRS                               Tiny Object                                                                     High Density
+
+
+
+
+              The motor is white and being        The white car is driving on     The car is dark - colored and    The white truck is a flatbed The white van is parked on the
+              driven by a person. it is located   the road, positioned near the   parked, located near the         truck on the road, positioned street near the crosswalk, with a
+              on the right side of the image,     center of the image, with its   bottom left corner of the        near the bottom right corner, visible windshield and side
+              near the edge.                      brake lights illuminated.       image, with a visible sunroof.   with a visible cargo area.    mirror.
+
+Figure 6: Qualitative comparisons between SAARN and the previous SOTA RMSIN and RefSegRS. The left part illustrates
+the predictions on tiny-object examples, where category drift easily occurs. The right part shows predictions in high-density
+scenarios, which are prone to object drift.
+
+
+ing more precise localization and significantly reducing false                                     Visualization and Quantitative Results
+activations.
+                                                                                                   We present a qualitative comparison with two of the SOTA
+                                                                                                   RRSIS methods to better illustrate the effectiveness of our
+                                                                                                   proposed model. As shown in Fig. 6, under typical LAD sce-
+Linguistic Components Ablation As shown in Table 4,                                                narios, our model accurately identifies the correct object cat-
+we further conduct an analysis of the linguistic components                                        egory and effectively distinguishes the object from nearby
+used in the ARFM. Specifically, we evaluate the contribu-                                          same-category instances, even in complex backgrounds and
+tions of the global, class-level and descriptive linguistic fea-                                   under varying drone viewpoints. In contrast, the compared
+ture l, c and d. Adding l improves the oIoU on validation                                          RRSIS methods exhibit noticeable drift, often leading to
+set from 49.82 to 50.64, indicating its role in providing                                          misclassification and confusion among closely clustered ob-
+global semantic guidance to enhance alignment across mul-                                          jects of the same class.
+tiple scales. Interestingly, performance drops slightly when
+d is introduced alongside l. The decrease suggests that, with-                                                                   Conclusion
+out class-level guidance, the model becomes more suscep-
+tible to semantic interference from fine-grained descriptive                                       In this work, we propose RIS-LAD, the first fine-grained
+cues, which may disrupt category-consistent representation                                         dataset designed for RLADIS. Through detailed analysis, we
+learning, especially at coarser resolutions. In contrast, intro-                                   identified two core challenges specific to this setting: cate-
+ducing c significantly improves performance on both oIoU                                           gory drift and object drift, both of which significantly de-
+and mIoU. This highlights the critical role of c in seman-                                         grade the performance of existing RES and RRSIS models.
+tic alignment, as it provides strong category-specific con-                                        To address these issues, we propose a semantic-aware adap-
+straints.                                                                                          tive reasoning network which comprises two key modules:
+                                                                                                   CDLE and ARFM. CDLE enhances early-stage category
+   Finally, combining all three features achieves the best                                         alignment, while ARFM performs adaptive multi-scale rea-
+overall performance. This indicates that each linguistic com-                                      soning to mitigate object drift. The experiments demonstrate
+ponent injected in ARFM plays a distinct but complemen-                                            the strong performance of our framework and underscore the
+tary role in the reasoning process, collectively enhancing the                                     challenges posed by RIS-LAD, setting a new benchmark for
+model’s ability to accurately localize the referred object.                                        LAD scenarios.
+
+
+                                                                                          11943
+                  Acknowledgments                                        Du, D.; Qi, Y.; Yu, H.; Yang, Y.; Duan, K.; Li, G.; Zhang,
+This work was supported by the National Science Fund                     W.; Huang, Q.; and Tian, Q. 2018. The unmanned aerial
+for Distinguished Young Scholars (No.62025603 and                        vehicle benchmark: Object detection and tracking. In Pro-
+No.62525605), National Natural Science Foundation of                     ceedings of the European conference on computer vision
+China (No. U21B2037, U22B2051, No. U23A20383, No.                        (ECCV), 370–386.
+62176222, No. 62176226, No. 62272401, No. 62576300).                     Hu, R.; Rohrbach, M.; and Darrell, T. 2016. Segmentation
+                                                                         from natural language expressions. In European conference
+                       References                                        on computer vision, 108–124. Springer.
+Agarap, A. F. 2018. Deep learning using rectified linear units           Huang, J.; Xu, Z.; Liu, T.; Liu, Y.; Han, H.; Yuan, K.;
+(relu). arXiv preprint arXiv:1803.08375.                                 and Li, X. 2025. Densely Connected Parameter-Efficient
+Bai, S.; Chen, K.; Liu, X.; Wang, J.; Ge, W.; Song, S.; Dang,            Tuning for Referring Image Segmentation. arXiv preprint
+K.; Wang, P.; Wang, S.; Tang, J.; Zhong, H.; Zhu, Y.; Yang,              arXiv:2501.08580.
+M.; Li, Z.; Wan, J.; Wang, P.; Ding, W.; Fu, Z.; Xu, Y.; Ye,             Kirillov, A.; Mintun, E.; Ravi, N.; Mao, H.; Rolland, C.;
+J.; Zhang, X.; Xie, T.; Cheng, Z.; Zhang, H.; Yang, Z.; Xu,              Gustafson, L.; Xiao, T.; Whitehead, S.; Berg, A. C.; Lo,
+H.; and Lin, J. 2025. Qwen2.5-VL Technical Report. arXiv                 W.-Y.; et al. 2023. Segment anything. In Proceedings of
+preprint arXiv:2502.13923.                                               the IEEE/CVF international conference on computer vision,
+Banafaa, M. K.; Pepeoğlu, Ö.; Shayea, I.; Alhammadi, A.;               4015–4026.
+Shamsan, Z. A.; Razaz, M. A.; Alsagabi, M.; and Al-
+Sowayan, S. 2024. A comprehensive survey on 5G-and-                      Lei, S.; Xiao, X.; Zhang, T.; Li, H.-C.; Shi, Z.; and Zhu, Q.
+beyond networks with UAVs: Applications, emerging tech-                  2024. Exploring fine-grained image-text alignment for refer-
+nologies, regulatory aspects, research trends and challenges.            ring remote sensing image segmentation. IEEE Transactions
+IEEE access, 12: 7786–7826.                                              on Geoscience and Remote Sensing.
+Barekatain, M.; Martı́, M.; Shih, H.-F.; Murray, S.;                     Li, F.; Ren, Z.; Pan, C.; Ren, H.; Jin, J.; Wang, Q.; and Wang,
+Nakayama, K.; Matsuo, Y.; and Prendinger, H. 2017.                       J. 2025. Cooperative Sensing and Communication Beam-
+Okutama-action: An aerial view video dataset for concurrent              forming Design for Low-Altitude Economy. arXiv preprint
+human action detection. In Proceedings of the IEEE confer-               arXiv:2506.20244.
+ence on computer vision and pattern recognition workshops,               Li, R.; and Zhao, X. 2025. AeroReformer: Aerial Referring
+28–35.                                                                   Transformer for UAV-based Referring Image Segmentation.
+Casanova, J. J.; Bergmann, N. T.; Kalin, J. E.; Heineck,                 arXiv preprint arXiv:2502.16680.
+G. C.; and Burke, I. C. 2025. A comparison of protocols for              Lin, J.; Hu, Y.; Shen, J.; Shen, Y.; Cao, L.; Zhang, S.; and
+high-throughput weeds mapping. Smart Agricultural Tech-                  Ji, R. 2025. What You Perceive Is What You Conceive: A
+nology, 101076.                                                          Cognition-Inspired Framework for Open Vocabulary Image
+Chen, K.; Zhang, J.; Liu, C.; Zou, Z.; and Shi, Z. 2025.                 Segmentation. In Proceedings of the 33rd ACM Interna-
+RSRefSeg: Referring Remote Sensing Image Segmentation                    tional Conference on Multimedia, 2841–2850.
+with Foundation Models. arXiv preprint arXiv:2501.06809.
+                                                                         Liu, M.; Jiang, X.; and Zhang, X. 2025. CADFormer: Fine-
+Chen, Y.-C.; Li, W.-H.; Sun, C.; Wang, Y.-C. F.; and Chen,               Grained Cross-modal Alignment and Decoding Transformer
+C.-S. 2024. Sam4mllm: Enhance multi-modal large lan-                     for Referring Remote Sensing Image Segmentation. IEEE
+guage model for referring expression segmentation. In Eu-                Journal of Selected Topics in Applied Earth Observations
+ropean Conference on Computer Vision, 323–340. Springer.                 and Remote Sensing.
+Chng, Y. X.; Zheng, H.; Han, Y.; Qiu, X.; and Huang, G.
+                                                                         Liu, S.; Ma, Y.; Zhang, X.; Wang, H.; Ji, J.; Sun, X.; and Ji,
+2024. Mask grounding for referring image segmentation.
+                                                                         R. 2024. Rotated multi-scale interaction network for refer-
+In Proceedings of the IEEE/CVF Conference on Computer
+                                                                         ring remote sensing image segmentation. In Proceedings of
+Vision and Pattern Recognition, 26573–26583.
+                                                                         the IEEE/CVF Conference on Computer Vision and Pattern
+Devlin, J.; Chang, M.-W.; Lee, K.; and Toutanova, K. 2019.               Recognition, 26658–26668.
+Bert: Pre-training of deep bidirectional transformers for lan-
+guage understanding. In Proceedings of the 2019 conference               Liu, T.; and Li, S. 2025. Hybrid Global-Local Representa-
+of the North American chapter of the association for compu-              tion with Augmented Spatial Guidance for Zero-Shot Refer-
+tational linguistics: human language technologies, volume 1              ring Image Segmentation. In Proceedings of the Computer
+(long and short papers), 4171–4186.                                      Vision and Pattern Recognition Conference, 29634–29643.
+Dong, Z.; Sun, Y.; Liu, T.; and Gu, Y. 2025. DiffRIS:                    Liu, Z.; Lin, Y.; Cao, Y.; Hu, H.; Wei, Y.; Zhang, Z.; Lin,
+Enhancing Referring Remote Sensing Image Segmentation                    S.; and Guo, B. 2021. Swin transformer: Hierarchical vi-
+with Pre-trained Text-to-Image Diffusion Models. arXiv                   sion transformer using shifted windows. In Proceedings of
+preprint arXiv:2506.18946.                                               the IEEE/CVF international conference on computer vision,
+Dong, Z.; Sun, Y.; Liu, T.; Zuo, W.; and Gu, Y. 2024.                    10012–10022.
+Cross-modal bidirectional interaction model for referring                Loshchilov, I.; and Hutter, F. 2019. Decoupled Weight De-
+remote sensing image segmentation.            arXiv preprint             cay Regularization. In International Conference on Learn-
+arXiv:2410.08613.                                                        ing Representations.
+
+
+                                                                 11944
+Lu, X.; Sun, L.; Li, L.; Jiao, L.; Yang, Y.; Huang, Z.; Chai, J.;           finer-granularity referring expression segmentation. In Pro-
+Liu, X.; Liu, F.; Ma, W.; et al. 2025. RRSECS: Referring re-                ceedings of the IEEE/CVF Conference on Computer Vision
+mote sensing expression comprehension and segmentation.                     and Pattern Recognition, 12998–13008.
+IEEE Geoscience and Remote Sensing Magazine.                                Wang, Y.; Ni, J.; Liu, Y.; Yuan, C.; and Tang, Y. 2025. Iter-
+Ma, Q.; Li, L.; Lu, X.; Jiao, L.; Liu, F.; Ma, W.; Liu, X.;                 prime: Zero-shot referring image segmentation with iterative
+and Sun, L. 2025. LSCF: Long-term Semantic-guidance                         grad-cam refinement and primary word emphasis. In Pro-
+ConvFormer for Referring Remote Sensing Image Segmen-                       ceedings of the AAAI Conference on Artificial Intelligence,
+tation. IEEE Transactions on Geoscience and Remote Sens-                    8, 8159–8168.
+ing.                                                                        Wen, L.; Du, D.; Zhu, P.; Hu, Q.; Wang, Q.; Bo, L.; and Lyu,
+Mueller, M.; Smith, N.; and Ghanem, B. 2016. A bench-                       S. 2021. Detection, tracking, and counting meets drones in
+mark and simulator for UAV tracking. In Computer Vision–                    crowds: A benchmark. In Proceedings of the IEEE/CVF
+ECCV 2016: 14th European Conference, Amsterdam, The                         Conference on Computer Vision and Pattern Recognition,
+Netherlands, October 11–14, 2016, Proceedings, Part I 14,                   7812–7821.
+445–461. Springer.                                                          Xia, Z.; Han, D.; Han, Y.; Pan, X.; Song, S.; and Huang,
+Nguyen-Truong, H.; Nguyen, E.-R.; Vu, T.-A.; Tran, M.-T.;                   G. 2024. GSVA: Generalized Segmentation via Multimodal
+Hua, B.-S.; and Yeung, S.-K. 2025. Vision-aware text fea-                   Large Language Models. In Proceedings of the IEEE/CVF
+tures in referring image segmentation: From object under-                   Conference on Computer Vision and Pattern Recognition
+standing to context understanding. In 2025 IEEE/CVF Win-                    (CVPR), 3858–3869.
+ter Conference on Applications of Computer Vision (WACV),                   Yang, Y.; Ma, C.; Yao, J.; Zhong, Z.; Zhang, Y.; and Wang,
+4988–4998. IEEE.                                                            Y. 2024. ReMamber: Referring Image Segmentation with
+Pan, Y.; Sun, R.; Wang, Y.; Zhang, T.; and Zhang, Y. 2024.                  Mamba Twister. European Conference on Computer Vision
+Rethinking the Implicit Optimization Paradigm with Dual                     (ECCV).
+Alignments for Referring Remote Sensing Image Segmen-                       Yang, Z.; Wang, J.; Tang, Y.; Chen, K.; Zhao, H.; and
+tation. In Proceedings of the 32nd ACM International Con-                   Torr, P. H. 2022. Lavt: Language-aware vision trans-
+ference on Multimedia, 2031–2040.                                           former for referring image segmentation. In Proceedings of
+Radford, A.; Kim, J. W.; Hallacy, C.; Ramesh, A.; Goh, G.;                  the IEEE/CVF conference on computer vision and pattern
+Agarwal, S.; Sastry, G.; Askell, A.; Mishkin, P.; Clark, J.;                recognition, 18155–18165.
+et al. 2021. Learning transferable visual models from nat-                  Yang, Z.; Yao, H.; Tian, L.; Zhao, X.; Li, Q.; and Wang,
+ural language supervision. In International conference on                   Q. 2025. A Large-Scale Referring Remote Sensing Image
+machine learning, 8748–8763. PmLR.                                          Segmentation Dataset and Benchmark. arXiv:2506.03583.
+Ravi, N.; Gabeur, V.; Hu, Y.-T.; Hu, R.; Ryali, C.; Ma, T.;
+                                                                            Ye, K.; Tang, H.; Liu, B.; Dai, P.; Cao, L.; and Ji, R.
+Khedr, H.; Rädle, R.; Rolland, C.; Gustafson, L.; Mintun,
+                                                                            2025. More Clear, More Flexible, More Precise: A Com-
+E.; Pan, J.; Alwala, K. V.; Carion, N.; Wu, C.-Y.; Gir-
+                                                                            prehensive Oriented Object Detection benchmark for UAV.
+shick, R.; Dollár, P.; and Feichtenhofer, C. 2024. SAM 2:
+                                                                            arXiv:2504.20032.
+Segment Anything in Images and Videos. arXiv preprint
+arXiv:2408.00714.                                                           Yuan, Z.; Mou, L.; Hua, Y.; and Zhu, X. X. 2024. RRSIS:
+                                                                            Referring Remote Sensing Image Segmentation. IEEE
+Shah, N. A.; VS, V.; and Patel, V. M. 2024. Lqmformer:
+                                                                            Transactions on Geoscience and Remote Sensing.
+Language-aware query mask transformer for referring image
+segmentation. In Proceedings of the IEEE/CVF Conference                     Yue, P.; Lin, J.; Zhang, S.; Hu, J.; Lu, Y.; Niu, H.; Ding, H.;
+on Computer Vision and Pattern Recognition, 12903–12913.                    Zhang, Y.; Jiang, G.; Cao, L.; et al. 2024. Adaptive Selection
+Shi, L.; and Zhang, J. 2025. Multimodal-Aware Fusion Net-                   based Referring Image Segmentation. In Proceedings of the
+work for Referring Remote Sensing Image Segmentation.                       32nd ACM International Conference on Multimedia, 1101–
+IEEE Geoscience and Remote Sensing Letters.                                 1110.
+Sun, Y.; Feng, S.; Li, X.; Ye, Y.; Kang, J.; and Huang, X.                  Zhang, T.; Wen, Z.; Kong, B.; Liu, K.; Zhang, Y.; Zhuang,
+2022. Visual grounding in remote sensing images. In Pro-                    P.; and Li, J. 2025. Referring remote sensing image seg-
+ceedings of the 30th ACM International conference on Mul-                   mentation via bidirectional alignment guided joint predic-
+timedia, 404–412.                                                           tion. arXiv preprint arXiv:2502.08486.
+Sun, Z.; Liu, Y.; Zhu, H.; Gu, Y.; Zou, Y.; Liu, Z.; Xia,                   Zhu, P.; Wen, L.; Du, D.; Bian, X.; Fan, H.; Hu, Q.; and
+G.-S.; Du, B.; and Xu, Y. 2025. RefDrone: A Challeng-                       Ling, H. 2021. Detection and tracking meet drones chal-
+ing Benchmark for Referring Expression Comprehension in                     lenge. IEEE transactions on pattern analysis and machine
+Drone Scenes. arXiv preprint arXiv:2502.00392.                              intelligence, 44(11): 7380–7399.
+Vaswani, A.; Shazeer, N.; Parmar, N.; Uszkoreit, J.; Jones,
+L.; Gomez, A. N.; Kaiser, Ł.; and Polosukhin, I. 2017. At-
+tention is all you need. Advances in neural information pro-
+cessing systems, 30.
+Wang, W.; Yue, T.; Zhang, Y.; Guo, L.; He, X.; Wang, X.;
+and Liu, J. 2024. Unveiling parts beyond objects: Towards
+
+
+                                                                    11945
+

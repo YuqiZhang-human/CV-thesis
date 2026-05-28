@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="750.96pt" height="366.444pt" viewBox="0 0 750.96 366.444" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-05-25T19:58:14.628232</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.8.4, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 366.444 
+L 750.96 366.444 
+L 750.96 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 215.1965 42.105696 
+L 535.7635 42.105696 
+Q 538.528743 42.105696 538.528743 39.758736 
+L 538.528743 18.166704 
+Q 538.528743 15.819744 535.7635 15.819744 
+L 215.1965 15.819744 
+Q 212.431257 15.819744 212.431257 18.166704 
+L 212.431257 39.758736 
+Q 212.431257 42.105696 215.1965 42.105696 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e8e8e8; stroke: #000000; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 25.148937 94.592256 
+L 181.309712 94.592256 
+Q 184.074954 94.592256 184.074954 92.245296 
+L 184.074954 64.679184 
+Q 184.074954 62.332224 181.309712 62.332224 
+L 25.148937 62.332224 
+Q 22.383694 62.332224 22.383694 64.679184 
+L 22.383694 92.245296 
+Q 22.383694 94.592256 25.148937 94.592256 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #ddebf7; stroke: #000000; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 44.254247 170.121696 
+L 191.365139 170.121696 
+Q 194.130381 170.121696 194.130381 167.774736 
+L 194.130381 115.458864 
+Q 194.130381 113.111904 191.365139 113.111904 
+L 44.254247 113.111904 
+Q 41.489005 113.111904 41.489005 115.458864 
+L 41.489005 167.774736 
+Q 41.489005 170.121696 44.254247 170.121696 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 44.254247 239.250336 
+L 191.365139 239.250336 
+Q 194.130381 239.250336 194.130381 236.903376 
+L 194.130381 184.587504 
+Q 194.130381 182.240544 191.365139 182.240544 
+L 44.254247 182.240544 
+Q 41.489005 182.240544 41.489005 184.587504 
+L 41.489005 236.903376 
+Q 41.489005 239.250336 44.254247 239.250336 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 44.254247 308.378976 
+L 191.365139 308.378976 
+Q 194.130381 308.378976 194.130381 306.032016 
+L 194.130381 253.716144 
+Q 194.130381 251.369184 191.365139 251.369184 
+L 44.254247 251.369184 
+Q 41.489005 251.369184 41.489005 253.716144 
+L 41.489005 306.032016 
+Q 41.489005 308.378976 44.254247 308.378976 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 206.146616 94.592256 
+L 362.307391 94.592256 
+Q 365.072633 94.592256 365.072633 92.245296 
+L 365.072633 64.679184 
+Q 365.072633 62.332224 362.307391 62.332224 
+L 206.146616 62.332224 
+Q 203.381373 62.332224 203.381373 64.679184 
+L 203.381373 92.245296 
+Q 203.381373 94.592256 206.146616 94.592256 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #ddebf7; stroke: #000000; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 225.251926 170.121696 
+L 372.362818 170.121696 
+Q 375.12806 170.121696 375.12806 167.774736 
+L 375.12806 115.458864 
+Q 375.12806 113.111904 372.362818 113.111904 
+L 225.251926 113.111904 
+Q 222.486684 113.111904 222.486684 115.458864 
+L 222.486684 167.774736 
+Q 222.486684 170.121696 225.251926 170.121696 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 225.251926 239.250336 
+L 372.362818 239.250336 
+Q 375.12806 239.250336 375.12806 236.903376 
+L 375.12806 184.587504 
+Q 375.12806 182.240544 372.362818 182.240544 
+L 225.251926 182.240544 
+Q 222.486684 182.240544 222.486684 184.587504 
+L 222.486684 236.903376 
+Q 222.486684 239.250336 225.251926 239.250336 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 225.251926 308.378976 
+L 372.362818 308.378976 
+Q 375.12806 308.378976 375.12806 306.032016 
+L 375.12806 253.716144 
+Q 375.12806 251.369184 372.362818 251.369184 
+L 225.251926 251.369184 
+Q 222.486684 251.369184 222.486684 253.716144 
+L 222.486684 306.032016 
+Q 222.486684 308.378976 225.251926 308.378976 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 387.144295 94.592256 
+L 543.30507 94.592256 
+Q 546.070313 94.592256 546.070313 92.245296 
+L 546.070313 64.679184 
+Q 546.070313 62.332224 543.30507 62.332224 
+L 387.144295 62.332224 
+Q 384.379053 62.332224 384.379053 64.679184 
+L 384.379053 92.245296 
+Q 384.379053 94.592256 387.144295 94.592256 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #ddebf7; stroke: #000000; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 406.249605 170.121696 
+L 553.360497 170.121696 
+Q 556.125739 170.121696 556.125739 167.774736 
+L 556.125739 115.458864 
+Q 556.125739 113.111904 553.360497 113.111904 
+L 406.249605 113.111904 
+Q 403.484363 113.111904 403.484363 115.458864 
+L 403.484363 167.774736 
+Q 403.484363 170.121696 406.249605 170.121696 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 406.249605 239.250336 
+L 553.360497 239.250336 
+Q 556.125739 239.250336 556.125739 236.903376 
+L 556.125739 184.587504 
+Q 556.125739 182.240544 553.360497 182.240544 
+L 406.249605 182.240544 
+Q 403.484363 182.240544 403.484363 184.587504 
+L 403.484363 236.903376 
+Q 403.484363 239.250336 406.249605 239.250336 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 406.249605 308.378976 
+L 553.360497 308.378976 
+Q 556.125739 308.378976 556.125739 306.032016 
+L 556.125739 253.716144 
+Q 556.125739 251.369184 553.360497 251.369184 
+L 406.249605 251.369184 
+Q 403.484363 251.369184 403.484363 253.716144 
+L 403.484363 306.032016 
+Q 403.484363 308.378976 406.249605 308.378976 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 568.141974 94.592256 
+L 724.302749 94.592256 
+Q 727.067992 94.592256 727.067992 92.245296 
+L 727.067992 64.679184 
+Q 727.067992 62.332224 724.302749 62.332224 
+L 568.141974 62.332224 
+Q 565.376732 62.332224 565.376732 64.679184 
+L 565.376732 92.245296 
+Q 565.376732 94.592256 568.141974 94.592256 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #ddebf7; stroke: #000000; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 587.247285 170.121696 
+L 734.358176 170.121696 
+Q 737.123418 170.121696 737.123418 167.774736 
+L 737.123418 115.458864 
+Q 737.123418 113.111904 734.358176 113.111904 
+L 587.247285 113.111904 
+Q 584.482042 113.111904 584.482042 115.458864 
+L 584.482042 167.774736 
+Q 584.482042 170.121696 587.247285 170.121696 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 587.247285 239.250336 
+L 734.358176 239.250336 
+Q 737.123418 239.250336 737.123418 236.903376 
+L 737.123418 184.587504 
+Q 737.123418 182.240544 734.358176 182.240544 
+L 587.247285 182.240544 
+Q 584.482042 182.240544 584.482042 184.587504 
+L 584.482042 236.903376 
+Q 584.482042 239.250336 587.247285 239.250336 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 587.247285 308.378976 
+L 734.358176 308.378976 
+Q 737.123418 308.378976 737.123418 306.032016 
+L 737.123418 253.716144 
+Q 737.123418 251.369184 734.358176 251.369184 
+L 587.247285 251.369184 
+Q 584.482042 251.369184 584.482042 253.716144 
+L 584.482042 306.032016 
+Q 584.482042 308.378976 587.247285 308.378976 
+z
+" clip-path="url(#pb38e78dc57)" style="fill: #e2f0d9; stroke: #000000; stroke-width: 1.05; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 103.229324 63.52704 
+L 646.222362 63.52704 
+" clip-path="url(#pb38e78dc57)" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 32.338567 93.82416 
+L 32.338567 306.33072 
+" clip-path="url(#pb38e78dc57)" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 213.336246 93.82416 
+L 213.336246 306.33072 
+" clip-path="url(#pb38e78dc57)" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 394.333925 93.82416 
+L 394.333925 306.33072 
+" clip-path="url(#pb38e78dc57)" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 575.331604 93.82416 
+L 575.331604 306.33072 
+" clip-path="url(#pb38e78dc57)" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font: 9.2px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(288.310719 26.179001)">Open-Vocabulary and Reasoning Segmentation</text>
+    <text style="font: 9.2px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(297.516469 36.149501)">with Vision-Language Foundation Models</text>
+   </g>
+   <g id="patch_19">
+    <path d="M 375.48 41.3376 
+Q 375.48 52.43232 375.48 63.52704 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 103.229324 63.52704 
+Q 103.229324 63.31368 103.229324 64.330157 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 101.729324 67.330157 
+L 103.229324 64.330157 
+L 104.729324 67.330157 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_2">
+    <text style="font: 7.7px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(54.010684 76.139607)">Open-Vocabulary Segmentation</text>
+    <text style="font: 7.7px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(91.256426 84.484482)">(Sec. 5)</text>
+   </g>
+   <g id="text_3">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(83.606599 132.888839)">Dense alignment (Sec. 5.1)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(91.214833 139.716464)">OVSeg [Liang 2023]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(97.685623 146.544089)">SAN [Xu 2023]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(89.810623 153.359902)">FineSem [Chng 2026]</text>
+   </g>
+   <g id="patch_21">
+    <path d="M 32.338567 141.6168 
+Q 37.36628 141.6168 41.164156 141.6168 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 38.164156 140.1168 
+L 41.164156 141.6168 
+L 38.164156 143.1168 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(63.658732 202.023385)">Proposal and mask classification (Sec. 5.2)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(94.71281 208.839198)">ODISE [Xu 2023]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(94.616833 215.65501)">USE [Wang 2024]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(83.864013 222.482635)">Mask semantic assignment</text>
+   </g>
+   <g id="patch_22">
+    <path d="M 32.338567 210.74544 
+Q 37.36628 210.74544 41.164156 210.74544 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 38.164156 209.24544 
+L 41.164156 210.74544 
+L 38.164156 212.24544 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(63.899412 271.152025)">Efficient and fine-grained routes (Sec. 5.3)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(81.857365 277.97965)">Label-free OVS [Shin 2024]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(77.768763 284.795463)">Training-free OVS [Shan 2024]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(86.757091 291.623088)">Part and domain transfer</text>
+   </g>
+   <g id="patch_23">
+    <path d="M 32.338567 279.87408 
+Q 37.36628 279.87408 41.164156 279.87408 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 38.164156 278.37408 
+L 41.164156 279.87408 
+L 38.164156 281.37408 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 284.227003 63.52704 
+Q 284.227003 63.31368 284.227003 64.330157 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 282.727003 67.330157 
+L 284.227003 64.330157 
+L 285.727003 67.330157 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <text style="font: 7.7px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(221.46298 76.139607)">Promptable and Grounded Segmentation</text>
+    <text style="font: 7.7px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(272.254105 84.484482)">(Sec. 6)</text>
+   </g>
+   <g id="text_7">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(263.460435 132.900652)">SAM mask priors (Sec. 6.1)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(272.032864 139.716464)">SAM [Kirillov 2023]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(274.482481 146.532277)">SAM2 [Ravi 2024]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(271.413692 153.348089)">X-SAM [Wang 2026]</text>
+   </g>
+   <g id="patch_25">
+    <path d="M 213.336246 141.6168 
+Q 218.363959 141.6168 222.161835 141.6168 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 219.161835 140.1168 
+L 222.161835 141.6168 
+L 219.161835 143.1168 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(244.480208 202.029292)">Region and mask-text grounding (Sec. 6.2)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(272.559997 208.856917)">PixelLM [Ren 2024]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(266.963333 215.672729)">GLaMM [Rasheed 2024]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(276.203661 222.488542)">Ferret [You 2024]</text>
+   </g>
+   <g id="patch_26">
+    <path d="M 213.336246 210.74544 
+Q 218.363959 210.74544 222.161835 210.74544 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 219.161835 209.24544 
+L 222.161835 210.74544 
+L 219.161835 212.24544 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(248.8592 271.146119)">Prompt learning and adapters (Sec. 6.3)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(261.265278 277.973744)">OpenWorldSAM [Xiao 2026]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(264.593942 284.789557)">Boosting SAM [Han 2025]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(256.556028 291.617182)">Grounded dialogue [Zhang 2024]</text>
+   </g>
+   <g id="patch_27">
+    <path d="M 213.336246 279.87408 
+Q 218.363959 279.87408 222.161835 279.87408 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 219.161835 278.37408 
+L 222.161835 279.87408 
+L 219.161835 281.37408 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_28">
+    <path d="M 465.224683 63.52704 
+Q 465.224683 63.31368 465.224683 64.330157 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 463.724683 67.330157 
+L 465.224683 64.330157 
+L 466.724683 67.330157 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_10">
+    <text style="font: 7.7px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(426.836573 76.139607)">Reasoning Segmentation</text>
+    <text style="font: 7.7px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(453.251784 84.484482)">(Sec. 7)</text>
+   </g>
+   <g id="text_11">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(430.202887 132.900652)">MLLM-guided segmentation (Sec. 7.1)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(458.808825 139.728277)">LISA [Lai 2024]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(453.557676 146.544089)">PixelLM [Ren 2024]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(447.961012 153.359902)">GLaMM [Rasheed 2024]</text>
+   </g>
+   <g id="patch_29">
+    <path d="M 394.333925 141.6168 
+Q 399.361638 141.6168 403.159514 141.6168 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 400.159514 140.1168 
+L 403.159514 141.6168 
+L 400.159514 143.1168 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_12">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(442.362872 202.017479)">Reasoning-to-mask (Sec. 7.2)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(456.883879 208.845104)">LENS [Zhu 2026]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(438.837825 215.660917)">Implicit emergence [Zhou 2026]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(443.323622 222.488542)">Agent grounding [Luo 2026]</text>
+   </g>
+   <g id="patch_30">
+    <path d="M 394.333925 210.74544 
+Q 399.361638 210.74544 403.159514 210.74544 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 400.159514 209.24544 
+L 403.159514 210.74544 
+L 400.159514 212.24544 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_13">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(429.416864 271.157932)">Optimization and faithfulness (Sec. 7.3)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(454.781254 277.973744)">POPEN [Zhu 2025]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(439.129692 284.789557)">Hallucination check [Guo 2026]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(446.649825 291.605369)">Reward-guided grounding</text>
+   </g>
+   <g id="patch_31">
+    <path d="M 394.333925 279.87408 
+Q 399.361638 279.87408 403.159514 279.87408 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 400.159514 278.37408 
+L 403.159514 279.87408 
+L 400.159514 281.37408 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_32">
+    <path d="M 646.222362 63.52704 
+Q 646.222362 63.31368 646.222362 64.330157 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 644.722362 67.330157 
+L 646.222362 64.330157 
+L 647.722362 67.330157 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_14">
+    <text style="font: 7.7px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(615.75262 76.146826)">Extended Scenarios</text>
+    <text style="font: 7.7px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(634.249463 84.477263)">(Sec. 8)</text>
+   </g>
+   <g id="text_15">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(622.763527 132.882933)">Video segmentation (Sec. 8.1)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(630.020832 139.710558)">VideoSeg-R1 [Xu 2026]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(631.596324 146.538183)">Video reasoning masks</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(632.549691 153.365808)">Audio-visual referring</text>
+   </g>
+   <g id="patch_33">
+    <path d="M 575.331604 141.6168 
+Q 580.359317 141.6168 584.157193 141.6168 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 581.157193 140.1168 
+L 584.157193 141.6168 
+L 581.157193 143.1168 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_16">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(611.373324 202.023385)">3D and multiview grounding (Sec. 8.2)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(631.230137 208.85101)">3D-DRES [Chen 2026]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(637.440559 215.666823)">Point-cloud masks</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(633.068949 222.482635)">Cross-view alignment</text>
+   </g>
+   <g id="patch_34">
+    <path d="M 575.331604 210.74544 
+Q 580.359317 210.74544 584.157193 210.74544 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 581.157193 209.24544 
+L 584.157193 210.74544 
+L 581.157193 212.24544 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_17">
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(613.127973 271.146119)">Domain-specific grounding (Sec. 8.3)</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(634.492848 277.973744)">RSKT-Seg [Li 2026]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(628.401535 284.801369)">MedReasoner [Yan 2026]</text>
+    <text style="font: 6.3px 'Times New Roman', 'Times', 'Nimbus Roman', 'DejaVu Serif', serif" transform="translate(624.549184 291.617182)">Affordance-R1 [Wang 2026]</text>
+   </g>
+   <g id="patch_35">
+    <path d="M 575.331604 279.87408 
+Q 580.359317 279.87408 584.157193 279.87408 
+" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 581.157193 278.37408 
+L 584.157193 279.87408 
+L 581.157193 281.37408 
+z
+" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb38e78dc57">
+   <rect x="7.2" y="7.2" width="736.56" height="352.044"/>
+  </clipPath>
+ </defs>
+</svg>

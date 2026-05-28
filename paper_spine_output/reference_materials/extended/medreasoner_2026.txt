@@ -1,0 +1,638 @@
+                                      The Fortieth AAAI Conference on Artificial Intelligence (AAAI-26)
+
+
+
+
+        MedReasoner: Reinforcement Learning Drives Reasoning Grounding from
+                      Clinical Thought to Pixel-Level Precision
+       Zhonghao Yan1 * , Muxi Diao12 * , Yuxuan Yang1 , Ruoyan Jing1 , Jiayuan Xu1 , Kaizhou Zhang1 ,
+                         Lele Yang1 , Yanxi Liu3 , Kongming Liang1† , Zhanyu Ma1
+                                          1
+                                           Beijing University of Posts and Telecommunications
+                                                        2
+                                                          Zhongguancun Academy
+                                        3
+                                          Beijing Information Science and Technology University
+
+
+                            Abstract                                             Despite these significant advances, a crucial limitation
+                                                                              persists: MLLM outputs remain at the image level. To
+  Accurately grounding regions of interest (ROIs) is critical for
+  diagnosis and treatment planning in medical imaging. While
+                                                                              translate reasoning into visual outputs, every language ref-
+  multimodal large language models (MLLMs) combine visual                     erence must be grounded to a spatial location. However,
+  perception with natural language, current medical-grounding                 while expert models (Cheng et al. 2023; Yue et al. 2024)
+  pipelines still rely on supervised fine-tuning with explicit spa-           achieve high grounding accuracy, they rely on precise spatial
+  tial hints, making them ill-equipped to handle the implicit                 prompts (e.g., bounding boxes and points). Such detailed an-
+  queries common in clinical practice. This work makes three                  notations are rarely provided by clinicians in real workflows
+  core contributions. We first define Unified Medical Rea-                    (see Fig. 1 for an example query). Recent MLLMs attempt
+  soning Grounding (UMRG), a novel vision–language task                       to move beyond handcrafted prompts by coupling rich vi-
+  that demands clinical reasoning and pixel-level grounding.                  sual components (Da et al. 2024; Huang et al. 2025b). How-
+  Second, we release U-MRG-14K, a dataset of 14K sam-                         ever, existing medical grounding pipelines are still trained
+  ples featuring pixel-level masks alongside implicit clinical
+  queries and reasoning traces, spanning 10 modalities, 15
+                                                                              in a fully supervised manner on explicitly phrased referring
+  super-categories, and 108 specific categories. Finally, we in-              expressions (e.g., “segment the left lung”) (Liu et al. 2023;
+  troduce MedReasoner, a modular framework that distinctly                    Koleilat et al. 2024). Collecting such finely annotated data
+  separates reasoning from segmentation: an MLLM reasoner                     is costly and, more importantly, misaligned with real clin-
+  is optimized with reinforcement learning, while a frozen seg-               ical queries, which are often implicit (e.g., “What can be
+  mentation expert converts spatial prompts into masks, with                  inferred from the irregular shadow?”). Although some mod-
+  alignment achieved through format and accuracy rewards.                     els can name anatomical structures, they often fail to ground
+  MedReasoner achieves state-of-the-art performance on U-                     them (see Fig. 1). Therefore, we need models with reason-
+  MRG-14K and demonstrates strong generalization to unseen                    ing that can turn implicit clinical phrases into explicit spatial
+  clinical queries, underscoring the significant promise of rein-             targets for grounding in clinical scenarios.
+  forcement learning for interpretable medical grounding.
+                                                                                 Existing medical visual–question answering (VQA)
+                                                                              datasets (Lau et al. 2018; He et al. 2020; Liu et al. 2021)
+                      1    Introduction                                       evaluate semantic understanding with image-level ques-
+                                                                              tion–answer pairs but lack spatial labels. Conversely, large-
+Medical imaging plays a central role in modern health-                        scale segmentation datasets (Ye et al. 2023; Zhao et al. 2024;
+care, where clinicians routinely examine regions of interest                  Li et al. 2024) provide pixel-accurate masks yet omit lan-
+(ROIs) within these images to assess the health of organs and                 guage annotations. Neither class of dataset addresses the im-
+tissues (Cheng et al. 2023; Lin et al. 2024; Yan et al. 2025).                plicit queries that arise in real clinical practice. We have
+Consequently, precise object detection and image segmenta-                    no principled way to measure whether a framework
+tion (often called grounding) are essential for tasks such as                 can translate implicit clinical queries into precise spatial
+disease diagnosis and treatment planning (Chen et al. 2021;                   grounding. Here, we are particularly interested in two re-
+Ma et al. 2024). To further enhance diagnostic efficiency and                 search questions that must be addressed before implicit clin-
+interpretability, medical Multimodal Large Language Mod-                      ical queries can be grounded reliably:
+els (MLLMs) have recently emerged (Li et al. 2023; Chen
+et al. 2024a; Xu et al. 2025). These models integrate visual                   • RQ1: How can we create data that mirrors clinicians’
+perception with language interaction, allowing them to ac-                       implicit query patterns while still providing the pixel-
+cept free-form language queries, generate high-quality re-                       level annotations needed for training and evaluation?
+sponses, and even identify queried ROIs.                                       • RQ2: How can we enable models to interpret implicit
+   * These authors contributed equally.
+                                                                                 clinical queries and accurately ground the correspond-
+   †
+                                                                                 ing image regions without handcrafted spatial prompts?
+     Corresponding Author
+Copyright © 2026, Association for the Advancement of Artificial                  Guided by the research questions above, we formally
+Intelligence (www.aaai.org). All rights reserved.                             introduce the Unified Medical Reasoning Grounding
+
+
+                                                                      11577
+                                                                                   Qwen2.5VL: <think> ...
+ Annotated Question: Please ground Left Lung.                                      chest radiograph, the
+                                                                                   left pulmonary artery.
+                                                                                   The ... is the pulmonary
+                                                                                   vasculature .</think>
+
+
+
+
+ Clinical Implicit Question:                                       MedReasoner-7B: <think> ... chest X-ray, ... This pattern is
+ What can be observed in the structure occupying                   characteristic of lung anatomy, specifically the bronchial
+ the left side, marked by an elongated shadow and                  tree. ... indicates the presence of lung tissue. ... Therefore, the
+ branching features?                                               target region is identified as the left lung.</think>
+
+
+Figure 1: Comparison of annotated question and implicit clinical question. The ground-truth bounding box is green, and models’
+predicted box is red. MedReasoner precisely identifies the target with the reasoning trace and achieves accurate grounding.
+
+
+(UMRG) task. UMRG demands a framework that integrates                     ing reasoning with precise grounding and achieving state-of-
+linguistic reasoning with spatial grounding. To succeed, a                the-art performance on U-MRG-14K. As shown in Fig. 1,
+framework need: (1) interpret the implicit query, (2) reason              the RL-driven MedReasoner yields sharper grounding and
+over visual cues and anatomical priors to infer the latent tar-           more coherent reasoning than an instruction-tuned baseline,
+get, and (3) generate the accurate pixel-level grounding of               demonstrating its superiority on implicit-query grounding.
+that ROIs. This three-stage process mirrors how clinicians                   To summarize, our contributions are as follows:
+inspect images, reflect, and mark ROIs. Full task specifica-               • We formulate the UMRG task and propose U-MRG-
+tions are given in Section 4.1.                                               14K. U-MRG-14K pairs implicit clinical queries with
+   In response to RQ1, we propose U-MRG-14K, a rigor-                         pixel-level masks and includes CoT traces to improve the
+ously curated dataset of 14K high-quality samples tailored                    interpretability of grounding.
+to the UMRG task. U-MRG-14K is constructed from three                      • We present MedReasoner, an RL-driven, plug-and-play
+open-source datasets. To generate semantically rich and clin-                 framework in which the CRM and the ASM are fully de-
+ically meaningful supervision, we employ GPT-4o (OpenAI                       coupled. This design enables easy substitution and exten-
+2024) as a simulator of clinician behavior. And we design a                   sion to future models and clinical modalities.
+three-stage prompting pipeline that yields high-quality QA
+                                                                           • We demonstrate through extensive empirical evaluations
+pairs, including implicit queries, chain-of-thought (CoT)
+                                                                              the effectiveness of our proven MedReasoner framework.
+reasoning traces, and final grounding steps for each target
+                                                                              We will release the code, and dataset for future research.
+region. Further construction details appear in Section 3.
+   In response to RQ2, we present MedReasoner, a rein-                                       2    Related Work
+forcement learning (RL) framework for medical reasoning
+and grounding. MedReasoner is decoupled into two plug-                    2.1   MLLMs for Medical Image Analysis
+and-play components: Clinical Reasoning Module (CRM),                     Recent advancements in MLLMs have significantly en-
+any MLLM that reasons over implicit queries and generates                 hanced their capabilities for medical image analysis,
+lightweight spatial prompts (a bounding box plus two key                  with contributions from visual-language alignment tech-
+points); Anatomical Segmentation Module (ASM), any                        niques (Zhu et al. 2025; Wang et al. 2024; Yuan et al. 2024;
+model that accepts these prompts and returns a pixel-level                Bai et al. 2025; Guo et al. 2025) . These progressions have
+mask. Because CRM and ASM exchange minimal geomet-                        been further extended to various medical applications, in-
+ric cues, they can be upgraded without retraining the other.              cluding the integration of visual expert modules into pre-
+Most existing grounding pipelines rely on supervised fine-                trained language models (Li et al. 2023; Sellergren et al.
+tuning (SFT) with special tokens (Lai et al. 2024; Tong et al.            2025), and the unification of medical understanding and gen-
+2025). This approach suffers from: (1) annotation hunger,                 eration through heterogeneous knowledge adaptation and
+it requires large, heavily annotated datasets and CoT traces              general foundation models (Chen et al. 2024a; Lin et al.
+are especially costly; and (2) phrase overfitting, it encour-             2025; Xu et al. 2025). However, significant gaps remain in
+ages models to echo explicit referring phrases and fails to               their handling of clinical complexities and crucial clinical
+develop genuine reasoning ability. MedReasoner solve these                grounding tasks, which have seen limited exploration.
+weaknesses through a rule-based RL training scheme that
+optimizes only the CRM. In each step, the CRM produces                    2.2   Visual Grounding with Medical Reasoning
+a think trace and an answer containing spatial prompts, and               Recent MLLMs have demonstrated powerful reasoning ca-
+the frozen ASM renders a mask. Rewards for output for-                    pabilities (OpenAI 2024; Guo et al. 2025; Liu et al. 2025;
+mat and spatial accuracy drive exploration, gradually align-              Zhu et al. 2025; Bai et al. 2025). For visual grounding in
+
+
+                                                                  11578
+general-purpose images, these models often leverage seg-                    Dataset          # Prompts     QAs      Sup.    Cat.     CoT
+mentation tools like SAM (Kirillov et al. 2023), with meth-                 SA-Med2D           20M          ✗        -       219      ✗
+ods ranging from training new tokens (Lai et al. 2024;                      BioMedParse        1.1M         ✗        3        82      ✗
+Ren et al. 2024) to prompting for geometric outputs (Chen                   IMED               361M         ✗        6       204      ✗
+et al. 2024b; Uesato et al. 2022). However, direct applica-                 MoCoVQA            100K         ✓        -         -      ✗
+tion in medical scenarios is challenging due to opaque rea-
+                                                                            U-MRG-14K           14K         ✓        15      108      ✓
+soning and noisy data. While some specialized works have
+attempted to address this (Huang et al. 2025b; Trinh et al.
+2025; Luo et al. 2024; Li et al. 2025), they often struggle                 Table 1: Comparison of U-MRG-14K with existing medi-
+with the natural language found in clinical practice. Inspired              cal vision–language datasets. Sup. and Cat. denote the num-
+by Seg-Zero (Uesato et al. 2022), we employ reinforcement                   bers of super-categories and fine-grained categories, respec-
+learning to generate an explicit CoT (Wei et al. 2022). This                tively. U-MRG-14K supplies customized QA templates for
+approach enhances medical visual grounding performance                      each category, and is the only dataset that includes CoT an-
+while offering a transparent reasoning process, thereby in-                 notations for reasoning-aware evaluation.
+creasing trust in clinical applications.
+
+               3    U-MRG-14K Dataset                                       Each answer contains an explicit, step-by-step reasoning
+                                                                            trace guiding the model from an under-specified query to the
+3.1   Data Generation                                                       correct spatial grounding, thereby enhancing interpretability
+Most existing medical imaging datasets treat visual-                        and enabling manual verification. Prompts are iteratively re-
+grounding and VQA as separate tasks. As a result, some                      fined, and all generated QA pairs undergo manual screen-
+models support natural-language interaction without pixel-                  ing to remove factual inconsistencies or misaligned rea-
+level analysis, whereas the accuracy of mainstream segmen-                  soning. U-MRG-14K is the first medical-image grounding
+tation models hinges on the precision of supplied visual                    dataset that includes both pixel-level annotations and com-
+prompts. MoCoVQA (Huang et al. 2025a) attempts to unify                     plete CoT reasoning traces, providing a valuable resource
+the two tasks, yet its questions use explicit phrasing that fails           for reasoning-based grounding and implicit-query QA tasks.
+to reflect the ambiguity common in routine clinical practice.
+   To address this gap, we construct U-MRG-14K, a med-                      3.2   Dataset statistics
+ical grounding dataset centered on implicit referential ex-                 U-MRG-14K contains 14K image-mask pairs from ten
+pressions. U-MRG-14K is generated with GPT-4o (Ope-                         imaging modalities. The dataset is organized into 15
+nAI 2024) through carefully designed prompts. As shown                      super-categories covering frequent anatomical regions and
+in Fig. 2, its generation process has three stages.                         pathology-oriented classes, providing broad clinical cover-
+Stage 1: Dataset Preprocessing. We collect 14K im-                          age. Within these, 108 fine-grained categories denote spe-
+age–mask pairs from SA-Med2D-20M (Ye et al. 2023),                          cific structures, reflecting hierarchical structure of anatomy.
+BiomedParse (Zhao et al. 2024), and IMIS-Bench (Cheng                       For instance, left lung and right lung are separate categories
+et al. 2025). We then standardize and complete the super-                   nested under the lung super-category. Beyond pixel-level
+category labels (coarse anatomical regions) and category la-                masks, every sample includes a CoT reasoning trace. These
+bels (specific organs or lesions) from the source datasets,                 annotations make the reasoning process verifiable, allowing
+producing a consistent and reliable taxonomy. The dataset                   researchers to inspect the model’s decision path.
+comprises 15 super-categories and 108 categories. Table 1
+provides a systematic comparison showing the advantages                                        4    MedReasoner
+of U-MRG-14K over existing datasets.                                        4.1   Task Definition
+Stage 2: Descriptions & QA Formats Generation. To                           Given a medical image I and a clinical query Q with im-
+facilitate the creation of high-quality QA pairs, we perform                plicit referring expressions, the model G outputs a bounding
+two preparatory steps. First, for each image, we generate two               box B, two semantic key points P1 and P2 , and a pixel-level
+complementary descriptions: (i) a short description captur-                 segmentation mask M. The process can be formulated as:
+ing the visual appearance of the region in plain and intu-
+itive language, and (ii) a long description providing a med-                              {T , B, P1 , P2 , M} = G(I, Q).              (1)
+ically precise interpretation of the target area. Second, we                where T is an optional CoT trace that records the model’s
+use GPT-4o to design a set of QA formats for each super-                    intermediate reasoning, analogous to how a clinicians infers
+category. The questions mimic realistic clinical queries with               the target from implicit linguistic cues.
+vague or implicit references, while the answers provide a
+step-by-step, clinical reasoning path for correct grounding.                4.2   Model Architecture
+On average, we create about 20 formats per super-category,
+                                                                            Enabling native pixel-level segmentation in an MLLM usu-
+with the exact number manually adjusted for class diversity.
+                                                                            ally requires custom [MASK] tokens, multi-head decoders,
+Stage 3: QA Pairs Construction. Using the per-image                         and large collections of manual mask annotations (Pi et al.
+descriptions and super-category QA formats from Stage 2,                    2024; Lai et al. 2024; Tong et al. 2025). However, Med-
+we prompt GPT-4o to synthesize instance-level QA pairs.                     SAM2 (Ma et al. 2025) already yields modality-agnostic
+
+
+                                                                    11579
+ Raw Data
+                                                                QA Format                                                                UMRG
+                                       QA Format Instruction
+                   Data Cleaning                                <question>: Can you locate the organ
+                                                                that is known for both detoxifying
+                                        Super Category Info     and storing nutrients?
+                                                                <answer>: Find the largest, uniform
+
+
+
+
+                                                                                                              UMRG Instruction
+                                                                organ located in the upper abdomen                                     <question>: What structure in the
+                     <modal>: CT                                on the left,······ Key identifiers ·····                               upper left area of this scan is
+                     <health>: Yes                                                                                                     consistent in density and has a smooth,
+                     <bbox>:                                                                                                           oval shape?
+                     [384,652,491,763],                                                                                                 <answer>: To identify this region, first,
+                     <point>:                                                                                                           note the oval shape located in ··· Its
+                                                                                                                                        moderate and consistent density
+                     [431,699], [452,728]                       Description                                                             further confirms ···its role in filtering
+                                                                <short>: The highlighted region is a                                    blood and managing immune factors.
+                                                                smooth, oval shape located in the                                       Given its anatomical placement above
+                                      Description Instruction
+  Meta Info
+
+
+
+
+                                                                upper left area···                                                      the left kidney and near the
+               <category>: spleen                               <long>: The spleen is moderately                                        stomach, ······,
+               <super category>:        Modality Instruction    consistent in density. It’s surround-                                   <bbox>:[384,652,491,763],
+               abdomen anatomies                                ed by other ··· aligning with its role…                                 <point>:[431,699], [452,728]
+
+
+
+Figure 2: Overview of the U-MRG-14K construction pipeline: (1) Data cleaning and metadata organization manually, (2)
+Description and QA format generation via GPT-4o, (3) QA pair generation with GPT-4o and human verification.
+
+
+masks out of the box. As shown in Fig. 3, MedReasoner                        signs Rthink to assess whether the model produces a well-
+decouples language reasoning from pixel-level grounding,                     structured <think> block, and Ranswer to verify whether
+thereby (1) mitigating phrase over-fitting to enable authen-                 the <answer> block is a valid JSON object containing the
+tic reasoning, and (2) treating MedSAM-family models as                      required fields: bbox, points 1, and points 2. These
+plug-and-play components controllable by language.                           rewards do not evaluate the correctness or quality of the
+                                                                             reasoning content itself, but rather the presence and struc-
+Clinical Reasoning Module. We employ Lingshu (Xu                             tural completeness of the expected formats. Both Rthink and
+et al. 2025) as our Clinical Reasoning Module (CRM)                          Ranswer are assigned discrete values in the range [0, 1].
+Freason . Given (I, Q), CRM outputs a structured tuple
+<think> · · · <think><answer>B, P1 , P2 <answer>.                            Grounding Box Reward. This reward evaluates the qual-
+A bounding box B is often inadequate in medical images:                      ity of the predicted bounding box Bp = [xp1 , y1p , xp2 , y2p ]
+boxes may enclose multiple organs or lesions, and their cor-                 against the ground-truth box Bg = [xg1 , y1g , xg2 , y2g ], where all
+ners lack semantics for SAM-style prompters. We therefore                    coordinates are normalized to [0, 1]. First, the IoU reward
+add two key points P1 , P2 on visually distinctive regions.                  measures the spatial overlap between two boxes:
+These enrich spatial cues at low annotation cost. To learn                                                                       Area(Bp ∩ Bg )
+reliable cues without compromising linguistic competence,                                                  Riou =                               .                           (2)
+                                                                                                                                 Area(Bp ∪ Bg )
+we train Freason with Group Relative Policy Optimization
+(GRPO) (Shao et al. 2024), using: (1) format rewards                         Second, the Alignment reward computes the average L1
+enforcing the output schema, and (2) accuracy rewards                        distance between corresponding corner coordinates, normal-
+measuring spatial correctness.                                               ized by the diagonal of Bg :
+                                                                                                                                   4
+Anatomical Segmentation Module. We instantiate the                                                                               1 X (i)
+Anatomical Segmentation Module (ASM) with a frozen                                                  Ralign =                          B − Bg(i) .                           (3)
+                                                                                                                                 4 i=1 p
+MedSAM2 (Ma et al. 2025), denoted as Fseg . The tuple
+(B, P1 , P2 ) produced by the CRM is fed to Fseg , which                     Third, the Scale reward captures shape consistency in terms
+transforms these coarse prompts into a high-resolution mask                  of area and aspect ratio. Specifically, we compute the loga-
+M without any task-specific fine-tuning. Freezing Fseg                       rithmic difference in box area and aspect ratio, and define:
+preserves MedSAM2’s strong zero-shot delineation ability,                                         p
+while allowing Freason to concentrate on language under-                                 Rscale = (∆ log A)2 + (∆ log R)2 ,            (4)
+standing and spatial reasoning.                                              where A denotes box area and R the aspect ratio. Smaller
+                                                                             values indicate better structural alignment.
+4.3           Reward Functions
+                                                                             Grounding Points Reward. This reward evaluates the
+Reward functions in RL guide a model toward the behaviors                    quality of the predicted key point pair Pp = {pp1 , pp2 }
+we desire. For UMRG, we introduce three rewards that first                   against the ground-truth pair Pg = {pg1 , pg2 }, where each
+prompt the model to reason about the implicit target and then                point p = (x, y) is normalized to [0, 1]. First, the pDice re-
+to predict the bounding box and key points.                                  ward quantifies the spatial overlap between circles, where
+                                                                             each circle is defined by a point pair serving as its diameter:
+Reasoning Formats Reward. This reward evaluates the
+structural validity of the model’s output, focusing on the                                                          2 · Area(Op ∩ Og )
+formatting of the reasoning and answer components. It as-                                        Rpdice =                                ,                                  (5)
+                                                                                                                   Area(Op ) + Area(Og )
+
+                                                                   11580
+   Image inputs                                                                                                                          Format Reward
+                                                                   Ref Policy
+                                                                                                                                                      <answer>
+
+
+
+
+                                                                                                              KL Divergence
+                                         Ref
+                                                                                                                                <think>           bbox <*, *, *, *>
+                                                                                                                                  ......         points <*, *> <*,*>
+                                                                                                                                </think>             </answer>
+                                                           Format Mismatching
+                                                                                                                               Reasoning            Segmentation
+
+
+
+
+                                        Medical MLLM
+                                                                                                                              BBox Reward               Points Reward
+                                                                                Wrong Answer
+
+                               ···
+
+
+
+
+                                                                                                              Advantages
+   Implicit Prompts
+    How can one identify                                 Chain of Thought                 Grounding                               IoU                       pDice
+    the lower area
+    involved in filtering                                                                                                                 L1 dist                    L1 dist
+
+    fluids near the spine?
+
+
+                                                                                                                               Alignment                  Alignment
+                             Prompt Encoder                                     Penalize
+      Vision
+                                                                                                                                     ∆w
+
+
+     Backbone                                                                                                                   ∆h
+                                                                                                                                                                 θ
+
+                             Mask Decoder                                        Smooth
+                                                                                                                                 Scale                      Angle
+
+    Frozen       Trainable        Anatomical Segmentation Module            Clinical Reasoning Module     Reward Function                 Forward                Backward
+
+
+Figure 3: Overview of the MedReasoner framework. MedReasoner transforms implicit clinical prompts into pixel-level
+grounding via a two-stage process. The CRM first generates intermediate reasoning and grounding outputs (CoT, bounding
+box, and key points). Then, the ASM converts the grounded outputs into final segmentation masks.
+
+
+where Op and Og are the circles constructed from Pp and                             plausibility of the output. The final reward is adjusted as:
+Pg , respectively. Second, the Alignment reward computes
+the mean absolute error between corresponding points:                                                                                               v1 + v 2
+                                                                                                N (r; v1 , v2 ) = λr + (1 − λ)r ·                            ,           (10)
+                                                                                                                                                       2
+                        2
+                       1X
+          Ralign =             (|xpi − xgi | + |yip − yig |) .        (6)           where r is the smoothed reward, v 1 and v 2 are the two
+                       2 i=1                                                        validity scores, and λ = 0.7 by default.
+Third, the Angle reward measures the cosine similarity be-
+tween the predicted and ground-truth direction vectors, cap-                                              5            Experiments
+turing angular consistency:                                                         5.1     Experimental Settings
+                                          ⟨vp , vg ⟩                                Models. We conduct a comprehensive comparison across
+             Rangle = |cos (θ)| =                       ,             (7)
+                                        ∥vp ∥2 · ∥vg ∥2                             a wide range of models. For general MLLMs, we utilized
+                                                                                    GPT-4o (OpenAI 2024), Gemini-2.5-flash (Google 2025),
+where vp = pp2 − pp1 and vg = pg2 − pg1 .                                           Qwen2.5VL-7B/72B (Bai et al. 2025) and InternVL3-
+Smoothing and Penalization. To enhance training stabil-                             8B/78B (Zhu et al. 2025). For medical-specific MLLMs,
+ity and differentiate prediction quality, we apply smoothing                        we selected MedR1-2B (Lai et al. 2025), MiniInternVL-
+functions to all reward components. For the Riou , Rpdice and                       4B (Gao et al. 2024), MedGamma-4B (Sellergren et al.
+Rangle rewards, we use logarithmic smoothing:                                       2025), HuatuoGPT-7B-Qwen2.5VL (Chen et al. 2024a),
+                                                                                    Lingshu-7B (Xu et al. 2025), and Chiron-o1-8B (Sun et al.
+                                     log(kr + 1)                                    2025). For segmentation models, we chose MedSAM (Ma
+                   Slog (r; k) =                 ,                    (8)
+                                      log(k + 1)                                    et al. 2024), SAM-Med2D (Cheng et al. 2023) and Med-
+where r ∈ [0, 1] is the raw reward and k is a scaling factor                        SAM2 (Ma et al. 2025). For grounding-specific models, we
+(default k = 3). For the Ralign and Rscale rewards, we use                          included SAM4MLLM (Chen et al. 2024b), VLMR1-REC-
+exponential smoothing:                                                              3B (Shen et al. 2025) and SegZero-7B (Liu et al. 2025).
+                                     1                                              Datasets. We train MedReasoner on U-MRG-14K, using
+                  Sexp (d; k, c) =          ,            (9)                        the data preparation strategy mentioned in Section 3.1. We
+                                1 + ek(d−c)
+                                                                                    randomly hold out 2.5K samples as a test set, and use the
+where d ∈ [0, 2] is the normalized distance, and c is the                           remaining data for training. All quantitative results reported
+target center (default c = 1).                                                      in this paper are obtained on the test set.
+   After smoothing, we apply a penalization function N (·)
+to softly down-weight unreliable predictions. For each re-                          Implementation Details. We adopt Lingshu-7B as our de-
+ward, two validity scores are computed to reflect the spatial                       fault CRM and default ASM to MedSAM2.
+
+
+                                                                            11581
+                                                                                Super-Categories (IoU↑)
+Method              IoU↑   pDice↑    Dice↑
+                                              Abd.     Brain     Eye      Heart     Hist.   Lung       Ves.     Neo.   N-Neo.     Inf.
+                                                        General MLLMs
+GPT-4o              2.65      1.12    4.72    0.92      0.91     3.29      0.36       2.8   11.70      1.83     1.01     4.16    6.37
+Gemini-2.5-flash    7.86      3.24   14.29    3.99      5.69     6.39      7.77      6.63   16.37      9.08     7.15    13.91    11.4
+Qwen2.5VL-7B       12.61      7.14   22.73    6.84     23.97    29.35      8.37      9.22   20.79     20.46     8.00    24.97    19.4
+InternVL3-8B        5.70      2.46    9.23    3.72      6.54     2.02      3.67      5.56   14.44      7.88     3.78     8.71    9.00
+Qwen2.5-VL-72B     18.32     12.39   29.71   13.60     20.06     38.3     15.51      8.74   35.25     20.64    20.69    30.19   16.92
+InternVL3-78B       4.02      1.55    7.23    2.04      2.95     2.33      2.12      6.12   12.21      4.19     1.33     8.19    5.62
+                                                     Medical-Specific MLLMs
+MedR1-2B            8.18      3.60   14.73    3.53     12.55     1.10        3.53    8.14   25.58      8.81     4.39    13.57   17.35
+MiniInternVL-4B     2.88      0.85    4.76    1.88      2.67     0.68        1.60    3.45    7.99      3.59     1.56     3.76    6.59
+MedGamma-4B         5.39      1.90    8.90    4.23      6.92     1.28        3.41    4.78   17.22      6.92     3.17     3.90   10.04
+HuatuoGPT-7B       10.13      5.23   19.76    5.88     18.16     3.88        6.63    9.56   22.94     15.58     8.25    16.12   15.87
+Lingshu-7B          8.19      3.73   16.48    4.03     15.72     6.97        6.27    8.06   19.77      8.63     6.34    13.31   11.99
+Chiron-o1-8B        6.40      2.46   10.05    3.82      6.90     4.29        4.20    5.99   12.86      9.50     5.53    11.31   10.86
+                                                 Grounding-Specific MLLMs
+VLMR1-REC-3B       13.96         -   22.19    8.64     21.81    25.09      8.19     10.69   29.77     21.35     8.76    26.59   21.41
+SegZero-7B         16.14      5.23   26.05   11.66     23.37    40.23     13.12      9.35   22.18     20.68    12.58    29.46   21.93
+SAM4MLLM-8B         7.94         -   16.49    6.30     14.69     5.09      5.81      7.46   12.61     11.99     6.24    11.96   12.40
+MedReasoner-7B     32.42     26.55   37.78   30.27     32.81    51.50     34.72     11.66   50.75     29.91    33.58    37.19   30.48
+
+Table 2: Results on the U-MRG-14K test set under the MedReasoner paradigm. Each candidate uses one medical MLLM as
+the CRM to output a bounding box and two key points; the ASM is fixed to MedSAM2. Bold numbers denote the best score in
+each column, and underlined numbers denote the second best.
+
+
+Evaluation Metrics. We compute three evaluation met-                   Method                       IoU↑      pDice↑   Dice↑    # Ref.↓
+rics: IoU, pDice, and Dice to assess model performance.
+IoU measures the bounding box localization accuracy pre-               Lingshu                       8.19       3.73   16.51             2
+dicted by MLLMs. pDice quantifies keypoint pair seman-                 Lingshu w/ SFT                9.15       2.88   15.22             2
+tic alignment by evaluating the overlap of circles formed by           Lingshu w/ RL(Base)          15.85       8.29   28.79             0
+predicted endpoints (formally defined in Section 4.3). Dice            Lingshu w/ RL(Hard)          31.69      24.36   33.51             0
+assesses segmentation quality based on masks generated by              Lingshu w/ RL(Soft)          32.42      26.55   37.78             0
+downstream models conditioned on MLLM outputs.
+                                                                       Table 3: Comparison of the SFT baseline with three RL vari-
+5.2   Medical Reasoning Grounding Results                              ants: Base, Hard, and Soft on U-MRG-14K. # Ref. denotes
+                                                                       refusals to ground answers with the reasoning prompt.
+For fair comparison, we evaluated models under the
+MedReasoner paradigm, using a single MLLM as CRM to
+return bounding box and key point, with MedSAM2 fixed
+as ASM. All MLLMs are driven by the same user prompt.                  5.3    Ablation Study
+As shown in Table 2, MedReasoner-7B achieved superior                  Ablations verify our proposed design’s effectiveness, all
+overall performance, significantly leading the second-best             trained on U-MRG-14K and using the same user prompt.
+Qwen2.5VL-72B by 14.10 in IoU, 14.16 in pDice, and
+8.07 in Dice. This highlights its precise spatial prompting            Effect of Reward Types. This ablation study investigated
+capability. While General MLLMs, such as GPT-4o (IoU                   how reward design influences RL training for CRM. Our
+2.65), and Medical-Specific MLLMs, like HuatuoGPT-7B                   SFT baseline had a low IoU of 9.15 and 2 query refusals (as
+(IoU 10.13), demonstrated cross-modal understanding or                 Table 3 shows). RL fine-tuning drastically improved perfor-
+domain benefits, they consistently lacked the fine-grained             mance, eliminating all refusals. We evaluated three reward
+precision required for UMRG. In contrast, MedReasoner-                 variants: Base (a hard-threshold scheme (Liu et al. 2025)),
+7B established a substantial lead among Grounding-Specific             Hard (our full reward), and Soft (IoU and pDice only).
+MLLMs, surpassing SegZero-7B by over 16 IoU points, val-               While Base removed refusals, its IoU of 15.85 was consid-
+idating our RL-driven grounding strategy for accurate re-              erably lower. Our Hard reward significantly outperformed
+gional prompt translation. This superiority extended across            Base, increasing IoU by 15.84 points. The Soft reward vari-
+super-categories, with MedReasoner-7B leading in most                  ant achieved the best overall IoU of 32.42, surpassing Hard
+(e.g., Lung’s IoU was 50.75), though all models, including             by 0.73 points, suggesting that less strict alignment fosters
+ours, faced challenges in complex categories like Histology.           better exploration and more accurate grounding solutions.
+
+
+                                                               11582
+  User：What can be             GPT-4o -- Thinking： In the                              Qwen2.5VL-7B -- Thinking：
+  observed in the              context of a chest X-ray,                               ··· indicative of the bronchial
+                               these attributes are                                    tree. The elongated shadow
+  structure occupying the
+                               characteristic of the lung                              could represent the main
+  left side, marked by an      fields. The left lung is visible                        bronchus, ··· consistent with
+  elongated shadow and         on the right side ···.                                  the smaller bronchi
+  branching features?          Answer：[200, 200, 400, 700]                             Answer：[108,167,350,798]
+
+
+                               Lingshu-7B -- Thinking：                                 MedReasoner-7B -- Thinking：
+                               These characteristics suggest                           These characteristics are
+  Left                         vascular or airway-related                              consistent with lung anatomy,
+  Lung                                                                                 which typically appears ··· due
+                               anatomy. Upon examining the
+                               chest X-ray, the left lung                              to the air-filled bronchi and
+                               field ···.                                              pulmonary vessels ···.
+                               Answer：[180,196,427,720]                                Answer：[440,146,678,809]
+
+
+Figure 4: Open-source (Qwen2.5VL-7B), closed-source (GPT-4o), and medically post-trained (Lingshu-7B) models reason
+and specify referents within CoT processes, a characteristic tied to their respective training methodologies. Our MedReasoner-
+7B integrates grounding information during training, thereby aligning pixel-level grounding with semantic-level understanding.
+
+
+                                     Dice↑                                Method                Reason        IoU↑       pDice↑   # Ref.↓
+Method
+                  w/ Points    w/ BBox        BBox & Points               Qwen2.5VL-7B                 ✗     14.57         8.14       13
+MedSAM                5.67         28.39                  19.00           Qwen2.5VL-7B                 ✓     12.61         7.14        0
+SAM-Med2D            33.23         35.03                  36.48           Lingshu-7B                   ✗      9.35         2.40        4
+MedSAM2              34.86         37.15                  37.78           Lingshu-7B                   ✓      8.19         3.73        2
+                                                                          MedReasoner-7B               ✗     30.29        25.82       12
+                                                                          MedReasoner-7B               ✓     32.42        26.55        0
+Table 4: Dice scores for three segmentation backbones under
+three prompt types: key points only, bounding box only,
+and the combined bounding box & points.                                   Table 5: Impact of adding an explicit reasoning step vs. a
+                                                                          direct prompt for three CRMs. Reason indicates whether the
+                                                                          model is prompted to reason first (✓) or respond directly (✗).
+Effect of Segmentation Backbones. This ablation as-
+sesses the ASM. Table 4 reports results for three medical
+                                                                          its spatial output is wrong: the bounding box is misplaced
+SAM variants: MedSAM, SAM-Med2D, and MedSAM2.
+                                                                          and coordinates are rounded, indicating limited fine-grained
+To investigate prompt influence, we evaluated three input
+                                                                          grounding. Qwen2.5VL-7B fails at the reasoning stage,
+formats per backbone: points only, bounding box only, and
+                                                                          resulting in an incorrect diagnosis and an irrelevant box.
+the combined bounding box and points. The combination
+                                                                          Lingshu-7B correctly identifies the left lung but misplaces
+consistently yielded the best Dice (37.78), with MedSAM2
+                                                                          the box, demonstrating that it alone doesn’t guarantee ac-
+achieving the highest performance across all configurations.
+                                                                          curate localization. Only MedReasoner-7B precisely iden-
+Effect of Reasoning Strategies. This ablation tests                       tifies and pinpoints the target; its box tightly encloses the
+whether prompting the model to reason before grounding                    bronchial tree of the left lung, with key points aligning to
+helps when answering implicit queries. We designed two                    it. These observations highlight the necessity of explicit RL-
+prompts: Direct asks the CRM to output the spatial prompt                 based grounding. It preserves the reasoning quality of large
+immediately, whereas Reasoning instructs it to first generate             models while enforcing the spatial precision for UMRG.
+a brief CoT. As Table 5 shows, the Reasoning prompt signif-
+icantly reduces refusal rates compared to the Direct prompt.                                    6    Conclusion
+While base Qwen2.5VL and Lingshu exhibit a slight perfor-                 We present the UMRG task, which challenges models to
+mance drop due to their limited inherent reasoning capabil-               transform implicit clinical queries into precise pixel-level
+ities, this is expected. However, after CRM training within               grounding. To support this, we introduce U-MRG-14K, a
+the MedReasoner framework, the Reasoning strategy clearly                 large-scale dataset featuring rich annotations and reasoning
+outperforms the Direct one. This confirms that an explicit                traces. To solve UMRG, we propose MedReasoner, a mod-
+reasoning phase is valuable for implicit-query grounding.                 ular framework that decouples reasoning from segmentation
+                                                                          and leverages RL to align linguistic reasoning with spatial
+5.4      Qualitative Results                                              precision. Extensive experiments demonstrate that MedRea-
+Figure 4 compares four MLLMs’ predictions on a chest X-                   soner consistently outperforms existing models in accuracy.
+ray query requiring implicit reasoning. GPT-4o produces                   We believe this framework offers a promising step toward
+a coherent CoT and an accurate image-level answer, but                    trustworthy and generalizable medical grounding systems.
+
+
+                                                                  11583
+                  Acknowledgments                                        model with pixel-level insight for biomedicine. In Proceed-
+This work was supported by the National Nature Sci-                      ings of the AAAI Conference on Artificial Intelligence, vol-
+ence Foundation of China (Grant 62476029, 62225601,                      ume 39, 3779–3787.
+U23B2052), funded by the Fundamental Research Funds                      Huang, Y.; Peng, Z.; Zhao, Y.; Yang, P.; Yang, X.; and Shen,
+for the Beijing University of Posts and Telecommunications               W. 2025b. MedSeg-R: Reasoning Segmentation in Medical
+under Grant 2025TSQY08, and sponsored by Beijing Nova                    Images with Multimodal Large Language Models. arXiv
+Program.                                                                 preprint arXiv:2506.10465.
+                                                                         Kirillov, A.; Mintun, E.; Ravi, N.; Mao, H.; Rolland, C.;
+                       References                                        Gustafson, L.; Xiao, T.; Whitehead, S.; Berg, A. C.; Lo,
+Bai, S.; Chen, K.; Liu, X.; Wang, J.; Ge, W.; Song, S.; Dang,            W.-Y.; et al. 2023. Segment anything. In Proceedings of
+K.; Wang, P.; Wang, S.; Tang, J.; Zhong, H.; Zhu, Y.; Yang,              the IEEE/CVF international conference on computer vision,
+M.; Li, Z.; Wan, J.; Wang, P.; Ding, W.; Fu, Z.; Xu, Y.; Ye,             4015–4026.
+J.; Zhang, X.; Xie, T.; Cheng, Z.; Zhang, H.; Yang, Z.; Xu,              Koleilat, T.; Asgariandehkordi, H.; Rivaz, H.; and Xiao, Y.
+H.; and Lin, J. 2025. Qwen2.5-VL Technical Report. arXiv                 2024. Medclip-sam: Bridging text and image towards uni-
+preprint arXiv:2502.13923.                                               versal medical image segmentation. In International con-
+Chen, J.; Gui, C.; Ouyang, R.; Gao, A.; Chen, S.; Chen,                  ference on medical image computing and computer-assisted
+G. H.; Wang, X.; Zhang, R.; Cai, Z.; Ji, K.; et al.                      intervention, 643–653. Springer.
+2024a. Huatuogpt-vision, towards injecting medical visual                Lai, X.; Tian, Z.; Chen, Y.; Li, Y.; Yuan, Y.; Liu, S.; and
+knowledge into multimodal llms at scale. arXiv preprint                  Jia, J. 2024. Lisa: Reasoning segmentation via large lan-
+arXiv:2406.19280.                                                        guage model. In Proceedings of the IEEE/CVF Conference
+Chen, J.; Lu, Y.; Yu, Q.; Luo, X.; Adeli, E.; Wang, Y.; Lu,              on Computer Vision and Pattern Recognition, 9579–9589.
+L.; Yuille, A. L.; and Zhou, Y. 2021. Transunet: Transform-              Lai, Y.; Zhong, J.; Li, M.; Zhao, S.; and Yang, X. 2025.
+ers make strong encoders for medical image segmentation.                 Med-r1: Reinforcement learning for generalizable medi-
+arXiv preprint arXiv:2102.04306.                                         cal reasoning in vision-language models. arXiv preprint
+Chen, Y.-C.; Li, W.-H.; Sun, C.; Wang, Y.-C. F.; and Chen,               arXiv:2503.13939.
+C.-S. 2024b. Sam4mllm: Enhance multi-modal large lan-                    Lau, J. J.; Gayen, S.; Ben Abacha, A.; and Demner-
+guage model for referring expression segmentation. In Eu-                Fushman, D. 2018. A dataset of clinically generated visual
+ropean Conference on Computer Vision, 323–340. Springer.                 questions and answers about radiology images. Scientific
+Cheng, J.; Fu, B.; Ye, J.; Wang, G.; Li, T.; Wang, H.; Li, R.;           data, 5(1): 1–10.
+Yao, H.; Cheng, J.; Li, J.; et al. 2025. Interactive medical             Li, C.; Wong, C.; Zhang, S.; Usuyama, N.; Liu, H.; Yang, J.;
+image segmentation: A benchmark dataset and baseline. In                 Naumann, T.; Poon, H.; and Gao, J. 2023. Llava-med: Train-
+Proceedings of the Computer Vision and Pattern Recogni-                  ing a large language-and-vision assistant for biomedicine in
+tion Conference, 20841–20851.                                            one day. Advances in Neural Information Processing Sys-
+Cheng, J.; Ye, J.; Deng, Z.; Chen, J.; Li, T.; Wang, H.;                 tems, 36: 28541–28564.
+Su, Y.; Huang, Z.; Chen, J.; Jiang, L.; Sun, H.; He, J.;                 Li, J.; Liu, C.; Bai, W.; Arcucci, R.; Bercea, C. I.; and Schn-
+Zhang, S.; Zhu, M.; and Qiao, Y. 2023. SAM-Med2D.                        abel, J. A. 2025. Enhancing Abnormality Grounding for Vi-
+arXiv:2308.16184.                                                        sion Language Models with Knowledge Descriptions. arXiv
+Da, L.; Wang, R.; Xu, X.; Bhatia, P.; Kass-Hout, T.; Wei,                preprint arXiv:2503.03278.
+H.; and Xiao, C. 2024. Segment as You Wish–Free-Form                     Li, W.; Qu, C.; Chen, X.; Bassi, P. R.; Shi, Y.; Lai, Y.; Yu,
+Language-Based Segmentation for Medical Images. arXiv                    Q.; Xue, H.; Chen, Y.; Lin, X.; et al. 2024. Abdomenatlas:
+preprint arXiv:2410.12831.                                               A large-scale, detailed-annotated, & multi-center dataset for
+Gao, Z.; Chen, Z.; Cui, E.; Ren, Y.; Wang, W.; Zhu, J.;                  efficient transfer learning and open algorithmic benchmark-
+Tian, H.; Ye, S.; He, J.; Zhu, X.; et al. 2024. Mini-                    ing. Medical Image Analysis, 97: 103285.
+internvl: A flexible-transfer pocket multimodal model with               Lin, T.; Chen, Z.; Yan, Z.; Yu, W.; and Zheng, F. 2024.
+5% parameters and 90% performance. arXiv preprint                        Stable diffusion segmentation for biomedical images with
+arXiv:2410.16261.                                                        single-step reverse process. In International Conference on
+Google. 2025. Gemini-2.5-Flash. Online; GA release.                      Medical Image Computing and Computer-Assisted Interven-
+Guo, D.; Yang, D.; Zhang, H.; Song, J.; Zhang, R.; Xu, R.;               tion, 656–666. Springer.
+Zhu, Q.; Ma, S.; Wang, P.; Bi, X.; et al. 2025. Deepseek-r1:             Lin, T.; Zhang, W.; Li, S.; Yuan, Y.; Yu, B.; Li, H.; He, W.;
+Incentivizing reasoning capability in llms via reinforcement             Jiang, H.; Li, M.; Song, X.; et al. 2025. Healthgpt: A med-
+learning. arXiv preprint arXiv:2501.12948.                               ical large vision-language model for unifying comprehen-
+He, X.; Zhang, Y.; Mou, L.; Xing, E.; and Xie, P. 2020.                  sion and generation via heterogeneous knowledge adapta-
+Pathvqa: 30000+ questions for medical visual question an-                tion. arXiv preprint arXiv:2502.09838.
+swering. arXiv preprint arXiv:2003.10286.                                Liu, B.; Zhan, L.-M.; Xu, L.; Ma, L.; Yang, Y.; and Wu,
+Huang, X.; Shen, L.; Liu, J.; Shang, F.; Li, H.; Huang, H.;              X.-M. 2021. Slake: A semantically-labeled knowledge-
+and Yang, Y. 2025a. Towards a multimodal large language                  enhanced dataset for medical visual question answering.
+
+
+                                                                 11584
+In 2021 IEEE 18th international symposium on biomedical                    Solving math word problems with process-and outcome-
+imaging (ISBI), 1650–1654. IEEE.                                           based feedback. arXiv preprint arXiv:2211.14275.
+Liu, J.; Zhang, Y.; Chen, J.-N.; Xiao, J.; Lu, Y.; A Landman,              Wang, W.; Lv, Q.; Yu, W.; Hong, W.; Qi, J.; Wang, Y.; Ji, J.;
+B.; Yuan, Y.; Yuille, A.; Tang, Y.; and Zhou, Z. 2023. Clip-               Yang, Z.; Zhao, L.; XiXuan, S.; et al. 2024. Cogvlm: Visual
+driven universal model for organ segmentation and tumor                    expert for pretrained language models. Advances in Neural
+detection. In Proceedings of the IEEE/CVF international                    Information Processing Systems, 37: 121475–121499.
+conference on computer vision, 21152–21164.                                Wei, J.; Wang, X.; Schuurmans, D.; Bosma, M.; Xia, F.;
+Liu, Y.; Peng, B.; Zhong, Z.; Yue, Z.; Lu, F.; Yu, B.; and Jia,            Chi, E.; Le, Q. V.; Zhou, D.; et al. 2022. Chain-of-
+J. 2025. Seg-zero: Reasoning-chain guided segmentation via                 thought prompting elicits reasoning in large language mod-
+cognitive reinforcement. arXiv preprint arXiv:2503.06520.                  els. Advances in neural information processing systems, 35:
+Luo, L.; Tang, B.; Chen, X.; Han, R.; and Chen, T. 2024.                   24824–24837.
+Vividmed: Vision language model with versatile visual                      Xu, W.; Chan, H. P.; Li, L.; Aljunied, M.; Yuan, R.; Wang,
+grounding for medicine. arXiv preprint arXiv:2410.12694.                   J.; Xiao, C.; Chen, G.; Liu, C.; Li, Z.; et al. 2025. Ling-
+Ma, J.; He, Y.; Li, F.; Han, L.; You, C.; and Wang, B. 2024.               shu: A Generalist Foundation Model for Unified Multimodal
+Segment anything in medical images. Nature Communica-                      Medical Understanding and Reasoning. arXiv preprint
+tions, 15(1): 654.                                                         arXiv:2506.07044.
+Ma, J.; Yang, Z.; Kim, S.; Chen, B.; Baharoon, M.; Fallah-                 Yan, Z.; Yin, Z.; Lin, T.; Zeng, X.; Liang, K.; and Ma, Z.
+pour, A.; Asakereh, R.; Lyu, H.; and Wang, B. 2025. Med-                   2025. PGP-SAM: Prototype-Guided Prompt Learning for
+sam2: Segment anything in 3d medical images and videos.                    Efficient Few-Shot Medical Image Segmentation. In 2025
+arXiv preprint arXiv:2504.03600.                                           IEEE 22nd International Symposium on Biomedical Imag-
+                                                                           ing (ISBI), 1–5. IEEE.
+OpenAI. 2024. GPT-4o (GPT-4 Omni). Online.
+                                                                           Ye, J.; Cheng, J.; Chen, J.; Deng, Z.; Li, T.; Wang, H.; Su,
+OpenAI. 2024. OpenAI o1. https://openai.com/o1/.                           Y.; Huang, Z.; Chen, J.; Jiang, L.; et al. 2023. Sa-med2d-
+Pi, R.; Yao, L.; Gao, J.; Zhang, J.; and Zhang, T. 2024. Per-              20m dataset: Segment anything in 2d medical imaging with
+ceptiongpt: Effectively fusing visual perception into llm. In              20 million masks. arXiv preprint arXiv:2311.11969.
+Proceedings of the IEEE/CVF conference on computer vi-                     Yuan, Y.; Tang, H.; Wang, C.; Zheng, Y.; and Hao, J. 2024.
+sion and pattern recognition, 27124–27133.                                 ED2: Environment Dynamics Decomposition World Models
+Ren, Z.; Huang, Z.; Wei, Y.; Zhao, Y.; Fu, D.; Feng, J.; and               for Continuous Control. Visual Intelligence, 3: Article 23.
+Jin, X. 2024. Pixellm: Pixel reasoning with large multi-                   Yue, W.; Zhang, J.; Hu, K.; Xia, Y.; Luo, J.; and Wang, Z.
+modal model. In Proceedings of the IEEE/CVF Conference                     2024. SurgicalSAM: Efficient class promptable surgical in-
+on Computer Vision and Pattern Recognition, 26374–26383.                   strument segmentation. In Proceedings of the AAAI Confer-
+Sellergren, A.; Kazemzadeh, S.; Jaroensri, T.; Kiraly, A.;                 ence on Artificial Intelligence, volume 38, 6890–6898.
+Traverse, M.; Kohlberger, T.; Xu, S.; Jamil, F.; Hughes, C.;               Zhao, T.; Gu, Y.; Yang, J.; Usuyama, N.; Lee, H. H.; Nau-
+Lau, C.; et al. 2025. MedGemma Technical Report. arXiv                     mann, T.; Gao, J.; Crabtree, A.; Abel, J.; Moung-Wen, C.;
+preprint arXiv:2507.05201.                                                 et al. 2024. BiomedParse: a biomedical foundation model
+Shao, Z.; Wang, P.; Zhu, Q.; Xu, R.; Song, J.; Bi, X.; Zhang,              for image parsing of everything everywhere all at once.
+H.; Zhang, M.; Li, Y.; Wu, Y.; et al. 2024. Deepseekmath:                  arXiv preprint arXiv:2405.12971.
+Pushing the limits of mathematical reasoning in open lan-                  Zhu, J.; Wang, W.; Chen, Z.; Liu, Z.; Ye, S.; Gu, L.; Tian,
+guage models. arXiv preprint arXiv:2402.03300.                             H.; Duan, Y.; Su, W.; Shao, J.; et al. 2025. Internvl3: Explor-
+Shen, H.; Liu, P.; Li, J.; Fang, C.; Ma, Y.; Liao, J.; Shen, Q.;           ing advanced training and test-time recipes for open-source
+Zhang, Z.; Zhao, K.; Zhang, Q.; et al. 2025. Vlm-r1: A sta-                multimodal models. arXiv preprint arXiv:2504.10479.
+ble and generalizable r1-style large vision-language model.
+arXiv preprint arXiv:2504.07615.
+Sun, H.; Jiang, Y.; Lou, W.; Zhang, Y.; Li, W.; Wang, L.;
+Liu, M.; Liu, L.; and Wang, X. 2025. Enhancing Step-by-
+Step and Verifiable Medical Reasoning in MLLMs. arXiv
+preprint arXiv:2506.16962.
+Tong, Q.; Lu, Z.; Liu, J.; Zheng, Y.; and Lu, Z. 2025.
+MediSee: Reasoning-based Pixel-level Perception in Med-
+ical Images. arXiv preprint arXiv:2504.11008.
+Trinh, Q.-H.; Nguyen, M.-V.; Peng, J.; Bagci, U.; and Jha,
+D. 2025. PRS-Med: Position Reasoning Segmentation with
+Vision-Language Model in Medical Imaging. arXiv preprint
+arXiv:2505.11872.
+Uesato, J.; Kushman, N.; Kumar, R.; Song, F.; Siegel, N.;
+Wang, L.; Creswell, A.; Irving, G.; and Higgins, I. 2022.
+
+
+                                                                   11585
+

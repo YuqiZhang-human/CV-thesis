@@ -1,0 +1,670 @@
+                 This CVPR Workshop paper is the Open Access version, provided by the Computer Vision Foundation.
+                                  Except for this watermark, it is identical to the accepted version;
+                            the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+    AerOSeg: Harnessing SAM for Open-Vocabulary Segmentation in Remote
+                             Sensing Images
+
+                             Saikat Dutta1,2,3 * Akhil Vasim2      Siddhant Gole2
+                                                    3
+                                   Hamid Rezatofighi       Biplab Banerjee2
+                 1                                                2                      3
+                     IITB-Monash Research Academy                     IIT Bombay             Monash University
+
+
+                        Abstract
+
+    Image segmentation beyond predefined categories is a
+key challenge in remote sensing, where novel and unseen
+classes often emerge during inference. Open-vocabulary
+image Segmentation addresses these generalization issues
+in traditional supervised segmentation models while reduc-
+ing reliance on extensive per-pixel annotations, which are
+both expensive and labor-intensive to obtain. Most Open-
+Vocabulary Segmentation (OVS) methods are designed for
+natural images but struggle with remote sensing data due
+to scale variations, orientation changes, and complex scene
+compositions. This necessitates the development of OVS ap-
+proaches specifically tailored for remote sensing. In this
+context, we propose AerOSeg, a novel OVS approach for                  Figure 1. Key aspects of AerOSeg: (a) Correlation features com-
+remote sensing data. First, we compute robust image-text               putation from CLIP features across rotated inputs and domain-
+                                                                       specific text embeddings. (b) Guidance Encoder’s multifaceted
+correlation features using multiple rotated versions of the
+                                                                       contribution.
+input image and domain-specific prompts. These features
+are then refined through spatial and class refinement blocks.
+                                                                       classes at inference. Unlike traditional semantic segmenta-
+Inspired by the success of the Segment Anything Model
+                                                                       tion — where the training and testing categories are strictly
+(SAM) in diverse domains, we leverage SAM features to
+                                                                       identical — open-vocabulary segmentation endeavors to
+guide the spatial refinement of correlation features. Addi-
+                                                                       learn transferable semantic representations that can facili-
+tionally, we introduce a semantic back-projection module
+                                                                       tate the segmentation of any class not observed during train-
+and loss to ensure the seamless propagation of SAM’s se-
+                                                                       ing. In the context of remote sensing imagery, this ca-
+mantic information throughout the segmentation pipeline.
+                                                                       pability becomes especially critical: supervised segmenta-
+Finally, we enhance the refined correlation features using
+                                                                       tion approaches typically require large-scale datasets with
+a multi-scale attention-aware decoder to produce the final
+                                                                       pixel-level annotations that are notoriously expensive and
+segmentation map. We validate our SAM-guided Open-
+                                                                       time-consuming to obtain, primarily due to high spatial res-
+Vocabulary Remote Sensing Segmentation model on three
+                                                                       olution, complex scenes, and varying geospatial contexts.
+benchmark remote sensing datasets: iSAID, DLRSD, and
+                                                                       Moreover, models trained solely on these well-annotated
+OpenEarthMap. Our model outperforms state-of-the-art
+                                                                       classes tend to overfit, limiting their ability to generalize to
+open-vocabulary segmentation methods, achieving an av-
+                                                                       new or rare categories that often arise in real-world remote
+erage improvement of 2.54 h-mIoU.
+                                                                       sensing applications (e.g., emerging structures, seasonal ob-
+1. Introduction                                                        jects, or natural disasters).
+Open-vocabulary image segmentation aims to segment ob-                    Most recent open-vocabulary segmentation methods
+jects belonging to an unbounded set of categories, thereby             leverage vision-language models such as CLIP [20] or
+allowing the model to handle novel or previously unseen                ALIGN [10], which learn powerful joint embeddings of vi-
+                                                                       sual and textual data. Despite their success with natural
+  * C-MInDS, IIT Bombay — 23d2031@iitb.ac.in                           images, these models often struggle with satellite imagery,
+
+
+
+                                                                2254
+where objects can appear at drastically different scales,                 representations and mitigate loss of generalizability.
+orientations, and resolutions. Remote sensing images are                • Back-Projection for Semantic Fidelity: We integrate a
+fundamentally distinct from typical natural images due to                 back projection module and a corresponding feature re-
+large scene coverage, small object sizes, and complex back-               construction loss to sustain crucial semantic information
+grounds, necessitating specialized strategies that address                derived from SAM, preventing over-refinement that im-
+these domain-specific challenges.                                         pairs generalization to unseen classes.
+    Motivated by these requirements, researchers have re-               • Comprehensive Experiments: We conduct extensive
+cently proposed open-vocabulary solutions tailored to re-                 evaluations on three benchmark remote sensing segmen-
+mote sensing. A pioneering approach, Open-Vocabulary                      tation datasets, demonstrating that our approach signifi-
+Remote Sensing Segmentation (OVRS) [3], introduces a ro-                  cantly outperforms state-of-the-art open-vocabulary seg-
+tational invariance paradigm by augmenting the visual en-                 mentation methods on both seen and unseen categories.
+coder input with multiple rotated versions of the image,
+thereby capturing orientation-invariant semantic features.              2. Related Works
+Subsequent modules refine these features spatially and by
+                                                                        A. Semantic segmentation in remote sensing: Image seg-
+category and finally leverage a multi-scale decoder for high-
+                                                                        mentation partitions an image into regions corresponding
+resolution segmentation. While effective, OVRS heavily
+                                                                        to specific classes or objects through pixel-wise grouping.
+relies on CLIP for open-vocabulary segmentation, which
+                                                                        In remote sensing, the high resolution and complexity of
+is suboptimal. CLIP, while excelling in open-vocabulary
+                                                                        images present significant challenges. Modern deep learn-
+classification, is designed to align global visual and textual
+                                                                        ing methods, particularly Convolutional Neural Networks
+semantics, limiting its effectiveness for per-pixel tasks like
+                                                                        (CNNs), have advanced this field by learning intricate fea-
+segmentation.
+                                                                        tures from large-scale images [11, 19, 43]. Building on
+    In this work, we hypothesize that complementary guid-               CNNs, subsequent work has addressed class imbalance with
+ance features can help preserve semantic richness through-              weighted uncertainty labeling [1], enabled multi-scale fea-
+out the refinement pipeline. Specifically, we propose ex-               ture learning via pyramid attention pooling [46], and en-
+ploiting the Segment Anything Model (SAM) as a feature                  hanced spatial detail capture through global context inte-
+guidance encoder, in conjunction with CLIP, to strengthen               gration [39]. Despite these advances, CNNs are inherently
+the semantic flow in open-vocabulary remote sensing seg-                limited to local feature extraction.
+mentation. SAM, trained on large-scale data for promptable                 Vision Transformers (ViTs) have emerged as a power-
+segmentation, produces semantically rich features and per-              ful alternative by leveraging attention mechanisms to model
+forms well across diverse domains and datasets. Given the               long-range dependencies [26]. This has led to their increas-
+smaller size of remote sensing datasets, leveraging SAM’s               ing adoption in remote sensing segmentation. For example,
+features provides valuable additional guidance for improved             Xu et al. [40] introduced an Efficient Transformer back-
+segmentation. Our framework, AerOSeg, first computes                    bone, adapted from the Swin Transformer [18], which in-
+image–text correlation maps from multiple rotated versions              tegrates an MLP head and auxiliary edge fusion to reduce
+of the input image and specialized textual prompts, ensuring            computational costs and improve edge segmentation. How-
+orientation-invariant features. Instead of generic prompts,             ever, due to the heavy computational burden of full atten-
+we use domain-specific Remote Sensing prompts, enhanc-                  tion mechanisms, most recent approaches combine ViTs
+ing the model’s robustness. A swin transformer-based spa-               and CNNs. Hybrid models, such as CVMH-Unet [4] and
+tial refinement block, guided by SAM features, then re-                 CCTNet [29], effectively merge global and local feature
+fines these correlation maps, followed by a class refinement            extraction while maintaining efficiency. Encoder-decoder
+block that further sharpens category-specific responses. To             hybrids like UNetFormer [30] and frameworks employing
+address the loss of semantic fidelity after repeated refine-            Swin Transformer encoders with CNN decoders [44] fur-
+ments, we introduce a back-projection module that repro-                ther illustrate the trend toward integrating multi-scale fea-
+duces SAM features and enforces feature alignment via a                 ture representations in remote sensing segmentation. De-
+semantic back-projection loss, ensuring that semantic con-              spite achieving decent performance on benchmark datasets,
+tent is preserved. Finally, the refined correlation maps are            this class of segmentation models can not be extended to
+upscaled via an Attention-aware Upsampling decoder to                   segment an arbitrary number of classes during deployment.
+produce the final segmentation predictions. The salient as-             B. Open-Vocabulary segmentation: Open-vocabulary
+pects of AerOSeg is presented in Fig. 1.                                segmentation is a challenging task that seeks to segment ob-
+    In summary, our main contributions are as follows:                  jects from an open set of categories defined by textual labels
+• SAM as Guidance: We propose a novel synergy between                   or descriptions. Unlike conventional segmentation, the la-
+   SAM and CLIP for remote sensing segmentation, utiliz-                bel sets during training and testing can differ significantly.
+   ing SAM as a feature guidance encoder to enrich semantic                Early methods focused on aligning visual embeddings
+
+
+
+                                                                 2255
+with pre-defined word embeddings [2, 35]. More recent                  tation performance across diverse domains, including med-
+approaches leverage large-scale visual-language models to              ical imaging, agriculture, food, and remote sensing. Re-
+align visual and semantic feature spaces. For instance, Li et          cent work has sought to enhance and extend SAM’s capa-
+al. [14] integrate CLIP’s [20] text encoder with a DPT-based           bilities by developing domain-specific variants [27, 32], in-
+image encoder [21], employing a contrastive loss to align              corporating additional prompt modalities [48], improving
+pixel embeddings with corresponding textual embeddings.                computational efficiency, and even adapting the model for
+Similarly, Ghiasi et al. [9] introduce a class-agnostic seg-           promptable video object segmentation [22]. Inspired by the
+mentation module based on region-to-image cross-attention              generalization ability of SAM in multiple domains, we uti-
+[28] that generates segmentation masks used for visual-                lize features extracted by the SAM encoder to refine CLIP
+semantic alignment. In the same vein, Zegformer [8] de-                image-text correlation features in this work.
+couples the task into Maskformer-based class-agnostic seg-
+mentation [6] and a zero-shot classification of segments us-           3. Proposed Methodology
+ing CLIP embeddings, while Xu et al. [37] exploit internal             Problem Definition: Given an input Remote Sensing Im-
+feature representations from text-to-image diffusion mod-              age I, the aim is to classify each pixel from a set of cat-
+els to predict segmentation masks, classifying segments via            egories defined by textual labels or description. Different
+CLIP text embeddings.                                                  from traditional set-up, class-set during training Ctrain can
+    Additional contributions include the Side Adapter Net-             be different from class-set during inference, Ctest in Open-
+work [38], which transforms images into visual tokens, ap-             vocabulary setup.
+pends query tokens, and integrates CLIP features within                    In this work, we propose a novel segmentation frame-
+transformer layers. These are then processed by MLP lay-               work, AerOSeg, composed of six interconnected modules:
+ers to produce attention biases and mask proposals. Yu                 (i) Vision-Language Backbone, (ii) Guidance Encoder, (iii)
+et al. [42] demonstrate that a frozen convolutional CLIP               Correlation Feature Computation, (iv) Correlation Feature
+backbone can robustly perform open-vocabulary classifica-              Refinement, (v) Semantic Back-Projection Module, and (vi)
+tion and mask generation, even at higher image resolutions.            Attention-Aware Upsampling Decoder. Figure 2 provides
+Cho et al. [7] refine a cost-volume based on cosine simi-              an overview of the entire framework. In the following
+larity between CLIP image and text embeddings to gener-                sections, we describe each component in detail and ex-
+ate segmentation maps. Shan et al. [24] perform element-               plain how they collectively contribute to our segmentation
+wise addition of frozen CLIP and SAM features, which are               pipeline.
+then processed by a transformer-based decoder to generate              3.1. Describing the Model Components
+segmentation maps through embedding balancing. Wang
+et al. [31] introduce a data pipeline for curating extensive           Vision-Language (VL) Backbone: The VL backbone is a
+segment-text pairs alongside a universal segment embed-                critical component of our framework, as it encapsulates the
+ding model to classify segments into diverse text-defined              alignment between visual and linguistic feature spaces. In
+categories.                                                            our approach, we employ CLIP ViT-B as the VL backbone.
+    Although most research in open-vocabulary segmenta-                Given an input image I, we first rotate it by a set of prede-
+tion has targeted natural images, only a few works extend to           fined angles and then pass both the original and rotated im-
+other domains such as remote sensing. For example, Cao et              ages through the CLIP vision encoder Fv to extract dense
+al. [3] compute feature correlations between rotated image             image embeddings. These embeddings are subsequently ro-
+embeddings and text embeddings and utilize an attention-               tated back to the original orientation. Specifically, for each
+aware upsampling decoder to generate segmentation out-                 rotation angle θ ∈ Θ = {0◦ , 90◦ , 180◦ , 270◦ }, the dense
+puts. Similarly, Li et al. [15] employ a feature upsampler             embedding is computed as
+to enhance low-resolution features for training-free open-
+                                                                               Fvθ = rotate Fv (I θ ), −θ ∈ R(H×W )×d .
+                                                                                                         
+vocabulary segmentation in remote sensing imagery.                                                                               (1)
+C. Segment Anything Model: The Segment Anything                            This multi-angle strategy enhances robustness to angu-
+Model (SAM) [13] is a zero-shot segmentation framework                 lar variations [3]. To generate textual embeddings, we cre-
+trained on 1.1 billion masks and 11 million images. Given              ate multiple text prompts for each candidate class c using
+an image and a visual prompt—such as a bounding box,                   remote-sensing-specific prompt templates, as suggested by
+point annotations, or an initial mask—SAM employs an                   Li et al. [16]. In contrast to generic prompts (e.g., “A photo
+image encoder and a prompt encoder to generate corre-                  of a [CLS] in the scene” [3, 7]), we employ the following
+sponding embeddings. These embeddings are fused in a                   templates:
+lightweight mask decoder to predict segmentation masks,                  ➔ A satellite image of a [CLS]
+ensuring robust outputs even when prompts are ambiguous.                 ➔ A land use image of a [CLS]
+    SAM has demonstrated impressive interactive segmen-                  ➔ A remote sensing image of a [CLS]
+
+
+
+                                                                2256
+Figure 2. Overview of our proposed framework, AerOSeg. The input image (along with its rotated versions) and domain-specific text
+prompts are first processed by the Vision-Language backbone. The extracted image and text features are then used to generate Correlation
+features, which are refined through Correlation Feature Refinement blocks. The refined Correlation features are subsequently fed into
+Attention-aware Upsampling Decoder to yield final segmentation map. Additionally, features from the Guidance encoder are leveraged in
+both the Correlation Feature Refinement and Attention-aware Upsampling Decoder.
+
+ ➔ An aerial image of a [CLS]
+   These prompts are processed by the CLIP text encoder                                          n                  o            
+                                                                                                                                    !
+                                                                                                                  P
+Fl to yield the textual embeddings:                                         ϕ(x, n) = conv concat   C θ (x, n, i) i=1                .
+                                                                                                                             θ∈Θ
+                                                                                                                                     (4)
+                 Fl = Fl (T ) ∈ RNC ×P ×d ,                  (2)              Correlation Feature Refinement Block: Because CLIP
+                                                                          is trained with a global contrastive objective, the dense fea-
+where P = 4 denotes the number of prompts per class.                      tures it produces can be noisy. To obtain reliable segmenta-
+    Guidance Encoder: Complementary to the VL back-                       tion maps, the initial correlation features ϕ must be refined.
+bone, the guidance encoder is designed to provide addi-                   Following [7], our refinement module consists of two se-
+tional features that improve segmentation performance. In-                quential submodules: (a) a Spatial Refinement Block and
+spired by the success of SAM in diverse domains, we adopt                 (b) a Class Refinement Block.
+its image encoder—a Vision Transformer (ViT)—as our                           (a) Spatial Refinement Block: To improve the spatial
+guidance encoder. To capture a rich hierarchy of represen-                structure of the correlation features, we apply a Swin Trans-
+tations, we extract features from multiple stages of the en-              former [18] module. Refinement is performed indepen-
+coder. In particular, we use the outputs from the 8th , 16th ,            dently for each class using two successive Swin Trans-
+and final layers of the SAM-L encoder, denoted as Fg1 , Fg2 ,             former blocks: the first applies window-based multi-head
+and Fg3 , respectively.                                                   self-attention (W-MSA) over local windows, and the sec-
+    Correlation Feature Computation: With both image                      ond uses shifted window-based self-attention (SW-MSA).
+embeddings Fvθ (x) and text embeddings Fl (n, i) available                Additionally, to further enhance spatial refinement, we inte-
+(where x denotes a 2D spatial position, θ the rotation angle,             grate guidance from dense visual features. While prior work
+n the class index, and i the prompt index), we compute the                [3, 7] utilizes CLIP visual embeddings for this task, it has
+image-text correlation map C θ ∈ R(H×W )×NC using co-                     several drawbacks. First, since correlation features are orig-
+sine similarity [23]. For a given spatial location x, class n,            inally derived from interactions between CLIP image and
+and prompt i, the correlation is defined as                               text embeddings, using CLIP features for refinement is sub-
+                                                                          optimal. Second, dense features from the CLIP image en-
+                                                                          coder tend to be noisy due to its global contrastive learning
+                                Fvθ (x) · Fl (n, i)
+             C θ (x, n, i) =                         .       (3)          objective. In contrast, SAM produces more semantic and
+                               ∥Fvθ (x)∥ ∥Fl (n, i)∥                      less noisy feature maps (see Fig. 3). Therefore, we leverage
+                                                                          SAM-derived features in the spatial refinement block. The
+   Correlation maps computed across different rotation an-                refined feature ϕ′ is computed as:
+gles and prompts are concatenated and processed by a con-
+                                                                                                                          
+volutional layer to generate the initial correlation feature                            ϕ′ (:, n) = T sp ϕ(:, n), Pv (Fg3 ) ,        (5)
+ϕ ∈ R(H×W )×NC ×dϕ , where dϕ denotes the feature dimen-
+sion:                                                                        where T sp denotes the Spatial Refinement Block and Pv
+
+
+
+                                                                   2257
+                                                                              Figure 4. Semantic Back-projection module and loss. Class-
+                                                                              specific correlation maps are concatenated and passed to an MLP
+                                                                              block. Semantic back-projection loss Lsem is computed between
+                                                                              reconstructed features and SAM features.
+                                                                                                                          !
+                                                                                                            n       oNC 
+                                                                                                sem            ′′
+                                                                                        ψ=T           concat ϕ (:, n)      .              (7)
+        (a) Input image   (b) CLIP features   (c) SAM features                                                             n=1
+
+Figure 3. Feature visualization for CLIP and SAM features.                        where, T sem is Semantic back-projection module and
+SAM produces feature maps with richer semantic information and                NC is the number of classes. The reconstructed feature is
+reduced noise compared to CLIP.                                               subsequently used to compute a Semantic Back-Projection
+                                                                              Loss (see Section 3.2). Fig. 4 shows a schematic of Seman-
+is a projection layer. The correlation features and visual em-                tic back-projection module. Our design is inspired by the
+beddings are concatenated to form the query and key, while                    Recovery Decoder in [45], yet differs in that we reconstruct
+only the correlation features are used as the value feature in                SAM features using a lightweight MLP, rather than recon-
+this block. Please refer to Sec. 2 of Supplementary Material                  structing CLIP features via multi-head cross-attention.
+for visualizations of the effect of using SAM features in the                     Attention-aware Upsampling Decoder: Finally, as the
+Spatial Refinement Block.                                                     refined correlation features ϕ′′ are at 1/16th of the input im-
+    (b) Class Refinement Block: After spatial refinement, we                  age resolution, an attention-aware upsampling decoder is
+further process the features to incorporate the text modal-                   employed to restore full resolution. Initially, ϕ′′ is upsam-
+ity and explicitly capture inter-class relationships. This step               pled by a factor of 2 using a transposed convolution, yield-
+is crucial for addressing the challenges of open-vocabulary                   ing ϕ′2x . Spatial and channel attention features [3] are then
+segmentation, such as handling a variable number of cate-                     computed from the class-averaged upsampled features ϕ̄′2x
+gories and ensuring invariance to their order. To meet these                  as follows:                                 
+requirements, we employ a linear transformer layer without                                   Asp = conv avgpoolsp ϕ̄′2x ,                  (8)
+positional embeddings [12]. In this block, the text embed-                                                                  
+                                                                                             Ach = conv avgpoolch ϕ̄′2x ,
+                                                                                                                           
+dings Fl serve as guidance features, and the refined output                                                                                (9)
+is given by
+                                                                                 where avgpoolsp and avgpoolch denote average pool-
+                                                                              ing across the spatial and channel dimensions, respectively.
+                                                   
+             ϕ′′ (x, :) = T cls ϕ′ (x, :), Pl (F̄l ) ,           (6)
+                                                                              The intermediate guidance features Fg2 from SAM are then
+                                                                              transformed via
+   where T cls is the Class Refinement Block, Pl a projec-
+                                                                               Fg′ = Asp ⊙ up(Fg2 , 2) + Ach ⊙ up(Fg2 , 2) + up(Fg2 , 2),
+tion layer, and F̄l represents the text embeddings averaged
+                                                                                                                                     (10)
+over all prompts. In our work, two Correlation Feature Re-
+                                                                              where ⊙ represents the Hadamard product and up(·, 2) de-
+finement blocks are used.
+                                                                              notes nearest neighbor upsampling by a factor of 2. The
+   Semantic Back-Projection Module: To ensure that
+                                                                              upsampled correlation feature ϕ2x is obtained by concate-
+the refined correlation features remain semantically consis-
+                                                                              nating ϕ′2x with the transformed guidance feature Fg′ and
+tent with SAM features, we introduce a lightweight back-
+                                                                              applying a convolution:
+projection module. This module reconstructs the SAM fea-
+tures from the class-wise refined correlation features ϕ′′ .
+                                                                                                                       
+                                                                                                ϕ2x = conv [ϕ′2x , Fg′ ] .           (11)
+Specifically, the correlation features are concatenated along
+the channel dimension and processed through three linear                         This upsampling process is repeated to generate ϕ4x ,
+layers with GELU activation, yielding the reconstructed                       which is then refined via a convolution layer and bilinear
+feature ψ ∈ R(H×W )×d as follows:                                             upsampling to yield the final segmentation map ŷ.
+
+
+
+                                                                       2258
+ Dataset                                                               Classes
+            ship, storage tank, baseball diamond, basketball court, ground track field, large vehicle, swimming pool, roundabout, plane,
+  iSAID
+                                       tennis court, bridge, small vehicle, helicopter, soccer ball field, harbor
+                                     chaparral, court, dock, field, grass, mobile home, sand, ship, tanks, water,
+ DLRSD
+                                              airplane, bare soil, buildings, cars, pavement, sea, trees
+                                                        bareland, rangeland, road, building,
+  OEM
+                                                    developed space, tree, water, agriculture land
+
+Table 1. Class details for different datasets used in our work. Classes in Green are seen during training, whereas classes in Magenta are
+only encountered in inference.
+
+3.2. Loss Functions                                                        The processed DLRSD dataset [25] consists of 7002 aerial
+                                                                           images with a spatial resolution of 256 × 256, along with
+To train our network, we utilize a combination of loss func-
+                                                                           annotations for 17 object categories. The training set con-
+tions that jointly optimize segmentation accuracy and fea-
+                                                                           tains 5601 images, while the validation set includes 1401
+ture semantic consistency.
+                                                                           images.
+   Binary Cross-Entropy Loss: We use the binary cross-
+                                                                           OpenEarthMap [34] (OEM) is a global high-resolution
+entropy loss to align the predicted segmentation maps with
+                                                                           land cover mapping dataset comprising 5,000 aerial and
+the ground truth. The loss is defined as
+                                                                           satellite images with annotations for eight categories. It is
+           1 X Xh c                c
+                                            c
+                                                         c
+                                                             i            constructed using images from existing benchmark datasets,
+Lbce =                  −yij log ŷij   − 1−yij   log 1−ŷij    ,
+         HW         i,j                                                    covering 97 regions across 44 countries, with a ground sam-
+               c∈C
+                                                        (12)               pling distance of 0.25–0.5m. For our experiments, we ex-
+           c        c                                                      cluded the xBD subset due to partial availability. Our pro-
+   where ŷij and yij  denote the predicted probability and
+ground truth for class c at pixel (i, j), respectively.                    cessed dataset contains 31,154 training images and 5,195
+   Semantic Back-Projection Loss: To ensure that the re-                   validation images, each of size 256 × 256.
+constructed feature ψ is semantically consistent with the                      For each dataset, we split the classes into seen and un-
+SAM features from the guidance encoder, we introduce the                   seen categories. Only the seen classes are available during
+semantic back-projection loss:                                             training, while all classes are used during inference. Details
+                                                                           of the seen-unseen class split are provided in Table 1.
+                  Lsem = ∥ψ − sg(Fg3 )∥22 .                  (13)
+                                                                           4.2. Implementation details
+where sg(.) is stop-gradient operator.
+                                                                           We develop our models using PyTorch and Detectron2
+   Overall Loss: The final loss function is a linear com-
+                                                                           framework. We have used initial learning rate of 2 × 10−6
+bination of the binary cross-entropy loss and the semantic
+                                                                           for VL backbone. Following [7], we only fine-tune query
+back-projection loss:
+                                                                           and value projection matrices of image and text encoders
+                      L = Lbce + Lsem .                      (14)          in the VL backbone keeping other parameters frozen. Ini-
+                                                                           tial learning rate is set to 2 × 10−4 for every other mod-
+4. Experiments                                                             ule except guidance encoder. We have kept parameters of
+                                                                           guidance encoder frozen throughout training. We have used
+4.1. Dataset details                                                       AdamW optimizer with a batch size of 4 to train our mod-
+iSAID dataset is originally an instance segmentation dataset               els. Our model is trained for 10K, 5K and 15K iterations
+developed from large-scale object detection dataset DOTA                   for iSAID, DLRSD and OEM datasets respectively. We use
+[33], which consists of aerial images collected from multi-                one NVIDIA A100 80GB GPU to run our experiments.
+ple sensors. The dataset consists of varying high-resolution
+images and their annotations for 15 object categories. We                  4.3. Evaluation metrics
+utilize the processed iSAID dataset [3, 41] which consists of              We compute Intersection-over-Union (IoU) metric for all
+18,076 training and 6,363 validation images of 256 × 256                   the classes. We report mean IoU score over seen classes and
+resolution.                                                                unseen classes separately, denoted as s-mIoU and u-mIoU
+DLRSD - Dense Labeling Remote Sensing Dataset is an ex-                    respectively as used commonly in Open-Vocabulary Seg-
+tension of the multi-label Remote Sensing Image Retrieval                  mentation literature [8, 47]. Additionally, we report the har-
+(RSIR) archive [5]. The images from this archive were se-                  monic mean of s-mIoU and u-mIoU, denoted as h-mIoU,
+mantically divided and assigned predefined pixel labels to                 which serves as the key metric for evaluating generalized
+enable various downstream tasks beyond image retrieval.                    zero-shot performance.
+
+
+
+                                                                    2259
+                                       iSAID                       DLRSD                          OEM                          Average
+     Method          Venue
+                              s-mIoU   u-mIoU   h-mIoU   s-mIoU    u-mIoU    h-mIoU     s-mIoU   u-mIoU    h-mIoU     s-mIoU   u-mIoU       h-mIoU
+      SAN          CVPR’23    62.28    35.77    45.44     50.18    12.62      20.17     45.36     15.19     22.76     52.61     21.19       29.46
+     SCAN          CVPR’24    44.31    35.55    39.45     25.86    20.10      22.62     31.85     16.53     21.77     34.01     24.06       27.95
+      SED          CVPR’24    74.37    36.00    48.51     77.73    27.00      40.08     57.46     46.95     51.68     69.85     36.65       46.76
+    CAT-Seg        CVPR’24    72.57    42.64    53.70     52.79    24.39      33.36     49.33     39.51     43.87     58.23     35.51       43.64
+     OVRS          arXiv’24   75.85    49.27    59.73     61.00    31.86      41.86     51.20     47.23     49.13     62.68     42.79       50.24
+ AerOSeg (Ours)           -   75.48    51.46    61.20     60.37    39.12      47.48     51.27     48.16     49.66     62.37     46.25       52.78
+
+Table 2. Quantitative comparison with state-of-the-art methods. Values in red and blue indicate the best and second-best results,
+respectively. The results show that while other methods tend to overfit seen classes, our approach generalizes well to both seen and unseen
+classes, achieving the highest average h-mIoU score.
+
+
+
+
+        (a) Input image          (b) SED             (c) CAT-Seg             (d) OVRS            (e) AerOSeg (Ours)      (f) Ground Truth
+
+Figure 5. Qualitative comparison with state-of-the-art methods. Dashed bounding boxes highlight regions where our model achieves
+more precise segmentation with sharper boundaries.
+
+4.4. Comparison with state-of-the-art                                      dictions across models. Our model achieves more precise
+                                                                           segmentation for “Pavement” in the first image and sharper
+We compare our approach with several state-of-the-
+                                                                           boundaries for “Airplane” in the second. In the third row, it
+art Open-Vocabulary Segmentation methods: SAN [38],
+                                                                           accurately segments “Tree” and “Rangeland”.
+SCAN [17], SED [36], CAT-Seg [7], and OVRS [3].
+                                                                              For comparison with training-free method SegEarth-OV
+Among these, OVRS is designed for remote sensing, while
+                                                                           [15] and more qualitative results, please refer to Sec. 3 of
+the others are originally developed for natural images.
+                                                                           Supplementary material.
+These models are trained using their publicly available
+source codes with default configurations. We use their                     4.5. Ablation study
+base versions, where SED employs a CLIP ConvNeXT-B                             Main components ablation: We experimented with
+architecture, while the others utilize a CLIP ViT-B/16 as                  multiple configurations to evaluate the effectiveness of dif-
+the Vision-Language backbone. Table 2 presents a quan-                     ferent components in our framework:
+titative comparison of these methods. AerOSeg achieves                     • (I) Baseline: Our model without the Guidance Encoder,
+higher h-mIoU scores than other state-of-the-art methods                     trained only with Lbce . A single generic prompt, "A
+on the iSAID and DLRSD datasets and ranks second on the                      photo of a [CLS] in a scene", is used in-
+OEM dataset. On average, AerOSeg surpasses the next best                     stead of the Remote-Sensing prompt ensemble. Interme-
+model, OVRS, by a margin of 2.54 h-mIoU, highlighting its                    diate CLIP features serve as guidance for spatial refine-
+strong generalization capability.                                            ment and the decoder.
+    In Fig. 5, we qualitatively compare segmentation pre-                  • (II) Config-A: Our model with the Guidance Encoder and
+
+
+
+                                                                   2260
+                                      Guidance    Semantic Back-     Remote-Sensing
+                   Configuration                                                        iSAID      DLRSD     OEM       Average
+                                      Encoder     projection loss       Prompts
+                      Baseline           ✗              -                  ✗            57.88      28.69      46.86      44.47
+                      Config-A            ✓              ✗                  ✗           58.10      39.93      50.46      49.49
+                      Config-B            ✓              ✓                  ✗           59.32      42.34      47.16      49.60
+                   Config-C (Ours)        ✓              ✓                  ✓           61.20      47.48      49.66      52.78
+
+                                     Table 3. Ablation study for different components of our framework.
+
+   a single generic prompt, trained with Lbce .                               Reconstruction target        iSAID      DLRSD       OEM     Average
+• (III) Config-B: Our model with the Guidance Encoder                                  RGB                 14.93      40.03       38.21    31.06
+   and a single generic prompt, trained with Lbce and Lsem .                       CLIP features           53.27      42.10       48.55    47.97
+• (IV) Config-C: Our full model.                                                SAM features (Ours)        61.20      47.48       49.66    52.78
+    Table 3 presents the h-mIoU scores for these configura-
+tions. Adding the Guidance Encoder in Config-A improves                     Table 5. Ablation study on different reconstruction targets for the
+the average h-mIoU by 5.02 over the Baseline. Train-                        Semantic Back-Projection module.
+ing with Semantic Back-Projection loss further enhances
+                                                                            promptable image segmentation, SAM2 and SAM2.1 are
+h-mIoU by 1.22 and 2.41 for iSAID and DLRSD, respec-
+                                                                            designed for promptable video segmentation. For SAM, we
+tively. Finally, incorporating the Remote Sensing prompt
+                                                                            used the ViT-L and ViT-H variants, whereas for SAM2 and
+ensemble yields additional gains of 1.88, 5.14, and 2.5 for
+                                                                            SAM2.1, we employed the Hiera-Base+ variant. Table-6
+the iSAID, DLRSD, and OEM datasets, respectively, com-
+                                                                            presents the quantitative results on the iSAID dataset using
+pared to Config-B.
+                                                                            different SAM variants as the guidance encoder. Among
+    Guidance encoder training: We experimented with
+                                                                            these, SAM2.1 achieved the best overall performance.
+training the Guidance Encoder jointly with the rest of the
+network, fine-tuning it with an initial learning rate of 2 ×
+                                                                                Guidance Encoder    Architecture      s-mIoU     u-mIoU   h-mIoU
+10−6 . A quantitative comparison of h-mIoU scores ob-
+                                                                                      SAM              ViT-L          75.48      51.46    61.20
+tained for the fine-tuned and frozen Guidance Encoder is
+                                                                                      SAM              ViT-H          74.90      52.81    61.94
+shown in Table 4. While fine-tuning improves iSAID per-
+                                                                                      SAM2          Hiera-Base+       77.63      53.32    63.22
+formance by 0.36 h-mIoU, the frozen Guidance Encoder
+                                                                                     SAM2.1         Hiera-Base+       77.06      53.93    63.45
+yields significantly better results for DLRSD and OEM,
+with gains of 3.07 and 2.63 h-mIoU, respectively. We hy-                    Table 6. Quantitative comparison between different Guidance en-
+pothesize that, given the relatively small dataset size, the                coders on iSAID dataset.
+frozen Guidance Encoder performs better on average.
+                                                                              We have also explored the effect of different VL back-
+ Guidance Encoder                                                           bones, please refer to Sec. 1 of Supplementary Material for
+                         iSAID       DLRSD       OEM     Average
+ Training Strategy                                                          more details.
+    Fine-tune \           61.56      44.41       47.03       51.00
+   Frozen (Ours)         61.20       47.48       49.66       52.78          5. Conclusion
+                                                                            In this work, we introduce AerOSeg, a novel open-
+Table 4. Quantitative comparison between fine-tuned and frozen              vocabulary segmentation framework for remote sensing
+Guidance Encoder.                                                           that combines CLIP-based vision-language alignment with
+    Ablation on Semantic Back-Projection Loss: We ex-                       SAM-guided feature refinement. Our approach mitigates
+perimented with different reconstruction targets for our pro-               the semantic knowledge gap in CLIP by leveraging SAM
+posed semantic back-projection module: (i) RGB, (ii) CLIP                   as a Guidance Encoder. Additionally, Semantic Back-
+features, and (iii) SAM features. Table 5 compares the h-                   Projection loss ensures better alignment between image-text
+mIoU scores on three datasets for different reconstruction                  correlation features and SAM features, preserving semantic
+targets. Using RGB as the reconstruction target leads to sig-               consistency. Extensive experiments on benchmark remote
+nificantly lower performance due to overfitting on known                    sensing datasets demonstrate that our model outperforms
+classes. Reconstructing CLIP features improves perfor-                      existing methods, excelling in generalization to both seen
+mance for both seen and unseen categories compared to                       and novel classes. This work paves the way for advancing
+RGB. However, the best results are achieved when SAM                        Open-Vocabulary Semantic Segmentation in geospatial ap-
+features are used as the reconstruction target.                             plications.
+    Effect of Different Guidance Encoders: We investi-                         Acknowledgements. We would like to thank C-MInDS,
+gated various SAM image encoders as our guidance en-                        IIT Bombay and IITB-Monash Research Academy for fi-
+coder, specifically experimenting with SAM, SAM2 [22],                      nancial support.
+and SAM2.1 [22]. While SAM is originally trained for
+
+
+
+                                                                     2261
+References                                                                [12] Angelos Katharopoulos, Apoorv Vyas, Nikolaos Pappas, and
+                                                                               François Fleuret. Transformers are rnns: Fast autoregressive
+ [1] Patrik Olã Bressan, José Marcato Junior, José Au-                      transformers with linear attention. In International Confer-
+     gusto Correa Martins, Maximilian Jaderson de Melo,                        ence on Machine Learning, pages 5156–5165. PMLR, 2020.
+     Diogo Nunes Gonçalves, Daniel Matte Freitas, Ana Paula                   5
+     Marques Ramos, Michelle Taı́s Garcia Furuya, Lucas Prado             [13] Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao,
+     Osco, Jonathan de Andrade Silva, Zhipeng Luo, Ray-                        Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer White-
+     mundo Cordero Garcia, Lingfei Ma, Jonathan Li, and Wes-                   head, Alexander C Berg, Wan-Yen Lo, et al. Segment any-
+     ley Nunes Gonçalves. Semantic segmentation with labeling                 thing. In Proceedings of the IEEE/CVF International Con-
+     uncertainty and class imbalance applied to vegetation map-                ference on Computer Vision, pages 4015–4026, 2023. 3
+     ping. International Journal of Applied Earth Observation
+                                                                          [14] Boyi Li, Kilian Q Weinberger, Serge Belongie, Vladlen
+     and Geoinformation, 108:102690, 2022. 2
+                                                                               Koltun, and Rene Ranftl. Language-driven semantic seg-
+ [2] Maxime Bucher, Tuan-Hung Vu, Matthieu Cord, and Patrick                   mentation. In International Conference on Learning Rep-
+     Pérez. Zero-shot semantic segmentation. Advances in Neural               resentations, 2022. 3
+     Information Processing Systems, 32, 2019. 3                          [15] Kaiyu Li, Ruixun Liu, Xiangyong Cao, Xueru Bai, Feng
+ [3] Qinglong Cao, Yuntian Chen, Chao Ma, and Xiaokang Yang.                   Zhou, Deyu Meng, and Zhi Wang. Segearth-ov: Towards
+     Open-vocabulary remote sensing image semantic segmenta-                   training-free open-vocabulary segmentation for remote sens-
+     tion. arXiv preprint arXiv:2409.07683, 2024. 2, 3, 4, 5, 6,               ing images. arXiv preprint arXiv:2410.01768, 2024. 3, 7
+     7                                                                    [16] Xiang Li, Congcong Wen, Yuan Hu, and Nan Zhou. Rs-clip:
+ [4] Yice Cao, Chenchen Liu, Zhenhua Wu, Wenxin Yao, Liu                       Zero shot remote sensing scene classification via contrastive
+     Xiong, Jie Chen, and Zhixiang Huang. Remote sensing im-                   vision-language supervision. International Journal of Ap-
+     age segmentation using vision mamba and multi-scale multi-                plied Earth Observation and Geoinformation, 124:103497,
+     frequency feature fusion, 2024. 2                                         2023. 3
+ [5] Bindita Chaudhuri, Begüm Demir, Subhasis Chaudhuri, and             [17] Yong Liu, Sule Bai, Guanbin Li, Yitong Wang, and Yansong
+     Lorenzo Bruzzone. Multilabel remote sensing image re-                     Tang. Open-vocabulary segmentation with semantic-assisted
+     trieval using a semisupervised graph-theoretic method. IEEE               calibration. In Proceedings of the IEEE/CVF Conference
+     Transactions on Geoscience and Remote Sensing, 56(2):                     on Computer Vision and Pattern Recognition, pages 3491–
+     1144–1158, 2017. 6                                                        3500, 2024. 7
+ [6] Bowen Cheng, Ishan Misra, Alexander G Schwing, Alexan-               [18] Ze Liu, Yutong Lin, Yue Cao, Han Hu, Yixuan Wei, Zheng
+     der Kirillov, and Rohit Girdhar. Masked-attention mask                    Zhang, Stephen Lin, and Baining Guo. Swin transformer:
+     transformer for universal image segmentation. In Proceed-                 Hierarchical vision transformer using shifted windows. In
+     ings of the IEEE/CVF conference on computer vision and                    Proceedings of the IEEE/CVF international conference on
+     pattern recognition, pages 1290–1299, 2022. 3                             computer vision, pages 10012–10022, 2021. 2, 4
+                                                                          [19] José Augusto Correa Martins, Keiller Nogueira, Lucas Prado
+ [7] Seokju Cho, Heeseong Shin, Sunghwan Hong, Anurag
+                                                                               Osco, Felipe David Georges Gomes, Danielle Elis Garcia
+     Arnab, Paul Hongsuck Seo, and Seungryong Kim. Cat-
+                                                                               Furuya, Wesley Nunes Gonçalves, Diego André Sant’Ana,
+     seg: Cost aggregation for open-vocabulary semantic seg-
+                                                                               Ana Paula Marques Ramos, Veraldo Liesenberg, Jefers-
+     mentation. In Proceedings of the IEEE/CVF Conference
+                                                                               son Alex dos Santos, Paulo Tarso Sanches de Oliveira, and
+     on Computer Vision and Pattern Recognition, pages 4113–
+                                                                               José Marcato Junior. Semantic segmentation of tree-canopy
+     4123, 2024. 3, 4, 6, 7
+                                                                               in urban environment with pixel-wise deep learning. Remote
+ [8] Jian Ding, Nan Xue, Gui-Song Xia, and Dengxin Dai. De-                    Sensing, 13(16), 2021. 2
+     coupling zero-shot semantic segmentation. In Proceedings of
+                                                                          [20] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya
+     the IEEE/CVF Conference on Computer Vision and Pattern
+                                                                               Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry,
+     Recognition, pages 11583–11592, 2022. 3, 6
+                                                                               Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learning
+ [9] Golnaz Ghiasi, Xiuye Gu, Yin Cui, and Tsung-Yi Lin. Scal-                 transferable visual models from natural language supervi-
+     ing open-vocabulary image segmentation with image-level                   sion. In International conference on machine learning, pages
+     labels. In European Conference on Computer Vision, pages                  8748–8763. PMLR, 2021. 1, 3
+     540–557. Springer, 2022. 3                                           [21] René Ranftl, Alexey Bochkovskiy, and Vladlen Koltun. Vi-
+[10] Chao Jia, Yinfei Yang, Ye Xia, Yi-Ting Chen, Zarana Parekh,               sion transformers for dense prediction. In Proceedings of
+     Hieu Pham, Quoc Le, Yun-Hsuan Sung, Zhen Li, and Tom                      the IEEE/CVF international conference on computer vision,
+     Duerig. Scaling up visual and vision-language representa-                 pages 12179–12188, 2021. 3
+     tion learning with noisy text supervision. In International          [22] Nikhila Ravi, Valentin Gabeur, Yuan-Ting Hu, Ronghang
+     conference on machine learning, pages 4904–4916. PMLR,                    Hu, Chaitanya Ryali, Tengyu Ma, Haitham Khedr, Roman
+     2021. 1                                                                   Rädle, Chloe Rolland, Laura Gustafson, et al. Sam 2:
+[11] Michael Kampffmeyer, Arnt-Børre Salberg, and Robert                       Segment anything in images and videos. arXiv preprint
+     Jenssen. Semantic segmentation of small objects and mod-                  arXiv:2408.00714, 2024. 3, 8
+     eling of uncertainty in urban remote sensing images using            [23] Ignacio Rocco, Relja Arandjelovic, and Josef Sivic. Convo-
+     deep convolutional neural networks. 2016. 2                               lutional neural network architecture for geometric matching.
+
+
+
+
+                                                                   2262
+     In Proceedings of the IEEE conference on computer vision                     ings of the IEEE/CVF Conference on Computer Vision and
+     and pattern recognition, pages 6148–6157, 2017. 4                            Pattern Recognition, pages 8256–8265, 2019. 3
+[24] Xiangheng Shan, Dongyue Wu, Guilin Zhu, Yuanjie Shao,                   [36] Bin Xie, Jiale Cao, Jin Xie, Fahad Shahbaz Khan, and
+     Nong Sang, and Changxin Gao. Open-vocabulary semantic                        Yanwei Pang. Sed: A simple encoder-decoder for open-
+     segmentation with image embedding balancing. In Proceed-                     vocabulary semantic segmentation. In Proceedings of the
+     ings of the IEEE/CVF Conference on Computer Vision and                       IEEE/CVF Conference on Computer Vision and Pattern
+     Pattern Recognition, pages 28412–28421, 2024. 3                              Recognition, pages 3426–3436, 2024. 7
+[25] Zhenfeng Shao, Ke Yang, and Weixun Zhou. Performance                    [37] Jiarui Xu, Sifei Liu, Arash Vahdat, Wonmin Byeon, Xiao-
+     evaluation of single-label and multi-label remote sensing im-                long Wang, and Shalini De Mello. Open-vocabulary panop-
+     age retrieval using a dense labeling dataset. Remote Sensing,                tic segmentation with text-to-image diffusion models. In
+     10(6), 2018. 6                                                               Proceedings of the IEEE/CVF Conference on Computer Vi-
+[26] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszko-                      sion and Pattern Recognition, pages 2955–2966, 2023. 3
+     reit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia             [38] Mengde Xu, Zheng Zhang, Fangyun Wei, Han Hu, and Xi-
+     Polosukhin. Attention is all you need. page 6000–6010, Red                   ang Bai. Side adapter network for open-vocabulary semantic
+     Hook, NY, USA, 2017. Curran Associates Inc. 2                                segmentation. In Proceedings of the IEEE/CVF Conference
+[27] Di Wang, Jing Zhang, Bo Du, Minqiang Xu, Lin Liu,                            on Computer Vision and Pattern Recognition, pages 2945–
+     Dacheng Tao, and Liangpei Zhang. Samrs: Scaling-up re-                       2954, 2023. 3, 7
+     mote sensing segmentation dataset with segment anything                 [39] Zhiyong Xu, Weicun Zhang, Tianxiang Zhang, and Jiangyun
+     model. Advances in Neural Information Processing Systems,                    Li. Hrcnet: High-resolution context extraction network for
+     36, 2024. 3                                                                  semantic segmentation of remote sensing images. Remote
+                                                                                  Sensing, 13(1), 2021. 2
+[28] Huiyu Wang, Yukun Zhu, Hartwig Adam, Alan Yuille, and
+                                                                             [40] Zhiyong Xu, Weicun Zhang, Tianxiang Zhang, Zhifang
+     Liang-Chieh Chen. Max-deeplab: End-to-end panoptic
+                                                                                  Yang, and Jiangyun Li. Efficient transformer for remote
+     segmentation with mask transformers. In Proceedings of
+                                                                                  sensing image segmentation. Remote Sensing, 13(18), 2021.
+     the IEEE/CVF conference on computer vision and pattern
+                                                                                  2
+     recognition, pages 5463–5474, 2021. 3
+                                                                             [41] Xiwen Yao, Qinglong Cao, Xiaoxu Feng, Gong Cheng, and
+[29] Hong Wang, Xianzhong Chen, Tianxiang Zhang, Zhiyong
+                                                                                  Junwei Han. Scale-aware detailed matching for few-shot
+     Xu, and Jiangyun Li. Cctnet: Coupled cnn and transformer
+                                                                                  aerial image semantic segmentation. IEEE Transactions on
+     network for crop segmentation of remote sensing images.
+                                                                                  Geoscience and Remote Sensing, 60:1–11, 2021. 6
+     Remote Sensing, 14(9), 2022. 2
+                                                                             [42] Qihang Yu, Ju He, Xueqing Deng, Xiaohui Shen, and Liang-
+[30] Libo Wang, Rui Li, Ce Zhang, Shenghui Fang, Chenxi Duan,                     Chieh Chen. Convolutions die hard: Open-vocabulary seg-
+     Xiaoliang Meng, and Peter M. Atkinson. Unetformer: A                         mentation with single frozen convolutional clip. Advances in
+     unet-like transformer for efficient semantic segmentation of                 Neural Information Processing Systems, 36, 2024. 3
+     remote sensing urban scene imagery. ISPRS Journal of Pho-
+                                                                             [43] Xiaohui Yuan, Jianfang Shi, and Lichuan Gu. A review of
+     togrammetry and Remote Sensing, 190:196–214, 2022. 2
+                                                                                  deep learning methods for semantic segmentation of remote
+[31] Xiaoqi Wang, Wenbin He, Xiwei Xuan, Clint Sebastian,                         sensing imagery. Expert Systems with Applications, 169:
+     Jorge Piazentin Ono, Xin Li, Sima Behpour, Thang Doan,                       114417, 2021. 2
+     Liang Gou, Han-Wei Shen, et al. Use: Universal segment                  [44] Cheng Zhang, Wanshou Jiang, Yuan Zhang, Wei Wang,
+     embeddings for open-vocabulary image segmentation. In                        Qing Zhao, and Chenjie Wang. Transformer and cnn hy-
+     Proceedings of the IEEE/CVF Conference on Computer Vi-                       brid deep neural network for semantic segmentation of very-
+     sion and Pattern Recognition, pages 4187–4196, 2024. 3                       high-resolution remote sensing imagery. IEEE Transactions
+[32] Junde Wu, Wei Ji, Yuanpei Liu, Huazhu Fu, Min Xu, Yanwu                      on Geoscience and Remote Sensing, 60:1–20, 2022. 2
+     Xu, and Yueming Jin. Medical sam adapter: Adapting seg-                 [45] Yi Zhang, Meng-Hao Guo, Miao Wang, and Shi-Min Hu.
+     ment anything model for medical image segmentation. arXiv                    Exploring regional clues in clip for zero-shot semantic seg-
+     preprint arXiv:2304.12620, 2023. 3                                           mentation. In Proceedings of the IEEE/CVF Conference
+[33] Gui-Song Xia, Xiang Bai, Jian Ding, Zhen Zhu, Serge Be-                      on Computer Vision and Pattern Recognition, pages 3270–
+     longie, Jiebo Luo, Mihai Datcu, Marcello Pelillo, and Liang-                 3280, 2024. 5
+     pei Zhang. Dota: A large-scale dataset for object detection in          [46] Qi Zhao, Jiahui Liu, Yuewen Li, and Hong Zhang. Seman-
+     aerial images. In 2018 IEEE/CVF Conference on Computer                       tic segmentation with attention mechanism for remote sens-
+     Vision and Pattern Recognition, pages 3974–3983, 2018. 6                     ing images. IEEE Transactions on Geoscience and Remote
+[34] Junshi Xia, Naoto Yokoya, Bruno Adriano, and Clifford                        Sensing, PP:1–13, 2021. 2
+     Broni-Bediako. Openearthmap: A benchmark dataset for                    [47] Ziqin Zhou, Yinjie Lei, Bowen Zhang, Lingqiao Liu, and
+     global high-resolution land cover mapping. In Proceed-                       Yifan Liu. Zegclip: Towards adapting clip for zero-shot se-
+     ings of the IEEE/CVF Winter Conference on Applications of                    mantic segmentation. In Proceedings of the IEEE/CVF Con-
+     Computer Vision (WACV), 2023. 6                                              ference on Computer Vision and Pattern Recognition, pages
+[35] Yongqin Xian, Subhabrata Choudhury, Yang He, Bernt                           11175–11185, 2023. 6
+     Schiele, and Zeynep Akata. Semantic projection network                  [48] Xueyan Zou, Jianwei Yang, Hao Zhang, Feng Li, Linjie Li,
+     for zero-and few-label semantic segmentation. In Proceed-                    Jianfeng Wang, Lijuan Wang, Jianfeng Gao, and Yong Jae
+
+
+
+
+                                                                      2263
+Lee. Segment everything everywhere all at once. Advances
+in Neural Information Processing Systems, 36, 2024. 3
+
+
+
+
+                                                           2264
+

@@ -1,0 +1,683 @@
+                             This ICCV paper is the Open Access version, provided by the Computer Vision Foundation.
+                                           Except for this watermark, it is identical to the accepted version;
+                                     the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+           ViLLa: Video Reasoning Segmentation with Large Language Model
+
+                            Rongkun Zheng1 Lu Qi2 Xi Chen1 Yi Wang3,4
+                                        Kun Wang5 Hengshuang Zhao1 *
+            1
+              The University of Hong Kong 2 Insta360 3 Shanghai Artiﬁcial Intelligence Laboratory
+                             4
+                               Shanghai Innovation Institute 5 SenseTime Research
+                               {zrk22@connect, hszhao@cs}.hku.hk
+
+
+                              Abstract                                   experiences to new heights. However, in the absence of
+                                                                         explicit instructions specifying target objects or categories,
+Recent efforts in video reasoning segmentation (VRS) inte-               the majority of models [1, 24, 25, 31, 32, 71, 80], including
+grate large language models (LLMs) with perception models                both perception models and language ones, struggle to gen-
+to localize and track objects via textual instructions, achiev-          erate detailed and granular outputs such as instance masks.
+ing barely satisfactory results in simple scenarios. However,            Instead, these models typically generate only general textual
+they struggled to discriminate and deduce the objects from               descriptions for images or videos. This limitation hinders
+user queries in more real-world scenes featured by long du-              the practical application of multimodal systems in various
+rations, multiple objects, rapid motion, and heavy occlusions.           scenarios, such as autonomous driving [57], image and video
+In this work, we analyze the underlying causes of these limi-            editing [30], robotics [48], and augmented reality [46].
+tations, and present ViLLa: Video reasoning segmentation                    Recent studies [23, 45, 70] have investigated the appli-
+with Large Language Model. Remarkably, our ViLLa man-                    cation of LLMs to generate object masks in a novel rea-
+ages to tackle these challenges through multiple core inno-              soning segmentation task that requires complex reasoning
+vations: (1) a context synthesizer that dynamically encodes              to interpret sophisticated instructions. These approaches
+the user intent with video contexts for accurate reasoning,              introduce efﬁcient language models capable of producing
+resolving ambiguities in complex queries, and (2) a hierar-              multiple open-set targets while accommodating diverse rea-
+chical temporal synchronizer that disentangles multi-object              soning complexities. However, despite their successes, these
+interactions across complex temporal scenarios by modelling              methods remain limited to image-level reasoning and do not
+multi-object interactions at local and global temporal scales.           extend ﬁne-grained reasoning capabilities to the temporal di-
+To enable efﬁcient processing of long videos, ViLLa incorpo-             mension. To address this issue, researchers [4, 67] managed
+rates (3) a key segment sampler that adaptively partitions               to equip the image reasoning segmentation model with tem-
+long videos into shorter but semantically dense segments                 poral understanding ability, and propose VRS. VISA [67]
+for less redundancy. What’s more, to promote research in                 employs a video understanding model [28] to select the key
+this unexplored area, we construct a VRS benchmark, Vide-                frame for LISA [23] to segment and subsequently utilizes
+oReasonSeg, featuring different complex scenarios. Our                   an object tracker [8] to maintain temporal consistency. How-
+model also exhibits impressive state-of-the-art results on               ever, the quality of segmentation is highly dependent on the
+VideoReasonSeg, Ref-YouTube-VOS, Ref-DAVIS17, MeViS,                     accuracy of key frame selection, which is susceptible to error
+and ReVOS. Both quantitative and qualitative experiments                 accumulation through propagation as the number of input
+demonstrate that our method effectively enhances video rea-              frames increases. On the other hand, VideoLISA [4] adopts
+soning segmentation capabilities for multimodal LLMs.                    a sparse dense sampling strategy to compress visual features
+                                                                         and extends the single segmentation token to track an in-
+                                                                         stance across frames, especially when the movement is rapid.
+1. Introduction                                                          Nevertheless, the sampling strategy fails to adaptively select
+Capitalizing on the achievements of Large Language Models                the key video segments, making it challenging to capture the
+(LLMs) [10, 38, 39, 75], the development of large multi-                 essential information from the video. Also, because a single
+modal models (LMMs) [3, 25, 32, 34, 58, 80] has notably                  segmentation token is unable to segment and track multi-
+enhanced visual perception capabilities and user-interaction             ple instances across frames, the segmentation and tracking
+                                                                         quality decrease signiﬁcantly when the video scene becomes
+   * Corresponding author.                                               intricate (e.g., involving multiple objects with occlusion),
+
+
+
+                                                                 23667
+as proven in various previous Video Instance Segmentation               ring segmentation benchmarks, ReVOS, and our proposed
+(VIS) approaches [20, 78], which utilize multiple-level of              VideoReasonSeg. The state-of-the-art results demonstrate
+tokens to segment and track instances.                                  the effectiveness of our method.
+    To tackle the aforementioned challenges, we propose
+ViLLa, an effective and efﬁcient LMM for video reason-                 2. Related Works
+ing segmentation. ViLLa proﬁciently perceives and reasons          Large Multimodal Models. Large multimodal models
+videos with multiple objects, rapid motion, and diverse rea-       (LMMs) can be broadly categorized into two groups based
+soning complexities (as shown in Fig. 1). Speciﬁcally, our         on their utilization of large language models (LLMs). The
+ViLLa has three key components: Key Segment Extractor,             ﬁrst category comprises models [35, 56, 74] that are either
+Context Synthesizer, and Hierarchical Temporal Synchro-            trained from scratch or leverage smaller language models
+nizer. These designs put effort into solving the complex           like BERT for text processing. These models typically em-
+video reasoning segmentation from different perspectives.          ploy a combination of contrastive and generative objectives
+The Key Segment Extractor selects the most relevant video          to tackle a range of multimodal tasks (e.g., Coca [74]). How-
+segments, which reduces redundant visual tokens and effec-         ever, their limited language understanding capacity often
+tively turns long videos into shorter segments. To make the        restricts their performance in tasks that demand massive
+responses more pertinent to users’ intentions, Context Syn-        commonsense reasoning abilities.
+thesizer synthesizes frame context information from visual             The emergence of LLMs in recent years has paved the
+features to text embeddings to generate contextually enriched      way for a new paradigm in the development of LMMs, in
+text and highly input-responsive visual embeddings. To build       which LLMs are enhanced with multimodal comprehension
+up stronger temporal relations to multi-target segmentation        abilities [40, 50, 51, 76]. This approach typically includes
+tokens in complex scenes, the Hierarchical Temporal Syn-           the use of adapters to align visual and textual representa-
+chronizer communicates and consolidates the multi-scale            tions within LLMs, as exempliﬁed by Flamingo [1], BLIP-
+segmentation embeddings across temporal dimension via              2 [25], MiniGPT-4 [80], LLaMA-Adapter [16], LLaVA [32],
+attention-based fusion strategy. Tested on multiple referring      InstructBLIP [11], InternGPT [34], QwenVL [3], Intern-
+video object segmentation benchmarks, our model could sur-         Video2 [59]. Some video-related MLLM (VideoLLM)
+pass previous state-of-the-art LLM-based methods by a large        VideoChatGPT [37], and Valley [36] utilize ChatGPT [38]
+margin. In addition, to validate its effectiveness, we establish   to generate video instruction-tuning data, aiming to enhance
+a benchmark for video reasoning segmentation evaluation,           instruction-following capabilities for real-world video com-
+called VideoReasonSeg. Utilizing a GPT-4V [39]-aided data          prehension. Even though these models have demonstrated
+curation pipeline, we curate 3k high quality video samples         improved performance in vision-language tasks, their pri-
+for video reasoning segmentation spanning multiple-choice          mary limitation lies in generating only textual outputs.
+QAs and video-instruction-mask samples, and the video sce-         Video Segmentation.          Video Instance Segmentation
+narios contain diverse reasoning complexities (as presented        (VIS) [69] aims to simultaneously detect, segment, and track
+in the appendix), which offers convincing metrics.                 object instances in videos based on predeﬁned object cate-
+    In summary, our contributions are as follows:                  gories. Numerous studies [26, 29, 60, 63, 79] have proposed
+• We analyze the limitations of current VRS approaches             diverse designs (such as tracking by detection [2], masked at-
+   and propose a framework named ViLLa that segments and           tention [7], object token association [20, 27, 65], contrastive
+   tracks the desired objects in more complex scenarios.           memory [19, 72], and more) to effectively model temporal
+• We develop three key modules that resolves complex sce-          relationships. For example, IDOL [66], which is built upon
+   nario reasoning from different perspectives, namely key         Deformable-DETR [81], incorporates a contrastive learning
+   segment extractor, context synthesizer, and hierarchical        head for associations [17]. DVIS [78] proposed a decoupling
+   temporal synchronizer. Our extractor selects the most rele-     strategy by dividing VIS into image segmentation, tracking,
+   vant video segments from the complex input video, while         and reﬁnement. The Referring Video Object Segmentation
+   the synthesizer combines and infuses user intention and         (RVOS) task was introduced to segment the target instance
+   context information, and the synchronizer communicates          referred to in a given text. Early works [21, 47] used the
+   multi-scale segmentation tokens spatio-temporally.              spatial-temporal memory mechanism to strengthen tempo-
+• We develop VideoReasonSeg, a comprehensive benchmark             ral relations. The researchers then started building ofﬂine
+   for VRS that spans different complex reasoning scenarios,       reference models [53, 54, 61, 68] that take the whole clip as
+   comprising 3k videos and 15k object descriptions for in-        input. Currently, query-based Transformer models [5, 64]
+   struction tuning and evaluation. This benchmark plays a         begin to dominate. MTTR [5] utilized an instance-level seg-
+   crucial role in evaluating and fostering the exploration of     mentation pipeline to determine the most suitable sequence
+   reasoning capabilities in video-based models.                   for the referred object. ReferFormer [64] transformed text
+• We conduct extensive experiments on challenging refer-           expressions into queries to attend to relevant regions.
+
+
+
+                                                               23668
+        h^Z͗фs/KхtŚĂƚ͛ƐŚĂƉƉĞŶŝŶŐďĞƚǁĞĞŶƚŚĞƐĞƚǁŽĂŶŝŵĂůƐ͍
+
+
+
+
+  (a)   ^^/^dEd͗dǁŽĐĂƚƐĂƌĞĞŶŐĂŐĞĚŝŶĂƉůĂǇĨƵůŝŶƚĞƌĂĐƚŝŽŶ͘dŚĞ ǁŚŝƚĞĐĂƚф^'ϭхŝƐĐŚĂƐŝŶŐƚŚĞŐƌĂǇĐĂƚ ф^'Ϯх͘
+
+
+
+
+        h^Z͗ фs/KхtŚŝĐŚĐŽǁŵŽǀĞƐĨƌŽŵƚŚĞůĞĨƚŽĨƚŚĞĐĂŵĞƌĂƚŽƚŚĞŵŝĚĚůĞ͍
+
+
+
+
+  (b)   ^^/^dEd͗dŚĞďƌŽǁŶĐŽǁф^'х͘
+
+
+
+
+        h^Z͗ фs/KхtŚĂƚŝƐƚŚĞŵŽŶŬĞǇĚŽŝŶŐƚŽƐĞĞŬĐŽŵĨŽƌƚĨƌŽŵƚŚĞĞůĚĞƌŵŽŶŬĞǇ͍
+
+
+
+                                          ͙                                              ͙
+
+  (c)
+        ^^/^dEd͗dŚĞŵŽŶŬĞǇ ф^'хŝƐŚƵŐŐŝŶŐ ĂŶŽƚŚĞƌĞůĚĞƌ ŵŽŶŬĞǇ͘
+
+
+
+                                          ͙                                              ͙
+
+
+Figure 1. Our ViLLa is an effective and efﬁcient LMM capable of segmenting and tracking: (a) multiple objects with rapid motion; (b)
+objects in crowded scenes; (c) objects in long videos with occlusions.
+
+Reasoning Segmentation. In numerous practical applica-              ments a new comprehensive baseline that has only a single
+tions, it is essential to comprehend visual inputs at a ﬁne-        visual encoder. However, these methods mainly focus on
+grained level, such as speciﬁc regions. Kosmos-2 [41], In-          reasoning about images and fail to reason across temporal
+ternGPT [34], and Ferret [73] offer grounding capabilities          dimensions. When they are transferred to the video domain,
+to speciﬁed image regions. Yet, these approaches still fail to      the segmentation token is unable to model multiple targets as
+provide pixel-level outputs. To bridge this gap, LISA [23] in-      well as their trajectories. Early approaches (VISA [67] and
+tegrates SAM [22] with LLMs to tackle segmentation tasks.           VideoLISA [15]) manage to bridge the gap by implement-
+PixelLM [45] proposes a novel pixel decoder and a segmen-           ing different frame sampling strategies, but VISA suffers
+tation codebook to generate masks for multiple targets. Then,       from the error accumulation from key frame selection, and
+GLaMM [44] proposes region-level caption and segmenta-              VideoLISA fails to adaptively extract relevant frames which
+tion tasks. Several works [14, 33, 43] use LLMs as agents           leads to redundancy. After analyzing their drawbacks, we
+to assign different visual experts. OMG-LLaVA [77] imple-           propose ViLLa to address the problem.
+
+
+
+                                                              23669
+      Video         User: What is the animal with
+                    black and white striped coat                   ‫ܧ‬௧                      The animal is
+                    patterns walking at the end of                                         zebra.                         ݉௧
+                    its herd?                                                    Large                     Hierarchical
+                                                      Context
+                                                                                Language                    Temporal
+                                                     Synthesizer
+                                                                                 Model      <SEG>          Synchronizer
+                         Key Segment        Encode                 ‫ܨ‬௧
+                          Extractor
+                                                                                  LoRA
+        …                                                                                   ‫ ܨ‬௧ ǡ ‫ ܨ‬௧ାଵ                        ݉௧ାଵ
+
+Figure 2. Overall framework of ViLLa. Given the input video frames and user input text query, the Key Segment Extractor is proposed
+to select the most query-relevant video segments from the video. Then, the Context Synthesizer aggregates text-related visual cues from
+the visual features to the text embeddings and selects the relevant visual features. The large language model generates text output and
+segmentation tokens with the input of visual features, visually enriched text embeddings, and pre-deﬁned segmentation tokens. Finally, the
+segmentation tokens are fed to the Hierarchical Temporal Synchronizer to produce the ﬁnal output segmentation mask tracklets.
+
+
+3. ViLLa                                                                    ates the xtxt ∈ RM ×C , where M denotes the number of
+                                                                            queries. We choose QFormer as the text encoder to main-
+Video reasoning segmentation aims to output a binary seg-                   tain the cross-modality alignment. By incorporating this
+mentation mask sequence {mt }Tt=1 ∈ RT ×H×W , given an                      approach, the text embeddings now capture visual cues that
+input video clip consisting of T frames V ∈ RT ×H×W ×3                      are highly relevant to the user’s instructions. The output of
+and a query instruction xtxt . The task shares a similar formu-             the ﬁnal layer, FtL , encodes global image information and is
+lation with the referring video object segmentation (VOS),                  transformed to align with the language space of LLMs via a
+but it has complex queries that require reasoning.                          vision-to-language projection layer ProjV →L .
+3.1. Model Design                                                               3.2. Key Segment Extractor
+Model Overview. As depicted in Fig. 2, ViLLa features a                     For short videos that typically has very few actions and ob-
+streamlined architecture, comprising mainly several main                    jects, the segmentation can be solved by image-level reason-
+parts: 1) a pre-trained visual encoder that aligns with a text              ing segmentation methods in a frame-by-frame style. These
+encoder, 2) a large language model (LLM), 3) a key segment                  cases, however, can’t reﬂect the temporal reasoning capabil-
+extractor, 4) a context synthesizer, and 5) a hierarchical                  ity of video reasoning segmentation models. We argue that
+temporal synchronizer.                                                      the capability of handling complex videos, which include oc-
+   The key segment extractor aims to extract the pivotal                    cluded scenes and longer duration, truly reﬂects the model’s
+video segments from a long video input. The context synthe-                 temporal reasoning capacity. As shown in Fig. 2, the user
+sizer and the hierarchical temporal synchronizer are crucial                input could be answered by segments that contain key infor-
+in equipping the LLMs with the capacity to generate masks                   mation, while the rest of the video is irrelevant. Stemming
+across temporal dimensions. We utilize the context synthe-                  from this idea, we implement Grounded-VideoLLM [52],
+sizer to aggregate the target-text-relevant visual features of              a SOTA multi-modal LLM capable of grounding the input
+the current frame to the input text embeddings. The output                  user queries in long videos, to serve as our Key Segment
+text embeddings that carry the most crucial visual cues are                 Extractor. We use a prompt specifying the user query and
+then fed into the LLM along with the visual features. In the                ask the model to output the starting and ending timestamps
+hierarchical temporal synchronizer, we use the video-scale                  of the segments that describe the content of the user query.
+segmentation tokens to interact with frame-level tokens to                  We take the average from the top-K responses to obtain the
+produce the ﬁnal reﬁned complete segmentation tokens that                   starting and ending frames of the key segments, where we
+contain both video-level and frame-level information. Fi-                   denote as Vkey , comprising Tkey frames. Based on the key
+nally, the segmentation tokens produce the prediction masks                 segments, we also sample Tref using an adaptive global
+in conjunction with the multi-scale video features.                         sampling strategy. We will specify the details of different
+Encoder. For input frame Vt , the visual encoder I ex-                      sampling strategies in the appendix. The extracted frames
+                                              =1 from I(Vt ),
+tracts multi-scale visual features Ft = {Ft }L                             are then fed into the encoder.
+comprising L visual features at the selected layers of I.                       3.3. Context Synthesizer
+Meanwhile, the user instruction is fed into the text en-
+coder with the visual embedding FtL ∈ RN ×C (where                          This module aims to aggregate text-related visual features
+N = H/p × W/p and C indicate the number of frame                            and inject them to generate text embedding representing the
+patches and embedding channels, respectively) and gener-                    current frame. With the text embeddings xtxt and visual
+
+
+
+                                                                        23670
+features, context-based aggregation is formulated as:                   frame- and video-level segmentation embeddings pass the
+                                                                        transformer decoder, and are updated as follows:
+           Et = FFN(CrossAttn(xtxt , FtL , FtL )),           (1)
+           Ect = Concat{Eit }K                                                   Ql+1,s = FFNs (hsSA (hsCA (Ql,s , Ftl ))),   (4)
+                             i=1 ,                           (2)
+
+where ‘CrossAttn’ refers to cross-attention operation, and          where s ∈ {f, v}, and the hsCA (q, r) indicates the cross-
+xtxt is the query, while FtL is the value and key. By the           attention with query embedding q and reference embedding
+cross-attention, we further synthesize the visual cues into the     r. Then, we feed the frame- and video-level embeddings in
+reﬁned text embeddings Et . However, we argue that not all          aggregation in order to interchange video-level and frame-
+queries are needed for the reﬁned text embeddings. Unlike           level information, and this process can be formulated as:
+QFormer which adopts 32 queries as input LLM tokens, we                                                                   
+propose to condense these embeddings into more compact                   Ql+1,v = γ · Softmax (Ql+1,v × Ql+1,f  ) × Ql+1,f
+ones. After getting Et , we select the output embeddings with                      + (1 − γ) · Ql+1,v                         (5)
+K highest-response scores from the attention matrix out of
+M . Therefore, the ﬁnal input embeddings Ect preserve the                           
+                                                                    where Ql+1,v is the modulated video-level segmentation
+most relevant visuals.
+                                                                    embeddings at lth layer. In this aggregation process, we
+Multi-level Segmentation Tokens. To enrich the target-
+                                                                    aggregate the frame-level embeddings with higher responses
+speciﬁc encoding and thereby facilitate the generation of
+                                                                    to our video-level segmentation embeddings in a momentum-
+high-quality mask tracklets across frames, we devise multi-
+                                                                    based manner. The momentum factor γ, empirically set
+scale segmentation tokens, representing both frame-level
+                                                                    to 0.03, governs the update of the video-level embeddings.
+and video-level concepts, tailored to meet the characteristics
+                                                                    This choice is based on the assumption that the aggregation
+of video segmentation tasks that demand the modeling of
+                                                                    of frame-level embeddings should not induce substantial
+multiple target movements. Formally, we deﬁne Cseg =
+ s       N                                                        changes to the overall video-level representations.
+  cn ∈ Rd n=1 , where s ∈ {f, v} indicates the frame- or            Training Objectives. The model is trained end-to-end using
+video-scale tokens, N denotes the number of tokens per              text generation loss Ltxt and segmentation mask loss Lmask .
+scale, and d refers to the hidden dimension of LMMs. The            The overall objective L is weighted sum of these losses, de-
+multi-level segmentation tokens Cseg , combined with the            termined by λtxt and λmask : L = λtxt Ltxt + λmask Lmask ,
+visual features FtL , and condensed text embeddings Ect , are       where mask loss λmask is divided into binary cross-entropy
+then processed by the LLM to generate the response yout :           loss and dice loss for both video-level and frame-level:
+                                                                    Lsmask = λsce Lsce + λdice Ldice (s ∈ {f, v}), and Ltxt is
+             yout = F(ProjV →L (FtL ), Ect , Cseg ).         (3)
+                                                                    auto-regressive cross-entropy loss for text generation.
+Using an example can provide a more vivid explanation of
+how Large Language Models generate responses. When                      3.5. VideoReasonSeg
+the user inputs “segment the leftmost zebra in the video”,          For a more comprehensive evaluation of VRS, we establish
+the output will include not only a textual answer but also          VideoReasonSeg, a dataset containing text instructions, cor-
+the segmentation tokens. Cseg : “The zebra is cf1 , cv1 ” (con-     responding high-quality masks as well as multiple choices.
+sidering the easiest case where N = 1 for Cseg ). Before            To ensure reliable assessment, we collect a diverse set of
+the decoder, an additional projection layer Φ is utilized to        videos from Youtube-VIS [69], OVIS [42], LV-VIS [55],
+adjust the dimensions of segmentation tokens, in the form           MovieChat [49], and VideoMME [15]. Videos are catego-
+of Qs = Φ(Cseg ), (s ∈ {f, v}). The output multi-scale seg-         rized based on their duration, including short (< 1 minutes)
+mentation embeddings Qv , Qf derived from Cseg are inputs           and long (> 5 minutes). To fully evaluate the reasoning
+to the pixel decoder D with Ft for mask tracklet generation.        capabilities, we design two types of evaluation standards: 1)
+                                                                    multiple-choice QAs; 2) instructions and answers. Consid-
+3.4. Hierarchical Temporal Synchronizer                             ering that not all the annotations of selected datasets follow
+We design a novel hierarchical temporal synchronizer D              the multiple-choice QA format, we automatically convert
+to generate mask tracklets from the multi-scale visual fea-         the video annotations into this format via LLMs. This is
+tures Ft and segmentation tokens Qv , Qf . Derived from the         mainly because the open-ended answers have to be scored
+design of the transformer decoder in Mask2Former, D con-            by LLMs or user studies, which may either introduce evalua-
+sists of L decoder layers, where lth layer cascades a masked        tion bias or manual intervention. Ultimately, we produce 2
+cross-attention hlCA , a self-attention hlSA , and a feed-forward   multiple-choice QA pairs for each of the video clips. As for
+network FFNl . Now, we have two scales of segmentation              the answers, we mainly focus on the quality of segmentation
+embeddings, Qf focusing on every frame separately, while            masks. The resulting VideoReasonSeg benchmark comprises
+Qv interacting with the whole video features. Both the              a total of 3k videos with 15k object-instruction pairs. All
+
+
+
+                                                                23671
+Table 1. Video Reasoning Segmentation on VideoReasonSeg benchmark. “Seg” refers to “Segmentation” while “MC” indicates “Multiple
+Choices”. ViLLa consistently outperforms other previous methods with different backbones and on different metrics by a large margin.
+Noted that previous methods are retrained to include our new proposed VideoReasonSeg in the training set.
+
+                                                      Short                               Long                             Overall
+       Method
+                                                Seg              MC               Seg              MC               Seg             MC
+                                               J &F            Accuracy          J &F            Accuracy          J &F           Accuracy
+       MTTR [5]                                17.2               -               12.7               -             15.6               -
+       ReferFormer [64]                        17.5               -               13.4               -             16.0               -
+       LMPM [12]                               26.4               -               18.5               -             23.1               -
+       OnlineRefer [62]                        26.9               -               18.7               -             16.3               -
+       LISA-LLaVA-7B [23]                      43.8              34.5             27.3             29.5            38.4              32.1
+       LISA-LLaVA-13B [23]                     45.0              35.2             28.1             30.7            39.2              32.9
+       VideoLISA*-InternVideo2-1B [67]         51.0              38.4             32.4             32.9            45.3              36.7
+       VideoLISA*-InternVideo2-6B [67]         54.8              43.6             33.8             34.9            47.8              39.2
+       VISA-LLaVA-7B [67]                      48.9              37.5             30.4             31.9            43.1              35.2
+       VISA-LLaVA-13B [67]                     54.6              40.1             33.8             33.2            47.4              37.9
+       VISA-Chat-UniVi-13B [67]                54.8              42.6             34.0             34.3            47.6              39.6
+       VISA-InternVideo2-6B [67]               57.9              44.6             36.2             35.8            50.5              40.5
+       ViLLa-InternVideo2-1B [59]              57.4              46.5             38.9             37.6            51.2              43.1
+       ViLLa-InternVideo2-6B [59]              62.6              53.8             42.0             41.0            55.4              49.9
+
+Table 2. Referring Video Object Segmentation on Ref-YouTube-VOS, Ref-DAVIS17, and MeViS. ViLLa consistently outperforms other
+methods on different benchmarks and on different metrics by a large margin.
+
+                                  Ref-YouTube-VOS                              Ref-DAVIS17                                MeViS
+       Method
+                              J &F         J           F              J &F          J            F          J &F            J              F
+       URVOS [47]              47.2       45.3        49.2              51.6       47.3      56.0           27.8           25.7           29.9
+       LBDT [13]               49.4       48.2        50.6              54.1        -         -             29.3           27.8           30.8
+       ReferFormer [64]        62.9       61.3        64.6              61.1       58.1      64.1           31.0           29.8           32.2
+       LMPM [12]                -          -           -                 -          -         -             37.2           34.2           40.2
+       OnlineRefer [62]        62.9       61.0        64.7              62.4       59.1      65.6            -              -              -
+       DsHmp [18]              67.1       65.0        69.1              64.9       61.7      68.1           46.4           43.0           49.8
+       LISA [23]               54.4       54.0        54.8              66.0       63.2      68.8           37.9           35.8           40.0
+       PixelLM [45]            55.0       54.3        55.7              66.7       63.4      70.0           38.7           36.3           41.1
+       VideoLISA [4]           61.7       60.2        63.3              67.7       63.8      71.5           42.3           39.4           45.2
+       VISA [67]               63.0       61.4        64.7              70.4       67.0      73.8           44.5           41.8           47.1
+       ViLLa                   67.5       64.6        70.4              74.3       70.6      78.0           49.4           46.5           52.3
+
+     Table 3. Video Reasoning Segmentation on ReVOS.                       Dataset Generation Pipeline. We utilize GPT-4V for gen-
+                                                                           erating questions and multiple choices. Speciﬁcally, we
+                                           ReVOS
+    Method                                                                 feed all the instance category names and corresponding
+                                 J &F         J            F
+                                                                           masks in the video to GPT-4V. With our carefully designed
+    LISA-LLAVA-13B                41.8       39.6      43.9
+                                                                           prompts, GPT-4V autonomously selects instances to con-
+    VISA-Chat-UniVi-13B           50.9       48.8      52.9
+    VISA-InternVideo2-6B          52.4       50.1      54.7                struct question-answer pairs based on the video contents.
+    ViLLa-InternVideo2-6B         57.0       54.9      59.1                Examples of such prompts are illustrated in the appendix.
+
+videos are partitioned into two splits: train and val, con-                4. Experiment
+taining 2k (1820 short videos and 180 long ones) and 1k                    In this section, we ﬁrst present the implementation details
+videos (880 short videos and 120 long ones) respectively.                  and the evaluation benchmark, and then show the comparison
+The dataset incorporates three distinct complex scenarios:                 results on our proposed reasoning benchmarks and referring
+multiple object segmentation (∼800), rapid motion (∼200),                  segmentation benchmarks. Finally, we ablate on the key
+and occlusion in long videos (∼300). The details of data                   components in ViLLa.
+annotation are given in the appendix.
+Evaluation Metrics. We follow previous works [12, 47] to
+                                                                           4.1. Implementation Details
+adopt J &F as the main evaluation metric, which is the aver-               We use the pre-trained multimodal model from InternVideo2-
+age of region similarity J and contour accuracy F. Besides,                1B and 6B [59], with LoRA for ﬁne-tuning. For the visual
+we adopt accuracy as the metric for multiple choices.                      encoder and LLM, we apply pre-trained UMT-L from the
+
+
+
+                                                                   23672
+                                                                           Table 5. Key component designs. Three key modules signiﬁcantly
+Table 4. Vision backbones. InternVideo2 demonstrates better per-
+                                                                           boost the baseline performance (1.7, 3.6, and 2.2) separately.
+formance (1.5 and 2.4 increase) compared to previous backbones.
+                                                                                    Key Segment    Context      Hier. Temp.       VidReasonSeg    Refer-VOS
+                                                                               ID
+                                                                                     Extractor    Synthesizer   Synchronizer    J &F Accuracy       J &F
+                                Segmentation      Multiple Choices
+       Vision Backbone                                                         1                                                48.5      39.7       59.1
+                                   J &F              Accuracy                  2                                               50.2      43.8       60.7
+                                                                               3                                               52.1      43.3       63.9
+       SAM [22]                     50.5                 40.5                  4                                               50.7      40.9       61.5
+       LLaVA-7B [32]                52.6                 43.1                  5                                              53.7      48.6       65.5
+       InternViT [6]                53.9                 47.5                  6                                              52.2      44.8       63.0
+       InternVideo2 [59]            55.4                 49.9                  7                                              54.0      46.0       66.2
+                                                                               8                                             55.4      49.9       67.5
+
+
+Table 6. Hierarchical Temporal Synchronizer. Multi-scale tokens            Table 7. Hierarchical Temporal Synchronizer. Adding aggrega-
+and the corresponding synchronization provide signiﬁcant improve-          tion layers will contribute to gains, but would diminish gradually.
+ments to the baseline method. Noted that synchronization is based
+on multi-scale tokens.                                                                                                     VidReasonSeg          Refer-VOS
+                                                                               Architecture
+                                                                                                                         J &F Accuracy             J &F
+        Multi-scale      Segment          VidReasonSeg     Refer-VOS
+  ID
+         Tokens       Synchronization   J &F Accuracy        J &F              Baseline                                  53.7          48.6        65.5
+  1                                        53.7   48.6          65.5           + 2 layer frame-video aggregation         54.8          49.3        66.1
+  2                                       54.2   48.9          65.8           + 3 layer frame-video aggregation         55.4          49.9        67.5
+  3                                      55.4   49.9          67.5           + 4 layer frame-video aggregation         55.1          49.4        67.2
+
+
+InternVideo2 stage1 model as the vision encoder and Vicuna-                    4.3. Main Results
+7B v0. Following BLIP2, we deploy QFormer using the
+pre-trained BERTbase . To generate multi-scale visual fea-                  Video Reasoning Segmentation. Tab. 1 compares ViLLa
+tures, we adopt the ViT-Adapter to generate the necessary                   with adapted competing methods on video reasoning seg-
+multi-scale features for the hierarchical temporal synchro-                 mentation. For the image reasoning segmentation method,
+nizer. Due to a much higher GPU memory requirement of                       to adapt to the video segmentation, we add an extra tracker
+video segmentation compared to image segmentation, an                       based on SAM-Track [9]. Since the original LISA only has
+efﬁcient version of the VIT-Adapter is applied by removing                  one segmentation token, we calculate the J &F between the
+all injectors.                                                              predicted tracklet and the ground truth.
+    We use 8 A100 GPUs for training 50 epochs (approxi-                        As shown in Tab. 1, our method outperforms the previ-
+mately 1.5 days). We use the AdamW optimizer with the                       ous image reasoning segmentation LISA by a large margin,
+learning rate and weight decay set to 2e − 5 and 0.02, re-                  demonstrating that our model is capable of accomplishing
+spectively. The batch size per device is set to 4, the input                tasks involving complex reasoning across time. Because
+frame number is 8, the resolution is 224, and the gradient                  video reasoning, different from referring video segmentation
+accumulation step is set to 10. Further details are presented               and image reasoning segmentation, requires the model to
+in the appendix.                                                            possess reasoning ability based on the whole video. Thus,
+                                                                            without comprehensive knowledge of the whole video, the
+4.2. Benchmarks                                                             model can not perform well. What’s more, the results also
+                                                                            indicate that our method exceeds previous reasoning VOS
+Benchmarks. We evaluate ViLLa on benchmarks with video                      methods (VideoLISA, VISA) signiﬁcantly. We argue that
+segmentation and question-answering evaluations: VideoRe-                   this is because of their naive design of sampling strategy and
+asonSeg, referring video segmentation (Refer-Youtube-VOS,                   segmentation tokens that fail to model complex trajectories.
+Ref-DAVIS17), ReVOS, and video segmentation (Youtube-                       On the other hand, our model improves the association be-
+VIS series). For the VideoReasonSeg and referring video                     tween video and frame via our specially designed context
+segmentation benchmark, we use the J &F and average                         synthesis strategy and decoder structures, distinguishing our
+accuracy to evaluate the video reasoning of models. In                      method from previous works.
+video segmentation, we formulate the queries following the                  Referring Video Segmentation. Tab. 2 presents the results
+dataset’s annotations in the format of “Please segment                      on referring video segmentation datasets. Our ViLLa demon-
+the <description>”, with <description> correspond-                          strates better performances on all these datasets, surpassing
+ing to the descriptions of the instance categories. Training                VISA by 4.5, 3.9, and 4.9 in J &F on Ref-Youtube-VOS,
+involves random sampling from VideoReasonSeg, VQA data,                     Ref-DAVIS17, and MeViS dataset, respectively.
+Video instance segmentation, and Referring video segmen-
+tation datasets. The model follows the training protocols of                ReVOS. Tab. 3 presents the results on ReVOS. ViLLa signif-
+PixelLM [45], pre-training on image datasets for segmenta-                  icantly outperforms previous methods by 4.6 J &F, which
+tion token initialization.                                                  further highlights the effectiveness of our design of synthe-
+
+
+
+                                                                       23673
+h^Z͗фs/KхtŚŝĐŚ ƐŚĞĞƉ ŚĂƐ Ă ďůĂĐŬ ŚĞĂĚ͍
+
+
+
+
+ s/^͗ ф^'ϭх͕ф^'Ϯх͘
+
+
+
+
+sŝ>>Ă͗ dŚĞƐŚĞĞƉŽŶƚŚĞƌŝŐŚƚƐŝĚĞф^'ϭх͘
+
+
+
+
+Figure 3. Qualitative Comparisons between ViLLa and VISA. Compared to VISA, our ViLLa successfully segments the sheep, which
+demonstrates better discrimination, temporal consistency, and conversation quality.
+
+sizer, synchronizer, and extractor, and their robustness across       strates that using multi-scale tokens and synchronizing them
+different reasoning benchmarks.                                       are beneﬁcial for video segmentation tasks. In Tab. 7, we
+                                                                      explore the effects of increasing the number of layers in the
+4.4. Ablation Studies                                                 decoder. Initially adding layers will contribute to notable
+We conduct extensive ablation studies to reveal the contri-           gains, but the gain would diminish with more decoder layers.
+butions of each component. Unless otherwise speciﬁed, we
+conduct the experiments on our VideoReasonSeg dataset.                4.5. Qualitative Results
+Design Choices of Backbone. We emphasize that different           In Fig. 3, we provide a visual comparison with VISA. We
+vision backbones are applicable in our framework. In Tab. 4,      show that ViLLa is capable of segmenting instances (sheep
+we show that InternVideo2 performs the best in both seg-          with a black head) in crowded scenes with heavy occlusion.
+mentation and multiple choices, potentially because it is the     On the other hand, VISA fails to track the sheep properly
+state-of-the-art video foundation model.                          after occlusion with other sheep. These results demonstrate
+                                                                  the capacity of our ViLLa to handle complicated videos.
+Key Components Design. Tab. 5 demonstrates the effect
+of our designs based on the backbone and transformer de-
+coder. By adopting our method, we signiﬁcantly improve                5. Conclusion
+the baseline by extracting key information, strengthening the     We introduce ViLLa, an effective and efﬁcient model that
+video-frame relationship, and fusing context into text embed-     aims to reason and segment in more complex video scenar-
+ding. Tested on VideoReasonSeg, our context synthesizer           ios. After analyzing the drawbacks of previous methods, we
+improves the accuracy of multiple choices by 3.6 points,          propose the key segment extractor to select pivotal frames
+indicating that synthesizing context to the text embedding        from the video sequence, utilize the context synthesizer to
+and keeping the textual input contextualized is beneﬁcial         generate text-related visual features, and implement the hi-
+to video understanding. Also, the design of synchronizer          erarchical temporal synchronizer to encourage the synchro-
+improves the segmentation performance by 1.7 J &F, show-          nization between video-level and frame-level segmentation
+ing that applying multi-scale tokens and synchronizing their      tokens. Also, to help us better tune and evaluate the rea-
+relations are helpful for better segmentation and tracking.       soning segmentation models, we have introduced a more
+Hierarchical Temporal Synchronizer. Tab. 6 shows                  challenging benchmark VideoReasonSeg, which comprises
+the inﬂuence of utilizing multi-scale tokens and video-           3k video samples with both short and long videos, with both
+frame synchronization in hierarchical temporal synchronizer.      segmentation and QA as evaluations. Beneﬁting from our
+With multi-segment-scale tokens only, the baseline model          exquisite designs for complex reasoning and video modeling,
+achieves a 0.5 increase J &F, while applying the aggrega-         ViLLa demonstrates convincing reasoning video segmenta-
+tion brings about an increment of 1.7 J &F. This demon-           tion capabilities in various video scenarios and benchmarks.
+
+
+
+                                                              23674
+Acknowledgement. This work is supported by the Na-                         interaction for referring video object segmentation. In CVPR,
+tional Natural Science Foundation of China (No. 62422606,                  2022. 6
+62201484), and the National Key R&D Program of China                  [14] Hao Fei, Shengqiong Wu, Hanwang Zhang, Tat-Seng Chua,
+(No. 2022ZD0160101).                                                       and Shuicheng Yan. Vitron: A uniﬁed pixel-level vision
+                                                                           llm for understanding, generating, segmenting, editing. In
+References                                                                 NeurIPS, 2024. 3
+                                                                      [15] Chaoyou Fu, Yuhan Dai, Yondong Luo, Lei Li, Shuhuai
+ [1] Jean-Baptiste Alayrac, Jeff Donahue, Pauline Luc, Antoine             Ren, Renrui Zhang, Zihan Wang, Chenyu Zhou, Yunhang
+     Miech, Iain Barr, Yana Hasson, Karel Lenc, Arthur Mensch,             Shen, Mengdan Zhang, et al. Video-mme: The ﬁrst-ever
+     Katherine Millican, Malcolm Reynolds, et al. Flamingo: a              comprehensive evaluation benchmark of multi-modal llms in
+     visual language model for few-shot learning. In NeurIPS,              video analysis. In CVPR, 2025. 3, 5
+     2022. 1, 2                                                       [16] Peng Gao, Jiaming Han, Renrui Zhang, Ziyi Lin, Shijie Geng,
+ [2] Ali Athar, Sabarinath Mahadevan, Aljosa Osep, Laura Leal-             Aojun Zhou, Wei Zhang, Pan Lu, Conghui He, Xiangyu Yue,
+     Taixé, and Bastian Leibe. Stem-seg: Spatio-temporal embed-            et al. Llama-adapter v2: Parameter-efﬁcient visual instruction
+     dings for instance segmentation in videos. In ECCV, 2020.             model. arXiv:2304.15010, 2023. 2
+     2                                                                [17] Kaiming He, Haoqi Fan, Yuxin Wu, Saining Xie, and Ross
+ [3] Jinze Bai, Shuai Bai, Shusheng Yang, Shijie Wang, Sinan Tan,          Girshick. Momentum contrast for unsupervised visual repre-
+     Peng Wang, Junyang Lin, Chang Zhou, and Jingren Zhou.                 sentation learning. In CVPR, 2020. 2
+     Qwen-vl: A versatile vision-language model for understand-       [18] Shuting He and Henghui Ding. Decoupling static and hierar-
+     ing, localization, text reading, and beyond. arXiv:2308.12966,        chical motion perception for referring video segmentation. In
+     2023. 1, 2                                                            CVPR, 2024. 6
+ [4] Zechen Bai, Tong He, Haiyang Mei, Pichao Wang, Ziteng            [19] Miran Heo, Sukjun Hwang, Jeongseok Hyun, Hanjung Kim,
+     Gao, Joya Chen, Lei Liu, Zheng Zhang, and Mike Zheng                  Seoung Wug Oh, Joon-Young Lee, and Seon Joo Kim. A
+     Shou. One token to seg them all: Language instructed reason-          generalized framework for video instance segmentation. In
+     ing segmentation in videos. In NeurIPS, 2024. 1, 6                    CVPR, 2023. 2
+ [5] Adam Botach, Evgenii Zheltonozhskii, and Chaim Baskin.           [20] Miran Heo, Sukjun Hwang, Seoung Wug Oh, Joon-Young
+     End-to-end referring video object segmentation with multi-            Lee, and Seon Joo Kim. Vita: Video instance segmentation
+     modal transformers. In CVPR, 2022. 2, 6                               via object token association. In NeurIPS, 2022. 2
+ [6] Zhe Chen, Weiyun Wang, Hao Tian, Shenglong Ye, Zhangwei          [21] Anna Khoreva, Anna Rohrbach, and Bernt Schiele. Video
+     Gao, Erfei Cui, Wenwen Tong, Kongzhi Hu, Jiapeng Luo,                 object segmentation with language referring expressions. In
+     Zheng Ma, et al. How far are we to gpt-4v? closing the gap            ACCV, 2019. 2
+     to commercial multimodal models with open-source suites.         [22] Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao,
+     arXiv:2404.16821, 2024. 7                                             Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer White-
+ [7] Bowen Cheng, Ishan Misra, Alexander G Schwing, Alexander              head, Alexander C Berg, Wan-Yen Lo, et al. Segment any-
+     Kirillov, and Rohit Girdhar. Masked-attention mask trans-             thing. In ICCV, 2023. 3, 7
+     former for universal image segmentation. In CVPR, 2022.          [23] Xin Lai, Zhuotao Tian, Yukang Chen, Yanwei Li, Yuhui Yuan,
+     2                                                                     Shu Liu, and Jiaya Jia. Lisa: Reasoning segmentation via
+ [8] Ho Kei Cheng and Alexander G Schwing. Xmem: Long-term                 large language model. In CVPR, 2024. 1, 3, 6
+     video object segmentation with an atkinson-shiffrin memory       [24] Bo Li, Yuanhan Zhang, Liangyu Chen, Jinghao Wang,
+     model. In ECCV, 2022. 1                                               Jingkang Yang, and Ziwei Liu. Otter: A multi-modal model
+ [9] Yangming Cheng, Liulei Li, Yuanyou Xu, Xiaodi Li, Zongxin             with in-context instruction tuning. arXiv:2305.03726, 2023.
+     Yang, Wenguan Wang, and Yi Yang. Segment and track                    1
+     anything. arXiv:2305.06558, 2023. 7                              [25] Junnan Li, Dongxu Li, Silvio Savarese, and Steven Hoi. Blip-
+[10] Wei-Lin Chiang, Zhuohan Li, Zi Lin, Ying Sheng, Zhanghao              2: Bootstrapping language-image pre-training with frozen
+     Wu, Hao Zhang, Lianmin Zheng, Siyuan Zhuang, Yonghao                  image encoders and large language models. In ICML, 2023.
+     Zhuang, Joseph E Gonzalez, et al. Vicuna: An open-source              1, 2
+     chatbot impressing gpt-4 with 90% chatgpt quality, 2023. 1       [26] Xiangtai Li, Haobo Yuan, Wei Li, Henghui Ding, Size Wu,
+[11] Wenliang Dai, Junnan Li, Dongxu Li, Anthony Meng Huat                 Wenwei Zhang, Yining Li, Kai Chen, and Chen Change Loy.
+     Tiong, Junqi Zhao, Weisheng Wang, Boyang Li, Pascale Fung,            Omg-seg: Is one model good enough for all segmentation?
+     and Steven Hoi. Instructblip: Towards general-purpose vision-         In CVPR, 2024. 2
+     language models with instruction tuning. arXiv:2305.06500,       [27] Xiangtai Li, Wenwei Zhang, Jiangmiao Pang, Kai Chen,
+     2023. 2                                                               Guangliang Cheng, Yunhai Tong, and Chen Change Loy.
+[12] Henghui Ding, Chang Liu, Shuting He, Xudong Jiang, and                Video k-net: A simple, strong, and uniﬁed baseline for video
+     Chen Change Loy. Mevis: A large-scale benchmark for video             segmentation. In CVPR, 2022. 2
+     segmentation with motion expressions. In ICCV, 2023. 6           [28] Yanwei Li, Chengyao Wang, and Jiaya Jia. Llama-vid: An
+[13] Zihan Ding, Tianrui Hui, Junshi Huang, Xiaoming Wei,                  image is worth 2 tokens in large language models. In ECCV,
+     Jizhong Han, and Si Liu. Language-bridged spatial-temporal            2024. 1
+
+
+
+
+                                                                  23675
+[29] Huaijia Lin, Ruizheng Wu, Shu Liu, Jiangbo Lu, and Jiaya Jia.    [46] Arezoo Sadeghzadeh, Md Baharul Islam, Md Nur Uddin,
+     Video instance segmentation with a propose-reduce paradigm.           and Tarkan Aydin. Arva: An augmented reality-based visual
+     In ICCV, 2021. 2                                                      aid for mobility enhancement through real-time video stream
+[30] Chang Liu, Xiangtai Li, and Henghui Ding. Referring image             transformation. IEEE ACCESS, 2024. 1
+     editing: Object-level image editing via referring expressions.   [47] Seonguk Seo, Joon-Young Lee, and Bohyung Han. Urvos:
+     In CVPR, 2024. 1                                                      Uniﬁed referring video object segmentation network with a
+[31] Haotian Liu, Chunyuan Li, Yuheng Li, and Yong Jae Lee.                large-scale benchmark. In ECCV, 2020. 2, 6
+     Improved baselines with visual instruction tuning. In CVPR,      [48] Pierre Sermanet, Tianli Ding, Jeffrey Zhao, Fei Xia, De-
+     2024. 1                                                               bidatta Dwibedi, Keerthana Gopalakrishnan, Christine Chan,
+[32] Haotian Liu, Chunyuan Li, Qingyang Wu, and Yong Jae Lee.              Gabriel Dulac-Arnold, Sharath Maddineni, Nikhil J Joshi,
+     Visual instruction tuning. In NeurIPS, 2023. 1, 2, 7                  et al. Robovqa: Multimodal long-horizon reasoning for
+[33] Shilong Liu, Hao Cheng, Haotian Liu, Hao Zhang, Feng                  robotics. In ICRA, 2024. 1
+     Li, Tianhe Ren, Xueyan Zou, Jianwei Yang, Hang Su, Jun           [49] Enxin Song, Wenhao Chai, Guanhong Wang, Yucheng Zhang,
+     Zhu, et al. Llava-plus: Learning to use tools for creating            Haoyang Zhou, Feiyang Wu, Xun Guo, Tian Ye, Yan Lu, Jenq-
+     multimodal agents. In ECCV, 2024. 3                                   Neng Hwang, et al. Moviechat: From dense token to sparse
+[34] Zhaoyang Liu, Yinan He, Wenhai Wang, Weiyun Wang,                     memory for long video understanding. arXiv:2307.16449,
+     Yi Wang, Shoufa Chen, Qinglong Zhang, Zeqiang Lai, Yang               2023. 5
+     Yang, Qingyun Li, Jiashuo Yu, et al. Interngpt: Solving          [50] Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois,
+     vision-centric tasks by interacting with chatgpt beyond lan-          Xuechen Li, Carlos Guestrin, Percy Liang, and Tatsunori B
+     guage. arXiv:2305.05662, 2023. 1, 2, 3                                Hashimoto. Stanford alpaca: An instruction-following llama
+[35] Jiasen Lu, Christopher Clark, Rowan Zellers, Roozbeh Mot-             model, 2023. 2
+     taghi, and Aniruddha Kembhavi. Uniﬁed-io: A uniﬁed model         [51] Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Mar-
+     for vision, language, and multi-modal tasks. In ICLR, 2022.           tinet, Marie-Anne Lachaux, Timothée Lacroix, Baptiste
+     2                                                                     Rozière, Naman Goyal, Eric Hambro, Faisal Azhar, et al.
+[36] Ruipu Luo, Ziwang Zhao, Min Yang, Junwei Dong, Minghui                Llama: Open and efﬁcient foundation language models.
+     Qiu, Pengcheng Lu, Tao Wang, and Zhongyu Wei. Valley:                 arXiv:2302.13971, 2023. 2
+     Video assistant with large language model enhanced ability.      [52] Haibo Wang, Zhiyang Xu, Yu Cheng, Shizhe Diao, Yufan
+     arXiv:2306.07207, 2023. 2                                             Zhou, Yixin Cao, Qifan Wang, Weifeng Ge, and Lifu Huang.
+[37] Muhammad Maaz, Hanoona Rasheed, Salman Khan, and                      Grounded-videollm: Sharpening ﬁne-grained temporal
+     Fahad Shahbaz Khan. Video-chatgpt: Towards detailed                   grounding in video large language models. arXiv:2410.03290,
+     video understanding via large vision and language models.             2024. 4
+     arXiv:2306.05424, 2023. 2                                        [53] Hao Wang, Cheng Deng, Fan Ma, and Yi Yang. Context
+[38] OpenAI. Chatgpt: A language model for conversational ai.              modulated dynamic networks for actor and action video seg-
+     Technical report, OpenAI, 2023. 1, 2                                  mentation with language queries. In AAAI, 2020. 2
+[39] OpenAI. Gpt-4 technical report, 2023. 1, 2                       [54] Hao Wang, Cheng Deng, Junchi Yan, and Dacheng Tao.
+[40] Baolin Peng, Chunyuan Li, Pengcheng He, Michel Gal-                   Asymmetric cross-guided attention network for actor and
+     ley, and Jianfeng Gao. Instruction tuning with gpt-4.                 action video segmentation from natural language query. In
+     arXiv:2304.03277, 2023. 2                                             ICCV, 2019. 2
+[41] Zhiliang Peng, Wenhui Wang, Li Dong, Yaru Hao, Shao-             [55] Haochen Wang, Cilin Yan, Shuai Wang, Xiaolong Jiang,
+     han Huang, Shuming Ma, and Furu Wei. Kosmos-2:                        Xu Tang, Yao Hu, Weidi Xie, and Efstratios Gavves. Towards
+     Grounding multimodal large language models to the world.              open-vocabulary video instance segmentation. In ICCV, 2023.
+     arXiv:2306.14824, 2023. 3                                             5
+[42] Jiyang Qi, Yan Gao, Yao Hu, Xinggang Wang, Xiaoyu Liu,           [56] Peng Wang, An Yang, Rui Men, Junyang Lin, Shuai Bai,
+     Xiang Bai, Serge Belongie, Alan Yuille, Philip HS Torr, and           Zhikang Li, Jianxin Ma, Chang Zhou, Jingren Zhou, and
+     Song Bai. Occluded video instance segmentation: A bench-              Hongxia Yang. Ofa: Unifying architectures, tasks, and modal-
+     mark. IJCV, 2022. 5                                                   ities through a simple sequence-to-sequence learning frame-
+[43] Lu Qi, Yi-Wen Chen, Lehan Yang, Tiancheng Shen, Xiangtai              work. In ICML, 2022. 2
+     Li, Weidong Guo, Yu Xu, and Ming-Hsuan Yang. Generaliz-          [57] Shihao Wang, Zhiding Yu, Xiaohui Jiang, Shiyi Lan, Min
+     able entity grounding via assistance of large language model.         Shi, Nadine Chang, Jan Kautz, Ying Li, and Jose M Al-
+     arXiv:2402.02555, 2024. 3                                             varez. Omnidrive: A holistic llm-agent framework for au-
+[44] Hanoona Rasheed, Muhammad Maaz, Sahal Shaji, Abdelrah-                tonomous driving with 3d perception, reasoning and planning.
+     man Shaker, Salman Khan, Hisham Cholakkal, Rao M Anwer,               arXiv:2405.01533, 2024. 1
+     Eric Xing, Ming-Hsuan Yang, and Fahad S Khan. Glamm:             [58] Yi Wang, Yinan He, Yizhuo Li, Kunchang Li, Jiashuo Yu, Xin
+     Pixel grounding large multimodal model. In CVPR, 2024. 3              Ma, Xinyuan Chen, Yaohui Wang, Ping Luo, Ziwei Liu, et al.
+[45] Zhongwei Ren, Zhicheng Huang, Yunchao Wei, Yao Zhao,                  Internvid: A large-scale video-text dataset for multimodal
+     Dongmei Fu, Jiashi Feng, and Xiaojie Jin. Pixellm: Pixel              understanding and generation. arXiv:2307.06942, 2023. 1
+     reasoning with large multimodal model. In CVPR, 2024. 1, 3,      [59] Yi Wang, Kunchang Li, Xinhao Li, Jiashuo Yu, Yinan He,
+     6, 7                                                                  Guo Chen, Baoqi Pei, Rongkun Zheng, Jilan Xu, Zun Wang,
+
+
+
+
+                                                                  23676
+     et al. Internvideo2: Scaling video foundation models for              tioners are image-text foundation models. arXiv:2205.01917,
+     multimodal video understanding. arXiv:2403.15377, 2024. 2,            2022. 2
+     6, 7                                                             [75] Renrui Zhang, Jiaming Han, Aojun Zhou, Xiangfei Hu, Shilin
+[60] Yuqing Wang, Zhaoliang Xu, Xinlong Wang, Chunhua Shen,                Yan, Pan Lu, Hongsheng Li, Peng Gao, and Yu Qiao. Llama-
+     Baoshan Cheng, Hao Shen, and Huaxia Xia. End-to-end                   adapter: Efﬁcient ﬁne-tuning of language models with zero-
+     video instance segmentation with transformers. In CVPR,               init attention. arXiv:2303.16199, 2023. 1
+     2021. 2                                                          [76] Susan Zhang, Stephen Roller, Naman Goyal, Mikel Artetxe,
+[61] Dongming Wu, Xingping Dong, Ling Shao, and Jianbing                   Moya Chen, Shuohui Chen, Christopher Dewan, Mona Diab,
+     Shen. Multi-level representation learning with semantic align-        Xian Li, Xi Victoria Lin, et al. Opt: Open pre-trained trans-
+     ment for referring video object segmentation. In CVPR, 2022.          former language models. arXiv:2205.01068, 2022. 2
+     2                                                                [77] Tao Zhang, Xiangtai Li, Hao Fei, Haobo Yuan, Shengqiong
+[62] Dongming Wu, Tiancai Wang, Yuang Zhang, Xiangyu Zhang,                Wu, Shunping Ji, Chen Change Loy, and Shuicheng Yan.
+     and Jianbing Shen. Onlinerefer: A simple online baseline for          Omg-llava: Bridging image-level, object-level, pixel-level
+     referring video object segmentation. In ICCV, 2023. 6                 reasoning and understanding. arXiv:2406.19389, 2024. 3
+[63] Jialian Wu, Sudhir Yarram, Hui Liang, Tian Lan, Junsong          [78] Tao Zhang, Xingye Tian, Yu Wu, Shunping Ji, Xuebo Wang,
+     Yuan, Jayan Eledath, and Gerard Medioni. Efﬁcient video               Yuan Zhang, and Pengfei Wan. Dvis: Decoupled video in-
+     instance segmentation via tracklet query and proposal. In             stance segmentation framework. arXiv:2306.03413, 2023.
+     CVPR, 2022. 2                                                         2
+[64] Jiannan Wu, Yi Jiang, Peize Sun, Zehuan Yuan, and Ping Luo.      [79] Yikang Zhou, Tao Zhang, Shunping Ji, Shuicheng Yan, and
+     Language as queries for referring video object segmentation.          Xiangtai Li. Dvis-daq: Improving video segmentation via
+     In CVPR, 2022. 2, 6                                                   dynamic anchor queries. In ECCV, 2024. 2
+[65] Junfeng Wu, Yi Jiang, Song Bai, Wenqing Zhang, and Xiang         [80] Deyao Zhu, Jun Chen, Xiaoqian Shen, Xiang Li, and
+     Bai. Seqformer: Sequential transformer for video instance             Mohamed Elhoseiny.          Minigpt-4: Enhancing vision-
+     segmentation. In ECCV, 2022. 2                                        language understanding with advanced large language models.
+[66] Junfeng Wu, Qihao Liu, Yi Jiang, Song Bai, Alan Yuille, and           arXiv:2304.10592, 2023. 1, 2
+     Xiang Bai. In defense of online models for video instance        [81] Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang,
+     segmentation. In ECCV, 2022. 2                                        and Jifeng Dai. Deformable detr: Deformable transformers
+[67] Cilin Yan, Haochen Wang, Shilin Yan, Xiaolong Jiang, Yao              for end-to-end object detection. In ICLR, 2020. 2
+     Hu, Guoliang Kang, Weidi Xie, and Efstratios Gavves. Visa:
+     Reasoning video object segmentation via large language mod-
+     els. arXiv:2407.11325, 2024. 1, 3, 6
+[68] Shilin Yan, Renrui Zhang, Ziyu Guo, Wenchao Chen, Wei
+     Zhang, Hongyang Li, Yu Qiao, Hao Dong, Zhongjiang He,
+     and Peng Gao. Referred by multi-modality: A uniﬁed tempo-
+     ral transformer for video object segmentation. In AAAI, 2024.
+     2
+[69] Linjie Yang, Yuchen Fan, and Ning Xu. Video instance
+     segmentation. In ICCV, 2019. 2, 5
+[70] Senqiao Yang, Tianyuan Qu, Xin Lai, Zhuotao Tian, Bo-
+     hao Peng, Shu Liu, and Jiaya Jia. An improved base-
+     line for reasoning segmentation with large language model.
+     arXiv:2312.17240, 2023. 1
+[71] Qinghao Ye, Haiyang Xu, Guohai Xu, Jiabo Ye, Ming Yan,
+     Yiyang Zhou, Junyang Wang, Anwen Hu, Pengcheng Shi,
+     Yaya Shi, et al. mplug-owl: Modularization empowers large
+     language models with multimodality. arXiv:2304.14178,
+     2023. 1
+[72] Kaining Ying, Qing Zhong, Weian Mao, Zhenhua Wang, Hao
+     Chen, Lin Yuanbo Wu, Yifan Liu, Chengxiang Fan, Yunzhi
+     Zhuge, and Chunhua Shen. Ctvis: Consistent training for
+     online video instance segmentation. In ICCV, 2023. 2
+[73] Haoxuan You, Haotian Zhang, Zhe Gan, Xianzhi Du, Bowen
+     Zhang, Zirui Wang, Liangliang Cao, Shih-Fu Chang, and
+     Yinfei Yang. Ferret: Refer and ground anything anywhere at
+     any granularity. arXiv:2310.07704, 2023. 3
+[74] Jiahui Yu, Zirui Wang, Vijay Vasudevan, Legg Yeung, Mo-
+     jtaba Seyedhosseini, and Yonghui Wu. Coca: Contrastive cap-
+
+
+
+
+                                                                  23677
+

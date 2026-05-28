@@ -1,0 +1,625 @@
+                                             SURPRISE3D: A Dataset for Spatial Understanding
+                                                  and Reasoning in Complex 3D Scenes
+
+
+                                                 Jiaxin Huang1† , Ziwen Li1† , Hanlue Zhang1† , Runnan Chen2 , Zhengqing Gao1 ,
+                                                Xiao He3 , Yandong Guo3 , Wenping Wang4 , Tongliang Liu1,2‡ , Mingming Gong1,5‡
+                                                                      1
+                                                                       MBZUAI, 2 The University of Sydney, 3 AI2Robotic
+                                                                  4
+                                                                      Texas A&M University, 5 The University of Melbourne
+arXiv:2507.07781v1 [cs.CV] 10 Jul 2025
+
+
+
+
+                                                                                         Abstract
+
+                                                     The integration of language and 3D perception is critical for embodied AI and
+                                                     robotic systems to perceive, understand, and interact with the physical world. Spa-
+                                                     tial reasoning, a key capability for understanding spatial relationships between
+                                                     objects, remains underexplored in current 3D vision-language research. Existing
+                                                     datasets often mix semantic cues (e.g., object name) with spatial context, leading
+                                                     models to rely on superficial shortcuts rather than genuinely interpreting spatial
+                                                     relationships. To address this gap, we introduce SURPRISE3D, a novel dataset
+                                                     designed to evaluate language-guided spatial reasoning segmentation in complex
+                                                     3D scenes. SURPRISE3D consists of more than 200k vision language pairs across
+                                                     900+ detailed indoor scenes from ScanNet++ v2, including more than 2.8k unique
+                                                     object classes. The dataset contains 89k+ human-annotated spatial queries delib-
+                                                     erately crafted without object name, thereby mitigating shortcut biases in spatial
+                                                     understanding. These queries comprehensively cover various spatial reasoning
+                                                     skills, such as relative position, narrative perspective, parametric perspective, and
+                                                     absolute distance reasoning. Initial benchmarks demonstrate significant challenges
+                                                     for current state-of-the-art expert 3D visual grounding methods and 3D-LLMs,
+                                                     underscoring the necessity of our dataset and the accompanying 3D Spatial Rea-
+                                                     soning Segmentation (3D-SRS) benchmark suite. SURPRISE3D and 3D-SRS aim
+                                                     to facilitate advancements in spatially aware AI, paving the way for effective em-
+                                                     bodied interaction and robotic planning. The code and datasets can be found in
+                                                     https://github.com/liziwennba/SUPRISE.
+
+
+                                         1    Introduction
+                                         Spatial reasoning lies at the heart of embodied AI and robotic systems [4]. For agents to navigate real-
+                                         world environments, manipulate objects, or interact meaningfully with humans, they must interpret
+                                         instructions that are deeply rooted in 3D spatial layouts and context. Consider a robot waiter tasked
+                                         with serving drinks to the table to the left of the couch, or a household assistant that infers from I
+                                         am thirsty the intention of regaining the nearest cup. In both scenarios, the agent must go beyond
+                                         identifying object categories, reasoning about spatial relationships, viewpoint-dependent references,
+                                         and pragmatic intent. This type of language-guided spatial understanding is critical for tasks such as
+                                         navigation, manipulation, and human-robot interaction [33].
+                                         However, despite its importance, existing 3D vision language grounding benchmarks do not faithfully
+                                         capture or evaluate spatial reasoning. Most prior datasets rely heavily on explicit object references,
+                                         allowing models to localize targets by matching named categories or rigid templates, without re-
+                                         quiring genuine spatial inference. As a result, current models achieve strong performance not by
+                                         understanding spatial context but by exploiting superficial textual patterns or semantic shortcuts [46].
+
+                                         Preprint.
+Table 1: Comparison of major 3D vision-language datasets. ’Multi-target’ indicates if a query
+refers to multiple objects. ’Lang Source’ denotes whether language queries are human-annotated or
+generated via template or LLM. ’Shortcut Free’ indicates if object names are avoided in queries.
+      Dataset                  Output      Multi-target    Lang. Source    Spatial Reason   1st observ.   Shortcut Free
+      CLEVR3D [40]              Lang            -           Template             ✗              -              -
+      Scan2Cap [6]              Lang            -            Human               ✗              -              -
+      ScanQA [3]                Lang            ✗            Human               ✗              -              -
+      3DVQA [15]                Lang            ✗            Human               ✗              -              -
+      SQA3D [34]                Lang            -            Human               ✓              ✓              ✗
+      ScanScribe [47]           Lang            ✗         Template,LLM           -              -              -
+      3DMV-VQA [17]             Lang            -           Template             ✗              ✗              ✗
+      M3DBench [29]             Lang            ✓             LLM                ✗              ✗              ✗
+      SceneVerse [26]           Lang            ✗         Template,LLM           ✗              ✗              -
+      MSQA [31]                 Lang            -          Human,LLM             ✓              ✓              ✗
+      VLA-3D [45]               Lang            ✓           Template             ✓              ✓              ✗
+      ExCap3D [43]              Lang            ✓             LLM                ✗              ✓              ✗
+      ReferIt3D [2]             BBox            ✓         Human,Template         ✗              ✓              ✗
+      ScanRefer [5]             BBox            ✗             Human              ✗              ✓              ✗
+      3D-DenseOG [25]           BBox            ✓             Human              ✗              ✓              ✗
+      Grounded 3D-LLM [14]      Mask            ✗          Template,LLM          ✓              ✗              ✗
+      ScanEnts3D [1]            BBox            ✓             Human              ✓              ✗              ✗
+      PhraseRefer [44]          BBox            ✓             Human              ✗              ✗              ✗
+      EmbodiedScan [37]         BBox            ✓          Template,LLM          ✓              ✓              ✗
+      3D-LLM [18]            Lang + BBox        ✓            LLM                 ✓              ✗              ✗
+      LL3DA [12]             Lang + BBox        ✓         Template,LLM           ✗              ✓              ✗
+      3DMIT [30]             Lang + BBox        ✗            LLM                 ✗              ✓              ✗
+      3D-GRAND [41]          Lang + BBox        ✓         Template,LLM           ✗              ✗              ✗
+      Segpoint [16]             Mask            ✗               LLM              ✓              ✗              ✓
+      ScanReason [46]           BBox            ✗               LLM              ✓              ✗              ✓
+      Reason3D [23]             Mask            ✗                -               ✓              ✗              ✓
+      Intent3D [28]             BBox            ✓               LLM              ✗              ✗              ✓
+      SURPRISE3D (Ours)         Mask            ✓          Human,LLM             ✓              ✓              ✓
+
+
+
+
+We identify three major limitations of existing 3D vision-language benchmarks:
+(1) Overreliance on explicit queries. Datasets such as ScanRefer [5] and ReferIt3D [2] provide
+queries that including a object name (e.g., chair). Although challenging before the emergence of
+large language models (LLMs), such datasets have become increasingly solvable through category
+detection, often requiring little or no reasoning.
+(2) Limited and shallow reasoning coverage. Recent efforts such as Intent3D [28], ScanReason [46],
+Reason3D [23] and Instruct3D [16] have taken steps towards incorporating implicit queries and
+common sense. However, these benchmarks remain narrow in scope—ScanReason, for instance,
+contains only 10K Q&A pairs across five loosely defined reasoning types, and does not provide a
+rigorous or fine-grained definition of spatial reasoning in 3D contexts.
+(3) Template-driven or trivial spatial queries. Many datasets [18] formulate spatial queries using
+basic patterns (e.g., ’the object to the left’) that do not require understanding geometric variability or
+occlusion and can often be resolved using positional heuristics.
+These limitations lead to a recurring problem: models perform well by leveraging semantic priors
+and dataset biases rather than learning spatial reasoning. There is a critical need for a benchmark
+that disentangles spatial understanding from semantic recognition and poses queries that necessitate
+interpreting the scene geometry in context. To address this gap, we introduce SURPRISE3D: a large-
+scale dataset and benchmark designed from the first principles to evaluate language-guided spatial
+reasoning in complex 3D scenes. Built on top of 900+ richly annotated indoor environments from
+ScanNet++ v2 [42], SURPRISE3D includes more than 200,000 query-object mask pairs, covering
+2,800+ object classes. It is the first benchmark to support spatial reasoning segmentation at this scale,
+breadth, and level of annotation precision. Key features of SURPRISE3D include:
+Complex spatial queries: Notably, we find that LLMs and MLLMs are incapable of generating
+spatial reasoning annotations with sufficient fidelity, necessitating a human-in-the-loop annotation
+process. 89K+ human-generated questions that require varied spatial reasoning. Queries investigate
+
+
+                                                            2
+relative position recall (’the vase next to the left door’), narrative perspective reasoning (describing
+objects from a moving observer’s point of view), parametric perspective reasoning (specifying angles
+or offsets) and absolute distance reasoning (’the plamp 2 meters above the floor’).
+Pragmatic language quality with Human Check: All expressions follow Gricean conversational
+maxims (clarity, relevance, and brevity) and are vetted by multiple annotators to avoid ambiguity or
+bias. To resolve ambiguous references in cluttered environments, we adopt Gricean maxims to ensure
+clarity and informativeness, and introduce category-specific disambiguation rules that favor spatial,
+functional, or visual attributes depending on context.
+3D-SRS benchmark suite. We introduce a formal evaluation framework tailored for 3D reasoning
+segmentation. It includes task definitions, metrics such as mask IoU and grounding precision, and
+diagnostic breakdowns between reasoning types. Our results demonstrate that state-of-the-art 3D
+vision-language models, when deprived of explicit naming, perform significantly worse, revealing
+their limitations in spatial understanding.
+Common sense and human intention reasoning. In addition to spatial queries, we incorporate
+110K LLM-generated questions that target pragmatic reasoning: for example, ’the object used to sit’
+(common sense) or ’the item someone might be reaching for’ (intention). These complement spatial
+cues with functional and behavioral semantics, which are essential for embodied interaction.
+By combining linguistic subtlety and geometric complexity, SURPRISE3D sets a new standard for 3D
+spatial intelligence benchmarks. Unlike existing datasets, our queries are implicit, ambiguous, and
+semantically lightweight: any correct object that satisfies the spatial constraint is valid, and object
+names are deliberately avoided. This forces models to rely on reasoning rather than recognition, and
+aligns with recent calls to evaluate deeper spatial understanding [46].
+Table 1 summarizes the key distinctions between SURPRISE3D and previous datasets. Our empirical
+evaluations further reveal that even the strongest existing 3D foundation models struggle under
+these conditions, highlighting a significant opportunity for innovation. Empirical evaluations with
+the state-of-the-art expert 3D visual grounding (VG) model and 3D-LLMs reveal a sharp drop in
+performance when deprived of semantic shortcuts, underscoring the unmet need for robust spatial
+reasoning abilities in current systems. Our main contributions are as follows.
+      • We introduce SURPRISE3D, a novel dataset of more than 200K language-guided 3D segmenta-
+        tion queries that cover spatial, common sense and human intention reasoning.
+      • We define the 3D-SRS benchmark, the first standardized protocol to evaluate spatial reasoning
+        segmentation in 3D point clouds.
+      • We show that current state-of-the-art 3D vision-language models underperform significantly
+        on SURPRISE3D, indicating the need for new methods to handle implicit reasoning and spatial
+        understanding in complex 3D scenes.
+We hope SURPRISE3D will serve as a foundation for future research in spatially grounded 3D
+understanding and drive progress in embodied AI, robotics, and spatial intelligence.
+
+2      Related Works
+2.1     Spatial Reasoning in 3D Vision-Language Model
+
+Understanding natural language in 3D scenes [21, 9, 11, 32, 10, 8, 7, 41, 26, 43, 28] has focused
+on referring to objects using explicit names or attributes. Recent million-level extensions such as
+3D-GRAND [41] and SceneVerse [26] introduce richer annotations, including multi-object grounding.
+However, these data sets still mainly rely on straightforward object references rather than complex
+spatial relationships. Consequently, they allow models to exploit shortcut biases, limiting their ability
+to evaluate true spatial understanding. Recently, ExCap3D [43] explores expressive captioning in 3D
+scenes at multiple levels of detail covering more than 3k objects. This work is inspiring because of the
+rich language descriptions for abundant object classes, but not directly focus on spatial segmentation
+or reasoning. Recent advancement like Intent3D [28] introduce grounding based on human intention,
+but still rely on semantic cues for detecting object categories, ignoring the spatial relationship inherent
+in 3D. ScanReason expands this by proposing multiple reasoning types, including spatial and safety
+reasoning. However, its spatial component remains relatively coarse and lacks detailed supervision,
+such as segmentation masks.
+
+
+                                                    3
+                    Figure 1: Examples of query categories in our 3D-SRS task.
+
+2.2   3D Large Language Model
+
+The advent of large language models (LLMs) has led to more sophisticated 3D-VL models em-
+phasizing spatial and reasoning capabilities [20, 26, 29]. For example, 3D-LLM injects 3D spatial
+knowledge into pre-trained LLMs, facilitating nuanced scene understanding. Models like LEO [20]
+integrate language models with 3D understanding, enabling open-ended scene reasoning and in-
+teraction capabilities. Chat-3D [38], Chat-Scene [19], and Grounded 3D-LLM [14], incorporate
+explicit identifiers or referent tokens to bridge linguistic queries and specific scene elements. Recent
+efforts explicitly focus on reasoning-guided segmentation tasks. For example, Reason3D [23] and
+SegPoint [16] employ LLM-driven frameworks to guide point cloud segmentation based on natural
+language instructions. MORE3D [27] and MLLM-For3D [22] adopt multimodal LLMs (MLLMs) to
+simultaneously reason about complex spatial relations and output detailed segmentation masks.
+
+
+3     3D Spatial Reasoning Segmentation (3D-SRS): Task and Benchmark
+
+3.1   Task Definition
+
+We define 3D Spatial Reasoning Segmentation (3D-SRS) as follows. Given a 3D scene S (e.g., a
+reconstructed indoor room) and a language query q describing a spatial relation, the goal is to produce
+a segmentation mask M that highlights all object(s) in S satisfying q. Formally, we learn a function
+f (S, q) → M , where M ⊆ S consists of the 3D points (or object regions) referred to by the query.
+For example, if q =“The chair closest to the door”, then M contains the points of the chair nearest
+the door. If multiple objects satisfy q, the mask covers all of them.
+Narrative perspective: interpreting egocentric references from a described point of view. For
+example, a query might implicitly place an agent in the scene (e.g., sitting on the black sofa facing
+the blackboard, the object to your left used for teaching). The model should simulate the narrator’s
+point of view and understand terms like ’to your left’ or ’in front of you’ in this context.
+Parametric perspective: understanding the current orientation and position parameters given in
+the description. For instance, facing away from the door towards the cabinet specifies a camera
+orientation. The model must parse such instructions about where the observer is looking or located
+and use them to ground other spatial terms.
+Relative position: reasoning about spatial relations between objects. Queries frequently use relational
+phrases such as "on the table", "behind the sofa", "to the left of the cabinet", etc. The model must
+identify reference objects (table, sofa, cabinet) and understand directional or topological relations
+(on, behind, left of) to find the target. This includes handling occlusion (e.g., an object "behind the
+sofa") that may be partially or fully hidden from certain viewpoints, requiring true 3D understanding
+beyond a single-camera view.
+
+
+                                                   4
+Figure 2: Spatial reasoning annotation pipeline. Human Annotators select a scene and target object,
+then write a question that identifies the object via spatial context, and finally mask the object.
+
+Absolute Distance-based reasoning: interpreting absolute or comparative distance cues. Many
+queries involve terms such as ’closest’, ’furthest’, or ’near’. The model should be able to compare
+distances between multiple objects with the same semantic category. For example, ’the table closest
+to the bed’ requires finding all tables in the scene and selecting the one with minimal distance to the
+bed. Importantly, such distance terms are defined in an absolute spatial sense (the physical distances
+between objects), rather than relative to the viewer’s perspective. The model must therefore compute
+and compare 3D distances or understand spatial superlatives in context.
+
+3.2   Benchmark Protocol and Evaluation
+
+We divide the data into disjoint training and validation splits at the scene level to prevent overlap.
+For evaluation, we adopt standard segmentation metrics: the primary score is mean Intersection-
+over-Union (mIoU) between the predicted and ground-truth masks across all queries. We also report
+precision and recall at fixed IoU thresholds (e.g., 0.5 and 0.75) to analyze performance sensitivity.
+These metrics follow common practice in referring segmentation benchmarks [24, 39, 35].
+To support a leaderboard, we release train/val annotations. Participants train models on the public
+data and submit predicted masks on the test scenes. The benchmark server computes all metrics on
+the withheld ground truth to rank submissions. This protocol ensures fair comparison with identical
+data splits.
+
+4     SURPRISE3D: Dataset Construction and Annotation
+We constructed SURPRISE3D with two parallel annotation pipelines to capture spatial reasoning,
+common sense, and human intention reasoning. One pipeline focuses on spatial reasoning, where
+annotators formulate four type of questions and mask the corresponding target objects in 3D scenes.
+The other pipeline focuses on common sense and human intention queries, where the questions probe
+typical human knowledge or intent in the scene and require identifying the object that satisfies the
+query. By design, these pipelines operate independently but on the same set of scenes, ensuring a rich
+and complementary set of annotations. In total, SURPRISE3D provides a balanced mix of query types
+(spatial vs. knowledge-based) and a ground-truth target object for each query. In the following, we
+describe each annotation process and then analyze the coverage and balance of the dataset.
+
+4.1   Annotation Pipeline
+
+We use separate annotation pipelines for spatial vs. knowledge queries (see Figure 2 and Figure 3).
+
+
+                                                  5
+Figure 3: Overview of the common sense and human intention reasoning queries generation pipeline.
+
+
+
+Spatial reasoning. Annotators view each 3D scene from a fixed camera viewpoint (e.g., top-down or
+entry view) and manually identify the object(s) satisfying the spatial query. The interface allows for
+clicking or highlighting points in the rendered scene. For example, to answer ’closest to the door’,
+the annotator selects the object closest to the entrance point of the door. This produces a ground-truth
+mask for the target object. Using a fixed viewpoint ensures that spatial relations can be assessed
+consistently from one perspective.
+First, annotators could freely navigate or choose a fixed camera viewpoint in the 3D scene. Note that
+the target objects can be visible or invisible from this camera view. Locking this point of view is
+critical, as it establishes a clear ’frame’ of reference for egocentric directions such as left or right. The
+interface then allowed the annotator to enter a description of a target object based on that perspective,
+and finally to mark the object’s mask directly in the point cloud of 3D scenes. We recorded the
+camera parameters (extrinsics and intrinsics) alongside each query, so that any model processing the
+data can interpret the spatial language from the correct viewpoint context. The annotation UI thus
+lets the annotator ’be the agent’ in the scene, selecting an orientation and then writing a query as if
+they were there (for example, an annotator might place the camera facing a wall and then describe
+’the chair to my right’ relative to that orientation). Once the description was written, the annotator
+highlighted the referenced object by drawing its segmentation mask over the 3D point cloud (the tool
+projected the mask onto the 3D object surface). This yields a ground-truth mask for the query.
+Common sense and human intention reasoning. For common-sense and intention queries, we use
+an LLM-augmented pipeline inspired by recent work. We first generate candidate question-answer
+pairs using a large language model, given scene metadata and object labels as context. The LLM
+proposes questions (e.g., ’What objects can be used for bathroom organization? A: (shower shelf)’).
+These are automatically filtered by basic rules (removing duplicates or nonsensical queries). The
+remaining questions are then passed on to human annotators for validation. Figure 3 illustrates
+this two-stage process: LLM outputs are checked by humans, who either accept them or refine the
+question/answer. Invalid or ambiguous queries (marked with ✗) are corrected or discarded, while
+valid ones (✓) become part of the dataset. This workflow scales up annotation efficiently while
+retaining human oversight.
+
+
+4.2   Annotation Strategy and Quality Control
+
+To ensure clarity and coverage, we apply: (1) Disambiguation Guidelines: We require that the
+questions be unambiguous. Annotators are given rules (e.g., explicitly naming reference objects) to
+avoid confusion. Queries with multiple plausible answers are rephrased or omitted. (2) Rare-Object
+Sampling: To improve the representation of uncommon classes, we identify objects with low overall
+frequency and sample scenes containing them. We then generate additional queries targeting these
+rare objects. This rare object boost increases their mentions (on average by ∼90–100%), improving
+the learning of these categories, as shown in Figure 4. (3) Human Verification: All annotations
+are double-checked. Spatial queries receive multiple annotator checks for the target mask, and
+discrepancies are resolved by consensus. LLM-generated queries are reviewed by editors to ensure
+that the question matches the intended object. This multi-stage review yields high-quality, consistent
+annotations.
+
+
+                                                     6
+                        Figure 4: SURPRISE3D Dataset Statistics and Enhancements.
+
+
+      Table 2: The results of various methods on different reasoning tasks under zero-shot setting.
+                                                                       Method
+    Task Type                Metric
+                                      MLLMfor3D      3D-Vista   Reason3D        Intent3D   ChatScene   Avarage
+                                            Knowledge Reasoning
+                             A25        20.42          6.14          6.97        10.01        7.86      10.28
+    Common-sense             A50        13.42          6.14          3.11         3.24        4.01       5.98
+                             mIoU       12.75           –            4.79          –           –        8.77
+                             A25        22.38          8.26         11.33        15.84        1.64      11.89
+    Human Intention          A50        13.62          8.26          6.03         5.82        1.00       6.95
+                             mIoU       11.91           –            7.51          –           –        9.71
+                                                Spatial Reasoning
+                             A25        15.07          6.50         8.39          2.65        0.00      6.52
+    Narrative Perspective    A50        13.62          6.50         4.88          0.77        0.00      5.15
+                             mIoU       11.56           –           5.63           –           –        8.60
+                             A25         4.25          3.65         7.91          2.62        0.00      3.69
+    Parametric Perspective   A50         3.20          3.65         4.82          0.79        0.00      3.12
+                             mIoU        2.93           –           5.68            –          –        4.31
+                             A25         7.78          6.52         9.57          4.30        1.38      5.91
+    Relative Position        A50         5.81          6.52         6.38          0.97        0.00      3.94
+                             mIoU        4.92            –          6.78            –          –        5.85
+                             A25        11.90          7.61         9.10          2.41        1.39      6.48
+    Absolute Distance        A50        10.62          7.61         2.60          0.74        0.00      4.32
+                             mIoU        9.24           –           5.25           –           –        7.25
+                                                Overall Reasoning
+                             A25        13.63          6.40         9.09          8.63        3.59      8.27
+    Overall                  A50        10.05          6.40         4.57          2.94        1.77      5.15
+                             mIoU        8.89           –           6.08           –           –        7.49
+
+
+
+5      Experiments
+
+In this section, we first provide a brief overview of the advanced methods evaluated on our proposed
+dataset, models setting including zero-shot and fine tuning are also introduced. We then describe
+the evaluation metrics and criteria used to assess the performance of these methods on knowledge
+and spatial reasoning tasks. Finally, we present the quantitative and qualitative results obtained by
+the aforementioned methods to comparatively analyze their performance on the newly introduced
+reasoning challenges.
+
+5.1     Baselines
+
+Spatial reasoning tasks require a deeper understanding of semantic relationships and spatial con-
+figurations within 3D scenes. To evaluate the effectiveness of existing approaches on these tasks,
+we conduct comprehensive experiments on several advanced methods, including MLLMfor3D [22],
+3D-Vista [47], Reason3D [13], ChatScene [19] and Intent3D [28]. All these methods take natural
+language questions or descriptions as input, and output masks or bounding boxes of objects that
+are the answer of given prompts in 3D scenes. MLLMfor3D [22] is a label-free paradigm of 3D
+understanding, it projects 2D pseudo-masks of objects to 3D scene. 3D-Vista [47] directly encourages
+the alignment of masked text with masked 3D scenes. Reason3D [13] utilizes a pre-trained LLM to
+
+
+                                                       7
+   Table 3: The results of various methods on different reasoning tasks under fine-tuned setting.
+                                                                    Method
+ Task Type                Metric
+                                   MLLMfor3D      3D-Vista   Reason3D        Intent3D   ChatScene   Avarage
+                                         Knowledge Reasoning
+                          A25        25.41         19.36         18.08        30.09       13.56      21.30
+ Common-sense             A50        23.92         19.36          8.97        15.22        4.37      14.37
+                          mIoU       19.40           –           11.92          –           –        15.66
+                          A25        28.42         22.36         17.98        31.16       13.80      22.74
+ Human Intention          A50        24.51         22.36         10.81        18.08        4.70      16.09
+                          mIoU       19.47           –           11.98          –           –        15.73
+                                             Spatial Reasoning
+                          A25        22.38         25.77         11.30        24.91       13.98      19.67
+ Narrative Perspective    A50        20.40         25.77         7.71         15.58        4.28      14.75
+                          mIoU       18.44           –            9.03          –           –        13.74
+                          A25        10.04          3.87         11.52        12.57        4.58      8.52
+ Parametric Perspective   A50         9.33          3.87         7.59          6.13        2.36      5.86
+                          mIoU       7.50             –          8.85            –          –        8.18
+                          A25        22.61         23.86         11.51        12.90       12.48      16.67
+ Relative Position        A50        18.76         23.86         8.18         7.49         1.39      11.94
+                          mIoU       14.70           –            8.88          –           –        11.79
+                          A25        25.30         18.92         12.80         5.75        7.42      14.04
+ Absolute Distance        A50        20.37         18.92          4.45         1.86        3.71       9.86
+                          mIoU       19.23           –           8.16           –           –        13.70
+                                             Overall Reasoning
+                          A25        22.36         18.34         16.14        23.98       11.58      18.48
+ Overall                  A50        19.55         18.34          9.06        13.10        3.99      12.81
+                          mIoU       16.46           –           11.00          –           –        13.73
+
+
+
+process input point and text features, and predict segmentation masks of targeted objects. Intent3D
+[28] aligns the point features of scenes and candidate box features integrated with the encoded
+prompts.
+
+5.2   Model settings
+
+Zero-shot. To assess the capabilities of existing methods in performing knowledge-based and spatial
+reasoning tasks, we directly evaluate pre-trained models, including MLLMfor3D [22], 3D-Vista
+[47], Reason3D [23], ChatScene [19] and Intent3D [28] on our proposed dataset, without training
+or finetuning on our datasets. The inputs consist of 3D scenes represented as point clouds, paired
+with images and textual questions that focus on knowledge and spatial reasoning. As reported in
+previous work [22, 23, 28, 47, 19], Intent3D, 3D-Vista, ChatScene and Reason3D demonstrate partial
+abilities to understand human intentions and common sense knowledge. Moreover, MLLMfor3D and
+3D-Vista show promising results in reasoning about relative object positions. However, none of them
+has been evaluated or shown to have the ability to comprehend narrative perspectives, parametric
+perspectives, or absolute spatial distances. Our dataset serves as the first benchmark to systematically
+evaluate these unexplored dimensions of spatial and knowledge understanding in existing 3D vision
+language models.
+Fine tuning.To explore the ability of current advanced methods to learn knowledge and spatial
+reasoning, we finetune MLLMfor3D, 3D-Vista, Reason3D, and Intent3D on our dataset.
+
+5.3   Evaluation metrics
+
+For the segmentation tasks (MLLMfor3D and Reason3D), we adopt both Mean Intersection over
+Union (MIoU) [36] and Accuracy (Acc) as evaluation metrics. MIoU measures the average overlap
+between the predicted and true 3D volumes, while Accuracy evaluates precision across varying
+confidence thresholds, which we obtain from different intersection proportions (e.g., 0.25 and 0.50) of
+the predicted and ground-truth volumes. For the detection tasks (3D-Vista, Intent3D, and ChatScene),
+we use Accuracy as the sole evaluation metric.
+
+
+                                                    8
+      Figure 5: The comparison between zero-shot and fine-tuned models on all reasoning tasks.
+
+
+5.4    Results analysis
+
+As shown in Table 2, the zero-shot results indicate that all models demonstrate relatively weak
+overall spatial reasoning capabilities compared with knowledge reasoning capabilities. Although
+these methods have been trained on spatial description datasets, such as ScanRefer [5] for most
+models and SQA3D [34] for ChatScene. After fine-tuning on our dataset, as presented in Tables 3 and
+Figure 5, all models demonstrate substantial improvements in reasoning abilities. This improvement
+is particularly significant in spatial reasoning, with an average performance increase of approximately
+three times. We hypothesize that this improvement is due to a key difference between the existing
+data sets and our proposed dataset. Although prior data sets contain questions involving spatial
+information, they often retain excessive semantic cues that can serve as shortcuts for models to arrive
+at answers without fully exercising spatial reasoning. In contrast, our dataset deliberately removes
+such shortcuts, ensuring that the training process emphasizes and encourages the spatial reasoning
+capability of the models. These findings highlight that current methods still have substantial room for
+improvement in terms of spatial reasoning, revealing an important avenue for future research.
+
+
+6     Conclusion and Limitations
+
+We introduced SURPRISE3D, a large-scale dataset and benchmark for evaluating spatial and knowl-
+edge reasoning in 3D scenes. Our benchmark defines the 3D Spatial Reasoning Segmentation
+(3D-SRS) task, which includes various types of spatial queries, including relative position, absolute
+distance, narrative perspective, and parametric viewpoint, as well as commonsense and human in-
+tention grounding. Through a dual annotation pipeline and rare-object enhancement, SURPRISE3D
+provides high-quality, diverse, and spatially language-query and segmentation pairs. Extensive
+analysis confirms its balanced coverage and strong potential for advancing spatial intelligence in 3D
+vision-language models.
+Limitations. While our human annotation ensures quality, it limits scalability. Some query types
+(e.g., parametric view) may be less natural for real-world deployment. In addition, annotations
+are restricted to indoor scenes from ScanNet++, which may not generalize to outdoor or dynamic
+environments. We leave domain transfer, temporal reasoning, and multi-turn interaction as future
+directions.
+
+
+References
+ [1] Ahmed Abdelreheem, Kyle Olszewski, Hsin-Ying Lee, Peter Wonka, and Panos Achlioptas.
+     Scanents3d: Exploiting phrase-to-3d-object correspondences for improved visio-linguistic
+     models in 3d scenes. WACV, 2022.
+
+
+                                                  9
+ [2] Panos Achlioptas, Ahmed Abdelreheem, Fei Xia, Mohamed Elhoseiny, and Leonidas Guibas.
+     Referit3d: Neural listeners for fine-grained 3d object identification in real-world scenes. In
+     ECCV, pages 422–440. Springer, 2020.
+
+ [3] Daichi Azuma, Taiki Miyanishi, Shuhei Kurita, and Motoaki Kawanabe. Scanqa: 3d question
+     answering for spatial scene understanding. In CVPR, 2022.
+
+ [4] Alisson Azzolini, Hannah Brandon, Prithvijit Chattopadhyay, Huayu Chen, Jinju Chu, Yin Cui,
+     Jenna Diamond, Yifan Ding, Francesco Ferroni, Rama Govindaraju, et al. Cosmos-reason1:
+     From physical common sense to embodied reasoning. arXiv preprint arXiv:2503.15558, 2025.
+
+ [5] Dave Zhenyu Chen, Angel X Chang, and Matthias Nießner. Scanrefer: 3d object localization in
+     rgb-d scans using natural language. In ECCV, pages 202–221. Springer, 2020.
+
+ [6] Dave Zhenyu Chen, Ali Gholami, Matthias Nießner, and Angel X. Chang. Scan2cap: Context-
+     aware dense captioning in rgb-d scans, 2020.
+
+ [7] Runnan Chen, Youquan Liu, Lingdong Kong, Nenglun Chen, Xinge Zhu, Yuexin Ma, Tongliang
+     Liu, and Wenping Wang. Towards label-free scene understanding by vision foundation models.
+     In NeurIPS, pages 75896–75910, 2023.
+
+ [8] Runnan Chen, Youquan Liu, Lingdong Kong, Xinge Zhu, Yuexin Ma, Yikang Li, Yuenan Hou,
+     Yu Qiao, and Wenping Wang. Clip2scene: Towards label-efficient 3d scene understanding by
+     clip. In CVPR, pages 7020–7030, 2023.
+
+ [9] Runnan Chen, Xiangyu Sun, Zhaoqing Wang, Youquan Liu, Jiepeng Wang, Lingdong Kong,
+     Jiankang Deng, Mingming Gong, Liang Pan, Wenping Wang, et al. Ovgaussian: Generalizable
+     3d gaussian segmentation with open vocabularies. arXiv preprint arXiv:2501.00326, 2024.
+
+[10] Runnan Chen, Xinge Zhu, Nenglun Chen, Wei Li, Yuexin Ma, Ruigang Yang, and Wenping
+     Wang. Zero-shot point cloud segmentation by transferring geometric primitives. arXiv preprint
+     arXiv:2210.09923, 2022.
+
+[11] Runnan Chen, Xinge Zhu, Nenglun Chen, Wei Li, Yuexin Ma, Ruigang Yang, and Wenping
+     Wang. Bridging language and geometric primitives for zero-shot point cloud segmentation. In
+     Proceedings of the 31st ACM International Conference on Multimedia, pages 5380–5388, 2023.
+
+[12] Sijin Chen, Xin Chen, Chi Zhang, Mingsheng Li, Gang Yu, Hao Fei, Hongyuan Zhu, Jiayuan
+     Fan, and Tao Chen. Ll3da: Visual interactive instruction tuning for omni-3d understanding
+     reasoning and planning. In CVPR, pages 26428–26438, 2024.
+
+[13] Tianrun Chen, Chunan Yu, Jing Li, Jianqi Zhang, Lanyun Zhu, Deyi Ji, Yong Zhang, Ying
+     Zang, Zejian Li, and Lingyun Sun. Reasoning3d–grounding and reasoning in 3d: Fine-grained
+     zero-shot open-vocabulary 3d reasoning part segmentation via large vision-language models.
+     arXiv preprint arXiv:2405.19326, 2024.
+
+[14] Yilun Chen, Shuai Yang, Haifeng Huang, Tai Wang, Runsen Xu, Ruiyuan Lyu, Dahua Lin, and
+     Jiangmiao Pang. Grounded 3d-llm with referent tokens. arXiv preprint arXiv: 2405.10370,
+     2024.
+
+[15] Yasaman Etesam, Leon Kochiev, and Angel X. Chang. 3dvqa: Visual question answering for
+     3d environments. In Conference on Robots and Vision (CRV), 2022.
+
+[16] Shuting He, Henghui Ding, Xudong Jiang, and Bihan Wen. Segpoint: Segment any point cloud
+     via large language model. In ECCV, pages 349–367. Springer, 2024.
+
+[17] Yining Hong, Chunru Lin, Yilun Du, Zhenfang Chen, Joshua B Tenenbaum, and Chuang Gan.
+     3d concept learning and reasoning from multi-view images. In CVPR, pages 9202–9212, 2023.
+
+[18] Yining Hong, Haoyu Zhen, Peihao Chen, Shuhong Zheng, Yilun Du, Zhenfang Chen, and
+     Chuang Gan. 3d-llm: injecting the 3d world into large language models. In NeurIPS, pages
+     20482–20494, 2023.
+
+
+                                               10
+[19] Haifeng Huang, Yilun Chen, Zehan Wang, Rongjie Huang, Runsen Xu, Tai Wang, Luping
+     Liu, Xize Cheng, Yang Zhao, Jiangmiao Pang, et al. Chat-scene: Bridging 3d scene and large
+     language models with object identifiers. In NeurIPS, 2024.
+[20] Jiangyong Huang, Silong Yong, Xiaojian Ma, Xiongkun Linghu, Puhao Li, Yan Wang, Qing Li,
+     Song-Chun Zhu, Baoxiong Jia, and Siyuan Huang. An embodied generalist agent in 3d world.
+     In ICML, pages 20413–20451, 2024.
+[21] Jiaxin Huang, Runnan Chen, Ziwen Li, Zhengqing Gao, Xiao He, Yandong Guo, Mingming
+     Gong, and Tongliang Liu. Mllm-for3d: Adapting multimodal large language model for 3d
+     reasoning segmentation. arXiv preprint arXiv:2503.18135, 2025.
+[22] Jiaxin Huang, Runnan Chen, Ziwen Li, Zhengqing Gao, Xiao He, Yandong Guo, Mingming
+     Gong, and Tongliang Liu. Mllm-for3d: Adapting multimodal large language model for 3d
+     reasoning segmentation, 2025.
+[23] Kuan-Chih Huang, Xiangtai Li, Lu Qi, Shuicheng Yan, and Ming-Hsuan Yang. Rea-
+     son3d: Searching and reasoning 3d segmentation via large language model. arXiv preprint
+     arXiv:2405.17427, 2024.
+[24] Pin-Hao Huang, Han-Hung Lee, Hwann-Tzong Chen, and Tyng-Luh Liu. Text-guided graph
+     neural networks for referring 3d instance segmentation. AAAI, 35(2):1610–1618, May 2021.
+[25] Wencan Huang, Daizong Liu, and Wei Hu. Dense object grounding in 3d scenes. ACM
+     Multimedia, 2023.
+[26] Baoxiong Jia, Yixin Chen, Huangyue Yu, Yan Wang, Xuesong Niu, Tengyu Liu, Qing Li,
+     and Siyuan Huang. Sceneverse: Scaling 3d vision-language learning for grounded scene
+     understanding. In ECCV, pages 289–310. Springer, 2024.
+[27] Xueying Jiang, Lewei Lu, Ling Shao, and Shijian Lu. Multimodal 3d reasoning segmentation
+     with complex scenes. arXiv preprint arXiv: 2411.13927, 2024.
+[28] Weitai Kang, Mengxue Qu, Jyoti Kini, Yunchao Wei, Mubarak Shah, and Yan Yan. Intent3d:
+     3d object detection in rgb-d scans based on human intention. In ICLR, 2025.
+[29] Mingsheng Li, Xin Chen, Chi Zhang, Sijin Chen, Hongyuan Zhu, Fukun Yin, Zhuoyuan Li,
+     Gang Yu, and Tao Chen. M3dbench: Towards omni 3d assistant with interleaved multi-modal
+     instructions. In ECCV, pages 41–59. Springer, 2024.
+[30] Zeju Li, Chao Zhang, Xiaoyan Wang, Ruilong Ren, Yifan Xu, Ruifei Ma, and Xiangde
+     Liu. 3dmit: 3d multi-modal instruction tuning for scene understanding. arXiv preprint
+     arXiv:2401.03201, 2024.
+[31] Xiongkun Linghu, Jiangyong Huang, Xuesong Niu, Xiaojian Ma, Baoxiong Jia, and Siyuan
+     Huang. Multi-modal situated reasoning in 3d scenes. NeurIPS, 2024.
+[32] Yuhang Lu, Qi Jiang, Runnan Chen, Yuenan Hou, Xinge Zhu, and Yuexin Ma. See more and
+     know more: Zero-shot point cloud segmentation via multi-modal visual data. In ICCV, pages
+     21674–21684, 2023.
+[33] Wufei Ma, Haoyu Chen, Guofeng Zhang, Celso M de Melo, Alan Yuille, and Jieneng Chen.
+     3dsrbench: A comprehensive 3d spatial reasoning benchmark. arXiv preprint arXiv:2412.07825,
+     2024.
+[34] Xiaojian Ma, Silong Yong, Zilong Zheng, Qing Li, Yitao Liang, Song-Chun Zhu, and Siyuan
+     Huang. Sqa3d: Situated question answering in 3d scenes. In ICLR, 2023.
+[35] Zhipeng Qian, Yiwei Ma, Jiayi Ji, and Xiaoshuai Sun. X-refseg3d: Enhancing referring 3d
+     instance segmentation via structured cross-modal graph neural networks. In AAAI, volume 38,
+     pages 4551–4559, 2024.
+[36] Evan Shelhamer, Jonathan Long, and Trevor Darrell. Fully convolutional networks for semantic
+     segmentation. IEEE TPAMI, 39(4):640–651, 2017.
+
+
+                                               11
+[37] Tai Wang, Xiaohan Mao, Chenming Zhu, Runsen Xu, Ruiyuan Lyu, Peisen Li, Xiao Chen,
+     Wenwei Zhang, Kai Chen, Tianfan Xue, Xihui Liu, Cewu Lu, Dahua Lin, and Jiangmiao Pang.
+     Embodiedscan: A holistic multi-modal 3d perception suite towards embodied ai. In CVPR,
+     2024.
+[38] Zehan Wang, Haifeng Huang, Yang Zhao, Ziang Zhang, and Zhou Zhao. Chat-3d: Data-
+     efficiently tuning large language model for universal dialogue of 3d scenes. arXiv preprint
+     arXiv:2308.08769, 2023.
+[39] Changli Wu, Yiwei Ma, Qi Chen, Haowei Wang, Gen Luo, Jiayi Ji, and Xiaoshuai Sun. 3d-stmn:
+     Dependency-driven superpoint-text matching network for end-to-end 3d referring expression
+     segmentation. In AAAI, volume 38, pages 5940–5948, 2024.
+[40] Xu Yan, Zhihao Yuan, Yuhao Du, Yinghong Liao, Yao Guo, Zhen Li, and Shuguang Cui. Com-
+     prehensive visual question answering on point clouds through compositional scene manipulation,
+     2023.
+[41] Jianing Yang, Xuweiyi Chen, Nikhil Madaan, Madhavan Iyengar, Shengyi Qian, David F.
+     Fouhey, and Joyce Chai. 3d-grand: A million-scale dataset for 3d-llms with better grounding
+     and less hallucination, 2024.
+[42] Chandan Yeshwanth, Yueh-Cheng Liu, Matthias Nießner, and Angela Dai. Scannet++: A
+     high-fidelity dataset of 3d indoor scenes. In ICCV, pages 12–22, 2023.
+[43] Chandan Yeshwanth, David Rozenberszki, and Angela Dai. Excap3d: Expressive 3d scene
+     understanding via object captioning with varying detail. arXiv preprint arXiv: 2503.17044,
+     2025.
+[44] Zhihao Yuan, Xu Yan, Zhuo Li, Xuhao Li, Yao Guo, Shuguang Cui, and Zhen Li. Toward
+     explainable and fine-grained 3d grounding through referring textual phrases. arXiv preprint
+     arXiv:2207.01821, 2022.
+[45] Haochen Zhang, Nader Zantout, Pujith Kachana, Zongyuan Wu, Ji Zhang, and Wenshan Wang.
+     Vla-3d: A dataset for 3d semantic scene understanding and navigation. arXiv preprint arXiv:
+     2411.03540, 2024.
+[46] Chenming Zhu, Tai Wang, Wenwei Zhang, Kai Chen, and Xihui Liu. Scanreason: Empowering
+     3d visual grounding with reasoning capabilities. arXiv preprint arXiv: 2407.01525, 2024.
+[47] Ziyu Zhu, Xiaojian Ma, Yixin Chen, Zhidong Deng, Siyuan Huang, and Qing Li. 3d-vista:
+     Pre-trained transformer for 3d vision and text alignment. In ICCV, pages 2911–2921, 2023.
+
+
+
+
+                                                12
+

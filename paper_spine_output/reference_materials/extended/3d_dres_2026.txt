@@ -1,0 +1,610 @@
+                                      The Fortieth AAAI Conference on Artificial Intelligence (AAAI-26)
+
+
+
+
+                      3D-DRES: Detailed 3D Referring Expression Segmentation
+                            Qi Chen* 1 , Changli Wu* 1 2 , Jiayi Ji†1 3 , Yiwei Ma1 , Liujuan Cao1
+       1
+           Key Laboratory of Multimedia Trusted Perception and Efficient Computing, Ministry of Education of China, Xiamen
+                                                   University, 361005, P.R. China
+                                                   2
+                                                     Shanghai Innovation Institute
+                                                 3
+                                                   National University of Singapore
+                 chenqi@stu.xmu.edu.cn, wuchangli@stu.xmu.edu.cn, jjyxmu@gmail.com, mayiwei@stu.xmu.edu.cn,
+                                                       caoliujuan@xmu.edu.cn
+
+
+                              Abstract                                       on textual instructions—a fundamental capability for em-
+                                                                             bodied AI and autonomous systems. The field has evolved
+  Current 3D visual grounding tasks only process sentence-
+  level detection or segmentation, which critically fails to lever-          systematically, beginning with 3D-REC (Chen, Chang, and
+  age the rich compositional contextual reasonings within nat-               Nießner 2020; Guo et al. 2025; Mi et al. 2025; Wang et al.
+  ural language expressions. To address this challenge, we                   2023b; Shi, Wu, and Lee 2024; Zhu et al. 2024; Li et al.
+  introduce Detailed 3D Referring Expression Segmentation                    2024b; Peng, Zheng, and Huang 2025), which localizes ob-
+  (3D-DRES), a new task that provides a phrase to 3D in-                     jects using coarse 3D bounding boxes and formulates the
+  stance mapping, aiming at enhancing fine-grained 3D vision-                problem as coordinate regression (Fig. 1-(a)). Subsequently,
+  language understanding. To support 3D-DRES, we present                     3D-RES was introduced to address the need for finer-grained
+  DetailRefer, a new dataset comprising 54,432 descriptions                  localization (Huang et al. 2021; He and Ding 2024; Qian
+  spanning 11,054 distinct objects. Unlike previous datasets,                et al. 2024; Liu et al. 2024), requiring point-level segmenta-
+  DetailRefer implements a pioneering phrase-instance anno-
+                                                                             tion and transforming the task into an expression-to-point
+  tation paradigm where each referenced noun phrase is explic-
+  itly mapped to its corresponding 3D elements. Additionally,                matching problem (Fig. 1-(b)). However, both tasks were
+  we introduce DetailBase, a purposefully streamlined yet ef-                constrained by their ability to handle only one-to-one map-
+  fective baseline architecture that supports dual-mode segmen-              pings between sentences and objects, limiting their practical
+  tation at both sentence and phrase levels. Our experimental                applicability in scenarios where instructions might refer to
+  results demonstrate that models trained on DetailRefer not                 multiple objects or none at all. To address this limitation,
+  only excel at phrase-level segmentation but also show sur-                 3D-GRES (Fig. 1-(c)) expanded the task formulation to ac-
+  prising improvements on traditional 3D-RES benchmarks.                     commodate zero, one, or multiple targets per textual descrip-
+                                                                             tion (Wu et al. 2024a; Chen et al. 2025; Zhang, Gong, and
+Github — https://github.com/80chen86/3D-DRES                                 Chang 2023; Wang et al. 2025b). These developments have
+                                                                             significantly advanced the field of 3D visual grounding, es-
+                        1    Introduction                                    tablishing it as a cornerstone of 3D scene understanding.
+Vision-language integration stands at the forefront of com-                     Despite these significant advancements, existing 3D vi-
+puter vision research, enabling machines to understand and                   sual grounding tasks still suffer from a prominent issue: the
+reason about the visual world through natural language (An-                  single-unit assumption (we define an “unit” as one or more
+tol et al. 2015; Johnson et al. 2017; Krishna et al. 2017;                   objects that do not need to be distinguished). Specifically,
+Chen et al. 2015; Dang et al. 2025a,b). In recent years, with                current tasks are limited to sentence-level segmentation or
+the rapid advancement of 3D sensing technologies and deep                    localization, meaning they focus only on a single unit de-
+learning models, 3D vision-language tasks have emerged as                    scribed in a sentence, which greatly limits both practical
+a prominent research focus in the community (Yuan et al.                     applications and academic research. In real-world applica-
+2022; He et al. 2025b,a; Azuma et al. 2022; Wu et al.                        tions, completing user-issued commands often requires at-
+2024c; Chen, Chang, and Nießner 2020; Huang et al. 2021).                    tention to all units mentioned. For example, in the com-
+These tasks enable critical applications across robotics, au-                mon instruction, “Put these clothes into the washing ma-
+tonomous navigation, mixed reality, and assistive technolo-                  chine”, both “clothes” and “washing machine” are essen-
+gies, where understanding the relationship between 3D en-                    tial units to consider. In academic research, the single-unit
+vironments and natural language is essential.                                assumption hinders the comprehensive evaluation of mod-
+   Among these, 3D visual grounding tasks are particularly                   els’ fine-grained linguistic understanding and constrains the
+crucial as they require localizing targets in 3D scenes based                modeling of intra-sentence relationships and semantic struc-
+   * These authors contributed equally.                                      tures. As illustrated in Fig. 1-(d), traditional 3D-RES ap-
+   †
+     Corresponding author                                                    proaches provide no mechanism to determine whether a
+Copyright © 2026, Association for the Advancement of Artificial              model correctly comprehends individual elements like “ta-
+Intelligence (www.aaai.org). All rights reserved.                            ble” and “TV”, even when localization appears successful
+
+
+                                                                      2966
+                               Sentence-Box                       Sentence-Segmentation                    Phrase-Segmentation
+                                                      Single                                   Multi
+     Coarse                                                                                                                       Fine
+                                      There is a black TV, placed           The brown chair is located  There  is a tall gray trash
+                                      on the wall of the kitchen.             at the end of the table. can. It sits next to the thin
+                                                                                                       table that is under the TV.
+
+
+
+
+            Scene                (a) 3D-REC               (b) 3D-RES               (c) 3D-GRES                 (d) 3D-DRES
+
+Figure 1: Illustration of 3D visual grounding tasks. (a) 3D Referring Expression Comprehension (3D-REC). (b) 3D Referring
+Expression Segmentation (3D-RES). (c) Generalized 3D Referring Expression Segmentation (3D-GRES). (d) Detailed 3D
+Referring Expression Segmentation (3D-DRES).
+
+
+for “trash can”. This limitation creates a critical gap in in-           segmentation mask. This results in an unprecedented den-
+terpretability, as effective referring expression understand-            sity of 2.9 masks per text. The dataset strategically incor-
+ing inherently depends on contextual reasoning capabilities              porates 7.4% “Long” texts (exceeding 50 tokens) and nu-
+within the text. The need for a more granular, phrase-level              merous “Complex” samples requiring segmentation of four
+understanding that would enable 3D vision-language mod-                  or more noun phrases, establishing a robust framework for
+els to develop robust contextual reasoning capabilities rep-             evaluating models’ fine-grained linguistic understanding ca-
+resents a significant unexplored opportunity in this domain.             pabilities in 3D environments.
+   Accordingly, we propose a novel task, Detailed 3D Re-                    We observe that most existing models (Huang et al. 2021;
+ferring Expression Segmentation (3D-DRES). This task re-                 Chen et al. 2025; Qian et al. 2024; Xu et al. 2025) are de-
+quires models to focu all units within sentences. Specifically,          signed for “sentence-segmentation” sample formats and are
+as shown in Fig.1-(d), the dataset provides the positions of             unable to output multiple masks or specify masks for par-
+all units to be segmented in the sentence (such as “trash can”,          ticular tokens. This limitation makes it impossible to ap-
+“table”, and “TV”), and the model needs to generate the                  ply current methods to the 3D-DRES task directly. There-
+corresponding mask for each unit separately. The nature of               fore, as initiators of this task, we propose DetailBase, a pur-
+the 3D-DRES task format inherently determines that mod-                  posefully streamlined but effective baseline to establish the
+els trained under this task focus more on the fine-grained               foundation for future research. Our design philosophy pri-
+semantic within sentences and is more aligned with practi-               oritizes simplicity to ensure high scalability and adaptabil-
+cal applications. Meanwhile, the 3D-RES and the 3D-DRES                  ity, while simultaneously demonstrating sufficient effective-
+can be mutually beneficial. We demonstrate this point with               ness to validate the task’s potential. DetailBase features an
+experiments in the subsequent sections.                                  elegant architecture that supports both sentence-level and
+                                                                         phrase-level segmentation, with our comprehensive experi-
+   A critical challenge in advancing this new paradigm is the
+                                                                         ments confirming its efficacy across various evaluation di-
+absence of a suitable dataset. Creating such a resource is par-
+                                                                         mensions. Importantly, our results demonstrate that train-
+ticularly challenging given the substantial costs associated
+                                                                         ing on this fine-grained task yields surprising improvements
+with 3D annotation. To break through this dilemma, we in-
+                                                                         even on traditional 3D-RES benchmarks, suggesting that
+vested approximately 600 hours to build DetailRefer, a new
+                                                                         phrase-level understanding enhances overall spatial reason-
+dataset built upon ScanRefer (Chen, Chang, and Nießner
+                                                                         ing capabilities.
+2020) through a combination of meticulous manual annota-
+                                                                            To sum up, our main contributions are as follows:
+tion and large language model (Yang et al. 2024a) assistance.
+DetailRefer contains 54,432 descriptions covering 11,054                   • We introduce 3D-DRES, a novel fine-grained visual
+distinct objects, with an average text length of 24.9 tokens                 grounding task that is designed to enhance the ability to
+- significantly exceeding existing datasets (9.7-20.1 tokens).               understand and localize textual context in 3D vision and
+Unlike the sentence-segmentation annotation format preva-                    language tasks.
+lent in current datasets (Chen, Chang, and Nießner 2020;                   • We have created a new dataset based on the Scannet in-
+Achlioptas et al. 2020; Zhang, Gong, and Chang 2023)                         door point cloud scenes, combining human annotations
+where one sentence corresponds to one segmentation result,                   with large language models.
+DetailRefer implements a pioneering phrase-segmentation                    • We provide a simple, yet effective framework to serve as
+format where each noun phrase corresponds to a distinct                      a foundational starting point for studying the 3D-DRES.
+
+
+                                                                  2967
+                                                                                                           Scene              Annotation
+                    2    Related Work                                      There is a table with
+2.1   3D Referring Expression Segmentation                                 green top. It is behind
+The 3D-RES task was first proposed by Huang et al. (Huang                  two pairs of shoes and
+                                                                           to the left of the desk.
+et al. 2021) in 2021, aiming to segment the target object
+specified in the point cloud based on a given textual descrip-
+tion. There are currently three main datasets for this task,                              Figure 2: Example of DetailRefer.
+namely ScanRefer (Chen, Chang, and Nießner 2020), Sr3D,
+and Nr3D (Achlioptas et al. 2020). The text descriptions in
+these three datasets are all based on the indoor point cloud
+scene dataset Scannet (Dai et al. 2017). In terms of details,
+the descriptions in ScanRefer and Nr3D are manually anno-
+tated by humans. Sr3D is a template based description gen-
+erated based on the mutual positional relationship between
+objects, which has lower complexity.
+   In response to the shortcomings of 3D-RES tasks, namely
+the existence and uniqueness of target objects, Wu et al. (Wu                                          Detail
+et al. 2024a) proposed the 3D-GRES task, aimed at lifting                                              Refer
+the limitation on the number of target objects. The task cur-
+rently only has one dataset, Multi3DRefer (Zhang, Gong,
+and Chang 2023), proposed by Zhang et al. It modifies and
+enhances the text based on ScanRefer, so that the number of
+targets corresponding to the text is no longer fixed.
+   To address these two tasks, researchers have proposed nu-
+merous methods (He and Ding 2024; He et al. 2024; Xu
+et al. 2025; Huang et al. 2021; Qian et al. 2024; Wu et al.
+2024a) over time. However, most of these approaches are                     Figure 3: Category distribution of phrases in DetailRefer.
+unfortunately limited to sentence-level segmentation, with
+their frameworks barely supporting fine-grained segmenta-
+tion of noun phrases within sentences. Even when we extend                                  3     DetailRefer Dataset
+our view to approaches (Chen et al. 2022; Feng et al. 2021;                In this section, we first introduce the construction process
+Yuan et al. 2021; Yang et al. 2023b; Luo et al. 2022; Wang                 of the DetailRefer (Sec. 3.1). Afterwards, introduce the rel-
+et al. 2025a; Wu et al. 2023; Yang et al. 2021; Jain et al.                evant statistical data of the dataset and compare it with other
+2022; Zhao et al. 2021) designed for the 3D-REC task, the                  datasets (Sec. 3.2). Finally, we introduce the 3D-DRES task
+situation does not improve much. Therefore, in this paper,                 definition and metrics based on this dataset (Sec. 3.3).
+we design a simple yet effective framework that supports
+both sentence-level and phrase-level segmentation.                         3.1   Dataset Creation
+                                                                           Similar to Multi3DRefer (Zhang, Gong, and Chang 2023),
+2.2   2D Referring Expression Segmentation                                 we modify and enhance the ScanRefer (Chen, Chang, and
+Compared to 3D-RES, 2D-RES (Yang et al. 2022; Lai                          Nießner 2020) dataset to derive DetailRefer. In the first
+et al. 2024; Chng et al. 2024; Yang et al. 2024b; Wang                     phase, we first use a program to divide the descriptions in
+et al. 2025c) was proposed and studied by Hu et al. (Hu,                   ScanRefer, grouping all descriptions of the same object to-
+Rohrbach, and Darrell 2016) as early as 2016, with the goal                gether. Then, we ask the LLM to consolidate these sentences
+of segmenting target objects in images based on given text                 into a more comprehensive new description. It is worth not-
+descriptions. The RES dataset in the 2D domain is more                     ing that we do not directly use the texts from ScanRefer
+abundant compared to the 3D domain, with classic exam-                     because each text typically involves fewer objects, which
+ples including RefCOCO, RefCOCO+ (Kazemzadeh et al.                        aligns less with our task objectives. After obtaining approx-
+2014), and RefCOCOg (Mao et al. 2016). Similarly, there                    imately 10,000 new descriptions, we manually annotate all
+is also GRES in the 2D field, with its dataset being gRef-                 noun phrases in each text to link them to specific objects in
+COCO (Liu, Ding, and Jiang 2023). In addition, Flickr30k                   the 3D scene. During the annotation process, any inaccura-
+Entities (Plummer et al. 2015; Zhan et al. 2024; Wan et al.                cies in the descriptions are also corrected.
+2024; Shen et al. 2024; Zhang et al. 2024; Pham et al. 2024)                  After the first phase, we initially obtained a dataset that
+and Panoptic Narrative Grounding (González et al. 2021; Li                met our criteria, but it was relatively small in scale. There-
+et al. 2024a; Hui et al. 2023; Wang et al. 2023a; Ding et al.              fore, in the second phase, we needed to enhance and ex-
+2022; Yang et al. 2023a) are two datasets that are similar                 pand this dataset. Specifically, we transform the annotated
+to this paper, both of which require segmentation of noun                  text into a format that is easier for LLM to understand. This
+phrases in sentences. But the difference is that the former’s              means appending a ‘()’ immediately after each noun phrase,
+supervisory signal is a box, while the latter is a text that cor-          with the object IDs corresponding to that noun phrase en-
+responds to a panoramic description of an image.                           closed within the ‘()’. We then fed these sentences into the
+
+
+                                                                    2968
+           Dataset         Avg. length   Long   Avg. mask   Num            points and f is the feature length (including coordinates
+         ScanRefer            20.1       0.5%      1.0      51583          XYZ, color RGB, etc.). Secondly, given a textual descrip-
+            Sr3D               9.7       0.0%      1.0      83572
+            Nr3D              11.5       0.3%      1.0      41503
+                                                                           tion T ∈ RL , where L is the number of tokens in the text.
+       Multi3DRefer           15.1       0.0%      1.0      61926          Finally, given a set of indices I = {i1 , i2 , . . . , ik }, corre-
+      DetailRefer (ours)      24.9       7.4%      2.9      54432          sponding to the positions of k nouns in the text that need
+                                                                           segmentation, the model is required to output point cloud
+                 Table 1: Datasets comparison.                             scene masks M ask ∈ Rk×Np for all nouns.
+                                                                           Metrics First, we focus on phrase-level mean IoU (mIoU),
+LLM, instructing it to generate several different expressions              Acc@0.25, and Acc@0.5. At the phrase level, mIoU is the
+while retaining the original semantic meaning and keeping                  average of the IoUs calculated for all terms to be segmented,
+the object IDs following the corresponding noun phrases.                   while Acc@0.25 and Acc@0.5 represent the proportion of
+Using this method, we expanded the dataset to five times its               segmented terms with an IoU greater than 0.25 and 0.5 out
+original size, achieving a scale comparable to ScanRefer.                  of all segmented terms. Their formulas are as follows:
+   At this point, we have actually completed the initial con-                                         PM PK i
+struction of the dataset. However, considering that each text                                             i=1   j=1 IoUi,j
+                                                                                           mIoU =           PM                ,           (1)
+currently only describes a small area centered around a sin-                                                   i=1 Ki
+gle object, we aim to obtain more challenging texts that                                 PM PKi
+cover larger areas. Thus, we traverse each object mentioned                                 i=1    j=1 Bt (IoUi,j )
+in the dataset, extract all texts from the first-phase dataset                Acc@t =             PM                   , t ∈ {0.25, 0.5} (2)
+that involve that object, and input these texts into the LLM                                         i=1 Ki
+for integration to generate texts with broader descriptions.               where M represents the number of descriptions in the
+With this, the construction of the dataset is complete, and                dataset, Ki denotes the number of nouns that need to be
+the full construction pipeline can be found in the appendix.               segmented in the i-th description, IoUi,j represents the IoU
+We have included a sample from the dataset in the Fig. 2.                  value corresponding to the j-th noun in the i-th description,
+                                                                           and Bt (·) indicates that it returns 1 if the parameter is greater
+3.2   Dataset Statistics                                                   than t, otherwise it returns 0. Additionally, we also focus on
+DetailRefer contains a total of 54,432 descriptions, involv-               the sentence-level mean IoU (mIoU-S), whose calculation
+ing 11,054 different objects from the Scannet (Dai et al.                  formula is as follows:
+2017). After dividing according to scenes in Scannet, the                                                  M     i K
+                                                                                                      1 X 1 X
+training, validation, and test sets contain 43,282, 5,398,                               mIoU-S =                  IoUi,j ,               (3)
+and 5,752 descriptions, respectively. DetailRefer comprises                                           M i=1 Ki j=1
+156636 noun phrases to be segmented. We present the cat-
+egory distribution of the objects corresponding to these                   where the meanings of all symbols are the same as in Eq. 1.
+phrases in Fig. 3. Additionally, among all the noun phrases                The mIoU-S reflect the model’s understanding capability at
+to be segmented, 15,001 phrases involve multiple objects; in               the sentence level.
+all texts, long texts (more than 50 tokens) account for 7.4%.                 Finally, we also pay special attention to the model’s per-
+   To facilitate comparison, we have compiled the various                  formance on long texts and complex scene descriptions.
+statistics of mainstream datasets (Chen, Chang, and Nießner                Specifically, we define texts with more than 50 tokens as
+2020; Achlioptas et al. 2020; Zhang, Gong, and Chang                       long texts, and evaluate the metrics of the model on such
+2023) in Tab 1. It can be seen that compared to other                      texts to reflect its understanding capability of long texts.
+datasets, our dataset excels in average text length. Addition-             Meanwhile, we define texts that require segmentation of four
+ally, it is observed that long texts exceeding 50 tokens are               or more phrases as complex scene descriptions, and test the
+extremely rare, almost non-existent, in other datasets. How-               model’s metrics on these texts to reflect its understanding
+ever, in our dataset, 7.4% of the texts are long, which better             capability of complex scene descriptions.
+tests the model’s understanding of natural language. Further-
+more, since other datasets correspond to sentence-level seg-                              4    Baseline of 3D-DRES
+mentation tasks, each text only has one mask. In contrast,                 Existing 3D-RES methods are based on the assumption of
+our dataset corresponds to noun phrase-level segmentation                  “sentence-level segmentation,” which typically cannot out-
+tasks, thus each text averages 2.9 masks. From the compari-                put multiple masks or specify masks for particular tokens.
+son of text quantities, it is evident that our dataset is compa-           This limitation means that they cannot be directly applied to
+rable in scale to existing mainstream datasets.                            our new task. Therefore, in this section, as the proposers of
+                                                                           3D-DRES, we introduce a simple, effective, and highly ex-
+3.3   3D-DRES Task                                                         tensible framework to serve as a foundational starting point
+Task Definition The Detailed 3D Referring Expression                       for investigating this task. We name this framework Detail-
+Segmentation (3D-DRES) task aims to segment out masks                      Base, and an overview is shown in Fig. 4.
+corresponding to each target phrase given in a sentence from                  According to the task definition in Sec. 3.3, the inputs
+a point cloud scene. Specifically, first, given a point cloud              for this task include a point cloud scene P ∈ RNp ×f , a
+scene P ∈ RNp ×f , where Np represents the number of                       textual description T , and the position I of the noun to be
+
+
+                                                                    2969
+                       Point Cloud                  3D U-Net
+                                                                                                               Superpoint Features
+
+
+
+
+                                                                       Superpoint
+                                                                        pooling
+                                                                                            Feed Forward
+
+
+                                                                                                                                         Superpoint
+                       Over-segmentation                                                    Self-Attention                                 Masks
+
+
+                                                    Superpoint          Visual
+                                                                       Features            Cross-Attention                           Broadcast
+                       Description
+
+             This black rolling office chair is
+                positioned at the desk that is                 MPNet
+              located at the end of the bed. It
+             is situated in front of the curtain.                                                Query
+
+
+            Figure 4: The overview of the Detailed 3D Referring Expression Segmentation Baseline (DetailBase).
+
+
+segmented. We first obtain point-level features Fp by feed-                                transformation. Additionally, we adopt a multi-layer archi-
+ing the point cloud (here, we only use coordinates XYZ and                                 tecture in series, meaning there are multiple such Cross-Self-
+color RGB as the initial features for each point) into a 3D                                FFN structures. For generality, the formula here is given for
+U-Net network (Graham, Engelcke, and Van Der Maaten                                        the i-th layer as an example:
+2018). Given that the number of these features is excessively
+large, we adopt the same approach as previous models (Wu                                     Qi = FFN(Self(Cross(Qi−1 , Fv ))), i ∈ {1, . . . , Nl }, (7)
+et al. 2024b; Sun et al. 2023), namely superpoint pooling,                                 where Qi−1 represents the query output from the previous
+to simplify them. Specifically, we perform an unsupervised                                 layer and Nl denotes the number of model layers. Finally,
+oversegmentation on the P , resulting in Ns superpoints                                    we compute the affinity between the query output from the
+{SPi }Ni=1 , where Np >> Ns (Landrieu and Simonovsky
+         s
+                                                                                           last layer and the superpoint features, and then binarize this
+2018). Afterward, we average the features of all points be-                                affinity to obtain the superpoint mask corresponding to the
+longing to the same superpoint. Finally, through two inde-                                 query. The superpoint mask can be broadcast to obtain point-
+pendently weighted linear transformations, the pooling fea-                                level masks. For the sentence-level segmentation, use the
+tures are converted into visual features for multimodal in-                                mask corresponding to the [CLS] token as the result.
+formation fusion and superpoint features for predicting the                                   During the model training phase, we compute the super-
+mask. The entire process is formulated as follows:                                         point mask for the query output from each layer and then
+                                                                                           calculate the loss against the ground truth. Here, we use the
+                   Fpool = SPPool(Fp , P ),                                 (4)            classic BCE loss and Dice loss (Milletari, Navab, and Ah-
+             Fv = Fpool W1 , Fsp = Fpool W2 ,                               (5)            madi 2016). Additionally, similar to previous works (Wu
+                                                                                           et al. 2024b; Chen et al. 2025), we add an auxiliary Score
+where Fpool ∈ RNs ×c denotes the pooling features,                                         loss. The final loss is formulated as follows:
+SPPool(·) represents the superpoint pooling operation, Fv ∈                                                   Nl
+RNs ×d indicates the visual features, Fsp ∈ RNs ×d denotes
+                                                                                                              X
+                                                                                                   Ltotal =         λ1 LiBCE + λ2 LiDice + λ3 LiScore   (8)
+the superpoint features, and W1 , W2 ∈ Rc×d are both ran-                                                     i=0
+domly initialized learnable parameters.
+   For a given text T , special tokens are added to both the                               where the superscript i denotes the layer number, and λ1 ,
+beginning and the end of the text before it is input into the                              λ2 , λ3 are hyperparameters. Ltotal , LBCE , LDice , LScore
+MPNet network (Song et al. 2020) to obtain token features.                                 represent the total loss, BCE loss, Dice loss, and Score loss,
+Given that this task requires the model to be capable of seg-                              respectively. During the model inference phase, only the out-
+menting tokens at specified positions, we use the token fea-                               put from the last layer is used as the final result.
+tures to generate the initial query Q0 :
+                                                                                                                    5   Experiments
+                             Q0 = EW3                                       (6)            5.1    Experiment Settings
+                     (L+2)×e
+   where E ∈ R               represents the token features,                                We utilize a Sparse 3D U-Net (Graham, Engelcke, and Van
+and W3 ∈ Re×d denotes the learnable parameters. Sub-                                       Der Maaten 2018) for extracting features from point clouds
+sequently, Q0 is fed into the decoder, where it first uses                                 and a pre-trained MPNet (Song et al. 2020) for text feature
+cross-attention (Vaswani et al. 2017) to integrate informa-                                extraction. The initial learning rate is set to 0.0001, which
+tion from the visual modality, then employs self-attention to                              we decay at epoch 26, 34, 42 with a decay rate of 0.5. The
+focus on the internal information within the sentence, and                                 number of model layers Nl is set to 6. In the hyperparam-
+finally passes through a feed-forward network for nonlinear                                eters, λ1 , λ2 , and λ3 are set to 1, 1, and 0.5, respectively.
+
+
+                                                                                    2970
+                                                    Long                                Complex                                  Overall
+                  Method
+                                      0.25   0.5     mIoU-S   mIoU  0.25          0.5     mIoU-S        mIoU     0.25     0.5      mIoU-S      mIoU
+                                                                  Val
+        PNG (González et al. 2021)   50.3   34.0     35.8    35.1 52.7        35.4           37.0      36.4     57.2     41.9        42.6     41.3
+        3D-STMN (Wu et al. 2024b)     63.8   46.0     46.4    45.2 65.4        48.8           48.0      47.1     71.8     55.8        53.8     52.7
+            DetailBase (Ours)         67.3   49.0     50.2    48.9 70.3        52.0           52.5      51.3     73.9     58.4        56.3     55.4
+                                                                  Test
+        PNG (González et al. 2021)   52.0   35.6     37.9    36.5 53.8        37.3           38.5      37.7     56.3     40.7        41.1     40.4
+        3D-STMN (Wu et al. 2024b)     67.1   48.9     48.7    47.6 69.9        51.8           51.1      50.0     71.9     54.8        53.1     52.5
+            DetailBase (Ours)         71.1   52.8     52.5    51.5 73.5        55.8           54.8      53.8     74.8     58.5        56.2     55.7
+
+Table 2: 3D-DRES results on DetailRefer dataset, showing mIoU, mIoU-S and accuracy at IoU thresholds of 0.25 and 0.5.
+“Long” indicates samples exceeding 50 tokens, while “Complex” refers to samples with four or more noun phrases to segment.
+
+
+The batch size is set to 16. All experiments are trained on an                    Dataset
+                                                                                                     DetailBase                3D-STMN(Wu et al. 2024b)
+NVIDIA GeForce RTX 3090 GPU.                                                                     3D-RES 3D-DRES                3D-RES    3D-DRES
+                                                                               Scanrefer             44.0          -             41.8            -
+5.2   Quantitative Results                                                    DetailRefer             -           55.4            -             52.7
+                                                                                 Both                46.8         56.8           45.0           53.3
+Given that there currently exists no model that can directly
+adapt to the 3D-DRES task, we made appropriate adjust-                        Table 3: Results of separate training and joint training.
+ments to two existing models, namely PNG (González et al.
+2021) and 3D-STMN (Wu et al. 2024b), to fit our task. The
+                                                                                                                                     Overall
+PNG model originates from the 2D domain’s Panoptic Nar-                                  Nl     Long        Complex
+                                                                                                                              0.25    0.5 mIoU
+rative Grounding task, which is quite similar to our task. We
+first changed its input by using point clouds instead of im-                             1       46.7           49.0          74.4      54.1   53.1
+ages, then utilized SPFormer (Sun et al. 2023) to extract                                3       48.6           50.8          73.8      58.2   55.1
+instance proposals and averaged the point features within                                6       48.9           51.3          73.9      58.4   55.4
+each instance as the instance feature. We also modified its                              9       48.2           51.4          71.8      59.7   55.5
+result matching method, changing from selecting the candi-
+date with the highest matching similarity to candidates with                      Table 4: Ablation study on number of model layers.
+matching similarity above a certain threshold. This adjust-
+ment was made due to cases in our task where one noun
+phrase corresponds to multiple instances. For 3D-STMN,                      RES tasks, we unified the formats of both tasks. We per-
+we altered its supervision method and result generation ap-                 formed separate training on ScanRefer (Chen, Chang, and
+proach to align with DetailBase. Additionally, in the original              Nießner 2020) and DetailRefer datasets, as well as joint
+3D-STMN, the 3D-UNet was frozen. To ensure fairness, we                     training across both datasets, reporting the mIoU of the mod-
+have opted to include it in the training process here.                      els on the validation set in the Tab. 3. It is evident that joint
+   In Tab. 2, we present the performance of each model on                   training yields superior results compared to separate training
+both the validation set and the test set. It can be observed                for both 3D-STMN and DetailBase. Notably, joint training
+that although the modified PNG model achieved an miou                       significantly enhances performance on 3D-RES, improving
+of 40.4 on the test set, it still significantly lags behind other           scores by 2.8 points on DetailBase and up to 3.2 points on
+models. The reason for this situation is that the current effec-            3D-STMN. In conclusion, our task not only holds its unique
+tiveness of 3D instance segmentation networks is not ideal;                 value but also complements traditional tasks synergistically.
+such two-stage models generally perform weaker than one-
+stage models. The modified 3D-STMN demonstrated its ca-                     5.3     Ablation Study
+pabilities in this task, but due to the low compatibility of its            Ablation experiments are all conducted on the validation set.
+designed modules with the task, its performance fell behind                   We conducted an ablation study on the parameter Nl ,
+our DetailBase. DetailBase achieved an miou of 55.7 on the                  which indicates the number of layers in the model. We
+test set, a result that lays a suitable foundation for the further
+development of 3D-DRES methods. Moreover, our model
+framework is relatively simple and highly scalable, making
+                                                                                   Multi layer          Score      Long          Complex       Overall
+it very appropriate as an initial approach for this task.
+   Phrase-level segmentation emphasizes fine-grained se-                                  ×                 ×          45.0          46.3       50.5
+mantic understanding, whereas sentence-level segmentation                                 ×                 ✓          44.5          46.5       50.8
+focuses more on holistic comprehension. These two are not                                 ✓                 ×          48.4          50.9       55.0
+mutually exclusive; instead, they are mutually beneficial.                                ✓                 ✓          48.9          51.3       55.4
+We conducted joint training experiments to substantiate this
+viewpoint. By treating the [CLS] token (the root node in                    Table 5: Ablation on loss. ‘Multi layer’ indicates that each
+3D-STMN) as the “noun phrase” to be segmented for 3D-                       layer is supervised. ‘Score’ refers to auxiliary score loss.
+
+
+                                                                     2971
+                                  GT          3D-STMN         DetailBase             the text in a more detailed manner. For example, 3D-STMN
+(a) A toilet located to the                                                          demonstrates a completely incorrect understanding of text
+left of the toilet paper and
+to the right of a trash can.                                                         (b), whereas its comprehension of text (c) is partially cor-
+                                                                                     rect. Through detailed analysis of model capabilities, we can
+(b) At the end of a desk,                                                            better define the optimization directions for the model.
+there is a small bookshelf.
+it is positioned next to a                                                              Additionally, we visualized the 3D-RES capabilities of
+chalkboard.                                                                          3D-STMN (Wu et al. 2024b) under different training meth-
+                                                                                     ods, with one result shown in the Fig. 6 (more results in the
+(c) The towel is green,
+located to the left of the                                                           appendix). It can be observed that when trained solely on
+shower curtain above the                                                             the 3D-RES task, the model’s fine-grained text understand-
+bathtub.                                                                             ing is poor. However, under joint training, the model’s ability
+                                                                                     to capture fine-grained information within sentences signif-
+Figure 5: Comparison of visualization results. The 3D-                               icantly improves, enabling it to accurately locate auxiliary
+STMN results are the model predictions after adaptation.                             objects and thereby pinpoint the correct target.
+
+         GT                    Single Task Training      Joint Training                            6    Analysis of 3D-DRES
+                                                                                     In this section, we briefly analyze the 3D-DRES task and
+                                                                                     summarize its challenges. A more detailed analysis, along
+                                                                                     with visual examples, is provided in Sec. 3 of the Appendix.
+ Description: There is a square chair. It is at a round table near a plant.             In our task, since the nouns to be segmented are specified
+                                                                                     and the variety of 3D scene objects is relatively small, the set
+Figure 6: Visual performance of 3D-STMN on the ScanRe-                               of source noun phrases for generating segmentation kernels
+fer dataset under different training methods.                                        is not large. Additionally, approximately 10% of the noun
+                                                                                     phrases in our dataset correspond to multiple target objects.
+                                                                                     These two factors contribute to the model’s difficulty in dis-
+present the mIoU for the ‘long’ and ‘complex’ subset, as                             tinguishing between instances, especially when two objects
+well as the Acc@0.25, Acc@0.5, and mIoU on the entire                                of the same category are in close proximity. Distinguishing
+validation set in Tab. 4. It can be observed that with only                          instances and determining the exact number of instances to
+one layer, due to having fewer parameters and insufficient                           be segmented present a significant challenge in this task.
+fitting capability, the model performed poorly, achieving an                            Regarding the DetailBase framework, there is a cate-
+mIoU of only 53.1. When the number of layers reached                                 gory of text that poses significant challenges: texts involving
+three, there was a noticeable improvement in performance,                            instance-level clues. This is because the single-stage frame-
+with the mIoU increasing to 55.1. Beyond this point, the                             work operates only at the superpoint level and lacks the abil-
+performance gains from increasing the number of layers di-                           ity to perceive information at the instance level. Addition-
+minished. Taking into account both model performance and                             ally, the number of superpoints themselves limits their inter-
+complexity, six layers is the optimal choice.                                        actions, causing each superpoint to act almost as an indepen-
+    We conducted an ablation study on the model’s loss and                           dent entity. How to effectively utilize instance-level cues is
+presented the mIoU in Tab. 5. In this context, “Multi layer”                         also a major challenge in this task.
+indicates that each layer is supervised; if not used, supervi-                          Finally, long texts are a distinctive feature of our dataset
+sion only occurs at the final layer. “Score” refers to Score                         and also pose a challenge. Long texts imply more complex
+loss, which employs an MLP to predict the IoU. As shown                              sentence structures, requiring the model to have a stronger
+in the table, applying supervision at every layer has a sig-                         ability to understand context.
+nificant impact, improving the mIoU on the overall valida-
+tion set by nearly five points. Regarding the Score loss, al-                                             7    Conclusion
+though its enhancement is relatively minor, as an auxiliary                          In this paper, we introduce a novel task, 3D-DRES, which
+los, its computational cost is negligible. Therefore, adding                         requires models to segment all noun phrases mentioned in
+the Score loss is a beneficial and harmless operation.                               sentences into corresponding masks. To support this task,
+                                                                                     we have constructed a new dataset, DetailRefer, featuring
+5.4     Qualitative Result                                                           fine-grained annotations, combining both human effort and
+We present some visualization results in Fig. 5 to enable                            LLM. As the proposers of this task, we provide a highly scal-
+a more intuitive perception of the advantages of the 3D-                             able framework as a baseline for future researchers.
+DRES. As shown in (a), if it were a traditional 3D-RES,
+the text would refer to the object “toilet” and both models                                            Acknowledgements
+successfully segmented the target. It is difficult to assess a                       This work was supported by the National Science
+model’s comprehension of the entire text at a fine-grained                           Fund for Distinguished Young Scholars (No.62025603,
+level, as the results are only evaluated based on a single                           No.62525605), the National Natural Science Foundation of
+entity within the text. However, under our 3D-DRES set-                              China (No. U21B2037 , No. 62302411) and China Postdoc-
+ting, we can observe the model’s overall understanding of                            toral Science Foundation (No. 2023M732948).
+
+
+                                                                              2972
+                        References                                       He, S.; Ding, H.; Jiang, X.; and Wen, B. 2024. Segpoint:
+Achlioptas, P.; Abdelreheem, A.; Xia, F.; Elhoseiny, M.; and             Segment any point cloud via large language model. In
+Guibas, L. 2020. Referit3d: Neural listeners for fine-grained            ECCV.
+3d object identification in real-world scenes. In ECCV.                  He, S.; Ji, P.; Yang, Y.; Wang, C.; Ji, J.; Wang, Y.; and Ding,
+                                                                         H. 2025a. A survey on 3d gaussian splatting applications:
+Antol, S.; Agrawal, A.; Lu, J.; Mitchell, M.; Batra, D.; Zit-
+                                                                         Segmentation, editing, and generation. arXiv:2508.09977.
+nick, C. L.; and Parikh, D. 2015. Vqa: Visual question an-
+swering. In ICCV.                                                        He, S.; Jie, G.; Wang, C.; Zhou, Y.; Hu, S.; Li, G.; and Ding,
+                                                                         H. 2025b. ReferSplat: Referring segmentation in 3d gaus-
+Azuma, D.; Miyanishi, T.; Kurita, S.; and Kawanabe, M.                   sian splatting. arXiv:2508.08252.
+2022. Scanqa: 3d question answering for spatial scene un-
+derstanding. In CVPR.                                                    Hu, R.; Rohrbach, M.; and Darrell, T. 2016. Segmentation
+                                                                         from natural language expressions. In ECCV.
+Chen, D. Z.; Chang, A. X.; and Nießner, M. 2020. Scanrefer:
+                                                                         Huang, P.-H.; Lee, H.-H.; Chen, H.-T.; and Liu, T.-L. 2021.
+3d object localization in rgb-d scans using natural language.
+                                                                         Text-guided graph neural networks for referring 3d instance
+In ECCV.
+                                                                         segmentation. In AAAI.
+Chen, Q.; Wu, C.; Ji, J.; Ma, Y.; Yang, D.; and Sun, X. 2025.            Hui, T.; Ding, Z.; Huang, J.; Wei, X.; Wei, X.; Dai, J.;
+IPDN: Image-enhanced Prompt Decoding Network for 3D                      Han, J.; and Liu, S. 2023. Enriching phrases with coupled
+Referring Expression Segmentation. arXiv:2501.04995.                     pixel and object contexts for panoptic narrative grounding.
+Chen, S.; Guhur, P.-L.; Tapaswi, M.; Schmid, C.; and                     arXiv:2311.01091.
+Laptev, I. 2022. Language conditioned spatial relation rea-              Jain, A.; Gkanatsios, N.; Mediratta, I.; and Fragkiadaki, K.
+soning for 3d object grounding. NeurIPS.                                 2022. Bottom up top down detection transformers for lan-
+Chen, X.; Fang, H.; Lin, T.-Y.; Vedantam, R.; Gupta, S.;                 guage grounding in images and point clouds. In ECCV.
+Dollár, P.; and Zitnick, C. L. 2015. Microsoft coco captions:           Johnson, J.; Hariharan, B.; Van Der Maaten, L.; Fei-Fei, L.;
+Data collection and evaluation server. arXiv:1504.00325.                 Lawrence Zitnick, C.; and Girshick, R. 2017. Clevr: A di-
+Chng, Y. X.; Zheng, H.; Han, Y.; Qiu, X.; and Huang, G.                  agnostic dataset for compositional language and elementary
+2024. Mask grounding for referring image segmentation. In                visual reasoning. In CVPR.
+CVPR.                                                                    Kazemzadeh, S.; Ordonez, V.; Matten, M.; and Berg, T.
+Dai, A.; Chang, A. X.; Savva, M.; Halber, M.; Funkhouser,                2014. Referitgame: Referring to objects in photographs of
+T.; and Nießner, M. 2017. Scannet: Richly-annotated 3d re-               natural scenes. In EMNLP.
+constructions of indoor scenes. In CVPR.                                 Krishna, R.; Zhu, Y.; Groth, O.; Johnson, J.; Hata, K.;
+Dang, J.; Chen, L.; Wu, J.; Lin, R.; Wang, B.; Wang, Y.;                 Kravitz, J.; Chen, S.; Kalantidis, Y.; Li, L.-J.; Shamma,
+Wang, L.; Zhu, N.; and Wang, T. 2025a. Diff-LMM: Diffu-                  D. A.; et al. 2017. Visual genome: Connecting language and
+sion Teacher-Guided Spatio-Temporal Perception for Video                 vision using crowdsourced dense image annotations. IJCV.
+Large Multimodal Models.                                                 Lai, X.; Tian, Z.; Chen, Y.; Li, Y.; Yuan, Y.; Liu, S.; and Jia,
+                                                                         J. 2024. Lisa: Reasoning segmentation via large language
+Dang, J.; Deng, S.; Chang, H.; Wang, T.; Wang, B.; Wang,
+                                                                         model. In CVPR.
+S.; Zhu, N.; Niu, G.; Zhao, J.; and Liu, J. 2025b. Hallucina-
+tion Reduction in Video-Language Models via Hierarchical                 Landrieu, L.; and Simonovsky, M. 2018. Large-scale point
+Multimodal Consistency.                                                  cloud semantic segmentation with superpoint graphs. In
+                                                                         CVPR.
+Ding, Z.; Ding, Z.-h.; Hui, T.; Huang, J.; Wei, X.; Wei, X.;
+and Liu, S. 2022. Ppmn: Pixel-phrase matching network for                Li, H.; Hui, T.; Ding, Z.; Zhang, J.; Ma, B.; Wei, X.; Han,
+one-stage panoptic narrative grounding. In ACM MM.                       J.; and Liu, S. 2024a. Dynamic prompting of frozen text-to-
+                                                                         image diffusion models for panoptic narrative grounding. In
+Feng, M.; Li, Z.; Li, Q.; Zhang, L.; Zhang, X.; Zhu, G.;                 ACM MM.
+Zhang, H.; Wang, Y.; and Mian, A. 2021. Free-form descrip-
+                                                                         Li, R.; Li, S.; Kong, L.; Yang, X.; and Liang, J. 2024b. See-
+tion guided 3d visual graph network for object grounding in
+                                                                         ground: See and ground for zero-shot open-vocabulary 3d
+point cloud. In ICCV.
+                                                                         visual grounding. arXiv:2412.04383.
+González, C.; Ayobi, N.; Hernández, I.; Hernández, J.; Pont-          Liu, C.; Ding, H.; and Jiang, X. 2023. Gres: Generalized
+Tuset, J.; and Arbeláez, P. 2021. Panoptic narrative ground-            referring expression segmentation. In CVPR.
+ing. In ICCV.
+                                                                         Liu, X.; Xu, X.; Li, J.; Zhang, Q.; Wang, X.; Sebe, N.; and
+Graham, B.; Engelcke, M.; and Van Der Maaten, L. 2018.                   Ma, L. 2024. LESS: Label-Efficient and Single-Stage Re-
+3d semantic segmentation with submanifold sparse convo-                  ferring 3D Segmentation. arXiv:2410.13294.
+lutional networks. In CVPR.                                              Luo, J.; Fu, J.; Kong, X.; Gao, C.; Ren, H.; Shen, H.; Xia, H.;
+Guo, W.; Xu, X.; Wang, Z.; Feng, J.; Zhou, J.; and Lu, J.                and Liu, S. 2022. 3d-sps: Single-stage 3d visual grounding
+2025. Text-guided Sparse Voxel Pruning for Efficient 3D                  via referred point progressive selection. In CVPR.
+Visual Grounding. arXiv:2502.10392.                                      Mao, J.; Huang, J.; Toshev, A.; Camburu, O.; Yuille, A. L.;
+He, S.; and Ding, H. 2024. RefMask3D: Language-guided                    and Murphy, K. 2016. Generation and comprehension of
+transformer for 3D referring segmentation. In ACM MM.                    unambiguous object descriptions. In CVPR.
+
+
+                                                                  2973
+Mi, B.; Wang, H.; Wang, T.; Chen, Y.; and Pang, J. 2025.                Wu, C.; Liu, Y.; Ji, J.; Ma, Y.; Wang, H.; Luo, G.; Ding, H.;
+Evolving Symbolic 3D Visual Grounder with Weakly Su-                    Sun, X.; and Ji, R. 2024a. 3d-gres: Generalized 3d referring
+pervised Reflection. arXiv:2502.01401.                                  expression segmentation. In ACM MM.
+Milletari, F.; Navab, N.; and Ahmadi, S.-A. 2016. V-net:                Wu, C.; Ma, Y.; Chen, Q.; Wang, H.; Luo, G.; Ji, J.; and
+Fully convolutional neural networks for volumetric medical              Sun, X. 2024b. 3d-stmn: Dependency-driven superpoint-
+image segmentation. In 3DV.                                             text matching network for end-to-end 3d referring expres-
+                                                                        sion segmentation. In AAAI.
+Peng, Q.; Zheng, H.; and Huang, G. 2025. ProxyTransfor-
+mation: Preshaping Point Cloud Manifold With Proxy At-                  Wu, Y.; Cheng, X.; Zhang, R.; Cheng, Z.; and Zhang, J.
+tention For 3D Visual Grounding. arXiv:2502.19247.                      2023. Eda: Explicit text-decoupling and dense alignment
+                                                                        for 3d visual grounding. In CVPR.
+Pham, K.; Huynh, C.; Lim, S.-N.; and Shrivastava, A. 2024.
+Composing object relations and attributes for image-text                Wu, Z.; Li, H.; Chen, G.; Yu, Z.; Gu, X.; and Wang, Y.
+matching. In CVPR.                                                      2024c. 3d question answering with scene graph reasoning.
+                                                                        In ACM MM.
+Plummer, B. A.; Wang, L.; Cervantes, C. M.; Caicedo, J. C.;             Xu, W.; Shi, C.; Tu, S.; Zhou, X.; Liang, D.; and Bai, X.
+Hockenmaier, J.; and Lazebnik, S. 2015. Flickr30k enti-                 2025. A unified framework for 3d scene understanding.
+ties: Collecting region-to-phrase correspondences for richer            NeurIPS.
+image-to-sentence models. In ICCV.
+                                                                        Yang, A.; Yang, B.; Zhang, B.; Hui, B.; Zheng, B.; Yu, B.;
+Qian, Z.; Ma, Y.; Lin, Z.; Ji, J.; Zheng, X.; Sun, X.; and Ji,          Li, C.; Liu, D.; Huang, F.; Wei, H.; et al. 2024a. Qwen2. 5
+R. 2024. Multi-branch Collaborative Learning Network for                technical report. arXiv:2412.15115.
+3D Visual Grounding. In ECCV.
+                                                                        Yang, D.; Ji, J.; Ma, Y.; Guo, T.; Wang, H.; Sun, X.; and Ji,
+Shen, H.; Zhao, T.; Zhu, M.; and Yin, J. 2024. Ground-                  R. 2024b. Sam as the guide: mastering pseudo-label refine-
+vlp: Harnessing zero-shot visual grounding from vision-                 ment in semi-supervised referring expression segmentation.
+language pre-training and open-vocabulary object detection.             arXiv:2406.01451.
+In AAAI.                                                                Yang, D.; Ji, J.; Sun, X.; Wang, H.; Li, Y.; Ma, Y.; and Ji,
+Shi, X.; Wu, Z.; and Lee, S. 2024. Aware Visual Grounding               R. 2023a. Semi-supervised panoptic narrative grounding. In
+in 3D Scenes. In CVPR.                                                  ACM MM.
+Song, K.; Tan, X.; Qin, T.; Lu, J.; and Liu, T.-Y. 2020. Mp-            Yang, L.; Zhang, Z.; Qi, Z.; Xu, Y.; Liu, W.; Shan, Y.; Li, B.;
+net: Masked and permuted pre-training for language under-               Yang, W.; Li, P.; Wang, Y.; et al. 2023b. Exploiting contex-
+standing. NeurIPS.                                                      tual objects and relations for 3d visual grounding. NeurIPS.
+Sun, J.; Qing, C.; Tan, J.; and Xu, X. 2023. Superpoint trans-          Yang, Z.; Wang, J.; Tang, Y.; Chen, K.; Zhao, H.; and Torr,
+former for 3d scene instance segmentation. In AAAI.                     P. H. 2022. Lavt: Language-aware vision transformer for
+                                                                        referring image segmentation. In CVPR.
+Vaswani, A.; Shazeer, N.; Parmar, N.; Uszkoreit, J.; Jones,
+L.; Gomez, A. N.; Kaiser, Ł.; and Polosukhin, I. 2017. At-              Yang, Z.; Zhang, S.; Wang, L.; and Luo, J. 2021. Sat: 2d se-
+tention is all you need. NeurIPS.                                       mantics assisted training for 3d visual grounding. In ICCV.
+                                                                        Yuan, Z.; Yan, X.; Liao, Y.; Guo, Y.; Li, G.; Cui, S.; and
+Wan, D.; Cho, J.; Stengel-Eskin, E.; and Bansal, M.
+                                                                        Li, Z. 2022. X-trans2cap: Cross-modal knowledge transfer
+2024. Contrastive region guidance: Improving grounding
+                                                                        using transformer for 3d dense captioning. In CVPR.
+in vision-language models without training. In ECCV.
+                                                                        Yuan, Z.; Yan, X.; Liao, Y.; Zhang, R.; Wang, S.; Li, Z.;
+Wang, H.; Ji, J.; Zhou, Y.; Wu, Y.; and Sun, X. 2023a. To-              and Cui, S. 2021. Instancerefer: Cooperative holistic under-
+wards real-time panoptic narrative grounding by an end-to-              standing for visual grounding on point clouds through in-
+end grounding network. In AAAI.                                         stance multi-level contextual referring. In ICCV.
+Wang, X.; Zhao, N.; Han, Z.; Guo, D.; and Yang, X.                      Zhan, Y.; Zhu, Y.; Chen, Z.; Yang, F.; Tang, M.; and Wang,
+2025a. AugRefer: Advancing 3D Visual Grounding via                      J. 2024. Griffon: Spelling out all object locations at any
+Cross-Modal Augmentation and Spatial Relation-based Re-                 granularity with large language models. In ECCV.
+ferring. arXiv:2501.09428.                                              Zhang, H.; Li, H.; Li, F.; Ren, T.; Zou, X.; Liu, S.; Huang,
+Wang, Y.; Ding, H.; He, S.; Jiang, X.; Wei, B.; and Liu, J.             S.; Gao, J.; Leizhang; Li, C.; et al. 2024. Llava-grounding:
+2025b. Hierarchical Alignment-enhanced Adaptive Ground-                 Grounded visual chat with large multimodal models. In
+ing Network for Generalized Referring Expression Compre-                ECCV.
+hension. arXiv:2501.01416.                                              Zhang, Y.; Gong, Z.; and Chang, A. X. 2023. Multi3drefer:
+Wang, Y.; Ni, J.; Liu, Y.; Yuan, C.; and Tang, Y. 2025c. IteR-          Grounding text description to multiple 3d objects. In ICCV.
+PrimE: Zero-shot Referring Image Segmentation with Iter-                Zhao, L.; Cai, D.; Sheng, L.; and Xu, D. 2021. 3dvg-
+ative Grad-CAM Refinement and Primary Word Emphasis.                    transformer: Relation modeling for visual grounding on
+arXiv:2503.00936.                                                       point clouds. In ICCV.
+Wang, Z.; Huang, H.; Zhao, Y.; Li, L.; Cheng, X.; Zhu, Y.;              Zhu, C.; Wang, T.; Zhang, W.; Chen, K.; and Liu, X. 2024.
+Yin, A.; and Zhao, Z. 2023b. 3drp-net: 3d relative position-            Scanreason: Empowering 3d visual grounding with reason-
+aware network for 3d visual grounding. arXiv:2307.13363.                ing capabilities. In ECCV.
+
+
+                                                                 2974
+

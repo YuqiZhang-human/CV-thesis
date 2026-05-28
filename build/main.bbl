@@ -1,4 +1,4 @@
-\begin{thebibliography}{14}
+\begin{thebibliography}{100}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -12,12 +12,446 @@
 \providecommand{\bibinfo}[2]{#2}
 \ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
 %Type = Inproceedings
-\bibitem[{He et~al.(2017)He, Gkioxari, Doll{\'a}r and Girshick}]{he2017mask}
-\bibinfo{author}{He, K.}, \bibinfo{author}{Gkioxari, G.},
-  \bibinfo{author}{Doll{\'a}r, P.}, \bibinfo{author}{Girshick, R.},
-  \bibinfo{year}{2017}.
-\newblock \bibinfo{title}{Mask r-cnn}, in: \bibinfo{booktitle}{Proceedings of
-  the IEEE International Conference on Computer Vision (ICCV)}.
+\bibitem[{Athar et~al.(2025)Athar, Deng and
+  Chen}]{atharVicasDatasetCombining2025}
+\bibinfo{author}{Athar, A.}, \bibinfo{author}{Deng, X.}, \bibinfo{author}{Chen,
+  L.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Vicas: {A} dataset for combining holistic and
+  pixel-level video understanding using captions with grounded segmentation},
+  in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2025/html/Athar_ViCaS_A_Dataset_for_Combining_Holistic_and_Pixel-level_Video_Understanding_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: 3e4sb3LxdkUJ Google Scholar cited by: 11 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: A Athar, X Deng, LC Chen -
+  Proceedings of the Computer …, 2025 - openaccess.thecvf.com Scholar result
+  number: 393 Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Athar\_ViCaS\_A\_Dataset\_for\_Combining\_Holistic\_and\_Pixel-level\_Video\_Understanding\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Bai et~al.(2024)Bai, He, Mei, Wang and in}]{baiOneTokenSeg2024}
+\bibinfo{author}{Bai, Z.}, \bibinfo{author}{He, T.}, \bibinfo{author}{Mei, H.},
+  \bibinfo{author}{Wang, P.}, \bibinfo{author}{in, Z.G.A.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{One token to seg them all: {Language} instructed
+  reasoning segmentation in videos}, in: \bibinfo{booktitle}{{NeurIPS}}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2024/hash/0cf3e7eefb9d643e93e16ff1d94090a7-Abstract-Conference.html},
+  \DOIprefix\doi{10.52202/079017-0219}. \bibinfo{note}{data-CID: 0Aq59vR2oQkJ
+  Google Scholar cited by: 117 Filtered venue: NeurIPS Scholar metadata: Z Bai,
+  T He, H Mei, P Wang, Z Gao… - Advances in …, 2024 -
+  proceedings.neurips.cc Scholar result number: 9 Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2024/file/0cf3e7eefb9d643e93e16ff1d94090a7-Paper-Conference.pdf}.
+%Type = Inproceedings
+\bibitem[{{C Shang} et~al.(2024){C Shang}, {Z Song}, {H Qiu}, {L Wang… - …
+  on Computer Vision …} and {2024}}]{cshangPromptdrivenReferringImage2024}
+\bibinfo{author}{{C Shang}}, \bibinfo{author}{{Z Song}}, \bibinfo{author}{{H
+  Qiu}}, \bibinfo{author}{{L Wang… - … on Computer Vision …}},
+  \bibinfo{author}{{2024}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Prompt-driven referring image segmentation with
+  instance contrasting}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Shang_Prompt-Driven_Referring_Image_Segmentation_with_Instance_Contrasting_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: SijJw6l1o3wJ Google Scholar cited by: 50 Filtered
+  venue: CVPR Scholar metadata: C Shang, Z Song, H Qiu, L Wang… - … on
+  Computer Vision …, 2024 - openaccess.thecvf.com Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2024/papers/Shang\_Prompt-Driven\_Referring\_Image\_Segmentation\_with\_Instance\_Contrasting\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Caesar et~al.(2018)Caesar, Uijlings and
+  Ferrari}]{caesar2018cocostuff}
+\bibinfo{author}{Caesar, H.}, \bibinfo{author}{Uijlings, J.},
+  \bibinfo{author}{Ferrari, V.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Coco-stuff: Thing and stuff classes in context}, in:
+  \bibinfo{booktitle}{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pp. \bibinfo{pages}{1209--1218}.
+%Type = Inproceedings
+\bibitem[{Cao et~al.(2025)Cao, Wei, Kuen, Liu and
+  Zhang}]{caoReferAnySegmentation2025}
+\bibinfo{author}{Cao, S.}, \bibinfo{author}{Wei, Z.}, \bibinfo{author}{Kuen,
+  J.}, \bibinfo{author}{Liu, K.}, \bibinfo{author}{Zhang, L.},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Refer to {Any} {Segmentation} {Mask} {Group} {With}
+  {Vision}-{Language} {Prompts}}, in: \bibinfo{booktitle}{{ICCV}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Cao_Refer_to_Any_Segmentation_Mask_Group_With_Vision-Language_Prompts_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: zDgU6lq64O4J Google Scholar cited by: 5 Filtered
+  venue: ICCV Scholar metadata: S Cao, Z Wei, J Kuen, K Liu, L Zhang… -
+  Proceedings of the …, 2025 - openaccess.thecvf.com Scholar result number:
+  84 Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Cao\_Refer\_to\_Any\_Segmentation\_Mask\_Group\_With\_Vision-Language\_Prompts\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Chen et~al.(2026)Chen, Wu, Ji, Ma and Cao}]{chen3DDRESDetailed3D2026}
+\bibinfo{author}{Chen, Q.}, \bibinfo{author}{Wu, C.}, \bibinfo{author}{Ji, J.},
+  \bibinfo{author}{Ma, Y.}, \bibinfo{author}{Cao, L.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{{3D}-{DRES}: {Detailed} {3D} {Referring} {Expression}
+  {Segmentation}}, in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/37288},
+  \DOIprefix\doi{10.1609/aaai.v40i4.37288}. \bibinfo{note}{data-CID:
+  wviOsmGBSwAJ Google Scholar cited by: 1 Filtered venue: AAAI Scholar
+  metadata: Q Chen, C Wu, J Ji, Y Ma, L Cao - … of the AAAI Conference on
+  Artificial …, 2026 - ojs.aaai.org Scholar result number: 498 Scholar full
+  text: https://ojs.aaai.org/index.php/AAAI/article/download/37288/41250}.
+%Type = Inproceedings
+\bibitem[{Chng et~al.(2024)Chng, Zheng, Han and
+  Qiu}]{chngMaskGroundingReferring2024}
+\bibinfo{author}{Chng, Y.}, \bibinfo{author}{Zheng, H.}, \bibinfo{author}{Han,
+  Y.}, \bibinfo{author}{Qiu, X.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Mask grounding for referring image segmentation}, in:
+  \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Chng_Mask_Grounding_for_Referring_Image_Segmentation_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: 85RcUNHWSf4J Google Scholar cited by: 98 Filtered
+  venue: CVPR Scholar metadata: YX Chng, H Zheng, Y Han, X Qiu… - Proceedings
+  of the …, 2024 - openaccess.thecvf.com Scholar result number: 10 Scholar
+  full text:
+  https://openaccess.thecvf.com/content/CVPR2024/papers/Chng\_Mask\_Grounding\_for\_Referring\_Image\_Segmentation\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Cordts et~al.(2016)Cordts, Omran, Ramos, Rehfeld, Enzweiler,
+  Benenson, Franke, Roth and Schiele}]{cordts2016cityscapes}
+\bibinfo{author}{Cordts, M.}, \bibinfo{author}{Omran, M.},
+  \bibinfo{author}{Ramos, S.}, \bibinfo{author}{Rehfeld, T.},
+  \bibinfo{author}{Enzweiler, M.}, \bibinfo{author}{Benenson, R.},
+  \bibinfo{author}{Franke, U.}, \bibinfo{author}{Roth, S.},
+  \bibinfo{author}{Schiele, B.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{The cityscapes dataset for semantic urban scene
+  understanding}, in: \bibinfo{booktitle}{Proceedings of the IEEE Conference on
+  Computer Vision and Pattern Recognition (CVPR)}, pp.
+  \bibinfo{pages}{3213--3223}.
+%Type = Inproceedings
+\bibitem[{Cuttano et~al.(2025)Cuttano, Trivigno and
+  the}]{cuttanoSamwiseInfusingWisdom2025}
+\bibinfo{author}{Cuttano, C.}, \bibinfo{author}{Trivigno, G.},
+  \bibinfo{author}{the, G.R.P.o.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Samwise: {Infusing} wisdom in sam2 for text-driven
+  video segmentation}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2025/html/Cuttano_SAMWISE_Infusing_Wisdom_in_SAM2_for_Text-Driven_Video_Segmentation_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: vpgMIsBFJ2YJ Google Scholar cited by: 46 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: C Cuttano, G Trivigno, G Rosi…
+  - Proceedings of the …, 2025 - openaccess.thecvf.com Scholar result number:
+  192 Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2025/papers/Cuttano\_SAMWISE\_Infusing\_Wisdom\_in\_SAM2\_for\_Text-Driven\_Video\_Segmentation\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{D Zhang} et~al.(2025){D Zhang}, {F Liu}, {Q Tang - … Conference on
+  Computer Vision} and {2025}}]{dzhangCorrclipReconstructingPatch2025}
+\bibinfo{author}{{D Zhang}}, \bibinfo{author}{{F Liu}}, \bibinfo{author}{{Q
+  Tang - … Conference on Computer Vision}}, \bibinfo{author}{{2025}},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Corrclip: {Reconstructing} patch correlations in clip
+  for open-vocabulary semantic segmentation}, in: \bibinfo{booktitle}{{ICCV}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_CorrCLIP_Reconstructing_Patch_Correlations_in_CLIP_for_Open-Vocabulary_Semantic_Segmentation_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: to20W4D-g6oJ Google Scholar cited by: 31 Filtered
+  venue: ICCV Scholar metadata: D Zhang, F Liu, Q Tang - … Conference on
+  Computer Vision, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Zhang\_CorrCLIP\_Reconstructing\_Patch\_Correlations\_in\_CLIP\_for\_Open-Vocabulary\_Semantic\_Segmentation\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Dai and Yang(2024)}]{daiCurriculumPointPrompting2024}
+\bibinfo{author}{Dai, Q.}, \bibinfo{author}{Yang, S.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Curriculum point prompting for weakly-supervised
+  referring image segmentation}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Dai_Curriculum_Point_Prompting_for_Weakly-Supervised_Referring_Image_Segmentation_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: 7KD8i2sQfU8J Google Scholar cited by: 40 Filtered
+  venue: CVPR Scholar metadata: Q Dai, S Yang - Proceedings of the IEEE/CVF
+  Conference …, 2024 - openaccess.thecvf.com Scholar result number: 66
+  Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2024/papers/Dai\_Curriculum\_Point\_Prompting\_for\_Weakly-Supervised\_Referring\_Image\_Segmentation\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Deng et~al.(2026)Deng, Yang, Yu and
+  Athar}]{dengCoconutpancapJointPanoptic2026}
+\bibinfo{author}{Deng, X.}, \bibinfo{author}{Yang, L.}, \bibinfo{author}{Yu,
+  Q.}, \bibinfo{author}{Athar, A.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Coconut-pancap: {Joint} panoptic segmentation and
+  grounded captions for fine-grained understanding and generation}, in:
+  \bibinfo{booktitle}{{NeurIPS}}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2025/hash/528470fcd715697580bc06a16f4129fd-Abstract-Datasets_and_Benchmarks_Track.html},
+  \DOIprefix\doi{10.48550/arxiv.2502.02589}. \bibinfo{note}{data-CID:
+  nLIlhePi9ocJ Google Scholar cited by: 10 Filtered venue: NeurIPS Rejected
+  reason: allowed venue/year but title lacks explicit segmentation plus
+  reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: X Deng, L Yang, Q Yu, A Athar…
+  - Advances in …, 2026 - proceedings.neurips.cc Scholar result number: 452
+  Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2025/file/528470fcd715697580bc06a16f4129fd-Paper-Datasets\_and\_Benchmarks\_Track.pdf}.
+%Type = Inproceedings
+\bibitem[{{DU Kang} et~al.(2025){DU Kang}, {H Kim}, {SY Chun - The Thirteenth
+  International …} and {2025}}]{dukangClassDistributioninducedAttention2025}
+\bibinfo{author}{{DU Kang}}, \bibinfo{author}{{H Kim}}, \bibinfo{author}{{SY
+  Chun - The Thirteenth International …}}, \bibinfo{author}{{2025}},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Class {Distribution}-induced {Attention} {Map} for
+  {Open}-vocabulary {Semantic} {Segmentations}}, in:
+  \bibinfo{booktitle}{{ICLR}}.
+\newblock \URLprefix \url{https://openreview.net/forum?id=CMqOfvD3tO}.
+  \bibinfo{note}{data-CID: n\_VbJ82eH30J Google Scholar cited by: 6 Filtered
+  venue: ICLR Scholar metadata: DU Kang, H Kim, SY Chun - The Thirteenth
+  International …, 2025 - openreview.net Scholar full text:
+  https://openreview.net/pdf?id=CMqOfvD3tO}.
+%Type = Article
+\bibitem[{Everingham et~al.(2015)Everingham, Eslami, Van~Gool, Williams, Winn
+  and Zisserman}]{everingham2015pascal}
+\bibinfo{author}{Everingham, M.}, \bibinfo{author}{Eslami, S.M.A.},
+  \bibinfo{author}{Van~Gool, L.}, \bibinfo{author}{Williams, C.K.I.},
+  \bibinfo{author}{Winn, J.}, \bibinfo{author}{Zisserman, A.},
+  \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{The pascal visual object classes challenge: A
+  retrospective}.
+\newblock \bibinfo{journal}{International Journal of Computer Vision}
+  \bibinfo{volume}{111}, \bibinfo{pages}{98--136}.
+%Type = Inproceedings
+\bibitem[{{G Rosi} et~al.(2025){G Rosi}, {F Cermelli - Proceedings of the
+  Computer Vision …} and {2025}}]{grosiShowTellBenchmark2025}
+\bibinfo{author}{{G Rosi}}, \bibinfo{author}{{F Cermelli - Proceedings of the
+  Computer Vision …}}, \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Show or {Tell}? {A} {Benchmark} {To} {Evaluate}
+  {Visual} and {Textual} {Prompts} in {Semantic} {Segmentation}}, in:
+  \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2025W/PixFoundation/html/Rosi_Show_or_Tell_A_Benchmark_To_Evaluate_Visual_and_Textual_CVPRW_2025_paper.html}.
+  \bibinfo{note}{data-CID: fZj2hH\_rcqwJ Google Scholar cited by: 0 Filtered
+  venue: CVPR Scholar metadata: G Rosi, F Cermelli - Proceedings of the
+  Computer Vision …, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025W/PixFoundation/papers/Rosi\_Show\_or\_Tell\_A\_Benchmark\_To\_Evaluate\_Visual\_and\_Textual\_CVPRW\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{Ge J} et~al.(2025){Ge J}, {Xie L} and {Xie
+  H}}]{gejCLIPAdaptedRegiontoTextLearning2025}
+\bibinfo{author}{{Ge J}}, \bibinfo{author}{{Xie L}}, \bibinfo{author}{{Xie H}},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{{CLIP}-{Adapted} {Region}-to-{Text} {Learning} for
+  {Generative} {Open}-{Vocabulary} {Semantic} {Segmentation}}, in:
+  \bibinfo{booktitle}{{ICCV}}, pp. \bibinfo{pages}{24034--24044}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Ge_CLIP-Adapted_Region-to-Text_Learning_for_Generative_Open-Vocabulary_Semantic_Segmentation_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: n-5lVxkEdj0J Google Scholar cited by: 2 Filtered
+  venue: ICCV Scholar citation: Ge J, Xie L, Xie H, et al. CLIP-Adapted
+  Region-to-Text Learning for Generative Open-Vocabulary Semantic
+  Segmentation[C]//Proceedings of the IEEE/CVF International Conference on
+  Computer Vision. 2025: 24034-24044. Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Ge\_CLIP-Adapted\_Region-to-Text\_Learning\_for\_Generative\_Open-Vocabulary\_Semantic\_Segmentation\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Guo et~al.(2026)Guo, Wu, Zhou, Hong, Chen and
+  Li}]{guoSeeingBelievingRichContext2026}
+\bibinfo{author}{Guo, P.}, \bibinfo{author}{Wu, C.}, \bibinfo{author}{Zhou,
+  X.}, \bibinfo{author}{Hong, L.}, \bibinfo{author}{Chen, Z.},
+  \bibinfo{author}{Li, J.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Seeing is {Believing}: {Rich}-{Context}
+  {Hallucination} {Detection} for {MLLMs} via {Backward} {Visual} {Grounding}},
+  in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/40345},
+  \DOIprefix\doi{10.1609/aaai.v40i37.40345}. \bibinfo{note}{data-CID:
+  tKmlcESaIREJ Google Scholar cited by: Filtered venue: AAAI Rejected reason:
+  allowed venue/year but title lacks explicit segmentation plus
+  reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: P Guo, C Wu, X Zhou, L Hong, Z
+  Chen, J Li… - Proceedings of the …, 2026 - ojs.aaai.org Scholar result
+  number: 330 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/download/40345/44306}.
+%Type = Inproceedings
+\bibitem[{{H Huang} et~al.(2024){H Huang}, {S Peng}, {D Zhang… - Advances in
+  Neural …} and {2024}}]{hhuangRenovatingNamesOpenvocabulary2024}
+\bibinfo{author}{{H Huang}}, \bibinfo{author}{{S Peng}}, \bibinfo{author}{{D
+  Zhang… - Advances in Neural …}}, \bibinfo{author}{{2024}},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Renovating names in open-vocabulary segmentation
+  benchmarks}, in: \bibinfo{booktitle}{{NeurIPS}}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2024/hash/a124b5e7385d35e5c8ad05d192106e19-Abstract-Conference.html},
+  \DOIprefix\doi{10.48550/arxiv.2403.09593}. \bibinfo{note}{data-CID:
+  XKV7O92g31sJ Google Scholar cited by: 7 Filtered venue: NeurIPS Scholar
+  metadata: H Huang, S Peng, D Zhang… - Advances in Neural …, 2024 -
+  proceedings.neurips.cc Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2024/file/a124b5e7385d35e5c8ad05d192106e19-Paper-Conference.pdf}.
+%Type = Inproceedings
+\bibitem[{{H Wang} et~al.(2026){H Wang}, {L Qiao}, {Z Jie}, {Z Huang}, {C
+  Feng… - Proceedings of the …} and {2026}}]{hwangXSAMSegmentAnything2026}
+\bibinfo{author}{{H Wang}}, \bibinfo{author}{{L Qiao}}, \bibinfo{author}{{Z
+  Jie}}, \bibinfo{author}{{Z Huang}}, \bibinfo{author}{{C Feng… - Proceedings
+  of the …}}, \bibinfo{author}{{2026}}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{X-{SAM}: {From} segment anything to any
+  segmentation}, in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/39822},
+  \DOIprefix\doi{10.1609/aaai.v40i31.39822}. \bibinfo{note}{data-CID:
+  p8FLqpdytGoJ Google Scholar cited by: 7 Filtered venue: AAAI Scholar
+  metadata: H Wang, L Qiao, Z Jie, Z Huang, C Feng… - Proceedings of the …,
+  2026 - ojs.aaai.org Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/view/39822/43783}.
+%Type = Inproceedings
+\bibitem[{Hu et~al.(2025)Hu, Zhu, Zhang, Cheng and
+  Liu}]{huGroundingSuiteMeasuringComplex2025}
+\bibinfo{author}{Hu, R.}, \bibinfo{author}{Zhu, L.}, \bibinfo{author}{Zhang,
+  Y.}, \bibinfo{author}{Cheng, T.}, \bibinfo{author}{Liu, L.},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{{GroundingSuite}: {Measuring} {Complex}
+  {Multi}-{Granular} {Pixel} {Grounding}}, in: \bibinfo{booktitle}{{ICCV}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Hu_GroundingSuite_Measuring_Complex_Multi-Granular_Pixel_Grounding_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: eSuyJ242FeYJ Google Scholar cited by: 6 Filtered
+  venue: ICCV Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: R Hu, L Zhu, Y Zhang, T Cheng, L
+  Liu… - Proceedings of the …, 2025 - openaccess.thecvf.com Scholar result
+  number: 680 Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Hu\_GroundingSuite\_Measuring\_Complex\_Multi-Granular\_Pixel\_Grounding\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Huang et~al.(2026a)Huang, Li, Zhang and
+  in}]{huangSurprise3dDatasetSpatial2026}
+\bibinfo{author}{Huang, J.}, \bibinfo{author}{Li, Z.}, \bibinfo{author}{Zhang,
+  H.}, \bibinfo{author}{in, R.C.A.}, \bibinfo{year}{2026}a.
+\newblock \bibinfo{title}{Surprise3d: {A} dataset for spatial understanding and
+  reasoning in complex 3d scenes}, in: \bibinfo{booktitle}{{NeurIPS}}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2025/hash/a78b27a56bf8505f96710e9ffa9d5edf-Abstract-Datasets_and_Benchmarks_Track.html},
+  \DOIprefix\doi{10.48550/arxiv.2507.07781}. \bibinfo{note}{data-CID:
+  xmfpP5FPaIIJ Google Scholar cited by: 8 Filtered venue: NeurIPS Rejected
+  reason: allowed venue/year but title lacks explicit segmentation plus
+  reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: J Huang, Z Li, H Zhang, R
+  Chen… - Advances in …, 2026 - proceedings.neurips.cc Scholar result
+  number: 111 Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2025/file/a78b27a56bf8505f96710e9ffa9d5edf-Paper-Datasets\_and\_Benchmarks\_Track.pdf}.
+%Type = Inproceedings
+\bibitem[{Huang et~al.(2026b)Huang, Zhong, Zhang and
+  Liu}]{huangPixelsLogicPerceptionReasoning2026}
+\bibinfo{author}{Huang, L.}, \bibinfo{author}{Zhong, S.},
+  \bibinfo{author}{Zhang, Z.}, \bibinfo{author}{Liu, Y.},
+  \bibinfo{year}{2026}b.
+\newblock \bibinfo{title}{From {Pixels} to {Logic}: {A}
+  {Perception}-{Reasoning} {Decomposition} {Framework} for {Open}-{World}
+  {Referring} {Expression} {Comprehension}}, in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/37419},
+  \DOIprefix\doi{10.1609/aaai.v40i7.37419}. \bibinfo{note}{data-CID:
+  0-UgPRupGVMJ Google Scholar cited by: Filtered venue: AAAI Rejected reason:
+  allowed venue/year but title not strict RIS/RES Source rejected file:
+  gs\_ris\_20260522\_rejected\_allowed\_venue\_topic.json Source search prefix:
+  gs\_ris\_20260522 Scholar metadata: L Huang, S Zhong, Z Zhang, Y Liu - … of
+  the AAAI Conference on Artificial …, 2026 - ojs.aaai.org Scholar result
+  number: 206 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/view/37419/41381}.
+%Type = Inproceedings
+\bibitem[{Huang et~al.(2025a)Huang, He and
+  Wen}]{huangZoRIDiscriminativeZeroshot2025}
+\bibinfo{author}{Huang, S.}, \bibinfo{author}{He, S.}, \bibinfo{author}{Wen,
+  B.}, \bibinfo{year}{2025}a.
+\newblock \bibinfo{title}{{ZoRI}: {Towards} discriminative zero-shot remote
+  sensing instance segmentation}, in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/32388},
+  \DOIprefix\doi{10.1609/aaai.v39i4.32388}. \bibinfo{note}{data-CID:
+  AatH0Y1rAlcJ Google Scholar cited by: 12 Filtered venue: AAAI Rejected
+  reason: allowed venue/year but title not direct vision-language segmentation
+  Source rejected file: gs\_vlseg\_rejected\_allowed\_venue\_topic.json Source
+  search prefix: gs\_vlseg Scholar metadata: S Huang, S He, B Wen - Proceedings
+  of the AAAI Conference on …, 2025 - ojs.aaai.org Scholar result number: 406
+  Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/download/32388/34543}.
+%Type = Inproceedings
+\bibitem[{Huang et~al.(2025b)Huang, Ling, Li, Hui, Tang and
+  Wei}]{huangUnleashingTemporalspatialReasoning2025}
+\bibinfo{author}{Huang, S.}, \bibinfo{author}{Ling, R.}, \bibinfo{author}{Li,
+  H.}, \bibinfo{author}{Hui, T.}, \bibinfo{author}{Tang, Z.},
+  \bibinfo{author}{Wei, X.}, \bibinfo{year}{2025}b.
+\newblock \bibinfo{title}{Unleashing the temporal-spatial reasoning capacity of
+  gpt for training-free audio and language referenced video object
+  segmentation}, in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/32387},
+  \DOIprefix\doi{10.1609/aaai.v39i4.32387}. \bibinfo{note}{data-CID:
+  jWCa6IJpenoJ Google Scholar cited by: 22 Filtered venue: AAAI Rejected
+  reason: allowed venue/year but title not strict RIS/RES Source rejected file:
+  gs\_ris\_20260522\_rejected\_allowed\_venue\_topic.json Source search prefix:
+  gs\_ris\_20260522 Scholar metadata: S Huang, R Ling, H Li, T Hui, Z Tang, X
+  Wei… - Proceedings of the …, 2025 - ojs.aaai.org Scholar result number:
+  688 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/download/32387/34542}.
+%Type = Inproceedings
+\bibitem[{Huang et~al.(2025c)Huang, Chen, Ji and
+  Cao}]{huangInter2FormerDynamicHybrid2025}
+\bibinfo{author}{Huang, Y.}, \bibinfo{author}{Chen, L.}, \bibinfo{author}{Ji,
+  J.}, \bibinfo{author}{Cao, L.}, \bibinfo{year}{2025}c.
+\newblock \bibinfo{title}{{Inter2Former}: {Dynamic} {Hybrid} {Attention} for
+  {Efficient} {High}-{Precision} {Interactive} {Segmentation}}, in:
+  \bibinfo{booktitle}{{ICCV}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Huang_Inter2Former_Dynamic_Hybrid_Attention_for_Efficient_High-Precision_Interactive_Segmentation_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: zagLUeD8b-4J Google Scholar cited by: 1 Filtered
+  venue: ICCV Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: Y Huang, L Chen, J Ji, L Cao…
+  - Proceedings of the …, 2025 - openaccess.thecvf.com Scholar result number:
+  695 Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Huang\_Inter2Former\_Dynamic\_Hybrid\_Attention\_for\_Efficient\_High-Precision\_Interactive\_Segmentation\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Huang et~al.(2024)Huang, Lan, Cao and
+  Lin}]{huangFocsamDelvingDeeply2024}
+\bibinfo{author}{Huang, Y.}, \bibinfo{author}{Lan, Z.}, \bibinfo{author}{Cao,
+  L.}, \bibinfo{author}{Lin, X.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Focsam: {Delving} deeply into focused objects in
+  segmenting anything}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Huang_FocSAM_Delving_Deeply_into_Focused_Objects_in_Segmenting_Anything_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: qIRn5uj4Q1QJ Google Scholar cited by: 9 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: Y Huang, Z Lan, L Cao, X Lin…
+  - Proceedings of the …, 2024 - openaccess.thecvf.com Scholar result number:
+  751 Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2024/papers/Huang\_FocSAM\_Delving\_Deeply\_into\_Focused\_Objects\_in\_Segmenting\_Anything\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{J Wang} et~al.(2024){J Wang}, {L Ke - … IEEE/CVF Conference on
+  Computer Vision …} and {2024}}]{jwangLlmsegBridgingImage2024}
+\bibinfo{author}{{J Wang}}, \bibinfo{author}{{L Ke - … IEEE/CVF Conference on
+  Computer Vision …}}, \bibinfo{author}{{2024}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Llm-seg: {Bridging} image segmentation and large
+  language model reasoning}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2024W/MMFM/html/Wang_LLM-Seg_Bridging_Image_Segmentation_and_Large_Language_Model_Reasoning_CVPRW_2024_paper.html}.
+  \bibinfo{note}{data-CID: q5l46vuPYgQJ Google Scholar cited by: 92 Filtered
+  venue: CVPR Scholar metadata: J Wang, L Ke - … IEEE/CVF Conference on
+  Computer Vision …, 2024 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2024W/MMFM/papers/Wang\_LLM-Seg\_Bridging\_Image\_Segmentation\_and\_Large\_Language\_Model\_Reasoning\_CVPRW\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Jose et~al.(2025)Jose, Moutakanni and Kang}]{joseDinov2MeetsText2025}
+\bibinfo{author}{Jose, C.}, \bibinfo{author}{Moutakanni, T.},
+  \bibinfo{author}{Kang, D.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Dinov2 meets text: {A} unified framework for
+  image-and pixel-level vision-language alignment}, in:
+  \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2025/html/Jose_DINOv2_Meets_Text_A_Unified_Framework_for_Image-_and_Pixel-Level_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: lmy56tZ5lCwJ Google Scholar cited by: 87 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title not direct
+  vision-language segmentation Source rejected file:
+  gs\_vlseg\_rejected\_allowed\_venue\_topic.json Source search prefix:
+  gs\_vlseg Scholar metadata: C Jose, T Moutakanni, D Kang… - Proceedings of
+  the …, 2025 - openaccess.thecvf.com Scholar result number: 133 Scholar full
+  text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Jose\_DINOv2\_Meets\_Text\_A\_Unified\_Framework\_for\_Image-\_and\_Pixel-Level\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Kazemzadeh et~al.(2014)Kazemzadeh, Ordonez, Matten and
+  Berg}]{kazemzadeh2014referitgame}
+\bibinfo{author}{Kazemzadeh, S.}, \bibinfo{author}{Ordonez, V.},
+  \bibinfo{author}{Matten, M.}, \bibinfo{author}{Berg, T.L.},
+  \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Referitgame: Referring to objects in photographs of
+  natural scenes}, in: \bibinfo{booktitle}{Proceedings of the 2014 Conference
+  on Empirical Methods in Natural Language Processing (EMNLP)}, pp.
+  \bibinfo{pages}{787--798}.
 %Type = Inproceedings
 \bibitem[{Kirillov et~al.(2019)Kirillov, He, Girshick, Rother and
   Doll{\'a}r}]{kirillov2019panoptic}
@@ -41,13 +475,20 @@
   \bibinfo{booktitle}{Proceedings of the IEEE/CVF International Conference on
   Computer Vision (ICCV)}.
 %Type = Inproceedings
-\bibitem[{Lai et~al.(2024)Lai, Tian, Chen, Li, Yuan, Liu and Jia}]{lai2024lisa}
-\bibinfo{author}{Lai, X.}, \bibinfo{author}{Tian, Z.}, \bibinfo{author}{Chen,
-  Y.}, \bibinfo{author}{Li, Y.}, \bibinfo{author}{Yuan, Y.},
-  \bibinfo{author}{Liu, S.}, \bibinfo{author}{Jia, J.}, \bibinfo{year}{2024}.
-\newblock \bibinfo{title}{Lisa: Reasoning segmentation via large language
-  model}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference on
-  Computer Vision and Pattern Recognition (CVPR)}.
+\bibitem[{{L Sun} et~al.(2025){L Sun}, {J Cao}, {J Xie}, {X Jiang… - … on
+  Computer Vision} and {2025}}]{lsunCliperHierarchicallyImproving2025}
+\bibinfo{author}{{L Sun}}, \bibinfo{author}{{J Cao}}, \bibinfo{author}{{J
+  Xie}}, \bibinfo{author}{{X Jiang… - … on Computer Vision}},
+  \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Cliper: {Hierarchically} improving spatial
+  representation of clip for open-vocabulary semantic segmentation}, in:
+  \bibinfo{booktitle}{{ICCV}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Sun_CLIPer_Hierarchically_Improving_Spatial_Representation_of_CLIP_for_Open-Vocabulary_Semantic_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: 8XYM0KtHXzoJ Google Scholar cited by: 23 Filtered
+  venue: ICCV Scholar metadata: L Sun, J Cao, J Xie, X Jiang… - … on
+  Computer Vision, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Sun\_CLIPer\_Hierarchically\_Improving\_Spatial\_Representation\_of\_CLIP\_for\_Open-Vocabulary\_Semantic\_ICCV\_2025\_paper.pdf}.
 %Type = Inproceedings
 \bibitem[{Lee et~al.(2025)Lee, Cho, Lee, Yang, Choi, Kim and
   Lee}]{lee2025escnet}
@@ -58,6 +499,22 @@
   semantic segmentation}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF
   Conference on Computer Vision and Pattern Recognition (CVPR)}, pp.
   \bibinfo{pages}{26081--26090}.
+%Type = Inproceedings
+\bibitem[{{Li B} et~al.(2026){Li B}, {Dong H} and {Zhang
+  D}}]{libExploringEfficientOpenvocabulary2026}
+\bibinfo{author}{{Li B}}, \bibinfo{author}{{Dong H}}, \bibinfo{author}{{Zhang
+  D}}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Exploring efficient open-vocabulary segmentation in
+  the remote sensing}, in: \bibinfo{booktitle}{{AAAI}}, pp.
+  \bibinfo{pages}{5982--5991}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/37521},
+  \DOIprefix\doi{10.1609/aaai.v40i8.37521}. \bibinfo{note}{data-CID:
+  ZSKbg9XpMq0J Google Scholar cited by: 31 Filtered venue: AAAI Scholar
+  citation: Li B, Dong H, Zhang D, et al. Exploring efficient open-vocabulary
+  segmentation in the remote sensing[C]//Proceedings of the AAAI Conference on
+  Artificial Intelligence. 2026, 40(8): 5982-5991. Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/download/37521/41483}.
 %Type = Inproceedings
 \bibitem[{Liang et~al.(2023)Liang, Wu, Dai, Li, Zhao, Zhang, Zhang, Vajda and
   Marculescu}]{liang2023ovseg}
@@ -70,12 +527,72 @@
   mask-adapted clip}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF
   Conference on Computer Vision and Pattern Recognition (CVPR)}.
 %Type = Inproceedings
-\bibitem[{Long et~al.(2015)Long, Shelhamer and Darrell}]{long2015fully}
-\bibinfo{author}{Long, J.}, \bibinfo{author}{Shelhamer, E.},
-  \bibinfo{author}{Darrell, T.}, \bibinfo{year}{2015}.
-\newblock \bibinfo{title}{Fully convolutional networks for semantic
-  segmentation}, in: \bibinfo{booktitle}{Proceedings of the IEEE Conference on
-  Computer Vision and Pattern Recognition (CVPR)}.
+\bibitem[{Liang et~al.(2025)Liang, Lin, Tan and
+  Zhang}]{liangReferdinoReferringVideo2025}
+\bibinfo{author}{Liang, T.}, \bibinfo{author}{Lin, K.}, \bibinfo{author}{Tan,
+  C.}, \bibinfo{author}{Zhang, J.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Referdino: {Referring} video object segmentation with
+  visual grounding foundations}, in: \bibinfo{booktitle}{{ICCV}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Liang_ReferDINO_Referring_Video_Object_Segmentation_with_Visual_Grounding_Foundations_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: eOEgKNuUWGMJ Google Scholar cited by: 31 Filtered
+  venue: ICCV Scholar metadata: T Liang, KY Lin, C Tan, J Zhang… -
+  Proceedings of the …, 2025 - openaccess.thecvf.com Scholar result number:
+  303 Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Liang\_ReferDINO\_Referring\_Video\_Object\_Segmentation\_with\_Visual\_Grounding\_Foundations\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Lin et~al.(2014)Lin, Maire, Belongie, Hays, Perona, Ramanan, Dollar
+  and Zitnick}]{lin2014microsoft}
+\bibinfo{author}{Lin, T.Y.}, \bibinfo{author}{Maire, M.},
+  \bibinfo{author}{Belongie, S.}, \bibinfo{author}{Hays, J.},
+  \bibinfo{author}{Perona, P.}, \bibinfo{author}{Ramanan, D.},
+  \bibinfo{author}{Dollar, P.}, \bibinfo{author}{Zitnick, C.L.},
+  \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Microsoft coco: Common objects in context}, in:
+  \bibinfo{booktitle}{Proceedings of the European Conference on Computer Vision
+  (ECCV)}, pp. \bibinfo{pages}{740--755}.
+%Type = Inproceedings
+\bibitem[{Liu et~al.(2024)Liu, Zeng, Ren, Li, Zhang, Yang, Jiang, Li, Yang, Su,
+  Zhu and Zhang}]{liu2024groundingdino}
+\bibinfo{author}{Liu, S.}, \bibinfo{author}{Zeng, Z.}, \bibinfo{author}{Ren,
+  T.}, \bibinfo{author}{Li, F.}, \bibinfo{author}{Zhang, H.},
+  \bibinfo{author}{Yang, J.}, \bibinfo{author}{Jiang, Q.}, \bibinfo{author}{Li,
+  C.}, \bibinfo{author}{Yang, J.}, \bibinfo{author}{Su, H.},
+  \bibinfo{author}{Zhu, J.}, \bibinfo{author}{Zhang, L.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Grounding dino: Marrying dino with grounded
+  pre-training for open-set object detection}, in:
+  \bibinfo{booktitle}{Proceedings of the European Conference on Computer Vision
+  (ECCV)}, pp. \bibinfo{pages}{38--55}.
+%Type = Inproceedings
+\bibitem[{Liu and Li(2025)}]{liuHybridGloballocalRepresentation2025}
+\bibinfo{author}{Liu, T.}, \bibinfo{author}{Li, S.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Hybrid global-local representation with augmented
+  spatial guidance for zero-shot referring image segmentation}, in:
+  \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Hybrid_Global-Local_Representation_with_Augmented_Spatial_Guidance_for_Zero-Shot_Referring_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: bwiOb6alS2gJ Google Scholar cited by: 14 Filtered
+  venue: CVPR Scholar metadata: T Liu, S Li - Proceedings of the IEEE/CVF
+  Conference on …, 2025 - openaccess.thecvf.com Scholar result number: 58
+  Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Liu\_Hybrid\_Global-Local\_Representation\_with\_Augmented\_Spatial\_Guidance\_for\_Zero-Shot\_Referring\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Liu et~al.(2025)Liu, Qiao, Chu and
+  Ma}]{liuEfficientFoundationModel2025}
+\bibinfo{author}{Liu, Z.}, \bibinfo{author}{Qiao, L.}, \bibinfo{author}{Chu,
+  X.}, \bibinfo{author}{Ma, L.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Towards efficient foundation model for zero-shot
+  amodal segmentation}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2025/html/Liu_Towards_Efficient_Foundation_Model_for_Zero-shot_Amodal_Segmentation_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: 5rpgWfzZbrAJ Google Scholar cited by: 6 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: Z Liu, L Qiao, X Chu, L Ma… -
+  Proceedings of the …, 2025 - openaccess.thecvf.com Scholar result number:
+  639 Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Liu\_Towards\_Efficient\_Foundation\_Model\_for\_Zero-shot\_Amodal\_Segmentation\_CVPR\_2025\_paper.pdf}.
 %Type = Inproceedings
 \bibitem[{Luo et~al.(2024)Luo, Khandelwal, Sigal and Li}]{luo2024pnpovss}
 \bibinfo{author}{Luo, J.}, \bibinfo{author}{Khandelwal, S.},
@@ -83,6 +600,158 @@
 \newblock \bibinfo{title}{Emergent open-vocabulary semantic segmentation from
   off-the-shelf vision-language models}, in: \bibinfo{booktitle}{Proceedings of
   the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}.
+%Type = Inproceedings
+\bibitem[{Luo et~al.(2026)Luo, Chen, Zheng, Dai and
+  Zou}]{luoConnectingDotsTrainingFree2026}
+\bibinfo{author}{Luo, L.}, \bibinfo{author}{Chen, G.}, \bibinfo{author}{Zheng,
+  X.}, \bibinfo{author}{Dai, Y.}, \bibinfo{author}{Zou, Y.},
+  \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Connecting the {Dots}: {Training}-{Free} {Visual}
+  {Grounding} via {Agentic} {Reasoning}}, in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/37709}.
+  \bibinfo{note}{data-CID: T-YY9k7zwJIJ Google Scholar cited by: Filtered
+  venue: AAAI Rejected reason: allowed venue/year but title not strict MLLM
+  segmentation Source rejected file:
+  gs\_mllmseg\_20260522\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_mllmseg\_20260522 Scholar metadata: L Luo, G Chen, X Zheng, Y
+  Dai, Y Zou… - Proceedings of the AAAI …, 2026 - ojs.aaai.org Scholar
+  result number: 923 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/view/37709/41671}.
+%Type = Inproceedings
+\bibitem[{{M Lee} et~al.(2025){M Lee}, {S Cho}, {J Lee}, {S Yang}, {H Choi… -
+  … Computer Vision …} and {2025}}]{mleeEffectiveSAMCombination2025}
+\bibinfo{author}{{M Lee}}, \bibinfo{author}{{S Cho}}, \bibinfo{author}{{J
+  Lee}}, \bibinfo{author}{{S Yang}}, \bibinfo{author}{{H Choi… - … Computer
+  Vision …}}, \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Effective {SAM} combination for open-vocabulary
+  semantic segmentation}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2025/html/Lee_Effective_SAM_Combination_for_Open-Vocabulary_Semantic_Segmentation_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: ALbzlHY--swJ Google Scholar cited by: 15 Filtered
+  venue: CVPR Scholar metadata: M Lee, S Cho, J Lee, S Yang, H Choi… - …
+  Computer Vision …, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Lee\_Effective\_SAM\_Combination\_for\_Open-Vocabulary\_Semantic\_Segmentation\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{MA Aydın} et~al.(2025){MA Aydın}, {EM Cırpar}, {E Abdinli… -
+  … the Computer Vision …} and
+  {2025}}]{maaydinItaclipBoostingTrainingfree2025}
+\bibinfo{author}{{MA Aydın}}, \bibinfo{author}{{EM Cırpar}},
+  \bibinfo{author}{{E Abdinli… - … the Computer Vision …}},
+  \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Itaclip: {Boosting} training-free semantic
+  segmentation with image, text, and architectural enhancements}, in:
+  \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2025W/PixFoundation/html/Aydin_ITACLIP_Boosting_Training-Free_Semantic_Segmentation_with_Image_Text_and_Architectural_CVPRW_2025_paper.html}.
+  \bibinfo{note}{data-CID: Zap47OcdG3MJ Google Scholar cited by: 7 Filtered
+  venue: CVPR Scholar metadata: MA Aydın, EM Cırpar, E Abdinli… - … the
+  Computer Vision …, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025W/PixFoundation/papers/Aydin\_ITACLIP\_Boosting\_Training-Free\_Semantic\_Segmentation\_with\_Image\_Text\_and\_Architectural\_CVPRW\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Mao et~al.(2016)Mao, Huang, Toshev, Camburu, Yuille and
+  Murphy}]{mao2016generation}
+\bibinfo{author}{Mao, J.}, \bibinfo{author}{Huang, J.},
+  \bibinfo{author}{Toshev, A.}, \bibinfo{author}{Camburu, O.},
+  \bibinfo{author}{Yuille, A.L.}, \bibinfo{author}{Murphy, K.},
+  \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Generation and comprehension of unambiguous object
+  descriptions}, in: \bibinfo{booktitle}{Proceedings of the IEEE Conference on
+  Computer Vision and Pattern Recognition (CVPR)}, pp. \bibinfo{pages}{11--20}.
+%Type = Inproceedings
+\bibitem[{Munasinghe et~al.(2025)Munasinghe, Gani, Zhu and
+  Cao}]{munasingheVideoglammLargeMultimodal2025}
+\bibinfo{author}{Munasinghe, S.}, \bibinfo{author}{Gani, H.},
+  \bibinfo{author}{Zhu, W.}, \bibinfo{author}{Cao, J.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Videoglamm: {A} large multimodal model for
+  pixel-level visual grounding in videos}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2025/html/Munasinghe_VideoGLaMM__A_Large_Multimodal_Model_for_Pixel-Level_Visual_Grounding_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: iiDnHn-\_kjQJ Google Scholar cited by: 45 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: S Munasinghe, H Gani, W Zhu, J
+  Cao… - Proceedings of the …, 2025 - openaccess.thecvf.com Scholar result
+  number: 510 Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Munasinghe\_VideoGLaMM\_\_A\_Large\_Multimodal\_Model\_for\_Pixel-Level\_Visual\_Grounding\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{Noori M} et~al.(2026){Noori M}, {Osowiechi D} and {Vargas Hakim
+  G}}]{noorimTesttimeAdaptationVisionlanguage2026}
+\bibinfo{author}{{Noori M}}, \bibinfo{author}{{Osowiechi D}},
+  \bibinfo{author}{{Vargas Hakim G}}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Test-time adaptation of vision-language models for
+  open-vocabulary semantic segmentation}, in: \bibinfo{booktitle}{{NeurIPS}},
+  pp. \bibinfo{pages}{74741--74778}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2025/hash/6c5b82193c5d8e6aa5806239676ddc97-Abstract-Conference.html},
+  \DOIprefix\doi{10.48550/arxiv.2505.21844}. \bibinfo{note}{data-CID:
+  4Zt5bfZZZwkJ Google Scholar cited by: 7 Filtered venue: NeurIPS Scholar
+  citation: Noori M, Osowiechi D, Vargas Hakim G, et al. Test-time adaptation
+  of vision-language models for open-vocabulary semantic segmentation[J].
+  Advances in Neural Information Processing Systems, 2026, 38: 74741-74778.
+  Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2025/file/6c5b82193c5d8e6aa5806239676ddc97-Paper-Conference.pdf}.
+%Type = Inproceedings
+\bibitem[{Peng et~al.(2024)Peng, Wang, Dong and
+  Hao}]{pengGroundingMultimodalLarge2024}
+\bibinfo{author}{Peng, Z.}, \bibinfo{author}{Wang, W.}, \bibinfo{author}{Dong,
+  L.}, \bibinfo{author}{Hao, Y.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Grounding multimodal large language models to the
+  world}, in: \bibinfo{booktitle}{{ICLR}}.
+\newblock \URLprefix
+  \url{https://proceedings.iclr.cc/paper_files/paper/2024/hash/e112a4671e8779aa9f640a0e3f81bd26-Abstract-Conference.html},
+  \DOIprefix\doi{10.48550/arxiv.2306.14824}. \bibinfo{note}{data-CID:
+  hQsLFD93VtYJ Google Scholar cited by: 1383 Filtered venue: ICLR Rejected
+  reason: allowed venue/year but title not strict MLLM segmentation Source
+  rejected file: gs\_mllmseg\_20260522\_rejected\_allowed\_venue\_topic.json
+  Source search prefix: gs\_mllmseg\_20260522 Scholar metadata: Z Peng, W Wang,
+  L Dong, Y Hao… - International …, 2024 - proceedings.iclr.cc Scholar
+  result number: 132 Scholar full text:
+  https://proceedings.iclr.cc/paper\_files/paper/2024/file/e112a4671e8779aa9f640a0e3f81bd26-Paper-Conference.pdf}.
+%Type = Inproceedings
+\bibitem[{{Q Chen} et~al.(2025){Q Chen}, {L Yang}, {Y Chen}, {N Zhao… - …
+  on Computer Vision} and {2025}}]{qchenTrainingFreeClassPurification2025}
+\bibinfo{author}{{Q Chen}}, \bibinfo{author}{{L Yang}}, \bibinfo{author}{{Y
+  Chen}}, \bibinfo{author}{{N Zhao… - … on Computer Vision}},
+  \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Training-{Free} {Class} {Purification} for
+  {Open}-{Vocabulary} {Semantic} {Segmentation}}, in:
+  \bibinfo{booktitle}{{ICCV}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Chen_Training-Free_Class_Purification_for_Open-Vocabulary_Semantic_Segmentation_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: yV3FjF3WRCoJ Google Scholar cited by: 6 Filtered
+  venue: ICCV Scholar metadata: Q Chen, L Yang, Y Chen, N Zhao… - … on
+  Computer Vision, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Chen\_Training-Free\_Class\_Purification\_for\_Open-Vocabulary\_Semantic\_Segmentation\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Quenum et~al.(2026)Quenum, Hsieh and
+  in}]{quenumLisatLanguageinstructedSegmentation2026}
+\bibinfo{author}{Quenum, J.}, \bibinfo{author}{Hsieh, W.}, \bibinfo{author}{in,
+  T.W.A.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Lisat: {Language}-instructed segmentation assistant
+  for satellite imagery}, in: \bibinfo{booktitle}{{NeurIPS}}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2025/hash/a38a009bb015775b7685b5ef3c206310-Abstract-Datasets_and_Benchmarks_Track.html},
+  \DOIprefix\doi{10.48550/arxiv.2505.02829}. \bibinfo{note}{data-CID:
+  lscly9\_NQrcJ Google Scholar cited by: 6 Filtered venue: NeurIPS Scholar
+  metadata: J Quenum, WH Hsieh, THP Wu… - Advances in …, 2026 -
+  proceedings.neurips.cc Scholar result number: 110 Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2025/file/a38a009bb015775b7685b5ef3c206310-Paper-Datasets\_and\_Benchmarks\_Track.pdf}.
+%Type = Inproceedings
+\bibitem[{{R Qorbani} et~al.(2025){R Qorbani}, {G Villani… - … Computer
+  Vision …} and {2025}}]{rqorbaniSemanticLibraryAdaptation2025}
+\bibinfo{author}{{R Qorbani}}, \bibinfo{author}{{G Villani… - … Computer
+  Vision …}}, \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Semantic library adaptation: {Lora} retrieval and
+  fusion for open-vocabulary semantic segmentation}, in:
+  \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2025/html/Qorbani_Semantic_Library_Adaptation_LoRA_Retrieval_and_Fusion_for_Open-Vocabulary_Semantic_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: y8jVpKfLbRsJ Google Scholar cited by: 8 Filtered
+  venue: CVPR Scholar metadata: R Qorbani, G Villani… - … Computer Vision
+  …, 2025 - openaccess.thecvf.com Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2025/papers/Qorbani\_Semantic\_Library\_Adaptation\_LoRA\_Retrieval\_and\_Fusion\_for\_Open-Vocabulary\_Semantic\_CVPR\_2025\_paper.pdf}.
 %Type = Inproceedings
 \bibitem[{Radford et~al.(2021)Radford, Kim, Hallacy, Ramesh, Goh, Agarwal,
   Sastry, Askell, Mishkin, Clark, Krueger and Sutskever}]{radford2021learning}
@@ -97,25 +766,355 @@
   language supervision}, in: \bibinfo{booktitle}{Proceedings of the
   International Conference on Machine Learning (ICML)}.
 %Type = Inproceedings
-\bibitem[{Rasheed et~al.(2024)Rasheed, Maaz, Shaji, Shaker, Khan, Cholakkal,
-  Anwer, Xing, Yang and Khan}]{rasheed2024glamm}
+\bibitem[{Rasheed et~al.(2024)Rasheed, Maaz and
+  Shaji}]{rasheedGlammPixelGrounding2024}
 \bibinfo{author}{Rasheed, H.}, \bibinfo{author}{Maaz, M.},
-  \bibinfo{author}{Shaji, S.}, \bibinfo{author}{Shaker, A.},
-  \bibinfo{author}{Khan, S.}, \bibinfo{author}{Cholakkal, H.},
-  \bibinfo{author}{Anwer, R.M.}, \bibinfo{author}{Xing, E.},
-  \bibinfo{author}{Yang, M.H.}, \bibinfo{author}{Khan, F.S.},
-  \bibinfo{year}{2024}.
-\newblock \bibinfo{title}{Glamm: Pixel grounding large multimodal model}, in:
-  \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference on Computer Vision
-  and Pattern Recognition (CVPR)}.
+  \bibinfo{author}{Shaji, S.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Glamm: {Pixel} grounding large multimodal model}, in:
+  \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Rasheed_GLaMM_Pixel_Grounding_Large_Multimodal_Model_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: NlB9bc6QExoJ Google Scholar cited by: 548 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title not strict RIS/RES
+  Source rejected file: gs\_ris\_20260522\_rejected\_allowed\_venue\_topic.json
+  Source search prefix: gs\_ris\_20260522 Scholar metadata: H Rasheed, M Maaz,
+  S Shaji… - Proceedings of the …, 2024 - openaccess.thecvf.com Scholar
+  result number: 292 Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2024/papers/Rasheed\_GLaMM\_Pixel\_Grounding\_Large\_Multimodal\_Model\_CVPR\_2024\_paper.pdf}.
+%Type = Article
+\bibitem[{Ravi et~al.(2024)Ravi, Gabeur, Hu, Hu, Ryali, Ma, Khedr, R{\"a}dle,
+  Rolland, Gustafson, Mintun, Pan, Alwala, Carion, Wu, Girshick, Doll{\'a}r and
+  Feichtenhofer}]{ravi2024sam2}
+\bibinfo{author}{Ravi, N.}, \bibinfo{author}{Gabeur, V.}, \bibinfo{author}{Hu,
+  Y.T.}, \bibinfo{author}{Hu, R.}, \bibinfo{author}{Ryali, C.},
+  \bibinfo{author}{Ma, T.}, \bibinfo{author}{Khedr, H.},
+  \bibinfo{author}{R{\"a}dle, R.}, \bibinfo{author}{Rolland, C.},
+  \bibinfo{author}{Gustafson, L.}, \bibinfo{author}{Mintun, E.},
+  \bibinfo{author}{Pan, J.}, \bibinfo{author}{Alwala, K.V.},
+  \bibinfo{author}{Carion, N.}, \bibinfo{author}{Wu, C.Y.},
+  \bibinfo{author}{Girshick, R.}, \bibinfo{author}{Doll{\'a}r, P.},
+  \bibinfo{author}{Feichtenhofer, C.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Sam 2: Segment anything in images and videos}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2408.00714} .
 %Type = Inproceedings
-\bibitem[{Shi et~al.(2025)Shi, Dong and Xu}]{shi2025trident}
-\bibinfo{author}{Shi, Y.}, \bibinfo{author}{Dong, M.}, \bibinfo{author}{Xu,
-  C.}, \bibinfo{year}{2025}.
+\bibitem[{Ren et~al.(2024)Ren, Huang, Wei, Zhao and
+  the}]{renPixellmPixelReasoning2024}
+\bibinfo{author}{Ren, Z.}, \bibinfo{author}{Huang, Z.}, \bibinfo{author}{Wei,
+  Y.}, \bibinfo{author}{Zhao, Y.}, \bibinfo{author}{the, D.F.P.o.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Pixellm: {Pixel} reasoning with large multimodal
+  model}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Ren_PixelLM_Pixel_Reasoning_with_Large_Multimodal_Model_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: mGg\_V0xNSLsJ Google Scholar cited by: 279 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: Z Ren, Z Huang, Y Wei, Y Zhao, D
+  Fu… - Proceedings of the …, 2024 - openaccess.thecvf.com Scholar result
+  number: 99 Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2024/papers/Ren\_PixelLM\_Pixel\_Reasoning\_with\_Large\_Multimodal\_Model\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{S Dutta} et~al.(2025){S Dutta}, {A Vasim}, {S Gole… - … Computer
+  Vision …} and {2025}}]{sduttaAerosegHarnessingSam2025}
+\bibinfo{author}{{S Dutta}}, \bibinfo{author}{{A Vasim}}, \bibinfo{author}{{S
+  Gole… - … Computer Vision …}}, \bibinfo{author}{{2025}},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Aeroseg: {Harnessing} sam for open-vocabulary
+  segmentation in remote sensing images}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2025W/EarthVision/html/Dutta_AerOSeg_Harnessing_SAM_for_Open-Vocabulary_Segmentation_in_Remote_Sensing_Images_CVPRW_2025_paper.html}.
+  \bibinfo{note}{data-CID: DaAyzDZd2BgJ Google Scholar cited by: 16 Filtered
+  venue: CVPR Scholar metadata: S Dutta, A Vasim, S Gole… - … Computer
+  Vision …, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025W/EarthVision/papers/Dutta\_AerOSeg\_Harnessing\_SAM\_for\_Open-Vocabulary\_Segmentation\_in\_Remote\_Sensing\_Images\_CVPRW\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{S Jin} et~al.(2025){S Jin}, {S Yu}, {B Zhang}, {M Sun… - … on
+  Computer Vision} and {2025}}]{sjinFeaturePurificationMatters2025}
+\bibinfo{author}{{S Jin}}, \bibinfo{author}{{S Yu}}, \bibinfo{author}{{B
+  Zhang}}, \bibinfo{author}{{M Sun… - … on Computer Vision}},
+  \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Feature purification matters: {Suppressing} outlier
+  propagation for training-free open-vocabulary semantic segmentation}, in:
+  \bibinfo{booktitle}{{ICCV}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Jin_Feature_Purification_Matters_Suppressing_Outlier_Propagation_for_Training-Free_Open-Vocabulary_Semantic_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: IfuX80ETfJkJ Google Scholar cited by: 11 Filtered
+  venue: ICCV Scholar metadata: S Jin, S Yu, B Zhang, M Sun… - … on
+  Computer Vision, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Jin\_Feature\_Purification\_Matters\_Suppressing\_Outlier\_Propagation\_for\_Training-Free\_Open-Vocabulary\_Semantic\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{SG Xiao} et~al.(2026){SG Xiao}, {R Kabra}, {Y Li}, {D Lee… -
+  Advances in Neural …} and {2026}}]{sgxiaoOpenworldsamExtendingSam22026}
+\bibinfo{author}{{SG Xiao}}, \bibinfo{author}{{R Kabra}}, \bibinfo{author}{{Y
+  Li}}, \bibinfo{author}{{D Lee… - Advances in Neural …}},
+  \bibinfo{author}{{2026}}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Openworldsam: {Extending} sam2 for universal image
+  segmentation with language prompts}, in: \bibinfo{booktitle}{{NeurIPS}}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2025/hash/32fa3ddb3a6350cd1ab68e25f1c59982-Abstract-Conference.html},
+  \DOIprefix\doi{10.48550/arxiv.2507.05427}. \bibinfo{note}{data-CID:
+  uj-1n5OM8iQJ Google Scholar cited by: 6 Filtered venue: NeurIPS Scholar
+  metadata: SG Xiao, R Kabra, Y Li, D Lee… - Advances in Neural …, 2026 -
+  proceedings.neurips.cc Scholar full text:}.
+%Type = Inproceedings
+\bibitem[{{Shi Y} et~al.(2025){Shi Y}, {Dong M} and {Xu
+  C}}]{shiyHarnessingVisionFoundation2025}
+\bibinfo{author}{{Shi Y}}, \bibinfo{author}{{Dong M}}, \bibinfo{author}{{Xu
+  C}}, \bibinfo{year}{2025}.
 \newblock \bibinfo{title}{Harnessing vision foundation models for
   high-performance, training-free open vocabulary segmentation}, in:
-  \bibinfo{booktitle}{Proceedings of the IEEE/CVF International Conference on
-  Computer Vision (ICCV)}, pp. \bibinfo{pages}{23487--23497}.
+  \bibinfo{booktitle}{{ICCV}}, pp. \bibinfo{pages}{23487--23497}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Shi_Harnessing_Vision_Foundation_Models_for_High-Performance_Training-Free_Open_Vocabulary_Segmentation_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: s1qRfB-x-2EJ Google Scholar cited by: 35 Filtered
+  venue: ICCV Scholar citation: Shi Y, Dong M, Xu C. Harnessing vision
+  foundation models for high-performance, training-free open vocabulary
+  segmentation[C]//Proceedings of the IEEE/CVF International Conference on
+  Computer Vision. 2025: 23487-23497. Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Shi\_Harnessing\_Vision\_Foundation\_Models\_for\_High-Performance\_Training-Free\_Open\_Vocabulary\_Segmentation\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{Shin H} et~al.(2024){Shin H}, {Kim C} and {Hong
+  S}}]{shinhOpenvocabularySemanticSegmentation2024}
+\bibinfo{author}{{Shin H}}, \bibinfo{author}{{Kim C}}, \bibinfo{author}{{Hong
+  S}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Towards open-vocabulary semantic segmentation without
+  semantic labels}, in: \bibinfo{booktitle}{{NeurIPS}}, pp.
+  \bibinfo{pages}{9153--9177}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2024/hash/1119587863e78451f080da2a768c4935-Abstract-Conference.html},
+  \DOIprefix\doi{10.52202/079017-0290}. \bibinfo{note}{data-CID: waySYbH4yrsJ
+  Google Scholar cited by: 26 Filtered venue: NeurIPS Scholar citation: Shin H,
+  Kim C, Hong S, et al. Towards open-vocabulary semantic segmentation without
+  semantic labels[J]. Advances in Neural Information Processing Systems, 2024,
+  37: 9153-9177. Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2024/file/1119587863e78451f080da2a768c4935-Paper-Conference.pdf}.
+%Type = Inproceedings
+\bibitem[{Sikdar et~al.(2025)Sikdar, Kishor and
+  Kadam}]{sikdarPicazoPixelalignedContrastive2025}
+\bibinfo{author}{Sikdar, A.}, \bibinfo{author}{Kishor, A.},
+  \bibinfo{author}{Kadam, I.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Picazo: {Pixel}-aligned contrastive learning for
+  zero-shot domain adaptation}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2025W/DG-EBF/html/Sikdar_PiCaZo_Pixel-Aligned_Contrastive_Learning_for_Zero-Shot_Domain_Adaptation_CVPRW_2025_paper.html}.
+  \bibinfo{note}{data-CID: iZn5G004PJcJ Google Scholar cited by: 6 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: A Sikdar, A Kishor, I Kadam… -
+  Proceedings of the …, 2025 - openaccess.thecvf.com Scholar result number:
+  931 Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025W/DG-EBF/papers/Sikdar\_PiCaZo\_Pixel-Aligned\_Contrastive\_Learning\_for\_Zero-Shot\_Domain\_Adaptation\_CVPRW\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Sun et~al.(2026)Sun, Zhang, Ding and
+  Zhang}]{sunSamaMultiturnReferential2026}
+\bibinfo{author}{Sun, Y.}, \bibinfo{author}{Zhang, H.}, \bibinfo{author}{Ding,
+  H.}, \bibinfo{author}{Zhang, T.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Sama: {Towards} multi-turn referential grounded video
+  chat with large language models}, in: \bibinfo{booktitle}{{NeurIPS}}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2025/hash/433f75a8dd75fa81f38e19efcfd2fc0e-Abstract-Conference.html},
+  \DOIprefix\doi{10.48550/arxiv.2505.18812}. \bibinfo{note}{data-CID:
+  O7nwgJLe5oYJ Google Scholar cited by: 7 Filtered venue: NeurIPS Rejected
+  reason: allowed venue/year but title not strict MLLM segmentation Source
+  rejected file: gs\_mllmseg\_20260522\_rejected\_allowed\_venue\_topic.json
+  Source search prefix: gs\_mllmseg\_20260522 Scholar metadata: Y Sun, H Zhang,
+  H Ding, T Zhang… - Advances in Neural …, 2026 - proceedings.neurips.cc
+  Scholar result number: 687 Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2025/file/433f75a8dd75fa81f38e19efcfd2fc0e-Paper-Conference.pdf}.
+%Type = Article
+\bibitem[{Tang et~al.(2026)Tang, Sun, Gu and Li}]{tangVisualPositionPrompt2026}
+\bibinfo{author}{Tang, W.}, \bibinfo{author}{Sun, Y.}, \bibinfo{author}{Gu,
+  Q.}, \bibinfo{author}{Li, Z.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Visual position prompt for mllm based visual
+  grounding}.
+\newblock \bibinfo{journal}{IEEE Transactions on Multimedia} \URLprefix
+  \url{https://ieeexplore.ieee.org/abstract/document/11359555/},
+  \DOIprefix\doi{10.1109/tmm.2026.3654372}. \bibinfo{note}{data-CID:
+  YPDeLT4I3KYJ Google Scholar cited by: 20 Filtered venue: IEEE Transactions on
+  Multimedia Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: W Tang, Y Sun, Q Gu, Z Li - IEEE
+  Transactions on Multimedia, 2026 - ieeexplore.ieee.org Scholar result number:
+  812 Scholar full text: https://arxiv.org/pdf/2503.15426}.
+%Type = Inproceedings
+\bibitem[{{V Vats} et~al.(2026){V Vats}, {A Rathee}, {J Davis - Proceedings of
+  the AAAI Conference on …} and
+  {2026}}]{vvatsGuidelineConsistentSegmentationMultiAgent2026}
+\bibinfo{author}{{V Vats}}, \bibinfo{author}{{A Rathee}}, \bibinfo{author}{{J
+  Davis - Proceedings of the AAAI Conference on …}},
+  \bibinfo{author}{{2026}}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Guideline-{Consistent} {Segmentation} via
+  {Multi}-{Agent} {Refinement}}, in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/37923},
+  \DOIprefix\doi{10.1609/aaai.v40i12.37923}. \bibinfo{note}{data-CID:
+  iQcWPfDplhcJ Google Scholar cited by: 1 Filtered venue: AAAI Scholar
+  metadata: V Vats, A Rathee, J Davis - Proceedings of the AAAI Conference on
+  …, 2026 - ojs.aaai.org Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/download/37923/41885}.
+%Type = Inproceedings
+\bibitem[{Wang et~al.(2026)Wang, Wang, Zhong, Yang and
+  Wang}]{wangAffordancer1ReinforcementLearning2026}
+\bibinfo{author}{Wang, H.}, \bibinfo{author}{Wang, S.}, \bibinfo{author}{Zhong,
+  Y.}, \bibinfo{author}{Yang, Z.}, \bibinfo{author}{Wang, J.},
+  \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Affordance-r1: {Reinforcement} learning for
+  generalizable affordance reasoning in multimodal large language models}, in:
+  \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/37937},
+  \DOIprefix\doi{10.1609/aaai.v40i12.37937}. \bibinfo{note}{data-CID:
+  IsMrsh0-lCEJ Google Scholar cited by: 19 Filtered venue: AAAI Rejected
+  reason: allowed venue/year but title not strict MLLM segmentation Source
+  rejected file: gs\_mllmseg\_20260522\_rejected\_allowed\_venue\_topic.json
+  Source search prefix: gs\_mllmseg\_20260522 Scholar metadata: H Wang, S Wang,
+  Y Zhong, Z Yang, J Wang… - Proceedings of the …, 2026 - ojs.aaai.org
+  Scholar result number: 329 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/view/37937/41899}.
+%Type = Inproceedings
+\bibitem[{Wang et~al.(2025a)Wang, Ni, Liu, Yuan and
+  Tang}]{wangIterprimeZeroshotReferring2025}
+\bibinfo{author}{Wang, Y.}, \bibinfo{author}{Ni, J.}, \bibinfo{author}{Liu,
+  Y.}, \bibinfo{author}{Yuan, C.}, \bibinfo{author}{Tang, Y.},
+  \bibinfo{year}{2025}a.
+\newblock \bibinfo{title}{Iterprime: {Zero}-shot referring image segmentation
+  with iterative grad-cam refinement and primary word emphasis}, in:
+  \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/32880},
+  \DOIprefix\doi{10.1609/aaai.v39i8.32880}. \bibinfo{note}{data-CID:
+  XRHhlI7LcwYJ Google Scholar cited by: 28 Filtered venue: AAAI Scholar
+  metadata: Y Wang, J Ni, Y Liu, C Yuan, Y Tang - Proceedings of the AAAI …,
+  2025 - ojs.aaai.org Scholar result number: 62 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/view/32880/35035}.
+%Type = Inproceedings
+\bibitem[{Wang et~al.(2025b)Wang, Xu, Liu and
+  Li}]{wangSam2loveSegmentAnything2025}
+\bibinfo{author}{Wang, Y.}, \bibinfo{author}{Xu, H.}, \bibinfo{author}{Liu,
+  Y.}, \bibinfo{author}{Li, J.}, \bibinfo{year}{2025}b.
+\newblock \bibinfo{title}{Sam2-love: {Segment} anything model 2 in
+  language-aided audio-visual scenes}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2025/html/Wang_SAM2-LOVE_Segment_Anything_Model_2_in_Language-aided_Audio-Visual_Scenes_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: Uuh5pNmDNgIJ Google Scholar cited by: 19 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: Y Wang, H Xu, Y Liu, J Li… -
+  Proceedings of the …, 2025 - openaccess.thecvf.com Scholar result number:
+  316 Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Wang\_SAM2-LOVE\_Segment\_Anything\_Model\_2\_in\_Language-aided\_Audio-Visual\_Scenes\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{X Han} et~al.(2025){X Han}, {L Wei}, {X Yu}, {Z Dou}, {X He}, {K
+  Wang… - Proceedings of the …} and
+  {2025}}]{xhanBoostingSegmentAnything2025}
+\bibinfo{author}{{X Han}}, \bibinfo{author}{{L Wei}}, \bibinfo{author}{{X Yu}},
+  \bibinfo{author}{{Z Dou}}, \bibinfo{author}{{X He}}, \bibinfo{author}{{K
+  Wang… - Proceedings of the …}}, \bibinfo{author}{{2025}},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Boosting segment anything model towards
+  open-vocabulary learning}, in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/32347},
+  \DOIprefix\doi{10.1609/aaai.v39i3.32347}. \bibinfo{note}{data-CID:
+  -dhJ3GeyfUYJ Google Scholar cited by: 14 Filtered venue: AAAI Scholar
+  metadata: X Han, L Wei, X Yu, Z Dou, X He, K Wang… - Proceedings of the
+  …, 2025 - ojs.aaai.org Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/view/32347/34502}.
+%Type = Inproceedings
+\bibitem[{{X Lai} et~al.(2024){X Lai}, {Z Tian}, {Y Chen}, {Y Li}, {Y Yuan… -
+  … on computer vision …} and {2024}}]{xlaiLisaReasoningSegmentation2024}
+\bibinfo{author}{{X Lai}}, \bibinfo{author}{{Z Tian}}, \bibinfo{author}{{Y
+  Chen}}, \bibinfo{author}{{Y Li}}, \bibinfo{author}{{Y Yuan… - … on
+  computer vision …}}, \bibinfo{author}{{2024}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Lisa: {Reasoning} segmentation via large language
+  model}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Lai_LISA_Reasoning_Segmentation_via_Large_Language_Model_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: Fonas8emAQEJ Google Scholar cited by: 1201 Filtered
+  venue: CVPR Scholar metadata: X Lai, Z Tian, Y Chen, Y Li, Y Yuan… - … on
+  computer vision …, 2024 - openaccess.thecvf.com Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2024/papers/Lai\_LISA\_Reasoning\_Segmentation\_via\_Large\_Language\_Model\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{X Shan} et~al.(2024){X Shan}, {D Wu}, {G Zhu}, {Y Shao… - … on
+  Computer Vision …} and
+  {2024}}]{xshanOpenvocabularySemanticSegmentation2024}
+\bibinfo{author}{{X Shan}}, \bibinfo{author}{{D Wu}}, \bibinfo{author}{{G
+  Zhu}}, \bibinfo{author}{{Y Shao… - … on Computer Vision …}},
+  \bibinfo{author}{{2024}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Open-vocabulary semantic segmentation with image
+  embedding balancing}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2024/html/Shan_Open-Vocabulary_Semantic_Segmentation_with_Image_Embedding_Balancing_CVPR_2024_paper.html?ref=https://git.chanpinqingbaoju.com}.
+  \bibinfo{note}{data-CID: kGe7okMOsMEJ Google Scholar cited by: 71 Filtered
+  venue: CVPR Scholar metadata: X Shan, D Wu, G Zhu, Y Shao… - … on
+  Computer Vision …, 2024 - openaccess.thecvf.com Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2024/papers/Shan\_Open-Vocabulary\_Semantic\_Segmentation\_with\_Image\_Embedding\_Balancing\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{X Wang} et~al.(2024){X Wang}, {W He}, {X Xuan}, {C Sebastian… -
+  … Computer Vision …} and {2024}}]{xwangUseUniversalSegment2024}
+\bibinfo{author}{{X Wang}}, \bibinfo{author}{{W He}}, \bibinfo{author}{{X
+  Xuan}}, \bibinfo{author}{{C Sebastian… - … Computer Vision …}},
+  \bibinfo{author}{{2024}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Use: {Universal} segment embeddings for
+  open-vocabulary image segmentation}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Wang_USE_Universal_Segment_Embeddings_for_Open-Vocabulary_Image_Segmentation_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: jkCR0IbH\_CUJ Google Scholar cited by: 23 Filtered
+  venue: CVPR Scholar metadata: X Wang, W He, X Xuan, C Sebastian… - …
+  Computer Vision …, 2024 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2024/papers/Wang\_USE\_Universal\_Segment\_Embeddings\_for\_Open-Vocabulary\_Image\_Segmentation\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{X Xuan} et~al.(2025){X Xuan}, {Z Deng}, {KL Ma - … Conference on
+  Computer Vision} and {2025}}]{xxuanReMEDataCentricFramework2025}
+\bibinfo{author}{{X Xuan}}, \bibinfo{author}{{Z Deng}}, \bibinfo{author}{{KL Ma
+  - … Conference on Computer Vision}}, \bibinfo{author}{{2025}},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{{ReME}: {A} {Data}-{Centric} {Framework} for
+  {Training}-{Free} {Open}-{Vocabulary} {Segmentation}}, in:
+  \bibinfo{booktitle}{{ICCV}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Xuan_ReME_A_Data-Centric_Framework_for_Training-Free_Open-Vocabulary_Segmentation_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: NhIUAjYwUxYJ Google Scholar cited by: 2 Filtered
+  venue: ICCV Scholar metadata: X Xuan, Z Deng, KL Ma - … Conference on
+  Computer Vision, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Xuan\_ReME\_A\_Data-Centric\_Framework\_for\_Training-Free\_Open-Vocabulary\_Segmentation\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Xia et~al.(2024)Xia, Han, Han, Pan and
+  the}]{xiaGsvaGeneralizedSegmentation2024}
+\bibinfo{author}{Xia, Z.}, \bibinfo{author}{Han, D.}, \bibinfo{author}{Han,
+  Y.}, \bibinfo{author}{Pan, X.}, \bibinfo{author}{the, S.S.P.o.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Gsva: {Generalized} segmentation via multimodal large
+  language models}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Xia_GSVA_Generalized_Segmentation_via_Multimodal_Large_Language_Models_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: Zkx1oc\_tHi4J Google Scholar cited by: 217 Filtered
+  venue: CVPR Scholar metadata: Z Xia, D Han, Y Han, X Pan, S Song… -
+  Proceedings of the …, 2024 - openaccess.thecvf.com Scholar result number:
+  182 Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2024/papers/Xia\_GSVA\_Generalized\_Segmentation\_via\_Multimodal\_Large\_Language\_Models\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Xiao et~al.(2024)Xiao, Yang, Peng and
+  Wang}]{xiaoOnerefUnifiedOnetower2024}
+\bibinfo{author}{Xiao, L.}, \bibinfo{author}{Yang, X.}, \bibinfo{author}{Peng,
+  F.}, \bibinfo{author}{Wang, Y.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Oneref: {Unified} one-tower expression grounding and
+  segmentation with mask referring modeling}, in:
+  \bibinfo{booktitle}{{NeurIPS}}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2024/hash/fcd812a51b8f8d05cfea22e3c9c4b369-Abstract-Conference.html},
+  \DOIprefix\doi{10.48550/arxiv.2410.08021}. \bibinfo{note}{data-CID:
+  NsOZeAheYTcJ Google Scholar cited by: 37 Filtered venue: NeurIPS Rejected
+  reason: allowed venue/year but title not strict RIS/RES Source rejected file:
+  gs\_ris\_20260522\_rejected\_allowed\_venue\_topic.json Source search prefix:
+  gs\_ris\_20260522 Scholar metadata: L Xiao, X Yang, F Peng, Y Wang… -
+  Advances in Neural …, 2024 - proceedings.neurips.cc Scholar result number:
+  130 Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2024/file/fcd812a51b8f8d05cfea22e3c9c4b369-Paper-Conference.pdf}.
 %Type = Inproceedings
 \bibitem[{Xu et~al.(2023a)Xu, Liu, Vahdat, Byeon, Wang and
   De~Mello}]{xu2023odise}
@@ -126,6 +1125,24 @@
   text-to-image diffusion models}, in: \bibinfo{booktitle}{Proceedings of the
   IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}.
 %Type = Inproceedings
+\bibitem[{Xu et~al.(2024)Xu, Zhou, Yan, Gu and
+  Arnab}]{xuPixelalignedLanguageModel2024}
+\bibinfo{author}{Xu, J.}, \bibinfo{author}{Zhou, X.}, \bibinfo{author}{Yan,
+  S.}, \bibinfo{author}{Gu, X.}, \bibinfo{author}{Arnab, A.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Pixel-aligned language model}, in:
+  \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Xu_Pixel-Aligned_Language_Model_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: cMpMFrSW8WoJ Google Scholar cited by: 46 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title not direct
+  vision-language segmentation Source rejected file:
+  gs\_vlseg\_rejected\_allowed\_venue\_topic.json Source search prefix:
+  gs\_vlseg Scholar metadata: J Xu, X Zhou, S Yan, X Gu, A Arnab… -
+  Proceedings of the …, 2024 - openaccess.thecvf.com Scholar result number:
+  421 Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2024/papers/Xu\_Pixel-Aligned\_Language\_Model\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
 \bibitem[{Xu et~al.(2023b)Xu, Zhang, Wei, Hu and Bai}]{xu2023san}
 \bibinfo{author}{Xu, M.}, \bibinfo{author}{Zhang, Z.}, \bibinfo{author}{Wei,
   F.}, \bibinfo{author}{Hu, H.}, \bibinfo{author}{Bai, X.},
@@ -134,16 +1151,356 @@
   segmentation}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference
   on Computer Vision and Pattern Recognition (CVPR)}.
 %Type = Inproceedings
-\bibitem[{Zou et~al.(2023)Zou, Dou, Yang, Gan, Li, Li, Dai, Behl, Wang, Yuan,
-  Peng, Wang, Lee and Gao}]{zou2023xdecoder}
-\bibinfo{author}{Zou, X.}, \bibinfo{author}{Dou, Z.Y.}, \bibinfo{author}{Yang,
-  J.}, \bibinfo{author}{Gan, Z.}, \bibinfo{author}{Li, L.},
-  \bibinfo{author}{Li, C.}, \bibinfo{author}{Dai, X.}, \bibinfo{author}{Behl,
-  H.}, \bibinfo{author}{Wang, J.}, \bibinfo{author}{Yuan, L.},
-  \bibinfo{author}{Peng, N.}, \bibinfo{author}{Wang, L.}, \bibinfo{author}{Lee,
-  Y.J.}, \bibinfo{author}{Gao, J.}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Generalized decoding for pixel, image, and language},
-  in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference on Computer
-  Vision and Pattern Recognition (CVPR)}.
+\bibitem[{Xu et~al.(2026)Xu, Guo, Lu, Yang, Li and
+  AAAI}]{xuVideosegr1ReasoningVideo2026}
+\bibinfo{author}{Xu, Z.}, \bibinfo{author}{Guo, Y.}, \bibinfo{author}{Lu, Y.},
+  \bibinfo{author}{Yang, F.}, \bibinfo{author}{Li, J.}, \bibinfo{author}{AAAI,
+  L.C.P.o.t.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Videoseg-r1: reasoning video object segmentation via
+  reinforcement learning}, in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/38132},
+  \DOIprefix\doi{10.48550/arxiv.2511.16077}. \bibinfo{note}{data-CID:
+  xqRKFxiJXhAJ Google Scholar cited by: 2 Filtered venue: AAAI Scholar
+  metadata: Z Xu, Y Guo, Y Lu, F Yang, J Li, L Cai - Proceedings of the AAAI
+  …, 2026 - ojs.aaai.org Scholar result number: 43 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/view/38132/42094}.
+%Type = Inproceedings
+\bibitem[{{Y Benigmim} et~al.(2025){Y Benigmim}, {M Fahes}, {TH Vu… - …
+  Computer Vision} and {2025}}]{ybenigmimFlossFreeLunch2025}
+\bibinfo{author}{{Y Benigmim}}, \bibinfo{author}{{M Fahes}},
+  \bibinfo{author}{{TH Vu… - … Computer Vision}}, \bibinfo{author}{{2025}},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Floss: {Free} lunch in open-vocabulary semantic
+  segmentation}, in: \bibinfo{booktitle}{{ICCV}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Benigmim_FLOSS_Free_Lunch_in_Open-vocabulary_Semantic_Segmentation_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: h7R9e0CKsIIJ Google Scholar cited by: 3 Filtered
+  venue: ICCV Scholar metadata: Y Benigmim, M Fahes, TH Vu… - … Computer
+  Vision, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Benigmim\_FLOSS\_Free\_Lunch\_in\_Open-vocabulary\_Semantic\_Segmentation\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{Y Li} et~al.(2025){Y Li}, {T Cheng}, {B Feng}, {W Liu… - … on
+  computer vision and …} and {2025}}]{yliMaskadapterDevilMasks2025}
+\bibinfo{author}{{Y Li}}, \bibinfo{author}{{T Cheng}}, \bibinfo{author}{{B
+  Feng}}, \bibinfo{author}{{W Liu… - … on computer vision and …}},
+  \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Mask-adapter: {The} devil is in the masks for
+  open-vocabulary segmentation}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2025/html/Li_Mask-Adapter_The_Devil_is_in_the_Masks_for_Open-Vocabulary_Segmentation_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: obu8JAAgA\_cJ Google Scholar cited by: 21 Filtered
+  venue: CVPR Scholar metadata: Y Li, T Cheng, B Feng, W Liu… - … on
+  computer vision and …, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Li\_Mask-Adapter\_The\_Devil\_is\_in\_the\_Masks\_for\_Open-Vocabulary\_Segmentation\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{Y Liu} et~al.(2025){Y Liu}, {SL Wu}, {S Bai}, {J Wang… - … on
+  Computer Vision} and {2025}}]{yliuSteppingOutSimilar2025}
+\bibinfo{author}{{Y Liu}}, \bibinfo{author}{{SL Wu}}, \bibinfo{author}{{S
+  Bai}}, \bibinfo{author}{{J Wang… - … on Computer Vision}},
+  \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Stepping out of similar semantic space for
+  open-vocabulary segmentation}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/ICCV2025/html/Liu_Stepping_Out_of_Similar_Semantic_Space_for_Open-Vocabulary_Segmentation_ICCV_2025_paper.html}.
+  \bibinfo{note}{data-CID: gJAcX-XCgCgJ Google Scholar cited by: 4 Filtered
+  venue: CVPR Scholar metadata: Y Liu, SL Wu, S Bai, J Wang… - … on
+  Computer Vision, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/ICCV2025/papers/Liu\_Stepping\_Out\_of\_Similar\_Semantic\_Space\_for\_Open-Vocabulary\_Segmentation\_ICCV\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{Y Miao} et~al.(2026){Y Miao}, {JN Zaech}, {X Wang… - Advances in
+  …} and {2026}}]{ymiaoLanghopsLanguageGrounded2026}
+\bibinfo{author}{{Y Miao}}, \bibinfo{author}{{JN Zaech}}, \bibinfo{author}{{X
+  Wang… - Advances in …}}, \bibinfo{author}{{2026}}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Langhops: {Language} grounded hierarchical
+  open-vocabulary part segmentation}, in: \bibinfo{booktitle}{{NeurIPS}}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2025/hash/fc797c61eb18f7b3ce9a74af0ef0d876-Abstract-Conference.html},
+  \DOIprefix\doi{10.48550/arxiv.2510.25263}. \bibinfo{note}{data-CID:
+  8RZCJftj558J Google Scholar cited by: 2 Filtered venue: NeurIPS Scholar
+  metadata: Y Miao, JN Zaech, X Wang… - Advances in …, 2026 -
+  proceedings.neurips.cc Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2025/file/fc797c61eb18f7b3ce9a74af0ef0d876-Paper-Conference.pdf}.
+%Type = Inproceedings
+\bibitem[{Yan et~al.(2026)Yan, Diao, Yang, Jing, Xu and
+  the}]{yanMedreasonerReinforcementLearning2026}
+\bibinfo{author}{Yan, Z.}, \bibinfo{author}{Diao, M.}, \bibinfo{author}{Yang,
+  Y.}, \bibinfo{author}{Jing, R.}, \bibinfo{author}{Xu, J.},
+  \bibinfo{author}{the, K.Z.P.o.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Medreasoner: {Reinforcement} learning drives
+  reasoning grounding from clinical thought to pixel-level precision}, in:
+  \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/38141},
+  \DOIprefix\doi{10.48550/arxiv.2508.08177}. \bibinfo{note}{data-CID:
+  h8YnN-4Rj84J Google Scholar cited by: 7 Filtered venue: AAAI Rejected reason:
+  allowed venue/year but title lacks explicit segmentation plus
+  reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: Z Yan, M Diao, Y Yang, R Jing, J
+  Xu, K Zhang… - Proceedings of the …, 2026 - ojs.aaai.org Scholar result
+  number: 67 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/download/38141/42103}.
+%Type = Inproceedings
+\bibitem[{Yan et~al.(2025)Yan, Li, He, Wang, Li and
+  Li}]{yanTaskPreferenceOptimization2025}
+\bibinfo{author}{Yan, Z.}, \bibinfo{author}{Li, Z.}, \bibinfo{author}{He, Y.},
+  \bibinfo{author}{Wang, C.}, \bibinfo{author}{Li, K.}, \bibinfo{author}{Li,
+  X.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Task preference optimization: {Improving} multimodal
+  large language models with vision task alignment}, in:
+  \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2025/html/Yan_Task_Preference_Optimization_Improving_Multimodal_Large_Language_Models_with_Vision_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: mytvWxLXejoJ Google Scholar cited by: 33 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title not strict MLLM
+  segmentation Source rejected file:
+  gs\_mllmseg\_20260522\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_mllmseg\_20260522 Scholar metadata: Z Yan, Z Li, Y He, C Wang, K
+  Li, X Li… - Proceedings of the …, 2025 - openaccess.thecvf.com Scholar
+  result number: 278 Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Yan\_Task\_Preference\_Optimization\_Improving\_Multimodal\_Large\_Language\_Models\_with\_Vision\_CVPR\_2025\_paper.pdf}.
+%Type = Article
+\bibitem[{Yang and Gong(2026)}]{yangRepurposingSAMEfficient2026}
+\bibinfo{author}{Yang, X.}, \bibinfo{author}{Gong, X.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Re-purposing {SAM} into {Efficient} {Visual}
+  {Projectors} for {MLLM}-{Based} {Referring} {Image} {Segmentation}}.
+\newblock \bibinfo{journal}{IEEE Transactions on Multimedia} \URLprefix
+  \url{https://dl.acm.org/doi/abs/10.1145/3777472},
+  \DOIprefix\doi{10.1145/3777472}. \bibinfo{note}{data-CID: Wp6PHQgDXrcJ Google
+  Scholar cited by: 1 Filtered venue: IEEE Transactions on Multimedia Scholar
+  metadata: X Yang, X Gong - ACM Transactions on Multimedia Computing …, 2026
+  - dl.acm.org Scholar result number: 323 Scholar full text:
+  https://dl.acm.org/doi/pdf/10.1145/3777472}.
+%Type = Inproceedings
+\bibitem[{Yang et~al.(2025)Yang, Meng, Fu and
+  Tang}]{yangExploringCLIPsDense2025}
+\bibinfo{author}{Yang, Z.}, \bibinfo{author}{Meng, Y.}, \bibinfo{author}{Fu,
+  K.}, \bibinfo{author}{Tang, F.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Exploring {CLIP}'s {Dense} {Knowledge} for {Weakly}
+  {Supervised} {Semantic} {Segmentation}}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2025/html/Yang_Exploring_CLIPs_Dense_Knowledge_for_Weakly_Supervised_Semantic_Segmentation_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: H3xPHeP0o6sJ Google Scholar cited by: 27 Filtered
+  venue: CVPR Scholar metadata: Z Yang, Y Meng, K Fu, F Tang… - Proceedings
+  of the …, 2025 - openaccess.thecvf.com Scholar result number: 863 Scholar
+  full text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Yang\_Exploring\_CLIPs\_Dense\_Knowledge\_for\_Weakly\_Supervised\_Semantic\_Segmentation\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Ye et~al.(2026)Ye, Luan, Chen, Meng and
+  Dai}]{yeRISLADBenchmarkModel2026}
+\bibinfo{author}{Ye, K.}, \bibinfo{author}{Luan, Y.}, \bibinfo{author}{Chen,
+  Z.}, \bibinfo{author}{Meng, G.}, \bibinfo{author}{Dai, P.},
+  \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{{RIS}-{LAD}: {A} {Benchmark} and {Model} for
+  {Referring} {Image} {Segmentation} in {Low}-{Altitude} {Drone} {Imagery}},
+  in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/38181},
+  \DOIprefix\doi{10.1609/aaai.v40i14.38181}. \bibinfo{note}{data-CID:
+  WvCI7p928goJ Google Scholar cited by: Filtered venue: AAAI Scholar metadata:
+  K Ye, YS Luan, Z Chen, G Meng, P Dai… - Proceedings of the AAAI …, 2026 -
+  ojs.aaai.org Scholar result number: 172 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/download/38181/42143}.
+%Type = Inproceedings
+\bibitem[{You et~al.(2024)You, Zhang, Gan, Du and
+  Zhang}]{youFerretReferGround2024}
+\bibinfo{author}{You, H.}, \bibinfo{author}{Zhang, H.}, \bibinfo{author}{Gan,
+  Z.}, \bibinfo{author}{Du, X.}, \bibinfo{author}{Zhang, B.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Ferret: {Refer} and ground anything anywhere at any
+  granularity}, in: \bibinfo{booktitle}{{ICLR}}.
+\newblock \URLprefix
+  \url{https://proceedings.iclr.cc/paper_files/paper/2024/hash/fd6613131889a4b656206c50a8bd7790-Abstract-Conference.html},
+  \DOIprefix\doi{10.48550/arxiv.2310.07704}. \bibinfo{note}{data-CID:
+  IgX6VY8FbIYJ Google Scholar cited by: 557 Filtered venue: ICLR Rejected
+  reason: allowed venue/year but title not strict MLLM segmentation Source
+  rejected file: gs\_mllmseg\_20260522\_rejected\_allowed\_venue\_topic.json
+  Source search prefix: gs\_mllmseg\_20260522 Scholar metadata: H You, H Zhang,
+  Z Gan, X Du, B Zhang… - International …, 2024 - proceedings.iclr.cc
+  Scholar result number: 590 Scholar full text:
+  https://proceedings.iclr.cc/paper\_files/paper/2024/file/fd6613131889a4b656206c50a8bd7790-Paper-Conference.pdf}.
+%Type = Inproceedings
+\bibitem[{Yu et~al.(2016)Yu, Poirson, Yang, Berg and Berg}]{yu2016modeling}
+\bibinfo{author}{Yu, L.}, \bibinfo{author}{Poirson, P.}, \bibinfo{author}{Yang,
+  S.}, \bibinfo{author}{Berg, A.C.}, \bibinfo{author}{Berg, T.L.},
+  \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Modeling context in referring expressions}, in:
+  \bibinfo{booktitle}{Proceedings of the European Conference on Computer Vision
+  (ECCV)}, pp. \bibinfo{pages}{69--85}.
+%Type = Inproceedings
+\bibitem[{Yuan et~al.(2024)Yuan, Li, Liu, Tang and
+  Luo}]{yuanOspreyPixelUnderstanding2024}
+\bibinfo{author}{Yuan, Y.}, \bibinfo{author}{Li, W.}, \bibinfo{author}{Liu,
+  J.}, \bibinfo{author}{Tang, D.}, \bibinfo{author}{Luo, X.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Osprey: {Pixel} understanding with visual instruction
+  tuning}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2024/html/Yuan_Osprey_Pixel_Understanding_with_Visual_Instruction_Tuning_CVPR_2024_paper.html}.
+  \bibinfo{note}{data-CID: 3T4igN33kPwJ Google Scholar cited by: 194 Filtered
+  venue: CVPR Rejected reason: allowed venue/year but title lacks explicit
+  segmentation plus reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: Y Yuan, W Li, J Liu, D Tang, X
+  Luo… - Proceedings of the …, 2024 - openaccess.thecvf.com Scholar result
+  number: 382 Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2024/papers/Yuan\_Osprey\_Pixel\_Understanding\_with\_Visual\_Instruction\_Tuning\_CVPR\_2024\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{YX Chng} et~al.(2026){YX Chng}, {X Qiu}, {Y Han}, {K Ding… - IEEE
+  Transactions on …} and {2026}}]{yxchngAligningVisionLanguageModel2026}
+\bibinfo{author}{{YX Chng}}, \bibinfo{author}{{X Qiu}}, \bibinfo{author}{{Y
+  Han}}, \bibinfo{author}{{K Ding… - IEEE Transactions on …}},
+  \bibinfo{author}{{2026}}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Aligning {Vision}-{Language} {Model} with
+  {Fine}-grained {Semantics} for {Open}-{Vocabulary} {Segmentation}}, in:
+  \bibinfo{booktitle}{{ICLR}}.
+\newblock \URLprefix
+  \url{https://ieeexplore.ieee.org/abstract/document/11342322/},
+  \DOIprefix\doi{10.1109/tcsvt.2026.3652517}. \bibinfo{note}{data-CID:
+  d4aI0E-XCI4J Google Scholar cited by: 0 Filtered venue: ICLR Scholar
+  metadata: YX Chng, X Qiu, Y Han, K Ding… - IEEE Transactions on …, 2026 -
+  ieeexplore.ieee.org Scholar full text:
+  https://openreview.net/pdf?id=X2IzSFHs71}.
+%Type = Inproceedings
+\bibitem[{{Z Peng} et~al.(2025){Z Peng}, {Z Xu}, {Z Zeng}, {Y Huang… - …
+  the Computer Vision …} and
+  {2025}}]{zpengParameterefficientFinetuningHyperspherical2025}
+\bibinfo{author}{{Z Peng}}, \bibinfo{author}{{Z Xu}}, \bibinfo{author}{{Z
+  Zeng}}, \bibinfo{author}{{Y Huang… - … the Computer Vision …}},
+  \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Parameter-efficient fine-tuning in hyperspherical
+  space for open-vocabulary semantic segmentation}, in:
+  \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{http://openaccess.thecvf.com/content/CVPR2025/html/Peng_Parameter-efficient_Fine-tuning_in_Hyperspherical_Space_for_Open-vocabulary_Semantic_Segmentation_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: 3oc52WyiMN8J Google Scholar cited by: 20 Filtered
+  venue: CVPR Scholar metadata: Z Peng, Z Xu, Z Zeng, Y Huang… - … the
+  Computer Vision …, 2025 - openaccess.thecvf.com Scholar full text:
+  http://openaccess.thecvf.com/content/CVPR2025/papers/Peng\_Parameter-efficient\_Fine-tuning\_in\_Hyperspherical\_Space\_for\_Open-vocabulary\_Semantic\_Segmentation\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{{Z Zhao} et~al.(2025){Z Zhao}, {X Li}, {L Shi}, {N Imanpour… - …
+  of the Computer Vision …} and {2025}}]{zzhaoDPSegDualpromptCost2025}
+\bibinfo{author}{{Z Zhao}}, \bibinfo{author}{{X Li}}, \bibinfo{author}{{L
+  Shi}}, \bibinfo{author}{{N Imanpour… - … of the Computer Vision …}},
+  \bibinfo{author}{{2025}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{{DPSeg}: dual-prompt cost volume learning for
+  open-vocabulary semantic segmentation}, in: \bibinfo{booktitle}{{CVPR}}.
+\newblock \URLprefix
+  \url{https://openaccess.thecvf.com/content/CVPR2025/html/Zhao_DPSeg_Dual-Prompt_Cost_Volume_Learning_for_Open-Vocabulary_Semantic_Segmentation_CVPR_2025_paper.html}.
+  \bibinfo{note}{data-CID: ew4kO35Pxl8J Google Scholar cited by: 13 Filtered
+  venue: CVPR Scholar metadata: Z Zhao, X Li, L Shi, N Imanpour… - … of the
+  Computer Vision …, 2025 - openaccess.thecvf.com Scholar full text:
+  https://openaccess.thecvf.com/content/CVPR2025/papers/Zhao\_DPSeg\_Dual-Prompt\_Cost\_Volume\_Learning\_for\_Open-Vocabulary\_Semantic\_Segmentation\_CVPR\_2025\_paper.pdf}.
+%Type = Inproceedings
+\bibitem[{Zhang et~al.(2024a)Zhang, Li, Li, Ren, Zou and
+  Liu}]{zhangLlavagroundingGroundedVisual2024}
+\bibinfo{author}{Zhang, H.}, \bibinfo{author}{Li, H.}, \bibinfo{author}{Li,
+  F.}, \bibinfo{author}{Ren, T.}, \bibinfo{author}{Zou, X.},
+  \bibinfo{author}{Liu, S.}, \bibinfo{year}{2024}a.
+\newblock \bibinfo{title}{Llava-grounding: {Grounded} visual chat with large
+  multimodal models}, in: \bibinfo{booktitle}{{ECCV}}.
+\newblock \URLprefix
+  \url{https://link.springer.com/chapter/10.1007/978-3-031-72775-7_2},
+  \DOIprefix\doi{10.1007/978-3-031-72775-7_2}. \bibinfo{note}{data-CID:
+  XXXdC9rXMWsJ Google Scholar cited by: 149 Filtered venue: ECCV Rejected
+  reason: allowed venue/year but title not strict MLLM segmentation Source
+  rejected file: gs\_mllmseg\_20260522\_rejected\_allowed\_venue\_topic.json
+  Source search prefix: gs\_mllmseg\_20260522 Scholar metadata: H Zhang, H Li,
+  F Li, T Ren, X Zou, S Liu… - … on Computer Vision, 2024 - Springer
+  Scholar result number: 500 Scholar full text:
+  https://arxiv.org/pdf/2312.02949}.
+%Type = Inproceedings
+\bibitem[{Zhang et~al.(2024b)Zhang, Li, Fei, Yuan and
+  neural}]{zhangOmgllavaBridgingImagelevel2024}
+\bibinfo{author}{Zhang, T.}, \bibinfo{author}{Li, X.}, \bibinfo{author}{Fei,
+  H.}, \bibinfo{author}{Yuan, H.}, \bibinfo{author}{neural, S.W.A.i.},
+  \bibinfo{year}{2024}b.
+\newblock \bibinfo{title}{Omg-llava: {Bridging} image-level, object-level,
+  pixel-level reasoning and understanding}, in: \bibinfo{booktitle}{{NeurIPS}}.
+\newblock \URLprefix
+  \url{https://proceedings.neurips.cc/paper_files/paper/2024/hash/83eb86be3e2f9fd66c44d9073c51ba4d-Abstract-Conference.html},
+  \DOIprefix\doi{10.48550/arxiv.2406.19389}. \bibinfo{note}{data-CID:
+  ey3DgXTuVL4J Google Scholar cited by: 215 Filtered venue: NeurIPS Rejected
+  reason: allowed venue/year but title lacks explicit segmentation plus
+  reasoning/LLM/instruction signal Source rejected file:
+  gs\_reasoning\_seg\_rejected\_allowed\_venue\_topic.json Source search
+  prefix: gs\_reasoning\_seg Scholar metadata: T Zhang, X Li, H Fei, H Yuan, S
+  Wu… - Advances in neural …, 2024 - proceedings.neurips.cc Scholar result
+  number: 125 Scholar full text:
+  https://proceedings.neurips.cc/paper\_files/paper/2024/file/83eb86be3e2f9fd66c44d9073c51ba4d-Paper-Conference.pdf}.
+%Type = Inproceedings
+\bibitem[{Zhao et~al.(2024)Zhao, Huang, Yan, Wang, Tang and
+  Ou}]{zhaoOpenvocabularyRGBThermalSemantic2024}
+\bibinfo{author}{Zhao, G.}, \bibinfo{author}{Huang, J.}, \bibinfo{author}{Yan,
+  X.}, \bibinfo{author}{Wang, Z.}, \bibinfo{author}{Tang, J.},
+  \bibinfo{author}{Ou, Y.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Open-vocabulary {RGB}-{Thermal} semantic
+  segmentation}, in: \bibinfo{booktitle}{{ECCV}}.
+\newblock \URLprefix
+  \url{https://link.springer.com/chapter/10.1007/978-3-031-72904-1_18},
+  \DOIprefix\doi{10.1007/978-3-031-72904-1_18}. \bibinfo{note}{data-CID:
+  7Khap52wFA0J Google Scholar cited by: 13 Filtered venue: ECCV Scholar
+  metadata: G Zhao, J Huang, X Yan, Z Wang, J Tang, Y Ou… - … on Computer
+  Vision, 2024 - Springer Scholar result number: 533 Scholar full text:
+  https://www.ecva.net/papers/eccv\_2024/papers\_ECCV/papers/09460.pdf}.
+%Type = Inproceedings
+\bibitem[{Zhou et~al.(2017)Zhou, Zhao, Puig, Fidler, Barriuso and
+  Torralba}]{zhou2017scene}
+\bibinfo{author}{Zhou, B.}, \bibinfo{author}{Zhao, H.}, \bibinfo{author}{Puig,
+  X.}, \bibinfo{author}{Fidler, S.}, \bibinfo{author}{Barriuso, A.},
+  \bibinfo{author}{Torralba, A.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Scene parsing through ade20k dataset}, in:
+  \bibinfo{booktitle}{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pp. \bibinfo{pages}{633--641}.
+%Type = Inproceedings
+\bibitem[{Zhou et~al.(2026a)Zhou, Zhou, Han, Wang and
+  Chang}]{zhouThinkYouSegment2026}
+\bibinfo{author}{Zhou, J.}, \bibinfo{author}{Zhou, Y.}, \bibinfo{author}{Han,
+  M.}, \bibinfo{author}{Wang, T.}, \bibinfo{author}{Chang, X.},
+  \bibinfo{year}{2026}a.
+\newblock \bibinfo{title}{Think before you segment: {An} object-aware reasoning
+  agent for referring audio-visual segmentation}, in:
+  \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/38373},
+  \DOIprefix\doi{10.1609/aaai.v40i16.38373}. \bibinfo{note}{data-CID:
+  2d6i75zINYsJ Google Scholar cited by: 12 Filtered venue: AAAI Rejected
+  reason: allowed venue/year but title not strict MLLM segmentation Source
+  rejected file: gs\_mllmseg\_20260522\_rejected\_allowed\_venue\_topic.json
+  Source search prefix: gs\_mllmseg\_20260522 Scholar metadata: J Zhou, Y Zhou,
+  M Han, T Wang, X Chang… - Proceedings of the …, 2026 - ojs.aaai.org
+  Scholar result number: 349 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/download/38373/42335}.
+%Type = Inproceedings
+\bibitem[{Zhou et~al.(2026b)Zhou, Yang, Jia, Gao, Ni, Wu and
+  Wang}]{zhouReasoningImplicitSelfsupervised2026}
+\bibinfo{author}{Zhou, Q.}, \bibinfo{author}{Yang, L.}, \bibinfo{author}{Jia,
+  Y.}, \bibinfo{author}{Gao, J.}, \bibinfo{author}{Ni, W.},
+  \bibinfo{author}{Wu, J.}, \bibinfo{author}{Wang, Q.}, \bibinfo{year}{2026}b.
+\newblock \bibinfo{title}{Reasoning via {Implicit} {Self}-supervised
+  {Emergence} for {Instruction} {Segmentation}}, in:
+  \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix \url{https://crabwq.github.io/pdf/2025%20RISE_AAAI26.pdf},
+  \DOIprefix\doi{10.1609/aaai.v40i16.38382}. \bibinfo{note}{data-CID:
+  -SYKLltSspIJ Google Scholar cited by: Filtered venue: AAAI Scholar metadata:
+  Q Zhou, L Yang, Y Jia, J Gao, W Ni, J Wu, Q Wang - 2026 - crabwq.github.io
+  Scholar result number: 92 Scholar full text:
+  https://crabwq.github.io/pdf/2025\%20RISE\_AAAI26.pdf}.
+%Type = Inproceedings
+\bibitem[{Zhu et~al.(2026)Zhu, Ouyang, Zhang, Cheng and
+  the}]{zhuLensLearningSegment2026}
+\bibinfo{author}{Zhu, L.}, \bibinfo{author}{Ouyang, B.},
+  \bibinfo{author}{Zhang, Y.}, \bibinfo{author}{Cheng, T.},
+  \bibinfo{author}{the, R.H.P.o.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Lens: {Learning} to segment anything with unified
+  reinforced reasoning}, in: \bibinfo{booktitle}{{AAAI}}.
+\newblock \URLprefix
+  \url{https://ojs.aaai.org/index.php/AAAI/article/view/38405},
+  \DOIprefix\doi{10.1609/aaai.v40i16.38405}. \bibinfo{note}{data-CID:
+  C3IBzZ7yDK4J Google Scholar cited by: 9 Filtered venue: AAAI Scholar
+  metadata: L Zhu, B Ouyang, Y Zhang, T Cheng, R Hu… - Proceedings of the
+  …, 2026 - ojs.aaai.org Scholar result number: 52 Scholar full text:
+  https://ojs.aaai.org/index.php/AAAI/article/download/38405/42367}.
 
 \end{thebibliography}

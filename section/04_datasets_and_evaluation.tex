@@ -1,0 +1,166 @@
+\section{Datasets and Evaluation}
+\label{sec:datasets-evaluation}
+
+The previous section defined the common representations, components, objectives, and evaluation setups used by open-vocabulary and reasoning segmentation systems. This section turns those foundations into a dataset and metric map. Following the structure of the survey, we separate datasets by the capability they test: open-vocabulary dense recognition, promptable masks, referring and grounded segmentation, reasoning-to-mask generation, and extended scenarios such as video, 3D, remote sensing, medicine, affordance, and audio-visual grounding. Tables~\ref{tab:dataset-index} and~\ref{tab:metric-protocols} are intended as benchmark coordinates rather than performance rankings; numerical comparisons are deferred to Section~\ref{sec:comparison-discussion}.
+
+\subsection{Dataset groups}
+
+Open-vocabulary semantic segmentation still relies heavily on classic closed-set segmentation datasets, but uses them under different vocabulary assumptions. PASCAL VOC, MS COCO, COCO-Stuff, ADE20K, and Cityscapes provide pixel-level category masks with fixed label spaces~\citep{everingham2015pascal,lin2014microsoft,caesar2018cocostuff,zhou2017scene,cordts2016cityscapes}. In open-vocabulary studies, these datasets are often reorganized into base/novel splits, cross-dataset transfer protocols, or text-prompted zero-shot evaluation. Recent benchmark-oriented work shows that such reuse is not neutral: class names, synonyms, label granularity, and template choices can change the measured open-vocabulary ability~\citep{hhuangRenovatingNamesOpenvocabulary2024,noorimTesttimeAdaptationVisionlanguage2026,ybenigmimFlossFreeLunch2025}. Therefore, these datasets evaluate not only mask prediction, but also whether text-derived categories are comparable across datasets.
+
+Promptable segmentation and mask-centric evaluation use a different data logic. SAM introduced SA-1B as a large-scale mask source for class-agnostic promptable segmentation, where the core object is a mask conditioned by points, boxes, or masks rather than a semantic class label~\citep{kirillov2023sam}. Later SAM/SAM2-based open-vocabulary methods usually combine this mask prior with category names, language prompts, or region classifiers~\citep{xhanBoostingSegmentAnything2025,hwangXSAMSegmentAnything2026,sgxiaoOpenworldsamExtendingSam22026}. For these methods, the dataset must specify prompt type and mask granularity; otherwise, gains in boundary quality can be confused with gains in semantic recognition.
+
+Referring and grounded segmentation datasets move the supervision unit from category labels to language-region pairs. RefCOCO, RefCOCO+, and RefCOCOg remain the standard testbed for referring expressions on COCO images~\citep{kazemzadeh2014referitgame,yu2016modeling,mao2016generation}. Recent works extend this setting in two directions. One direction increases grounding granularity, for example by supervising word-region, phrase-mask, or mask-text correspondence in PixelLM, OneRef, and mask-grounded RIS~\citep{xuPixelalignedLanguageModel2024,xiaoOnerefUnifiedOnetower2024,chngMaskGroundingReferring2024}. The other direction turns grounded segmentation into a conversational or instruction-following setting, as in GLaMM's Grounding-anything Dataset and GroundingSuite's large-scale pixel grounding corpus~\citep{rasheedGlammPixelGrounding2024,huGroundingSuiteMeasuringComplex2025}.
+
+Reasoning segmentation datasets add an inference step before mask prediction. ReasonSeg, introduced with LISA, evaluates complex and implicit textual queries with image-instruction-mask samples, while LLM-Seg40K uses an automatic generation pipeline to scale reasoning segmentation data~\citep{xlaiLisaReasoningSegmentation2024,jwangLlmsegBridgingImage2024}. The 2025--2026 literature expands this idea to implicit reasoning, chain-of-thought optimization, false-premise handling, guideline consistency, and hallucination checking~\citep{zhouReasoningImplicitSelfsupervised2026,zhuLensLearningSegment2026,vvatsGuidelineConsistentSegmentationMultiAgent2026,guoSeeingBelievingRichContext2026}. These datasets test whether the model can infer the intended target and ground that inference in pixels, not merely whether it can segment an explicitly named object.
+
+Extended-scenario datasets stress-test whether the same interfaces transfer beyond static 2D natural images. Video datasets such as ViCaS, VideoGLaMM, VideoLISA, and SAMA combine temporal masks with captions, grounded dialogue, or reasoning queries~\citep{atharVicasDatasetCombining2025,munasingheVideoglammLargeMultimodal2025,baiOneTokenSeg2024,sunSamaMultiturnReferential2026}. Remote-sensing benchmarks such as OVRSISBench, RIS-LAD, and LISAt/GRES emphasize scale variation, small dense objects, viewpoint changes, and geospatial domain language~\citep{libExploringEfficientOpenvocabulary2026,yeRISLADBenchmarkModel2026,quenumLisatLanguageinstructedSegmentation2026}. 3D datasets such as DetailRefer and Surprise3D require language-grounded point or instance segmentation in spatial scenes~\citep{chen3DDRESDetailed3D2026,huangSurprise3dDatasetSpatial2026}. Medical and affordance grounding datasets add domain rules, clinical reasoning, action regions, and embodied constraints~\citep{yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.34}
+\caption{Representative datasets and benchmark families used in open-vocabulary, promptable, grounded, and reasoning segmentation. The table emphasizes annotation form and evaluation role rather than leaderboard results.}
+\label{tab:dataset-index}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}}
+\toprule
+Benchmark family & Representative datasets or resources & Main modality and annotation & Typical evaluation role \\
+\midrule
+Closed-set segmentation reused for open vocabularies &
+PASCAL VOC~\citep{everingham2015pascal};
+MS COCO~\citep{lin2014microsoft};
+COCO-Stuff~\citep{caesar2018cocostuff};
+ADE20K~\citep{zhou2017scene};
+Cityscapes~\citep{cordts2016cityscapes} &
+2D images with category-level semantic, instance, stuff, or panoptic masks &
+Base/novel split evaluation, cross-dataset transfer, zero-shot category prompts, and label-name robustness analyses such as RENOVATE~\citep{hhuangRenovatingNamesOpenvocabulary2024} \\
+Open-vocabulary protocol suites &
+OVSS TTA benchmark suite~\citep{noorimTesttimeAdaptationVisionlanguage2026};
+OVRSISBench~\citep{libExploringEfficientOpenvocabulary2026};
+ReME~\citep{xxuanReMEDataCentricFramework2025};
+Trident-style training-free multi-dataset evaluation~\citep{shiyHarnessingVisionFoundation2025} &
+2D natural or remote-sensing images with text-defined categories and domain shifts &
+Robustness to corruptions, domain transfer, remote-sensing open-vocabulary comparison, and training-free retrieval evaluation \\
+Promptable segmentation resources &
+SA-1B~\citep{kirillov2023sam};
+SAM promptable-mask benchmarks~\citep{kirillov2023sam};
+SAM2 video/image prompt settings~\citep{ravi2024sam2};
+X-SAM visual-prompt segmentation settings~\citep{hwangXSAMSegmentAnything2026} &
+Class-agnostic masks with point, box, mask, visual, or text-derived prompts &
+Mask proposal quality, prompt sensitivity, class-agnostic spatial priors, and interactive segmentation \\
+Referring expression segmentation &
+ReferItGame~\citep{kazemzadeh2014referitgame};
+RefCOCO and RefCOCO+~\citep{yu2016modeling};
+RefCOCOg~\citep{mao2016generation};
+gRefCOCO and generalized RIS/GRES settings~\citep{xiaGsvaGeneralizedSegmentation2024} &
+Image, expression, and target mask; generalized settings may include multiple or absent targets &
+Sentence-to-mask grounding, expression complexity, multi-object reference handling, and rejectable references \\
+Grounded conversation and pixel grounding &
+GranD/GLaMM~\citep{rasheedGlammPixelGrounding2024};
+GroundingSuite~\citep{huGroundingSuiteMeasuringComplex2025};
+GROUNDHOG~\citep{zhangGroundhogGroundingLarge2024};
+Osprey~\citep{yuanOspreyPixelUnderstanding2024};
+PixelLM~\citep{xuPixelalignedLanguageModel2024} &
+Region captions, grounded conversations, mask-text pairs, word grounding, or phrase grounding &
+Dense grounding of generated responses, region-level instruction tuning, and word-to-pixel alignment \\
+Reasoning segmentation &
+ReasonSeg~\citep{xlaiLisaReasoningSegmentation2024};
+LLM-Seg40K~\citep{jwangLlmsegBridgingImage2024};
+RISE-style instruction segmentation~\citep{zhouReasoningImplicitSelfsupervised2026};
+LENS reinforcement-learning reasoning segmentation~\citep{zhuLensLearningSegment2026} &
+Implicit query, instruction, rationale or chain-of-thought, and mask &
+Target inference before segmentation, reasoning faithfulness, and reward or preference optimization \\
+Video grounding and reasoning &
+ViCaS~\citep{atharVicasDatasetCombining2025};
+VideoGLaMM data~\citep{munasingheVideoglammLargeMultimodal2025};
+ReasonVOS/VideoLISA~\citep{baiOneTokenSeg2024};
+SAMA-239K and SAMA-Bench~\citep{sunSamaMultiturnReferential2026} &
+Videos with temporal masks, captions, grounded QA, or multi-turn dialogue &
+Spatio-temporal grounding, video referring segmentation, mask propagation, and grounded video chat \\
+3D, remote sensing, medical, and embodied scenarios &
+DetailRefer~\citep{chen3DDRESDetailed3D2026};
+Surprise3D~\citep{huangSurprise3dDatasetSpatial2026};
+RIS-LAD~\citep{yeRISLADBenchmarkModel2026};
+LISAt/GRES~\citep{quenumLisatLanguageinstructedSegmentation2026};
+U-MRG-14K~\citep{yanMedreasonerReinforcementLearning2026};
+ReasonAff~\citep{wangAffordancer1ReinforcementLearning2026} &
+Point clouds, satellite/drone imagery, medical images, or affordance regions with language and masks &
+Domain transfer, spatial reasoning, clinical or action reasoning, and small-object or dense-scene grounding \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{Annotation granularity}
+
+The annotation granularity determines what a method is allowed to learn and what a benchmark can fairly measure. Category-mask datasets supervise a fixed mapping from pixels to labels. They are suitable for Intersection-over-Union (IoU), commonly reported as mean IoU (mIoU) for semantic evaluation, but they do not directly test whether a model understands free-form expressions, relations, or implicit targets. Open-vocabulary protocols reuse these masks while replacing the classifier vocabulary with text prompts, which makes label naming and prompt construction part of the benchmark itself~\citep{hhuangRenovatingNamesOpenvocabulary2024,ybenigmimFlossFreeLunch2025}.
+
+Region and mask annotations shift the unit from pixels to candidate entities. Proposal-then-classification methods and SAM-composition pipelines often operate on mask sets, so their annotation needs include mask quality, proposal coverage, and region-level semantic labels. This is why the same method can appear strong on boundary-sensitive promptable segmentation yet weak on open-vocabulary semantic assignment: the former rewards mask geometry, while the latter rewards calibrated mask-text semantics~\citep{kirillov2023sam,xhanBoostingSegmentAnything2025,shiyHarnessingVisionFoundation2025}.
+
+Language annotations introduce another distinction. A class name such as ``dog'' only specifies a semantic category, whereas a referring expression may specify attributes, relations, counts, or spatial constraints. Grounded conversation further connects generated words to masks, so an answer can be partly correct linguistically but incomplete spatially. GranD and GroundingSuite address this by scaling grounded concepts, expressions, and masks, while PixelLM-style work uses word or coordinate grounding to make generated language spatially accountable~\citep{rasheedGlammPixelGrounding2024,huGroundingSuiteMeasuringComplex2025,xuPixelalignedLanguageModel2024}.
+
+Reasoning annotations are the most demanding because they combine target inference and mask grounding. A sample may contain an implicit question, a rationale, a spatial cue, a false premise, or a domain guideline. LISA's ReasonSeg, MedReasoner's U-MRG-14K, LISAt's geospatial reasoning data, and affordance reasoning datasets illustrate this pattern: the model is expected to infer what region is relevant before producing a mask~\citep{xlaiLisaReasoningSegmentation2024,yanMedreasonerReinforcementLearning2026,quenumLisatLanguageinstructedSegmentation2026,wangAffordancer1ReinforcementLearning2026}. For this reason, reasoning datasets should report not only mask annotations, but also whether rationales, rejection labels, guideline texts, or hard negative cases are included.
+
+\subsection{Evaluation metrics}
+
+The metrics used in this literature can be grouped into five families. Semantic segmentation metrics, especially mIoU and mean accuracy, summarize pixel classification quality over a label vocabulary. They are appropriate for open-vocabulary semantic segmentation, but they can hide base/novel imbalance unless base and novel categories are reported separately or with harmonic summaries. Instance and panoptic settings instead use average precision (AP) or panoptic quality (PQ) measures, because the model must separate object instances or stuff/thing structure rather than only assign per-pixel labels~\citep{lin2014microsoft,kirillov2019panoptic}.
+
+Referring and reasoning segmentation usually report IoU variants such as cumulative IoU (cIoU), generalized IoU (gIoU) as defined by the corresponding benchmark, precision at IoU thresholds, or Acc@IoU. These metrics are more aligned with a single referred target than class-wise mIoU, but they still compress multiple failure modes into one number. A model may infer the wrong target but draw a plausible mask, or infer the right target while producing a poor boundary. Generalized referring benchmarks with multiple or absent targets therefore need rejection accuracy and separate accounting for empty, single-target, and multi-target cases~\citep{xiaGsvaGeneralizedSegmentation2024,huangPixelsLogicPerceptionReasoning2026}.
+
+Promptable and video segmentation add prompt and temporal dimensions. Promptable methods should specify whether they use points, boxes, masks, text-derived prompts, or automatically generated proposals. Video methods commonly evaluate region similarity and boundary quality over time, often through $\mathcal{J}$, $\mathcal{F}$, or combined $\mathcal{J}\&\mathcal{F}$ scores, in addition to language-grounding accuracy. Without prompt and temporal protocol details, improvements may reflect stronger propagation or proposal generation rather than better language understanding~\citep{atharVicasDatasetCombining2025,munasingheVideoglammLargeMultimodal2025,liangReferdinoReferringVideo2025}.
+
+Grounded conversation and hallucination benchmarks require language-side measures in addition to mask overlap. GLaMM evaluates grounded conversation generation because the output is a response interleaved with segmentation masks, while VBackChecker constructs rich-context hallucination detection data and uses backward grounding to verify whether response content is visually supported~\citep{rasheedGlammPixelGrounding2024,guoSeeingBelievingRichContext2026}. For such tasks, an evaluation protocol should distinguish response correctness, grounding correctness, and the consistency between the two.
+
+Efficiency and reproducibility metrics are increasingly necessary. Several recent studies explicitly report inference speed, parameter-efficient adaptation, training-free evaluation, or test-time adaptation across many scenarios~\citep{shiyHarnessingVisionFoundation2025,noorimTesttimeAdaptationVisionlanguage2026,zpengParameterefficientFinetuningHyperspherical2025}. These measurements are not secondary details: for foundation-model compositions, the cost of a mask generator, detector, MLLM, external agent, or iterative refinement loop can determine whether a method is practically comparable.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.28}
+\caption{Metric and protocol families for comparing open-vocabulary and reasoning segmentation. The limitation column records what each metric can fail to capture.}
+\label{tab:metric-protocols}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}}
+\toprule
+Metric or protocol family & Common measures & What it measures & Main limitation \\
+\midrule
+Semantic open-vocabulary segmentation &
+mIoU, mean accuracy, base/novel IoU, harmonic summaries; typically reported on PASCAL VOC~\citep{everingham2015pascal}, COCO-Stuff~\citep{caesar2018cocostuff}, ADE20K~\citep{zhou2017scene}, and Cityscapes~\citep{cordts2016cityscapes} &
+Pixel-level category assignment under text-defined or held-out vocabularies &
+Sensitive to label names, prompt templates, base/novel splits, and whether target-domain data is used~\citep{hhuangRenovatingNamesOpenvocabulary2024,ybenigmimFlossFreeLunch2025} \\
+Instance and panoptic segmentation &
+AP, mask AP, class-wise AP on COCO-style instance tasks~\citep{lin2014microsoft}; PQ and stuff/thing summaries in panoptic segmentation~\citep{kirillov2019panoptic} &
+Instance separation, mask quality, stuff/thing organization, and open-vocabulary instance recognition &
+Does not by itself prove language grounding or reasoning over the requested target \\
+Referring and reasoning masks &
+cIoU, gIoU, IoU@\allowbreak threshold, Acc@\allowbreak IoU, and rejection accuracy in RefCOCO/RefCOCO+~\citep{yu2016modeling}, RefCOCOg~\citep{mao2016generation}, generalized segmentation~\citep{xiaGsvaGeneralizedSegmentation2024}, and ReasonSeg~\citep{xlaiLisaReasoningSegmentation2024} &
+Overlap between predicted mask and language-specified or reasoning-inferred target &
+Can conflate target inference, language understanding, and boundary accuracy; empty or multi-target cases need separate reporting \\
+Promptable segmentation &
+Mask IoU under point, box, mask, visual, or text prompts; proposal recall; prompt sensitivity in SAM/SA-1B~\citep{kirillov2023sam}, SAM2~\citep{ravi2024sam2}, and X-SAM-style prompt settings~\citep{hwangXSAMSegmentAnything2026} &
+Quality and stability of class-agnostic or prompt-conditioned masks &
+Prompt type and prompt source strongly affect results, so class-agnostic mask quality is not equivalent to semantic recognition \\
+Video and temporal grounding &
+$\mathcal{J}$, $\mathcal{F}$, $\mathcal{J}\&\mathcal{F}$, temporal consistency, and grounded video QA scores in ViCaS~\citep{atharVicasDatasetCombining2025}, VideoGLaMM~\citep{munasingheVideoglammLargeMultimodal2025}, ReferDINO~\citep{liangReferdinoReferringVideo2025}, and VideoLISA/ReasonVOS~\citep{baiOneTokenSeg2024} &
+Region overlap, contour quality, temporal propagation, and video-language grounding &
+Strong tracking can mask weak language reasoning, while sparse-frame evaluation can miss temporal drift \\
+Grounded conversation and hallucination &
+Grounding precision/recall, answer accuracy, hallucination detection accuracy or F1, and mask-response consistency checks in GLaMM~\citep{rasheedGlammPixelGrounding2024}, GroundingSuite~\citep{huGroundingSuiteMeasuringComplex2025}, and VBackChecker~\citep{guoSeeingBelievingRichContext2026} &
+Whether generated text is visually supported and linked to correct regions &
+Textual plausibility can remain high when masks are wrong unless response and mask are jointly evaluated \\
+Efficiency and reproducibility &
+Inference latency, frames per second (FPS), parameter count, memory, training data, number of foundation modules, and external-tool calls reported in training-free segmentation~\citep{shiyHarnessingVisionFoundation2025}, test-time adaptation~\citep{noorimTesttimeAdaptationVisionlanguage2026}, and parameter-efficient fine-tuning~\citep{zpengParameterefficientFinetuningHyperspherical2025} &
+Practical cost and comparability of foundation-model compositions &
+Often omitted or measured under different hardware, backbones, resolutions, and prompt budgets \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{Benchmark comparability}
+
+Benchmark comparability is the main reason to introduce datasets before methods. First, methods differ in the label vocabulary they are allowed to see. A result on PASCAL VOC with a short category list is not directly comparable to a result on ADE20K, COCO-Stuff, or a remote-sensing benchmark with fine-grained categories. Even within the same dataset, renovated names, prompt templates, and class synonyms can alter open-vocabulary scores~\citep{hhuangRenovatingNamesOpenvocabulary2024,ybenigmimFlossFreeLunch2025}.
+
+Second, training data and foundation backbones are often not controlled. A CLIP-based dense alignment method, a SAM-assisted proposal method, and an MLLM-guided reasoning method may use different image encoders, text encoders, mask generators, instruction data, pseudo labels, and external tools. Reported gains should therefore be read together with supervision source, backbone size, prompt budget, and whether the method is training-free, lightly adapted, fully fine-tuned, or reinforcement-optimized~\citep{xshanOpenvocabularySemanticSegmentation2024,shinhOpenvocabularySemanticSegmentation2024,zhouReasoningImplicitSelfsupervised2026,zhuLensLearningSegment2026}.
+
+Third, task definitions can look similar while measuring different capabilities. Referring expression segmentation assumes an explicit phrase, grounded conversation links generated text to regions, and reasoning segmentation may require implicit target discovery. Video, 3D, medical, remote-sensing, and affordance benchmarks introduce additional domain constraints such as temporal consistency, point-cloud geometry, clinical modality, small-object density, or action-region semantics~\citep{atharVicasDatasetCombining2025,chen3DDRESDetailed3D2026,yanMedreasonerReinforcementLearning2026,libExploringEfficientOpenvocabulary2026,wangAffordancer1ReinforcementLearning2026}. These settings should not be collapsed into a single "segmentation performance" claim.
+
+Fourth, reasoning and grounding faithfulness require joint evaluation. If a model outputs a fluent rationale and a high-IoU mask, the benchmark should still ask whether the rationale caused or correctly explains the selected region. Conversely, a correct mask without a faithful explanation may be sufficient for classic segmentation but insufficient for clinical, robotic, or guideline-driven use. This distinction motivates the later discussion of reasoning capability versus grounding faithfulness in Section~\ref{sec:comparison-discussion}.

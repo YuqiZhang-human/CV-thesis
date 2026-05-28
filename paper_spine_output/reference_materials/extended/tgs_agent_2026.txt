@@ -1,0 +1,631 @@
+                                     The Fortieth AAAI Conference on Artificial Intelligence (AAAI-26)
+
+
+
+
+             Think Before You Segment: An Object-aware Reasoning Agent for
+                          Referring Audio-Visual Segmentation
+              Jinxing Zhou1 , Yanghao Zhou2 * , Mingfei Han1 , Tong Wang1 , Xiaojun Chang1,3 ,
+                              Hisham Cholakkal1* , Rao Muhammad Anwer1*
+                                      1
+                                          Mohamed Bin Zayed University of Artificial Intelligence
+                                                   2
+                                                     National University of Singapore
+                                            3
+                                              University of Science and Technology of China
+
+                            Abstract                                                       (a) Referring Audio-Visual Segmentation (Ref-AVS) Task
+
+
+  Referring Audio-Visual Segmentation (Ref-AVS) aims to seg-                  audio stream
+  ment target objects in audible videos based on given refer-
+  ence expressions. Prior works typically rely on learning la-                                                                                …
+                                                                               video frames
+  tent embeddings via multimodal fusion to prompt a tunable
+  SAM/SAM2 decoder for segmentation, which requires strong                                     The girl playing a guitar in front of the man. [visual]
+  pixel-level supervision and lacks interpretability. From a novel             reference       The object making the loudest sound. [audio]
+  perspective of explicit reference understanding, we propose                                  The object making a sound on the left of the guitar. [audio&visual]
+  TGS-Agent, which decomposes the task into a Think-Ground-
+  Segment process, mimicking the human reasoning procedure                   (b) Prior works: Black-box Prediction         (c) Ours: Object-aware Reasoning in An
+  by first identifying the referred object through multimodal                   with Pixel-level Mask Supervision           Explicit Agentic Workflow (Mask-free)
+  analysis, followed by coarse-grained grounding and precise                                                      🔥
+  segmentation. To this end, we first propose Ref-Thinker, a                               SAM2 decoder                        grounding-dino            SAM2 decoder
+                                                                                                                                                                        SA
+  multimodal language model capable of reasoning over textual,                      sparse             dense
+                                                                                  embedding          embedding
+  visual, and auditory cues. We construct an instruction-tuning                                                                <think> reasoning here… </think>
+  dataset with explicit object-aware think-answer chains for Ref-                                                 🔥            <answer>
+                                                                                  Enhanced Prompt Encoder                          The referred object is piano.
+  Thinker fine-tuning. The object description inferred by Ref-
+                                                                                                                               </answer>
+  Thinker is used as an explicit prompt for Grounding-DINO and
+  SAM2, which perform grounding and segmentation without                                                          🔥
+  relying on pixel-level supervision. Additionally, we introduce                Encoder & Cross-modal Fusion                          Multimodal LLM            🔥
+  R2 -AVSBench, a new benchmark with linguistically diverse
+  and reasoning-intensive references for better evaluating model
+  generalization. Our approach achieves state-of-the-art results                                                                           The object making
+  on both standard Ref-AVSBench and proposed R2 -AVSBench.                                                                             a sound on the left of
+                                                                                                                                       the guitar.
+                                                                                           audio                   video                       reference
+                     1    Introduction
+In recent years, the trend in artificial intelligence research               Figure 1: (a) Illustration of Ref-AVS task. (b) Prior works
+has been shifting toward omni-modal understanding, where                     focus on enhancing sparse and dense prompt embeddings
+models are expected to jointly perceive and reason across                    via implicit transformer fusion, requiring strong pixel-level
+multiple modalities. Among various topics, the Referring                     supervision for model training. (c) Our method first performs
+Audio-Visual Segmentation (Ref-AVS) task aims to segment                     explicit reasoning over the reference using a MLLM to iden-
+target objects in audible video scenes based on given natural                tify the referred object, and then generates its bounding box
+language expressions (a.k.a reference). As shown in Fig. 1(a),               and segmentation mask within an agentic workflow.
+the reference may contain either single-modal or multi-modal
+cues, requiring the model to automatically analyze and inte-
+grate relevant cues from audio, visual, and textual modalities.              employs multiple transformer blocks to model interactions
+For instance, the reference “The object making a sound on                    among audio, visual, and textual modalities. The resulting in-
+the left of the guitar” demands integrating textual semantics,               tegrated multimodal features are then used as cues to prompt
+spatial visual cues, and temporal audio patterns to segment                  a segmentation decoder, Mask2Former (Cheng et al. 2021),
+the correct object ‘piano’ across video frames.                              to generate binary masks of the referred object. Recent ap-
+   Research on the Ref-AVS task remains an active and evolv-                 proaches leverage more powerful segmentation models such
+ing area. The pioneering work, EEMC (Wang et al. 2024b),                     as SAM (Kirillov et al. 2023) and SAM2 (Ravi et al. 2024),
+    * Corresponding author                                                   extending them to handle multimodal signals. As shown in
+Copyright © 2026, Association for the Advancement of Artificial              Fig. 1(b), a common focus of these methods is to enhance the
+Intelligence (www.aaai.org). All rights reserved.                            prompt encoder of SAM or SAM2 (i.e., the sparse and dense
+
+
+                                                                     13665
+prompt embeddings) by modeling more informative multi-                     We evaluate TGS-Agent on the existing Ref-AVSBench
+modal cues. For instance, TSAM (Radman and Laaksonen                    dataset (Wang et al. 2024b). In addition, we propose R2 -
+2025) utilizes cross-attention mechanism to fuse audio-visual-          AVSBench, a new evaluation set designed to be more
+text modalities. Another recent method, SAM2-LOVE (Wang                 reasoning-intensive. Specifically, we observe that references
+et al. 2025), proposes to summarize multimodal features into            in a portion of the Ref-AVSBench test set tend to be straight-
+a learnable [seg] token, which serves as an improved sparse             forward. For example, the target object name directly appears
+prompt for SAM2. The mask decoder of SAM/SAM2 is also                   in the reference (e.g., ‘The clarinet being played by a man’).
+fine-tuned to better adapt to the Ref-AVS task. Although these          Moreover, Ref-AVSBench references are constructed using
+methods achieve strong performance, they rely on pixel-level            fixed templates, limiting their linguistic diversity. To improve
+ground truth masks for supervision, and their segmentation              this, we propose R2 -AVSBench, which features references
+processes function as black boxes, lacking interpretability.            with greater lexical and structural diversity, and which require
+In contrast, our work explores a ground truth mask-free and             deeper reasoning to interpret. We prompt Gemini-1.5-Pro to
+more explainable approach.                                              achieve the reference transformation. Further details will be
+   Let’s reconsider how humans naturally approach the Ref-              provided in Sec. 4. Our R2 -AVSBench can serve as a more
+AVS task. Given a reference, e.g., “The object making a                 effective benchmark for evaluating a model’s generalizability
+sound on the left of the guitar” shown in Fig. 1(a), we first           across diverse reference types.
+analyze this reference text, observe video frames to locate                In summary, our main contributions are: (1) We propose
+the guitar, shift our attention to its left region, and listen to       TGS-Agent, decoupling the Ref-AVS task into a ‘Think-
+the audio to identify the object which is making a sound.               Ground-Segment’ agentic workflow. TGS-Agent provides
+Following this chain of reasoning, we can clearly determine             a new paradigm that is mask supervision-free and also more
+the referred object, i.e., the piano. Once the piano is identi-         explainable. (2) We propose Ref-Thinker, a MLLM with
+fied, we can ground its position and precisely segment the              enhanced object-aware reasoning ability, which generates
+corresponding pixels across video frames. We refer to this              explicit descriptions of the referred object by analyzing mul-
+procedure as a ‘Think-Ground-Segment (TGS)’ decision                    timodal signals. An instruction tuning set is constructed to
+process. This critical step is often overlooked by prior meth-          support Ref-Thinker training. (3) We propose R2 -AVSBench,
+ods: before performing fine-grained segmentation, humans                a new evaluation benchmark featuring more challenging and
+can first explicitly identify the target object by thinking about       reasoning-intensive references. It serves as an additional
+multimodal (audio, visual, textual) inputs.                             testbed to evaluate model performance in cross-reference
+   Motivated by this observation, we propose TGS-Agent,                 scenarios. (4) Our method achieves state-of-the-art results on
+an agentic framework with an explicit, explainable, object-             both Ref-AVSBench and R2 -AVSBench, significantly outper-
+aware reasoning chain for the Ref-AVS task (illustrated in              forming existing methods.
+Fig. 1(c)). Thanks to the advancements in foundation models
+for object detection and segmentation, the Ground and Seg-                                  2    Related Work
+ment steps can be effectively handled. In our framework, we
+adopt Grounding-DINO (Liu et al. 2024b) and SAM2 (Ravi
+et al. 2024) as the tools for these two stages, respectively.           Audio-Visual Scene Understanding aims to analyze the rich
+Given an appropriate textual prompt (related to target objects          and dynamic audio-visual signals present in real-world envi-
+in Ref-AVS setting), Grounding-DINO generates its corre-                ronments, which may facilitate compelling applications in ar-
+sponding bounding box (object text → bbox). Subsequently,               eas such as video generation (Google 2025; Mao et al. 2025a,
+SAM2 takes the bbox as prompt and accurately produces                   2024), conversational assistant (Xu et al. 2025; Kryklyvets
+the corresponding pixel mask (bbox → mask). Therefore, a                et al. 2025), and virtual reality. In academia, researchers have
+critical challenge is how to address the Think step: identify           investigated various fundamental tasks, such as audio-visual
+the referred object according to multimodal signals (refer-             event parsing (Tian et al. 2018; Tian, Li, and Xu 2020; Liu
+ence → object text). Since the output of the Think step is an           et al. 2025; Zhou et al. 2021; Zhou, Guo, and Wang 2022;
+open-ended textual description related to the referred object,          Zhou et al. 2023a, 2024a,b; Zhao et al. 2025; Zhou et al.
+we introduce a multimodal large language model (MLLM),                  2025e,a; Yu et al. 2025; Zhou et al. 2025c), sound source
+referred to as the Ref-Thinker, to infer the target object from         localization (Chen et al. 2021; Park, Senocak, and Chung
+the multimodal context (i.e., the reference alongside its au-           2024; Um et al. 2025), and audio-visual caption or question
+dio and visual counterparts). To enhance the reasoning and              answering (Shen et al. 2023; Li et al. 2022; Yun et al. 2021;
+instruction-following capabilities of Ref-Thinker, we utilize           Yang et al. 2022; Li et al. 2024, 2025). These tasks involve au-
+Gemini-1.5-Pro with carefully designed prompts to construct             diovisual comprehension across diverse inputs, ranging from
+an instruction-tuning set, containing explicit think-answer             basic audio-image pairs and short video clips to complex,
+reasoning chains. More details will be introduced in Sec. 3.2.          untrimmed long-form audible videos. The studied referring
+As a result, the fine-tuned MLLM is able to reason over                 audio-visual segmentation task is also part of this field, requir-
+the audio, visual, and reference inputs and generate reliable           ing the understanding of audio, visual, and textual modalities.
+descriptions of the referred object. We explore the impact              Audio-Visual Segmentation aims to generate the pixel-
+of using simplified (category only) and fine-grained (cate-             level segmentation maps of the sounding objects present
+gory with more details like its attribute or spatial location)          in audible videos (Zhou et al. 2022, 2023b; Guo et al.
+description texts (See more discussion in Sec. 5.4).                    2025). The baseline AVS model (Zhou et al. 2022) adopts a
+
+
+                                                                13666
+convolution-based decoder. Subsequent studies explore vari-              1                                                                  object derived from reasoning:
+                                                                             <think> The video shows a girl playing an acoustic guitar
+                                                                             and a man playing a piano. The audio contains distinct                       guitar
+ous transformer-based (Gao et al. 2024; Li et al. 2023b; Zhou                sounds of both instruments. The referential expression
+et al. 2025d; Guo, Huang, and Zhou 2024; Ma et al. 2024;                     relates to both the visual and auditory modalities,
+                                                                             specifically the guitar being played by the girl. </think>        2
+                                                                             <answer> <f_object> a guitar being played on the right                Grounding-DINO
+Yang et al. 2024; Zhou et al. 2025b), diffusion-based (Mao                   </f_object> <s_object> guitar </s_object> </answer>
+et al. 2025b), and SAM-based methods (Mo and Tian 2023;                                                                                                      bbox
+
+Liu et al. 2024a; Wang et al. 2024a; Bhosale et al. 2025;                             Large Language Model (LLM)             LoRA
+                                                                                                                                 🔥
+Luo et al. 2025). AL-Ref-SAM2(Huang et al. 2025) is the
+most relevant to our work. AL-Ref-SAM2 performs sample-
+specific inference at test time using GPT-4, requiring care-                            🔥                        🔥
+                                                                        Audio Q-Former         Visual Q-Former
+fully crafted prompts to select pivot frames and describe                 & Projector             & Projector                                  3
+                                                                                                                                                         SAM2
+candidate bounding boxes for segmentation. In contrast, our                                                                           🔥                      mask
+approach fine-tunes an open-source LLM with enhanced rea-               Audio Encoder           Visual Encoder            Tokenizer
+
+soning capabilities over the reference expression, enabling
+                                                                                                                     The object making
+it to accurately identify the true target object across video                                                        a sound on the right
+frames and simplify segmentation mask prediction.                                                                    of the man.
+
+Referring Audio-Visual Segmentation aims to generate
+binary masks of the object referred to by a natural lan-               Figure 2: Workflow of our Think-Ground-Segment Agent.
+guage expression involving either or both auditory and visual
+cues. The baseline method, EEMC (Wang et al. 2024b), inte-
+grates audio, visual, and textual features through a series of        this, we propose Ref-Thinker, a reasoning-enhanced MLLM,
+transformers to form a unified multimodal cue, which then             which can digest multimodal inputs (i.e., audio, visual, and
+                                                                  0BsmPd44Bic_39000_49000_piano_3
+prompts a segmentation decoder, Mask2Former (Cheng et al.             reference text) and output a description related to the referred
+2021), via cross-attention to accurately identify and delin-          object with an explicit reasoning chain. Specifically, the out-
+eate the object of interest. The recent method TSAM (Rad-             put text follows the format below:
+man and Laaksonen 2025) enhances SAM (Kirillov et al.
+2023) encoder with a temporal modeling branch and designs                == Object-aware Reasoning Chain of Ref-Thinker ==
+data-driven multimodal sparse and dense prompts for SAM’s                <think>
+decoder. In particular, reference texts are used to guide the              The referential expression is “xxx”.
+selection of relevant audio cues, which then interact with                 The video shows xxx (video analysis here).
+visual cues to form sparse prompts. The dense prompts are                  The audio contains xxx (audio analysis here).
+also generated through cross-attention between visual-audio                The reference related to xxx (modality analysis here).
+and visual-text features. SAM2-LOVE (Wang et al. 2025)                   </think>
+leverages SAM2 (Ravi et al. 2024) for Ref-AVS task. It                   <answer>
+integrates textual, audio, and visual representations into a               <f object>
+learnable segmentation token [seg]. To enhance spatial-                       A fine-grained description of the referred object, in-
+temporal consistency across video frames, SAM2-LOVE                      cluding detailed attributes such as color, shape, or spatial
+employs token propagation and token accumulation strate-                 location (e.g., a guitar being played on the right).
+gies to strengthen [seg], which serves as a more effective                 </f object>
+sparse prompt for SAM2’s decoder. Unlike prior methods,                    <s object>
+we utilize a reasoning-enhanced MLLM to explicitly identify                   A simplified description of the referred object, spec-
+the referred object. Our method is more explainable and does             ifying only its category name (e.g., guitar).
+not require pixel-level supervision.                                       </s object>
+                                                                         </answer>
+                    3   Our Method
+                                                                       In the thinking process, Ref-Thinker confirms the reference
+In this section, we first introduce the proposed TGS-Agent             expression, analyzes multimodal contents, and decides which
+framework for the Ref-AVS task (Sec. 3.1). Next, we present            modality should be focused. Based on these analyses, Ref-
+Ref-Thinker, the core component of TGS-Agent, which is a               Thinker provides answers with explicit information about
+reasoning-enhanced MLLM designed to explicitly generate                the referred object. Notably, we explore two types of ob-
+textual descriptions of the referred object. We describe its           ject descriptions: fine-grained (‘f object’) and simplified
+architecture and training strategy in Sec.3.2.                         (‘s object’). The former one includes more details, such as
+                                                                       the object’s appearance, attributes, or spatial relations (while
+3.1   TGS-Agent: An Object-aware Ref-AVS Agent                         remaining concise, typically fewer than 10 words), whereas
+As discussed in the Introduction, our TGS-Agent decomposes             the latter simplified description contains only the object cate-
+the Ref-AVS task into multiple object-aware processing steps.          gory. We make this design considering that both the phases
+The overall system flow is shown in Fig. 2. Below, we elabo-           and class names are frequently used as prompts in object
+rate on each stage along with its corresponding agentic tool.          detection and segmentation. Moreover, the fine-grained de-
+Think. As a core innovation of our method, this first step             scription may be more beneficial for video scenes that contain
+aims to clearly answer what the referred object is. To achieve         different object instances that have a similar appearance or
+
+
+                                                               13667
+the same category (as shown in Fig. 4).                                    are used to extract segment-level features. The resulting audio
+  The above process can be formalized as:                                  and visual features are then compressed into a smaller num-
+                                                                           ber of token embeddings using independent Q-Formers (Li
+                 Think(A, V , R, P ) → T ,                   (1)
+                                                                           et al. 2023a). A projector module, implemented as two MLP
+where A, V , and R denote the audio stream, video frames,                  layers, is further applied to align the audio/visual feature with
+and reference, respectively. P is the user prompt text used                the textual features processed by the LLM. The textual input
+to guide the Ref-Thinker (detailed in Sec. 3.2). T represents              consists of two parts: a task-relevant user prompt containing
+the generated reasoning text description. For convenience,                 the specific reference expression, and the corresponding rea-
+we denote the fine-grained and simplified description of the               soning chain as the expected output. We provide the template
+referred object in T as Tf and Ts , respectively.                          of the user prompt (P ) below:
+Ground. After obtaining the explicit object description Tf or
+Ts , the second step is to generate a bounding box (bbox) for                ===== User Prompt Template for Ref-Thinker =====
+the target object in each video frame. Regardless of whether                 This is a video:<video start><video><video end>.
+the given reference is grounded in audio, visual, or both                    This is an audio:<audio start><audio><audio end>.
+modalities, as illustrated in Fig. 1(a), it ultimately corre-                Given the referential expression xxx, analyze the video
+sponds to a specific visible object (when it is present in                   and audio, and then generate a reasoning chain (<think>)
+the frame). We adopt Grounding-DINO(Liu et al. 2024b)                        and final answer (<answer>). Your output must follow
+as the tool for bounding box generation. Grounding-DINO                      this format: (reasoning chain introduced in Sec. 3.1).
+is an advanced object detection model that combines the
+Transformer-based detector DINO(Zhang et al. 2022) with
+                                                                           Audio and visual feature embeddings are used to replace
+large-scale grounded pre-training, enabling it to detect ar-
+                                                                           the placeholders <audio> and <video> tokens in the user
+bitrary objects based on human language inputs, such as
+                                                                           prompt. The resulting textual input is then tokenized and
+category names or referring expressions. Therefore, our ob-
+                                                                           passed to the LLM backbone for text generation.
+ject descriptions (Tf /Ts ) are closely aligned with the model’s
+                                                                           Training Recipe. We train our Ref-Thinker in two phases.
+input format and intended usage. We denote this process as:
+                                                                           During the pretraining phase, the LLM is frozen, and domain-
+                 Ground(Tf /Ts , V ) → B,                    (2)           specific caption datasets(Kim et al. 2019; Lin et al. 2023)
+                                                                           are independently used to train the audio and visual Q-
+where V = {vi }N      i=1 denotes the N video frames, and                  Formers along with their corresponding projectors. Next,
+B = {(x1 , y1 ), (x2 , y2 )}N is corresponding bounding box                in the instruction tuning phase, we apply the LoRA (Hu
+set, with (x1 , y1 ) and (x2 , y2 ) indicating the coordinates of          et al. 2022) technique for parameter-efficient tuning of the
+the top-left and bottom-right corners, respectively. Notably,              LLM. This phase not only aims to improve the model’s in-
+two key hyper-parameters are involved in the bbox gener-                   struction following ability, but, more importantly, enables
+ation: τbbox controls the minimum confidence score for a                   the MLLM to better learn an object-aware reasoning chain,
+bounding box to be considered valid, while τtext sets the min-             as introduced in Sec. 3.1. To support this, we construct an
+imum confidence score for the text to be matched.                          instruction tuning set. Specifically, given a reference expres-
+Segment. After obtaining the bounding box B of the referred                sion and a video from the training set of the official Ref-
+object in each video frame, we use this explicit and strong                AVSBench dataset (Wang et al. 2024b), we leverage Gemini-
+guidance as a sparse prompt to drive the powerful segmenta-                1.5-Pro (Google 2024) with carefully designed prompts to
+tion foundation model, SAM2 (Ravi et al. 2024), to generate                analyze the video and generate an object-aware reasoning
+the corresponding segmentation masks. In particular, if the                chain that strictly follows the think-answer format shown in
+bounding box does not exist (i.e., no matching object is found             Sec. 3.1. Detailed prompt is provided in our Appendix A.
+in the video frame), the segmentation mask defaults to all                 Supervised with this high-quality instruction tuning set, our
+background pixels. We formalize this process as:                           Ref-Thinker can effectively think about the reference (and
+                  Segment(B, V ) → M .                       (3)           audiovisual signals) and generate accurate object descriptions
+                                                                           with an explicit reasoning chain. For both training phases, the
+M = {mi }N
+         i=1 is the set of binary masks for N video frames.                autoregressive cross-entropy loss is used for optimization.
+Notably, the prior SOTA method (Wang et al. 2025) also
+employs SAM2 but requires fine-tuning its mask decoder. In
+contrast, our method leverages the frozen SAM2 and achieves                                   4     R2 -AVSBench
+superior performance.
+   In this way, our TGS-Agent completes the transforma-                    We propose R2 -AVSBench as an additional Reasoning-
+tion from audiovisual streams + reference text → object                    enhanced evaluation set for the Ref-AVS task, motivated
+description → bbox → mask, demonstrating an object-aware,                  by two key factors: 1) We observed that some reference ex-
+reliable, and explainable decision process for Ref-AVS task.               pressions in the standard Ref-AVSBench (Wang et al. 2024b)
+                                                                           test set are relatively simple. For example, ‘The couch sit by
+3.2   Ref-Thinker: A Reasoning-enhanced MLLM                               a woman’ (referred object: couch) and ‘The object making
+Architecture. As shown on the left side of Fig. 2, our Ref-                a sound by using a saw’ (referred object: man holding the
+Thinker is implemented as an audio-visual LLM. Given tem-                  saw). In these cases, the object name couch or key cues saw
+poral audio and visual streams, modality-specific encoders                 are explicitly mentioned in the reference, which may lead
+
+
+                                                                   13668
+                                                                                             5    Experiments
+                                                                        5.1   Experimental Setup
+                                                                        Datasets. We evaluate our method on both the Ref-
+                                                                        AVSBench dataset (Wang et al. 2024b) and our proposed
+                                                                        R2 -AVSBench. Ref-AVSBench contains 4,000 10-second
+   (a) Original Ref-AVSBench         (b) Our R2-AVSBench                videos and 20,000 manually annotated expressions, covering
+                                                                        51 object classes. The training and validation sets contain
+     Figure 3: Word clouds of different reference types.
+                                                                        2,908 and 276 videos, respectively. The test set is divided
+                                                                        into three subsets: 292 videos in the Seen split, where object
+                                                                        classes appear in the training set; 269 videos in the Unseen
+                                                                        split, which includes 13 additional novel categories not seen
+                                                                        during training; a special Null split, in which the expression
+to shortcut learning by the model without fully reasoning
+                                                                        refers to an object that does not exist in video frames. For eval-
+over the reference context. Additionally, references in Ref-
+                                                                        uation on R2 -AVSBench, we directly test the performance of
+AVSBench are constructed using fixed, manually predefined
+                                                                        models trained on Ref-AVSBench.
+templates, which limits their linguistic diversity. 2) Since our
+                                                                        Evaluation Metrics. Following prior works (Wang et al.
+work emphasizes object-aware reasoning over the reference,
+                                                                        2024b, 2025), we adopt the Jaccard index J and F-score F
+we are interested in evaluating the model’s ability to handle
+                                                                        as primary evaluation metrics. For the Null set, a metric S
+more challenging and varied reference types.
+                                                                        is used by computing the ratio between the predicted mask
+   To this end, the references in our R2 -AVSBench are de-              area and the background area. A lower S indicates fewer
+signed with greater lexical and structural diversity, which also        false-positive pixels are predicted.
+requires deeper reasoning. As illustrated by the word cloud vi-         Implementation Details. For the Ref-Thinker, we use CLIP-
+sualization in Fig. 3, the new references replace many explicit         ViT-L/14 (Radford et al. 2021) and BEATs (Chen et al. 2022)
+object names like ‘man’ with abstract terms such as ‘counter-           as the visual and audio encoders, respectively. The number
+part’, and use more relative pronouns like ‘whose’ or ‘whose            of learnable query tokens is set to 32. We adopt LLaMA-2-
+rhythmic’. For instance, the aforementioned two reference               7b-chat as the base LLM. LoRA is applied with a rank 8 and
+examples are transformed into ‘The item visually serving as             a scaling factor 16. The batch size is 4, and the LLM is fine-
+a shared seating platform for the audio discourse’ and ‘The             tuned for 6 epochs. We use AdamW optimizer with an initial
+entity rhythmically wielding a tool known for forestry tasks in         learning rate of 1e-4. We train our model on four NVIDIA
+earlier eras’. Both transformed references avoid directly re-           A100-SXM4-40GB GPUs using bf16 precision. We employ
+vealing the target object, which also requires more reasoning           the Swin-T-based Grounding-DINO for object detection and
+about the object function, commonsense knowledge, audio                 the Hiera-Large-based SAM2 for segmentation, both with
+information, and other contextual cues. Notably, we ensure              frozen parameters.
+that the new references target the same objects as those in
+the original Ref-AVSBench references. This design allows                5.2   Evaluation on Ref-AVSBench
+us to reuse the pixel-level masks provided by Ref-AVSBench              We compare our method with previous works on the
+for evaluating predictions and comparing model performance              standard Ref-AVSBench dataset. Following the pioneering
+between the original and transformed references.                        work (Wang et al. 2024b), we report results of methods
+                                                                        adapted from related AVS and Ref-VOS tasks, incorporating
+   We perform the reference transformation with the aid of              text and audio modalities, respectively. As shown in Table 1,
+Gemini-1.5-Pro, and the corresponding prompt is provided                our TGS-Agent outperforms all these methods, including re-
+in Appendix B. From the test set of Ref-AVSBench, we                    cent state-of-the-art approaches in the Ref-AVS domain. For
+select a total of 400 unique videos for inclusion in our R2 -           example, compared to SAM2-LOVE (Wang et al. 2025), our
+AVSBench, each paired with a more challenging reference.                method surpasses it by 7.2% and 7.5% in J &F on the Seen
+Ref-AVSBench contains test subsets based on seen and un-                and Unseen test sets, respectively. The proposed Ref-Thinker,
+seen object categories, and we preserve this division in our R2 -       together with Grounding-DINO and SAM2, supports open-
+AVSBench, resulting in 220 and 180 test videos for seen and             set vocabulary, making our method effective in both seen
+unseen sets, respectively. We also analyze the average num-             and unseen class scenarios. Although both SAM2-LOVE and
+ber of words per reference, which is 11.73 for R2 -AVSBench             our method use the same SAM2 model, SAM2-LOVE has
+and 7.08 for Ref-AVSBench, highlighting the increased lin-              much higher S on the Null set, indicating more false positive
+guistic diversity and complexity of our benchmark. To ensure            predictions. Notably, 1) we test Grounded-SAM2 (Ren et al.
+the high quality of R2 -AVSBench, each generated reference              2024) on Ref-AVS task, which directly uses the references
+is further verified by human annotators. Specifically, the ref-         as text prompts to generate segmentation masks. While this
+erences produced by Gemini, along with their corresponding              approach shows competitive performance on Unseen set, it
+audio and video, are reviewed by humans. If a reference                 performs poorly on Seen set. In contrast, our TGS-Agent
+contains hallucinations, factual errors, requires minimal rea-          introduces Ref-Thinker, which interprets the reference along-
+soning, or does not correspond to the original target object, it        side audio and visual signals to generate a more explicit
+is revised or improved by the human annotators.                         object description, significantly improving the performance.
+
+
+                                                                13669
+                                                                    Seen (S) ↑             Unseen (U) ↑              Mix (S+U) ↑      Null ↓
+ Method                                 Venue       Task      J        F     J &F      J       F    J &F         J       F    J &F     S
+ AVSBench (Zhou et al. 2022)          ECCV’22                23.2    51.1      37.2   32.4     54.7    43.5     27.8    52.9   40.3   0.208
+ AVSegFormer (Gao et al. 2024)        AAAI’24                34.5    47.0      40.2   36.1     50.1    43.1     34.8    48.6   41.7   0.171
+                                                    AVS
+ GAVS (Wang et al. 2024a)             AAAI’24                28.9    49.8      39.4   29.8     49.7    39.8     29.4    49.8   39.6   0.190
+ SAMA (Liu et al. 2024a)              AAAI’24                28.9    49.8      39.4   29.8     49.7    39.8     29.4    49.8   39.6   0.190
+ ReferFormer (Wu et al. 2022)         CVPR’22                31.3    50.1      40.7   30.4     48.8    39.6     30.9    49.5   40.2   0.176
+                                                  Ref-VOS
+ R2VOS (Li et al. 2023c)              ICCV’23                25.0    41.0      33.0   27.9     49.8    38.9     26.5    45.4   35.9   0.183
+ EEMC (Wang et al. 2024b)             ECCV’24                34.2    51.3      42.8   49.5     64.8    57.2     41.9    58.1   50.0   0.007
+ Grounded-SAM2 (Ren et al. 2024)      ArXiv’24               28.5    39.9      34.2   59.8     68.1    63.9     44.2    54.0   49.1   0.277
+                                                  Ref-AVS
+ Crab (Du et al. 2025)                CVPR’25                40.5     -         -     45.6      -       -       43.1     -      -        -
+ TSAM (Radman and Laaksonen 2025)     CVPR’25                43.4    56.8      50.1   54.6     66.4    60.5     49.0    61.6   55.3   0.017
+ SAM2-LOVE (Wang et al. 2025)         CVPR’25                43.5    51.9      47.7   66.5     72.3    69.4     55.0    62.1   58.5    0.23
+ TGS-Agent (ours)                         -       Ref-AVS    49.5    60.4      54.9   73.2     80.6    76.9     61.3    70.5   65.9   0.035
+
+            Table 1: Comparison with prior methods on Ref-AVSBench test set. J &F is the average value of J and F.
+
+                                                                   Seen (S) ↑                  Unseen (U) ↑                 Mix (S+U) ↑
+  Ref. Source         Method                                 J        F     J &F           J       F    J &F            J       F    J &F
+                      Crab (Du et al. 2025)                 20.7     33.8      27.2    39.4        54.9       47.2     30.1    44.4   37.2
+                      EEMC (Wang et al. 2024b)              26.4     40.9      33.7    39.7        55.9       47.8     33.1    48.4   40.7
+  Ref-AVSBench
+                      Grounded-SAM2 (Ren et al. 2024)       41.1     50.8      45.9    68.1        76.2       72.2     54.6    63.5   59.0
+                      TGS-Agent (ours)                      48.5     58.4      53.4    71.8        80.4       76.1     60.1    69.4   64.8
+                      Crab (Du et al. 2025)                 19.6     32.1      25.9    36.9        52.0       44.4     28.2    42.1   35.2
+      2               EEMC (Wang et al. 2024b)              22.6     39.9      31.2    38.7        56.9       47.8     30.6    48.4   39.5
+  R -AVSBench
+                      Grounded-SAM2 (Ren et al. 2024)       21.4     30.1      25.7    44.9        53.4       49.1     33.2    41.7   37.4
+                      TGS-Agent (ours)                      42.7     52.3      47.5    68.3        77.0       72.7     55.5    64.7   60.1
+
+Table 2: Evaluation on R2 -AVSBench. We also report results on the same set of videos using original Ref-AVSBench references.
+
+
+2) Crab (Du et al. 2025) is also an MLLM, designed for uni-                                        Seen (S) ↑ Unseen (U) ↑ Null ↓
+fied audio-visual task learning, including Ref-AVS. Despite               Setup                J      F J &F J F J &F S
+using the same LLM backbone, our method significantly
+                                                                          Reference (R) 28.5 39.9 34.2 59.8 68.1 63.9 0.277
+outperforms Crab. These improvements are attributed to our
+                                                                          F-object (Tf ) 43.9 54.1 49.0 69.9 77.4 73.7 0.043
+more effective agentic framework design and the instruction
+                                                                          S-object (Ts ) 49.5 60.4 54.9 73.2 80.6 76.9 0.035
+tuning strategy enhanced by explicit object-aware reasoning.
+                                                                               Table 3: Ablation on object text used as prompts.
+5.3       Evaluation on R2 -AVSBench
+We evaluate our method on the proposed R2 -AVSBench.
+We primarily compare against those open-sourced meth-                    5.4    Ablation Study and Qualitative Results
+ods: Crab (Du et al. 2025), EEMC (Wang et al. 2024b), and
+Grounded-SAM2 (Ren et al. 2024). Notably, all these pre-                 In this section, the experiments are conducted on the Ref-
+trained models are directly evaluated on R2 -AVSBench. As                AVSBench dataset unless otherwise specified.
+shown in Table 2 (bottom four rows), our method consistently             Impact of Object Description Types. Our method designs
+outperforms other competitors by a large margin. The upper               Ref-Thinker to generate two types of object descriptions, i.e.,
+part of the table reports results obtained on the same test              a fine-grained version Tf containing more details (f object),
+videos but using the original Ref-AVSBench references. We                and a simplified version Ts consisting only of the object name
+can observe a consistent performance drop for all models                 (s object). These are used as prompts in the Ground phase for
+when evaluated with the transformed references from R2 -                 bounding box generation. As shown in Table 3, compared to
+AVSBench, indicating the increased complexity. In particular,            using original reference expressions, both Tf and Ts signifi-
+Grounded-SAM2 suffers a substantial drop of around 20% on                cantly improve the performance, highlighting the benefits of
+both Seen and Unseen sets, highlighting its sensitivity to ref-          explicit object-aware reasoning. Interestingly, the simplified
+erence variation. In contrast, benefiting from the object-aware          version (i.e., object category) yields better performance. We
+reasoning mechanism, our method can accurately identify the              hypothesize that this is related to the Grounding-DINO de-
+referred object from multimodal cues, thereby maintaining                tector’s preference, which may be more friendly to short and
+superior performance and demonstrating stronger generaliz-               specific prompts. However, in some cases, the fine-grained
+ability across diverse and challenging reference types.                  object phase can be more effective, especially when there are
+
+
+                                                                 13670
+       Reference: The object making a sound by being played by the man.                Ref-AVSBench Reference:
+                                                                                       The object making a sound by being played by the woman.
+                                                                                     4rerQA8KMzM_10000_20000_guitar_1
+                                                                                       referred                  piano and bassoon
+                                                                                     选取   12 356 张
+                                                                                       object:
+      F_object (𝑻𝒇 ) from Ref-Thinker: The guitar being played by the man.             Piano
+
+
+                                                                                       EEMC
+
+
+      S_object (𝑻𝒔 ) from Ref-Thinker: Guitar.                                         Grouned-
+                                                                                       SAM2
+
+                                                                                       TGS-
+                                                                                       Agent
+
+                                                                                      <think> The referential expression is: "The object making a sound by being
+Figure 4: Visualization results of using different object de-                         played by the woman.". The video shows a woman playing a piano and a
+                                                                                      man playing a bassoon. The audio contains the sound of both instruments.
+scriptions as detection prompts. The fine-grained phase Tf                            The referential expression relates to both visual and auditory modalities,
+may be more helpful in video scenes containing multiple                               specifically the piano being played by the woman. The piano remains largely
+                                                                                      static throughout the video. </think> <answer> <f_object> a black grand
+instances of the same category (i.e., guitar in this example).                        piano </f_object> <s_object> piano </s_object> </answer>
+
+                                                                                                R2-AVSBench Reference: The stationary object whose manipulated
+                                                                                                components harmonize with the bassoon's melody.
+
+                                                                                        TGS-
+                  F_object: a stringed instrument being played by the woman             Agent
+𝒥&ℱ
+
+
+
+
+                                           𝒥&ℱ
+
+
+
+
+                                                                                      <think> The referential expression is: the stationary object whose
+                  S_object: yangqin                                                   manipulated components harmonize with the bassoon's melody. The video
+                                                                                      shows a man playing a bassoon and a woman playing a piano. The audio
+                                                                                      contains the sound of a bassoon and a piano playing together. The bassoon's
+                                                                                      melody is prominent, and the piano provides accompaniment. The referential
+                                                                                      expression refers to the piano, which remains largely static throughout the
+                                                                                      video while the pianist's hands move. The piano's sound, in conjunction with
+           𝜏++,- (𝜏./-. = 0.25)                       𝜏./-. (𝜏++,- = 0.1)             the bassoon, creates a harmonious melody. </think> <answer> <f_object> a
+                                                                                      black grand piano </f_object> <s_object> piano </s_object> </answer>
+         Figure 5: Parameter study on the τbbox and τtext .
+                                                                                          Figure 6: Qualitative example of the Ref-AVS task.
+
+multiple similar/same object instances. As shown in Fig. 4,
+two guitars are played by different individuals. Using only                          dio and visual content, and then explicitly outputs the target
+the simplified object class guitar (Ts ) as a prompt, the object                     object for downstream tool invocation. The corresponding
+detector is confused when recognizing the correct guitar at in-                      reasoning process is visualized in the figure. In addition, we
+stance level. In contrast, the fine-grained phase (Tf ) provides                     provide results of our model on more complex reference from
+richer cues, specifying that the referred guitar is played by the                    our R2 -AVSBench. As illustrated, our Ref-Thinker can adapt
+man, which helps to improve the detection and segmentation                           its reasoning to new reference and still successfully identify
+results. Nevertheless, even using Tf , our method surpasses                          the referred object. We provide more qualitative results and
+the prior state-of-the-art SAM2-LOVE (Wang et al. 2025)                              some failure case studies in Appendix D&E.
+(Table 1), demonstrating the superiority of our method.
+Impact of Threshold Parameters. The Ground phase of                                                            6     Conclusion
+our TGS-Agent involves two hyperparameters, namely the
+bounding box threshold τbbox and the text similarity thresh-                         We propose TGS-Agent, addressing the Ref-AVS task
+old τtext , which are used to control the selection of object                        through an agentic Think-Ground-Segment paradigm. At its
+bounding boxes. We investigate their influence and present                           core is Ref-Thinker, a reasoning-enhanced MLLM that trans-
+the results in Fig. 5. The model performance shows slight                            forms multimodal inputs (reference text and audio-visual
+variation across different values of τbbox , while remaining sta-                    streams) into explicit descriptions of the referred object,
+ble with respect to τtext . We set τbbox = 0.1 and τtext = 0.25                      which better prompts subsequent grounding and segmen-
+as the default configuration in our experiments.                                     tation processes. To further benchmark model robustness,
+Qualitative Analysis. Fig. 6 presents some qualitative results.                      we introduce R2 -AVSBench, a new evaluation set featur-
+In the video example, a man is playing a bassoon while a                             ing linguistically diverse and reasoning-intensive references.
+woman is playing a piano. The referred object is the piano.                          R2 -AVSBench can be used for assessing a model’s cross-
+Prior method EEMC (Wang et al. 2024b) identifies the pi-                             reference generalization and may benefit the broader com-
+ano but only segments part of it. Grounded-SAM2, which                               munity as a challenging testbed. Our TGS-Agent operates
+directly uses the reference expression for prediction, incor-                        without requiring pixel-level supervision, offering greater
+rectly segments another object, e.g., the woman, mentioned in                        explainability. Despite its simplicity, it significantly outper-
+the reference text. In contrast, our TGS-Agent method accu-                          forms prior models. Overall, our work highlights the impor-
+rately identifies the referred object and achieves satisfactory                      tance of explicit reference understanding in Ref-AVS. Future
+segmentation. This improvement stems from our Ref-Thinker,                           directions include integrating our Ref-Thinker with SAM2
+which thoroughly analyzes the reference alongside the au-                            tuning-based methods to further enhance the performance.
+
+
+                                                                             13671
+                   Acknowledgments                                      Kryklyvets, Y.; Kurpath, M. I.; Mullappilly, S. S.; Zhou, J.;
+We would like to express our sincere gratitude to the anony-            Khan, F. S.; Anwer, R. M.; Khan, S.; and Cholakkal, H. 2025.
+mous reviewers for their invaluable comments and insightful             MAviS: A Multimodal Conversational Assistant For Avian
+suggestions. This work is partially supported by the National           Species. In EMNLP, 28601–28627.
+Natural Science Foundation of China (NSFC) under Grant                  Li, G.; Wei, Y.; Tian, Y.; Xu, C.; Wen, J.-R.; and Hu, D.
+No. 62573399 and U25A20530, the Google Research Gift                    2022. Learning to answer questions in dynamic audio-visual
+Award 2023, Meta Regional Research Grant 2025, and the                  scenarios. In CVPR, 19108–19118.
+NVIDIA Academic Grant 2025.                                             Li, J.; Li, D.; Savarese, S.; and Hoi, S. 2023a. Blip-2: Boot-
+                                                                        strapping language-image pre-training with frozen image
+                        References                                      encoders and large language models. In ICML, 19730–19742.
+                                                                        PMLR.
+Bhosale, S.; Yang, H.; Kanojia, D.; Deng, J.; and Zhu, X.
+2025. Unsupervised audio-visual segmentation with modality              Li, K.; Yang, Z.; Chen, L.; Yang, Y.; and Xiao, J. 2023b.
+alignment. In AAAI, volume 39, 15567–15575.                             Catr: Combinatorial-dependence audio-queried transformer
+                                                                        for audio-visual video segmentation. In ACM MM, 1485–
+Chen, H.; Xie, W.; Afouras, T.; Nagrani, A.; Vedaldi, A.; and
+                                                                        1494.
+Zisserman, A. 2021. Localizing visual sounds the hard way.
+In CVPR, 16867–16876.                                                   Li, X.; Wang, J.; Xu, X.; Li, X.; Raj, B.; and Lu, Y. 2023c.
+                                                                        Robust referring video object segmentation with cyclic struc-
+Chen, S.; Wu, Y.; Wang, C.; Liu, S.; Tompkins, D.; Chen, Z.;            tural consensus. In ICCV, 22236–22245.
+and Wei, F. 2022. Beats: Audio pre-training with acoustic
+tokenizers. arXiv preprint arXiv:2212.09058.                            Li, Z.; Guo, D.; Zhou, J.; Zhang, J.; and Wang, M. 2024.
+                                                                        Object-aware adaptive-positivity learning for audio-visual
+Cheng, B.; Choudhuri, A.; Misra, I.; Kirillov, A.; Girdhar, R.;         question answering. In AAAI, 3306–3314.
+and Schwing, A. G. 2021. Mask2former for video instance
+segmentation. arXiv preprint arXiv:2112.10764.                          Li, Z.; Zhou, J.; Zhang, J.; Tang, S.; Li, K.; and Guo, D.
+                                                                        2025. Patch-level sounding object tracking for audio-visual
+Du, H.; Li, G.; Zhou, C.; Zhang, C.; Zhao, A.; and Hu, D.               question answering. In AAAI, 5075–5083.
+2025. Crab: A unified audio-visual scene understanding
+model with explicit cooperation. In CVPR, 18804–18814.                  Lin, B.; Ye, Y.; Zhu, B.; Cui, J.; Ning, M.; Jin, P.; and
+                                                                        Yuan, L. 2023. Video-llava: Learning united visual repre-
+Gao, S.; Chen, Z.; Chen, G.; Wang, W.; and Lu, T. 2024.                 sentation by alignment before projection. arXiv preprint
+Avsegformer: Audio-visual segmentation with transformer.                arXiv:2311.10122.
+In AAAI, volume 38, 12155–12163.
+                                                                        Liu, J.; Wang, Y.; Ju, C.; Ma, C.; Zhang, Y.; and Xie, W.
+Google. 2024.         Gemini 1.5: Unlocking multimodal                  2024a. Annotation-free audio-visual segmentation. In WACV,
+understanding across millions of tokens of context.                     5604–5614.
+https:// storage.googleapis.com/deepmind- media/ gemi-
+ni/gemini v1 5 report.pdf.                                              Liu, S.; Zeng, Z.; Ren, T.; Li, F.; Zhang, H.; Yang, J.; Jiang,
+                                                                        Q.; Li, C.; Yang, J.; Su, H.; et al. 2024b. Grounding dino:
+Google. 2025. Veo: a text-to-video generation system.                   Marrying dino with grounded pre-training for open-set object
+https://storage.googleapis.com/deepmind-media/veo/Veo-3-                detection. In ECCV, 38–55. Springer.
+Tech-Report.pdf.
+                                                                        Liu, X.; Xia, N.; Zhou, J.; Li, Z.; and Guo, D. 2025. Towards
+Guo, C.; Huang, H.; and Zhou, Y. 2024. Enhance audio-visual             energy-efficient audio-visual classification via multimodal
+segmentation with hierarchical encoder and audio guidance.              interactive spiking neural network. ACM TOMM, 1–24.
+Neurocomputing, 594: 127885.
+                                                                        Luo, Z.; Liu, N.; Yang, X.; Khan, S.; Anwer, R. M.;
+Guo, R.; Ying, X.; Chen, Y.; Niu, D.; Li, G.; Qu, L.; Qi,               Cholakkal, H.; Khan, F. S.; and Han, J. 2025. TAViS: Text-
+Y.; Zhou, J.; Xing, B.; Yue, W.; et al. 2025. Audio-visual              bridged Audio-Visual Segmentation with Foundation Models.
+instance segmentation. In CVPR, 13550–13560.                            In ICCV, 1–10.
+Hu, E. J.; Shen, Y.; Wallis, P.; Allen-Zhu, Z.; Li, Y.; Wang, S.;       Ma, J.; Sun, P.; Wang, Y.; and Hu, D. 2024. Stepping stones:
+Wang, L.; Chen, W.; et al. 2022. Lora: Low-rank adaptation              a progressive training strategy for audio-visual semantic seg-
+of large language models. In ICLR.                                      mentation. In ECCV, 311–327. Springer.
+Huang, S.; Ling, R.; Li, H.; Hui, T.; Tang, Z.; Wei, X.; Han,           Mao, Y.; Qin, Z.; Zhou, J.; Deng, H.; Shen, X.; Fan, B.;
+J.; and Liu, S. 2025. Unleashing the temporal-spatial rea-              Zhang, J.; Zhong, Y.; and Dai, Y. 2025a. Autoregressive
+soning capacity of gpt for training-free audio and language             Image Generation with Linear Complexity: A Spatial-Aware
+referenced video object segmentation. In AAAI, volume 39,               Decay Perspective. arXiv preprint arXiv:2507.01652.
+3715–3723.                                                              Mao, Y.; Shen, X.; Zhang, J.; Qin, Z.; Zhou, J.; Xiang, M.;
+Kim, C. D.; Kim, B.; Lee, H.; and Kim, G. 2019. Audiocaps:              Zhong, Y.; and Dai, Y. 2024. TAVGBench: Benchmarking
+Generating captions for audios in the wild. In ACL, 119–132.            text to audible-video generation. In ACM MM, 6607–6616.
+Kirillov, A.; Mintun, E.; Ravi, N.; Mao, H.; Rolland, C.;               Mao, Y.; Zhang, J.; Xiang, M.; Lv, Y.; Li, D.; Zhong, Y.; and
+Gustafson, L.; Xiao, T.; Whitehead, S.; Berg, A. C.; Lo, W.-            Dai, Y. 2025b. Contrastive conditional latent diffusion for
+Y.; et al. 2023. Segment anything. In ICCV, 4015–4026.                  audio-visual segmentation. IEEE TIP.
+
+
+                                                                13672
+Mo, S.; and Tian, Y. 2023. AV-SAM: Segment anything                  Yu, X.; Fang, Y.; Jin, X.; Zhao, Y.; and Wei, Y. 2025. PreFM:
+model meets audio-visual localization and segmentation.              Online Audio-Visual Event Parsing via Predictive Future
+arXiv preprint arXiv:2305.01836.                                     Modeling. arXiv preprint arXiv:2505.23155.
+Park, S.; Senocak, A.; and Chung, J. S. 2024. Can clip help          Yun, H.; Yu, Y.; Yang, W.; Lee, K.; and Kim, G. 2021. Pano-
+sound source localization? In WACV, 5711–5720.                       avqa: Grounded audio-visual question answering on 360deg
+Radford, A.; Kim, J. W.; Hallacy, C.; Ramesh, A.; Goh, G.;           videos. In ICCV, 2031–2041.
+Agarwal, S.; Sastry, G.; Askell, A.; Mishkin, P.; Clark, J.;         Zhang, H.; Li, F.; Liu, S.; Zhang, L.; Su, H.; Zhu, J.; Ni, L. M.;
+et al. 2021. Learning transferable visual models from natural        and Shum, H.-Y. 2022. Dino: Detr with improved denoising
+language supervision. In ICML, 8748–8763. PmLR.                      anchor boxes for end-to-end object detection. arXiv preprint
+Radman, A.; and Laaksonen, J. 2025. TSAM: Temporal                   arXiv:2203.03605.
+SAM Augmented with Multimodal Prompts for Referring                  Zhao, P.; Zhou, J.; Zhao, Y.; Guo, D.; and Chen, Y. 2025.
+Audio-Visual Segmentation. In CVPR, 23947–23956.                     Multimodal class-aware semantic enhancement network for
+Ravi, N.; Gabeur, V.; Hu, Y.-T.; Hu, R.; Ryali, C.; Ma, T.;          audio-visual video parsing. In AAAI, 10448–10456.
+Khedr, H.; Rädle, R.; Rolland, C.; Gustafson, L.; Mintun,           Zhou, J.; Guo, D.; Guo, R.; Mao, Y.; Hu, J.; Zhong, Y.;
+E.; Pan, J.; Alwala, K. V.; Carion, N.; Wu, C.-Y.; Gir-              Chang, X.; and Wang, M. 2025a. Towards open-vocabulary
+shick, R.; Dollár, P.; and Feichtenhofer, C. 2024. SAM 2:           audio-visual event localization. In CVPR, 8362–8371.
+Segment Anything in Images and Videos. arXiv preprint                Zhou, J.; Guo, D.; Mao, Y.; Zhong, Y.; Chang, X.; and Wang,
+arXiv:2408.00714.                                                    M. 2024a. Label-anticipated event disentanglement for audio-
+Ren, T.; Liu, S.; Zeng, A.; Lin, J.; Li, K.; Cao, H.;                visual video parsing. In ECCV, 35–51.
+Chen, J.; Huang, X.; Chen, Y.; Yan, F.; et al. 2024.                 Zhou, J.; Guo, D.; and Wang, M. 2022. Contrastive positive
+Grounded SAM 2: Ground and Track Anything in Videos.                 sample propagation along the audio-visual event line. IEEE
+https://github.com/IDEA-Research/Grounded-SAM-2.                     TPAMI, 45(6): 7239–7257.
+Shen, X.; Li, D.; Zhou, J.; Qin, Z.; He, B.; Han, X.; Li, A.;        Zhou, J.; Guo, D.; Zhong, Y.; and Wang, M. 2023a. Im-
+Dai, Y.; Kong, L.; Wang, M.; et al. 2023. Fine-grained audible       proving audio-visual video parsing with pseudo visual labels.
+video description. In CVPR, 10585–10596.                             arXiv preprint arXiv:2303.02344.
+Tian, Y.; Li, D.; and Xu, C. 2020. Unified multisensory              Zhou, J.; Guo, D.; Zhong, Y.; and Wang, M. 2024b. Ad-
+perception: Weakly-supervised audio-visual video parsing.            vancing weakly-supervised audio-visual video parsing via
+In ECCV, 436–454.                                                    segment-wise pseudo labeling. International Journal of Com-
+Tian, Y.; Shi, J.; Li, B.; Duan, Z.; and Xu, C. 2018. Audio-         puter Vision, 132(11): 5308–5329.
+visual event localization in unconstrained videos. In ECCV,          Zhou, J.; Li, Z.; Yu, Y.; Zhou, Y.; Guo, R.; Li, G.; Mao, Y.;
+247–263.                                                             Han, M.; Chang, X.; and Wang, M. 2025b. Mettle: Meta-
+Um, S. J.; Kim, D.; Lee, S.; and Kim, J. U. 2025. Object-            Token Learning for Memory-Efficient Audio-Visual Adapta-
+aware Sound Source Localization via Audio-Visual Scene               tion. arXiv preprint arXiv:2506.23271.
+Understanding. In CVPR, 8342–8351.
+                                                                     Zhou, J.; Shen, X.; Wang, J.; Zhang, J.; Sun, W.; Zhang, J.;
+Wang, Y.; Liu, W.; Li, G.; Ding, J.; Hu, D.; and Li, X. 2024a.       Birchfield, S.; Guo, D.; Kong, L.; Wang, M.; et al. 2023b.
+Prompting segmentation with sound is generalizable audio-            Audio-Visual Segmentation with Semantics. arXiv preprint
+visual source localizer. In AAAI, volume 38, 5669–5677.              arXiv:2301.13190.
+Wang, Y.; Sun, P.; Zhou, D.; Li, G.; Zhang, H.; and Hu, D.           Zhou, J.; Wang, J.; Zhang, J.; Sun, W.; Zhang, J.; Birchfield,
+2024b. Ref-avs: Refer and segment objects in audio-visual            S.; Guo, D.; Kong, L.; Wang, M.; and Zhong, Y. 2022. Audio–
+scenes. In ECCV, 196–213. Springer.                                  visual segmentation. In ECCV, 386–403.
+Wang, Y.; Xu, H.; Liu, Y.; Li, J.; and Tang, Y. 2025. SAM2-          Zhou, J.; Zheng, L.; Zhong, Y.; Hao, S.; and Wang, M. 2021.
+LOVE: Segment Anything Model 2 in Language-aided                     Positive sample propagation along the audio-visual event line.
+Audio-Visual Scenes. In CVPR, 28932–28941.                           In CVPR, 8436–8444.
+Wu, J.; Jiang, Y.; Sun, P.; Yuan, Z.; and Luo, P. 2022. Lan-         Zhou, J.; Zhou, Z.; Zhou, Y.; Mao, Y.; Duan, Z.; and Guo, D.
+guage as queries for referring video object segmentation. In         2025c. Clasp: Cross-modal salient anchor-based semantic
+CVPR, 4974–4984.                                                     propagation for weakly-supervised dense audio-visual event
+Xu, J.; Guo, Z.; He, J.; Hu, H.; He, T.; Bai, S.; Chen, K.;          localization. arXiv preprint arXiv:2508.04566.
+Wang, J.; Fan, Y.; Dang, K.; et al. 2025. Qwen2. 5-omni              Zhou, Y.-H.; Huang, H.; Guo, C.; Tu, R.-C.; Xiao, Z.; Wang,
+technical report. arXiv preprint arXiv:2503.20215.                   B.; and Mao, X.-L. 2025d. ALOHA: Adapting Local Spatio-
+Yang, P.; Wang, X.; Duan, X.; Chen, H.; Hou, R.; Jin, C.;            Temporal Context to Enhance the Audio-Visual Semantic
+and Zhu, W. 2022. Avqa: A dataset for audio-visual question          Segmentation. ACM TOMM.
+answering on videos. In ACM MM, 3480–3491.                           Zhou, Z.; Zhou, J.; Qian, W.; Tang, S.; Chang, X.; and Guo,
+Yang, Q.; Nie, X.; Li, T.; Gao, P.; Guo, Y.; Zhen, C.; Yan,          D. 2025e. Dense audio-visual event localization under cross-
+P.; and Xiang, S. 2024. Cooperation does matter: Exploring           modal consistency and multi-temporal granularity collabora-
+multi-order bilateral relations for audio-visual segmentation.       tion. In AAAI, 10905–10913.
+In CVPR, 27134–27143.
+
+
+                                                             13673
+

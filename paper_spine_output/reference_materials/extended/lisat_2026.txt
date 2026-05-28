@@ -1,0 +1,1577 @@
+                                           LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+                                              Jerome Quenum * Wen-Han Hsieh * Tsung-Han Wu Ritwik Gupta Trevor Darrell David M. Chan
+
+
+                                                                                                                         Query
+                                                                Abstract                                          Locate the truck that is
+                                                                                                              elongated and light-colored,
+                                             Segmentation models can recognize a pre-defined                  diagonally positioned on the
+                                                                                                                road, contrasting with the
+                                             set of objects in images. However, segmenta-                    surrounding darker pavement.          LISAT              Prior
+arXiv:2505.02829v1 [cs.AI] 5 May 2025
+
+
+
+
+                                             tion models that can “reason” over complex user                                                                          Work
+                                             queries that implicitly refer to multiple objects                                               "Sure, it's <SEG>”
+                                             of interest are still in their infancy. Recent ad-
+                                             vances in “reasoning segmentation”—generating
+                                             segmentation masks from complex, implicit query                                                 ✅                    ❎
+                                             text—show that vision-language models can rea-
+                                             son across an open domain of objects and pro-
+                                             duce reasonable segmentation outputs. However,
+                                             our experiments show that such models struggle
+                                             when operating on complicated remote-sensing                   Figure 1. Existing models struggle to generate accurate segmenta-
+                                             images. In this work, we introduce LISAT, a                    tion masks for complex natural language queries in remote-sensing
+                                             vision-language model (VLM) designed to de-                    imagery. LISAT, our open-source, open-data, foundation model
+                                             scribe complex remote-sensing images, answer                   for geospatial reasoning segmentation trained on GRES, our new
+                                             questions about those images, and also identify                semi-synthetic dataset for remote-sensing reasoning segmentation,
+                                             and segment objects within the scenes. We trained              helps to bridge the gap between SOTA reasoning segmentation
+                                             LISAT on a new curated geospatial reasoning-                   models and remote-sensing domains.
+                                             segmentation dataset, GRES, comprising 27,615
+                                             annotations across 9,205 images, and a multi-
+                                                                                                            typically operate within rigid boundaries but struggle to
+                                             modal geospatial pre-training dataset, PreGRES,
+                                                                                                            adapt to real-world scenarios in which the ability to seg-
+                                             containing >1M QA pairs. LISAT outperforms
+                                                                                                            ment regions based on flexible, user-defined queries—tasks
+                                             existing geospatial foundation models such as RS-
+                                                                                                            often referred to as reasoning segmentation—is paramount
+                                             GPT4V by over 10.04% (BLEU-4) on remote-
+                                                                                                            (Lai et al., 2024). For instance, a query such as “identify
+                                             sensing visual description tasks and outperforms
+                                                                                                            flood-prone urban areas” or “which regions have observed
+                                             state-of-the-art open-domain models on remote-
+                                                                                                            urban expansion” demands that segmentation models move
+                                             sensing reasoning segmentation tasks by 143.36%
+                                                                                                            beyond static object recognition and into contextual, task-
+                                             (gIoU). Our model, datasets, and code are avail-
+                                                                                                            specific reasoning. Despite the clear need for such capabili-
+                                             able on our project page.
+                                                                                                            ties, reasoning segmentation remains largely underexplored
+                                                                                                            in the remote-sensing domain, limiting the adaptability of
+                                                                                                            segmentation systems in practice.
+                                        1. Introduction
+                                                                                                            Adapting existing vision models for the remote-sensing do-
+                                        Segmentation models for remote-sensing have been a sta-             main introduces a unique set of challenges differing funda-
+                                        ple of geospatial analysis, supporting applications ranging         mentally from those encountered in natural imagery (Rolf
+                                        from disaster response, environmental monitoring, and more          et al., 2024). Remote-sensing images can drastically vary
+                                        (Subudhi et al., 2021; Weiss et al., 2020). These models            in terms of clutter, objects of interest can be very small or
+                                          *
+                                            Equal contribution  1
+                                                                  Department of Electrical Engi-            very large, and implicit interactions between objects can
+                                        neering and Computer Sciences, University of California-            span over long distances. Additionally, remote-sensing is
+                                        Berkeley, Berkeley, CA, USA. Correspondence to: Jerome              characterized by both subtle visual differences between dras-
+                                        Quenum <jquenum@berkeley.edu>,         Wen-Han Hsieh                tically different types of objects where it is challenging to
+                                        <hense1219@berkeley.edu>.
+                                                                                                            distinguish between objects that look similar in satellite
+                                        Under Review, arxiv preprint, 2025. Copyright 2025 by the au-       images but have vastly different semantic meanings (e.g.,
+                                        thor(s).                                                            small cars vs. buildings), and extreme variations in scale
+
+                                                                                                        1
+                          LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+along with object diversity where remote-sensing images               et al., 2024; Li, 2024) and environmental protection (Sub-
+contain objects of vastly different sizes (e.g., entire cities,       udhi et al., 2021). A key challenge facing such models,
+forests vs. individual trees). Compounding these difficul-            however, is that they are typically constrained to rigid, task-
+ties is the lack of high-quality annotated data consisting of         specific models that fail to generalize across applications
+natural language queries and remote-sensing imagery pairs.            without significant fine-tuning and adjustment despite using
+As a result, models trained on natural image datasets or              identical imagery and label ontologies. Recently, however,
+designed for general-purpose reasoning struggle to achieve            since the emergence of vision language models (VLMs) as
+high performance when directly applied to geospatial tasks            a predominant paradigm (Liu et al., 2024b;c; Radford et al.,
+(Xu et al., 2024; Zhang et al., 2024a).                               2021), there has been a renewed interest in multimodal foun-
+                                                                      dation models that are capable of responding to/answering
+Recent geospatial-specific foundation models, such as RS-
+                                                                      arbitrary natural language (or multimodal) queries. Models
+GPT4V (Xu et al., 2024), EarthGPT (Zhang et al., 2024a),
+                                                                      such as GPT-4 (Achiam et al., 2023) and LLaVA (Liu et al.,
+and others (Irvin et al., 2024; Kuckreja et al., 2024) have
+                                                                      2024b;c) have expanded on this by allowing users to provide
+demonstrated strong performance in related visual under-
+                                                                      an image along with a natural language query, to solve tasks
+standing and reasoning tasks such as visual captioning and
+                                                                      such as visual description and visual question answering.
+visual question answering. Despite these advances, such
+models remain limited to textual outputs and cannot gener-
+ate segmentation masks or localize objects within images.             2.1. Geospatial Foundation Models
+This lack of segmentation capability presents a significant           Recent geospatial foundation models have adapted the foun-
+barrier for applications that require spatially explicit rea-         dation model paradigm to remote sensing, enabling multi-
+soning. Some vision-language models can generate seg-                 task capabilities for tasks like captioning, visual question
+mentations from text queries (Hu et al., 2016; Lai et al.,            answering, and object detection. EarthGPT (Zhang et al.,
+2024; Ren et al., 2024), but they struggle to adapt to the            2024a) unifies a wide range of multi-sensor RS tasks, includ-
+unique challenges of remote-sensing, mentioned above (see             ing scene classification, image captioning, and object detec-
+Table 2).                                                             tion, using a large-scale multimodal dataset derived from
+We address these challenges by introducing LISAT                      several task-specific datasets (see subsection 3.1). TEOChat
+(Language Instruction Segmentation Assistant for Satellite            (Irvin et al., 2024) introduces temporal reasoning for ap-
+Images), an open-source and open-data vision-language                 plications such as change detection and damage assess-
+model that bridges the gap between reasoning segmentation             ment, demonstrating strong performance on temporal se-
+and remote-sensing foundation models. Central to LISAT ’s             quence tasks, but struggles on more general descriptions.
+development are two new datasets: the Geospatial Reason-              GeoChat (Kuckreja et al., 2024) supports region-specific
+ing Segmentation dataset (GRES), comprising 27,615 pixel-             dialogue and visual grounding, enabling fine-grained inter-
+level annotations paired with natural language reasoning-             action with high-resolution RS imagery, while SkyEyeGPT
+segmentation queries across 9,205 images, and PreGRES, a              (Zhan et al., 2024) achieves notable performance on image-
+fine-tuning dataset aggregated from existing remote-sensing           level and region-level vision-language tasks with a stream-
+datasets consisting of over 1 million question-answer pairs.          lined instruction-following architecture. RS-GPT4V (Xu
+These datasets enable LISAT to handle scale, resolution,              et al., 2024) emphasizes fine-grained object understand-
+and complexity, in aligning textual queries with remote-              ing and complex scene reasoning, leveraging a hierarchical
+sensing and top-down imagery. LISAT achieves significant              instruction-following approach. While these models repre-
+performance gains over state-of-the-art geospatial and open-          sent significant progress across a wide range of tasks, such
+domain models. Specifically, LISAT outperforms existing               models have been limited by their ability to produce only
+geospatial foundation models, such as RS-GPT4V, by over               natural language outputs. Our proposed work, LISAT ad-
+10.04% on BLEU-4 on remote-sensing visual description                 dresses this limitation by natively producing segmentation
+tasks and outperforms state-of-the-art open-domain models             masks in addition to answering natural language queries.
+on remote-sensing reasoning segmentation by 143.36% on
+gIoU.                                                                 2.2. Reasoning Segmentation
+                                                                      Beyond just producing segmentation masks for single
+2. Related Work                                                       classes, a goal of LISAT is to perform “reasoning segmen-
+                                                                      tation,” the task of generating a segmentation mask from a
+Semantic segmentation has been an essential task in remote-           complex or implicit query text (Figure 1). Two overarching
+sensing with applications ranging from urban planning                 approaches have been developed for this task. LISA (Lai
+(Chen et al., 2024; Gao et al., 2024; Hansen et al., 2024),           et al., 2024) introduced this concept with an embedding-
+economic assessment (Flotzinger et al., 2024), precision              as-mask approach, allowing segmentation via a [SEG] to-
+agriculture (Weiss et al., 2020), resource management (Gao            ken which is decoded into a segmentation mask using a
+
+                                                                  2
+                          LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+SAM decoder (Kirillov et al., 2023). PixelLM (Ren et al.,             question answering, and visual grounding tasks:
+2024) expanded on this method by leveraging lightweight
+pixel decoder and segmentation codebook to improve multi-               1. Image Captioning: NWPU-Captions (Cheng et al.,
+target differentiation in the same paradigm, while GLaMM                   2022), RSICD (Lu et al., 2017), RSITMD (Yuan et al.,
+(Rasheed et al., 2024) also targeted the granularity problem               2022b), Sydney-Captions (Qu et al., 2016), and
+through additional focused data. GSVA (Xia et al., 2024)                   UCM-Captions (Qu et al., 2016). Each contributes
+extended the [SEG] paradigm by introducing a [REJ]                         paired image-text data, and contains long-form descrip-
+token to handle ambiguous or absent targets in queries. In                 tions of top-down imagery across different geospatial
+the second paradigm, models such as Shikra (Chen et al.,                   environments, increasing the diversity of language su-
+2023), Kosmos-2 (Peng et al., 2024) and others (Liu et al.,                pervision.
+2024b;c; Xuan et al., 2024; Zhang et al., 2024b) focus on
+solving reasoning segmentation tasks with natural language              2. Visual Question Answering (VQA): RSVQA LR (Lo-
+alignment: represent visual concepts as sequences of natural               bry et al., 2020), RSVQA HR (Lobry et al., 2020),
+language tokens (such as the literal coordinates of a bound-               FloodNet (Rahnemoonfar et al., 2021), and
+ing box). Despite these advances, existing models often fall               RSIVQA (Zheng et al., 2021). Each of these datasets
+short when applied to remote sensing due to challenges like                consists of structured question-answer pairs and sup-
+varying spatial resolutions, fine differences between target               ports reasoning over aerial and satellite images, cov-
+classes, and the lack of domain-tailored datasets (See Ta-                 ering tasks such as object identification, scene under-
+ble 2). Our proposed work, LISAT, extends the embedding-                   standing, and disaster assessment.
+as-mask approach to top-down remote-sensing data.
+                                                                        3. Visual Grounding / Region-Level Captioning:
+                                                                           DIOR-RSVG (Zhan et al., 2023) provides paired text-
+3. Geospatial Reasoning Segmentation Dataset                               image data for object localization and spatial refer-
+                                                                           ence resolution, and NWPU-RESISC45 (Cheng et al.,
+The development of vision-language models (VLMs) for
+                                                                           2017) supplies scene classification labels.
+remote sensing has been hindered by the lack of high-quality
+remote sensing imagery paired with natural language data,
+a key challenge outlined in our introduction. Unlike natural          Overall, PreGRES consists of 119,279 images and
+image datasets, remote-sensing data require fine-grained,             1,204,993 question-answer pairs and is used in the first-stage
+context-aware segmentation that accounts for extreme vari-            pre-training of the LISAT model enabling general-purpose
+ations in scale, subtle object differences, and the ability           geospatial question-answering in the final LISAT model.
+to reason across complex spatial relationships. To help               For more details on dataset composition, see Table C.9.
+alleviate this need, we introduce the Geospatial Reason-
+ing Segmentation Dataset (GRES), a collection of vision               3.2. GRES
+and language data designed around remote-sensing applica-             GRES is a semi-synthetic dataset designed explicitly for
+tions. GRES consists of two core components: PreGRES,                 geospatial reasoning segmentation. Each sample in GRES
+a dataset consisting of over 1M remote-sensing specific vi-           consists of an image, a natural language query referring to a
+sual instruction-tuning Q/A pairs for pre-training geospatial         single object in that image, and a pixel-level segmentation
+models, and GRES, a semisynthetic dataset specialized for             mask (See Figure 2 for an example of a GRES query/image
+reasoning segmentation of remote-sensing data. With this              pair). This task allows us to train the LISAT model to cor-
+structure of GRES, we enable LISAT to overcome both                   rectly localize images at a pixel level within the scene, even
+data scarcity and the domain transfer limitations faced by            in the case of multiple objects requiring disambiguation.
+general-purpose models. The dataset is specifically designed
+to handle scale variability, object diversity, and complex rea-       To build the dataset, we begin with a subset of the xView
+soning queries, making it a critical resource for advancing           dataset (Lam et al., 2018) consisting of 26, 541 high-
+geospatial VLMs.                                                      resolution satellite images spanning approximately 1, 400
+                                                                      square kilometers, covering more than 60 classes. xView
+3.1. PreGRES                                                          consists of paired images and object detections within the
+                                                                      images in bounding box form. To convert xView im-
+PreGRES is a large-scale structured collection of existing            ages/annotations to GRES annotations/images, we follow
+smaller-scale geospatial datasets designed for fine-tuning            the process overviewed in Figure 2.
+vision-language models in remote sensing applications. It
+integrates multiple sources, each contributing to different as-       Given an input image of size 512 × 512, we divide it into
+pects of geospatial data understanding. The datasets within           4 quadrants, where the top-left quadrant is defined by 0 ≤
+GRES provide coverage across image captioning, visual                 x ≤ 255, 0 ≤ y ≤ 255; the top-right quadrant is defined by
+                                                                      256 ≤ x ≤ 511, 0 ≤ y ≤ 255; the bottom-left quadrant is
+
+                                                                  3
+                           LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+                                                                                                                       D
+                            Interest                                       Feature                                 Query
+                            Filtering                                     Extraction                             Generation
+                                A                                              B          Triangular metal
+                                                                                              structure
+
+
+                                                                                                             Identify the
+                                                                                                          triangular metal
+                           Segmentation
+                          Mask Generation
+                                                                                                              structure
+                                                                                                         standing vertically
+                                C                                                                           in the image.
+
+Figure 2. To generate synthetic data, we start with a seed detection dataset (xView). We then filter detections for those that are both
+visually interesting and highly distinguishable (A). For those detection, we then generate a natural language description (B), and a
+pixel-wise segmentation mask (C). Finally, the natural language description is used to generate a localization query (D). Together, the
+segmentation mask and the query form a ground-truth pair for the LISAT reasoning segmentation fine-tuning.
+
+
+defined by 0 ≤ x ≤ 255, 256 ≤ y ≤ 511; the bottom-right                  In the second part of the pipeline (Figure 2, C), we need
+quadrant is defined by 256 ≤ x ≤ 511, 256 ≤ y ≤ 511.                     to generate the pixel-based mask from the bounding box.
+                                                                         To do this, we leverage a GeoSAM model (Sultana et al.,
+In the first part of the pipeline, we need to generate a “dis-
+                                                                         2023) with a custom high-resolution inference configuration
+ambiguating query” that selects for a single object within
+                                                                         (128 points per side, 0.95 prediction IoU threshold, and 0.95
+the scene from the large set of objects. To do so, we first
+                                                                         stability score with an 80-pixel minimum mask region area)
+filter the scenes for two key objectives: (1) uniqueness (i.e.
+                                                                         to produce a part-wise segmentation of each bounding box.
+can objects be easily disambiguated with a natural language
+                                                                         We then add any sub-parts that cover more than 80px of the
+query), and (2) interest (i.e. are the objects visually interest-
+                                                                         underlying bounding box to the final pixel mask.
+ing) (Figure 2, A). An object is considered “unique” in an
+image if it is one of less than 2 detections of its class in its         We then asked the VLM to rephrase each query two separate
+respective quadrant, and an object is considered “visually               ways which added to the initially generated query gives us 3
+interesting” if it belongs to a class appearing in less than             queries per image. This pipeline overall results in a dataset
+50% of the overall subset of xView detections. Comprehen-                consisting of 9,205 images and 27,615 natural language
+sive statistics of object categories after filtering are available       queries/answers within those images. From this dataset, we
+in Table B.8. To ensure a balanced evaluation, our dataset               generate train, test, and validation splits consisting of 7,205,
+includes queries with and without explicit spatial references,           1,500, and 500 images respectively.
+each with a 50% probability.
+After the filtering stage, we convert the object detection to            4. Training VLMs for Geospatial Reasoning
+a query using a set of structured queries to a large vision                 Segmentation
+and language model trained on natural images (in our case,
+GPT-4v (Achiam et al., 2023), Figure 2, B). In the first                 Inspired by LISA (Lai et al., 2024), LISAT integrates a mul-
+prompting stage, we ask the VLM to identify unique char-                 timodal large language model (LLM) with a segmentation
+acteristics of the class within the bounding box by asking               model. The multimodal LLM processes both textual and vi-
+the model to ‘‘Find visual features (color,                              sual inputs, leveraging datasets that contain image-text pairs
+shape, size, etc.) that to help find                                     for instruction-following and reasoning (Liu et al., 2024c)
+or segment {class name} in the image.’’.                                 while the segmentation model uses a dataset designed for
+We then ask the VLM to come up with a sentence describing                high-quality mask generation (Kirillov et al., 2023). An
+the object in the bounding box within the scene using the                overview of the architecture is given in Figure 3.
+collected unique characteristics (See the full prompt in
+Appendix B.1.1). Given these features, we prompt the VLM                 4.1. Geospatial Multimodal Language Models
+again with the full image, along with other detections in the            While LISA (Lai et al., 2024) leverages a pre-trained LLaVA
+image and the position of the bounding box to produce a                  (Liu et al., 2024b;c) model as a vision and language back-
+query(see the full prompt in Appendix B.1.2, Figure 2, D).
+
+                                                                     4
+                            LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+                                                                         4.2. Preliminaries
+
+
+                                      🔥
+                                                                         Existing multimodal LLMs for remote sensing, such as
+                             SAM
+                            Decoder                                      RS-GPT4V (Xu et al., 2024) and EarthGPT (Zhang et al.,
+                                                                         2024a), support images and text as input but output only
+                                                                         text. To produce segmentation masks, LISAT leverages
+                                                                         the “embedding-as-a-mask” paradigm introduced by LISA
+                Sure        It        Is        <SEG>                    (Lai et al., 2024), and expands the LLM vocabulary with a
+                                                                         new token, <SEG>, which represents segmentation requests.
+                Large Language Model (Vicuna 7B)          🔥   LoRA
+                                                                         When the model produces an output containing the <SEG>
+                                                                         token, we extract the final layer embedding of that token,
+                                                                         and project it via an MLP layer to the query space of a
+       MLP-Based Adapter    🔥                Text Embedding      ❄       SAM-based segmentation decoder (Kirillov et al., 2023).
+                                                                         The segmentation decoder combines the query-projected
+
+                            ❄              “Find the Airplane”           final embedding and a set of visual features extracted from
+      Remote-CLIP Encoder                                                the base image to produce a final segmentation mask M̂.
+
+                                                                         4.3. Training Objectives
+                                                                         LISAT is trained end-to-end with a loss function that com-
+                                                                         bines text generation and segmentation objectives. The total
+                                                                         loss L is the weighted sum of two components:
+
+Figure 3. LISAT integrates a geospatial multimodal large language
+model (MLLM) with a segmentation decoder to enable reasoning-                          L = λtxt Ltxt + λmask Lmask .              (1)
+based segmentation. LISAT first pre-trains a Remote-CLIP-based
+MLLM on PreGRES before fine-tuning on GRES. We then expand               where the text generation loss Ltxt is an autoregressive
+the LMM vocabulary with a segmentation token (<SEG>), whose              cross-entropy loss:
+final-layer embedding is projected into the SAM segmentation
+query space and combined with image features to produce a seg-
+mentation mask.                                                                           Ltxt = CE(ŷtxt , ytxt ).               (2)
+
+                                                                         and the segmentation loss Lmask consists of a per-pixel
+                                                                         binary cross-entropy (BCE) loss and a DICE loss, weighted
+                                                                         by λbce and λdice :
+bone, we found that leveraging LLaVA alone was insuffi-
+cient to capture the range of queries and visual variance
+in remote-sensing applications. To solve this problem, in
+the first stage of our training process we trained a remote-              Lmask = λbce BCE(M̂, M) + λdice DICE(M̂, M). (3)
+sensing specific multimodal large language model to serve
+as the base MLLM for the segmentation backbone. Our                      5. Experimental Results
+architecture generally follows LLaVA (Liu et al., 2024b;c)
+with several modifications for remote-sensing applications.              Implementation Details: LISAT and LISAT PRE are
+                                                                         trained on eight DGX A100 80GB GPUs. In the first stage,
+For the base language model, we leverage default Vicuna-
+                                                                         we pretrain LISAT PRE (context length = 2048) using LoRA
+7B (Chiang et al., 2023) to embed a text query Xl . For
+                                                                         (Hu et al., 2021) for 1 epoch on PreGRES (described in sub-
+the visual backbone, LISAT adopts the Remote-CLIP ViT-
+                                                                         section 3.1) with next-token prediction cross-entropy loss.
+L/14 encoder (Liu et al., 2024a) to extract visual features
+                                                                         We employ the AdamW optimizer (Loshchilov, 2017) with a
+from an input image Xv . To align visual representations
+                                                                         learning rate of 3e−4 and a cosine-decay learning rate sched-
+with the language model’s word embedding space, we use
+                                                                         uler, setting the batch size to 2 and gradient accumulation
+a simple linear projection matrix to produce a sequence of
+                                                                         steps to 6.
+visual tokens that match the dimensionality of the word
+embeddings in the language model. A pre-trained Vicuna                   In the second stage, we train LISAT using GRES, as well
+base model combined with the vision encoder is further                   as two traditional natural image referring segmentation
+pre-trained on PreGRES (see section 5) with LoRA (Hu                     datasets, FP-Ref-COCO (Wu et al., 2024) and ReasonSeg
+et al., 2021) prior to being trained on GRES. We refer to                (Lai et al., 2024). LoRA is applied to LISAT PRE , while the
+this pre-trained variant as LISAT PRE .                                  SAM decoder undergoes full fine-tuning. The learning rate
+
+                                                                     5
+                             LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+                      Table 1. Qualitative examples of the segmentations generated by LISAT on the GRES dataset.
+        Queries                     RGB                       LISA                  LISAT (Ours)               Ground Truth
+
+
+   Locate the building
+       with a large
+  rectangular structure,
+      dark roof, and
+  symmetrical window
+         patterns.
+
+
+
+
+ Identify the facility in
+  the center-left of the
+         image.
+
+
+
+
+  Identify the damaged
+  building in the center
+      of the image.
+
+
+
+
+      Failure Case:
+     Locate the dark,
+  elongated rectangular
+     shape with a red
+    outline against the
+   dark background to
+    identify the barge.
+
+
+
+
+is set to 3e−4 , with all other configurations remaining the          (gIoU) and cumulative Intersection-over-Union (cIoU) (Lai
+same. For the loss function, we empirically found that set-           et al., 2024). To evaluate the performance of our approach
+ting the weight for text generation loss (λtxt ) and mask loss        on traditional vision and language tasks, we use several
+(λmask ) to 1.0, while the binary cross-entropy loss (BCE)            existing datasets, including NWPU-Captions (Cheng et al.,
+(λbce ) and Dice loss (λdice ) are assigned weights of 2.0 and        2022), UCM-Captions (Qu et al., 2016), Sydney-Captions
+0.5, respectively performs better. The total training time was        (Qu et al., 2016), and RSICD (Lu et al., 2017). Following
+approximately 12 hours on eight DGX A100 80GB GPUs.                   prior work, we report standard evaluation metrics: BLEU
+                                                                      (Papineni et al., 2002), CIDEr (Vedantam et al., 2015), and
+                                                                      SPICE (Anderson et al., 2016).
+Evaluation Protocol: We use the GRES test set to eval-
+uate segmentation performance. We focus on two subsets
+                                                                      5.1. Segmentation
+of the GRES test set, Small and Large, to evaluate perfor-
+mance on small and large objects, respectively. We define             Table 2 compares LISAT with LISA-7B-v1 and LISA-13B-
+a threshold of 500 pixels2 and categorize any object in the           Llama2-v1 (Lai et al., 2024) across different dataset con-
+test set that covers an area less than the threshold to be            figurations (All, Small, Large). LISAT consistently and
+Small and bigger to be Large. We evaluate segmenta-                   significantly outperforms both natural-image trained refer-
+tion performance using generalized Intersection-over-Union            ring segmentation models. Notably, for smaller objects,
+
+                                                                  6
+                                                               LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+  Table 2. Comparative performance of LISAT against LISA-7B-                                            Table 3. Comparison of LISAT’s performance using GeoSAM vs.
+  v1 and LISA-13B-Llama2-v1 on GRES across different object                                             SAM for segmentation on the All dataset configuration.
+  sizes. LISAT-7B consistently outperforms the baseline models,
+                                                                                                         Segmentation Model                   cIoU               gIoU
+  particularly in the Small object category.
+                                                                                                         GeoSAM (Sultana et al., 2023)    0.220±0.019         0.238±0.007
+                      Model                                Obj. Size        cIoU         gIoU            SAM (Kirillov et al., 2023)      0.245±0.023         0.275±0.009
+                      LISA-7B                                All        0.122±0.014   0.113±0.007
+                                                            Small       0.104±0.022   0.062±0.008
+                                                            Large       0.157±0.017   0.222±0.013
+                                                                                                        Table 4. Comparison of captioning performance on the UCM-
+                      LISA-13B                               All        0.122±0.014   0.139±0.006       Captions dataset. Results are reported for BLEU-4 and CIDEr
+                      (llama2)                              Small       0.106±0.016   0.089±0.007       metrics.
+                                                            Large       0.148±0.018   0.244±0.019
+                                                                                                         Method                                    BLEU-4         CIDEr
+                       LISAT (Ours)                          All        0.245±0.023   0.275±0.009
+                                                            Small       0.232±0.024   0.240±0.009        SAA (Lobry et al., 2020)                    64.77        294.51
+                                                            Large       0.250±0.029   0.348±0.015        SD-RSIC (Sumbul et al., 2020)               53.80        213.20
+                                                                                                         RTRMN (semantic) (Wang et al., 2020)        35.87        180.25
+                                                                                                         RTRMN (statistical) (Wang et al., 2020)     63.93        312.70
+                                 0.35       gIoU (All)
+                                                                                                         SVM-D BOW (Hoxha et al., 2021)              51.95        271.42
+                                            gIoU (Large)                                                 SVM-D CONC (Hoxha et al., 2021)             59.42        292.28
+                                            gIoU (Small)                                                 Post-processing (Huang et al., 2023)        62.62        309.64
+                                            cIoU (All)
+                                            cIoU (Large)                                                 LLaVA-v1.5-7b (Liu et al., 2024c)             5.54        32.67
+Segmentation Performance (IoU)
+
+
+
+
+                                 0.30       cIoU (Small)
+                                                                                                         LLaVA-v1.6-7b (Liu et al., 2024b)             5.44        23.86
+                                                                                                         RS-GPT4V (Xu et al., 2024)                  65.74        333.23
+                                                                                                         LISA-7B (fine-tuned on GRES)                 8.73         59.96
+                                 0.25                                                                    LISAT PRE (Ours)                            72.34        355.32
+
+
+
+                                 0.20                                                                   focuses on the larger ship objects.
+                                                                                                        Figure 4 demonstrates the influence of training dataset size
+                                 0.15 33%                                                               on LISAT ’s performance. With an increasing number of
+                                                                      66%                    100%
+                                                                 % of GRES-Train                        training images, LISAT demonstrates notable improvements
+                                                                                                        in both cIoU and gIoU scores. These results indicate that
+  Figure 4. Scaling behavior of LISAT on the GRES dataset. While                                        LISAT benefits from larger training datasets thereby ex-
+  adding additional data is helpful, even with 7K training images                                       hibiting some good scaling properties, as its segmentation
+  (the full GRES dataset), we observe the beginning of a plateau                                        performance improves with more data, particularly for small
+  in performance, particularly on cIOU scores. This suggests that                                       objects.
+  more data alone may not be helpful, and instead, we may need
+  additional data variance outside the xView classes.
+                                                                                                        Table 3 compares LISAT’s performance using GeoSAM
+                                                                                                        and SAM as base segmentation models on the All
+                                                                                                        dataset. While both models yield competitive results, SAM
+    LISAT has larger relative gains compared to large models,                                           achieves slightly higher cIoU (0.245) and gIoU (0.275) than
+    suggesting that LISAT is more effective for capturing fine-                                         GeoSAM. This suggests that despite being designed for
+    grained spatial details, which is important for applications                                        geospatial tasks, GeoSAM alone without specific language-
+    involving dense scenes or small-scale features in remote                                            aligned fine-tuning may be limited by training-specific bi-
+    sensing imagery.                                                                                    ases, whereas SAM’s broader training on diverse natural
+                                                                                                        images enables more adaptable feature extraction, leading
+    Some qualitative examples are given in Table 1. The first                                           to improved segmentation performance.
+    three rows represent success cases, where LISAT correctly
+    identifies and localizes objects based on the queries. In the
+                                                                                                        5.2. Captioning and Question-Answering
+    first, LISAT correctly segments the building against a noisy
+    background, and when many of the ground features match                                              On the UCM-Captions dataset (Table 4), LISAT PRE achieves
+    the visual features of the target object. In the second and                                         the highest BLEU-4 (72.34) and CIDEr (355.32) scores, sur-
+    third, LISAT correctly identifies the key object of interest,                                       passing previous geospatial models such as RS-GPT4V (Xu
+    ignoring other potential distractor objects. In the failure                                         et al., 2024) and post-processing methods (Huang et al.,
+    case, LISAT fails to correctly identify the barge alone from                                        2023), as well as general-purpose vision-language models
+    the two ships, likely due to the color patterns on the first                                        such as LLaVA-v1.5 and LLaVA-v1.6 (Liu et al., 2024b;c).
+    ship, but still manages to outperform LISA, which only                                              For NWPU-Captions (Table 5), LISAT PRE achieves the high-
+
+                                                                                                    7
+                                  LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+Table 5. Comparison of captioning performance on the NWPU-                    Table 7. Ablations of the base language model and visual feature
+Captions dataset. Results are reported for BLEU-4 and SPICE                   extractor for LISAT PRE on the UCM-Captions dataset.
+metrics.
+                                                                               Vision Encoder      LLM        BLEU-4      CIDEr      SPICE
+ Method                                           BLEU-4      SPICE
+                                                                               CLIP                Llama 2      69.03     328.82      52.21
+ CSMLF (Touvron et al., 2023)                      47.1         26.5           CLIP336             Llama 2      66.97     324.61      50.46
+ Multimodal (Qu et al., 2016)                      45.5         27.6           SAT-CLIP            Llama 2       8.82      30.41       8.15
+ Attention (hard) (Lu et al., 2017)                46.4         28.4           Geo-CLIP            Llama 2      12.77      44.64      11.67
+ FC-Att (Zhang et al., 2019)                       46.9         28.3           RemoteCLIP          Llama 2      68.31     330.94      52.17
+ MLCA-Net (Cheng et al., 2022)                     47.8         28.5           CLIP                Vicuna       66.68     329.32      52.00
+ LLaVA-v1.5-7b (Liu et al., 2024c)                  4.8         11.1           CLIP336             Vicuna       68.28     324.89      51.55
+ LLaVA-v1.6-7b (Liu et al., 2024b)                  2.9          8.7           SAT-CLIP            Vicuna       16.87      63.92      15.08
+ EarthGPT(Zhang et al., 2024a)                     65.5        32.2            Geo-CLIP            Vicuna       24.56     109.20      21.15
+ LISA-7B (fine-tuned on GRES)                      39.9        19.52           RemoteCLIP          Vicuna       72.34     355.32      54.15
+ LISAT PRE (Ours)                                  65.8        32.2
+
+
+                                                                              ings highlight that both the vision encoder and the language
+         Table 6. Performance on RSVQA-LR (% accuracy).                       model play crucial roles, with RemoteCLIP and Vicuna
+ Model                                    Count   Presence   Comparison       forming the most effective pairing for remote sensing im-
+ RSVQA (Lobry et al., 2020)               67.01    87.46       81.50          agery.
+ EasyToHard (Yuan et al., 2022a)          69.22    90.66       87.49
+ Bi-Modal (Bazi et al., 2022)             72.22    91.06       91.16
+ SHRNet (Zhang et al., 2023b)             73.87    91.03       90.48          5.3. Limitations and Failure Cases
+ LLaVA-1.5 (Liu et al., 2024c)            26.81    54.72       66.22
+ InternLM-XC2 (Dong et al., 2024)         26.91    55.74       64.89
+ RS-GPT4V (Xu et al., 2024)                 -      91.17       91.70          While LISAT outperforms all existing reasoning segmen-
+ GeoChat (Zhang et al., 2023a)              -      91.09       90.33
+ Full-FT (Xu et al., 2024)                70.48    91.10       92.23          tation models, it is not perfect. Appendix D.2 high-
+ RS-GPT4V-LoRA-FT (Xu et al., 2024)       70.34    92.24       92.10
+ RS-GPT4V-MoE-LoRA-FT (Xu et al., 2024)   71.06    91.10       92.55
+                                                                              lights examples of failure cases in our pipeline. In
+ LLaVA-v1.5-7b (Liu et al., 2024c)        18.66    53.98       66.22          some instances, LISAt struggles to produce accurate pre-
+ LLaVA-v1.6-7b (Liu et al., 2024b)        19.65    57.53       62.32
+ LISA-7B (fine-tuned on GRES)             25.86    79.80       84.41          dictions when images are cloudy or when key features
+ LISAT PRE (Ours)                         70.24    92.36       92.20
+                                                                              are obscured. Other challenges arise when the query
+                                                                              is too vague like ‘‘Identify the plane in the
+                                                                              bottom-right of the image.‘‘ while there are
+est BLEU-4 score and matches the best SPICE performance,                      several planes in the bottom right corner of the image. It
+outperforming prior geospatial captioning models such as                      is also the case when similar objects to the target item ap-
+MLCA-Net (Cheng et al., 2022) and multimodal attention-                       pear in the image, leading to ambiguity. We hypothesize
+based methods (Lu et al., 2017). General-purpose vision-                      that training on a larger dataset and refining the query de-
+language models (LLaVA-v1.5 and LLaVA-v1.6) (Liu et al.,                      sign could help mitigate these issues. Another issue arises
+2024b;c) perform significantly worse, highlighting the bene-                  from the ground truth masks generated by GeoSAM in the
+fits of domain-specific training. Similar trends are observed                 GRES dataset. In some cases, the underlying ground truth
+on RSICD (Table C.10) and Sydney-Captions (Table C.11).                       mask is incorrect, and LISAt is occasionally penalized even
+                                                                              when making correct predictions, as demonstrated in Ap-
+Table 6 presents the performance of LISAT PRE on the
+                                                                              pendix D.3.
+RSVQA-LR dataset across Count, Presence, and Compar-
+ison categories. The model achieves the highest Presence
+accuracy (92.36) and Comparison accuracy (92.20), indicat-                    6. Conclusion
+ing strong performance in these tasks. In contrast, models
+                                                                              In this paper we introduce LISAT, an open-source, open-
+such as LLaVA-1.5 and InternLM-XC2 report lower scores
+                                                                              data foundation model for geospatial reasoning segmenta-
+in Count and Presence. These results suggest that LISAT PRE
+                                                                              tion, and GRES, an open dataset to help support applications
+effectively handles multimodal reasoning and task-specific
+                                                                              in remote-sensing referring segmentation. LISAT is only
+fine-tuning, particularly in Presence-based evaluations.
+                                                                              the first step towards models that can produce text and task-
+The ablation study in Table 7 evaluates different vision                      specific outputs such as masks and boxes when reasoning
+encoders and language models for LISAT PRE on the UCM-                        about a geospatial world. Future work can focus on scaling
+Captions dataset. Among the vision encoders, RemoteCLIP                       LISAT for use with large rasters, integrate LISAT with addi-
+(which we use in LISAT) significantly outperforms both                        tional segmentation models other than SAM and GeoSAM,
+Geo-CLIP and Sat-CLIP on all domains, while slightly out-                     or incorporate multimodal/hyperspectral data sources. Over-
+performing the base CLIP models. Models using LLama 2                         all, we hope that LISAT lays the groundwork for future
+as a base LLM are notably worse than Vicuna. These find-                      advancements in geospatial artificial intelligence, paving
+
+                                                                          8
+                          LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+the way for more sophisticated models that seamlessly inte-         Cheng, G., Han, J., and Lu, X. Remote sensing image scene
+grate vision and language to better understand and interact           classification: Benchmark and state of the art. Proceed-
+with our dynamic geospatial world.                                    ings of the IEEE, 105(10):1865–1883, 2017.
+
+                                                                    Cheng, Q., Huang, H., Xu, Y., Zhou, Y., Li, H., and Wang, Z.
+Impact Statement                                                      Nwpu-captions dataset and mlca-net for remote sensing
+This paper presents advancements in reasoning segmenta-               image captioning. IEEE Transactions on Geoscience and
+tion for remote sensing tasks. LISAT is a method that is able         Remote Sensing, 60:1–19, 2022.
+to reason over arbitrary remote sensing images and output           Chiang, W.-L., Li, Z., Lin, Z., Sheng, Y., Wu, Z., Zhang,
+both explanations and segmentation masks for objects of               H., Zheng, L., Zhuang, S., Zhuang, Y., Gonzalez, J. E.,
+interest. These kinds of workflows are extremely common               Stoica, I., and Xing, E. P. Vicuna: An open-source
+across multiple fields. For example, disaster management              chatbot impressing gpt-4 with 90%* chatgpt quality,
+personnel may want to know which roads leading to an                  March 2023. URL https://lmsys.org/blog/
+airport are undamaged, and why. LISAT is the first such               2023-03-30-vicuna/.
+model that can simultaneously answer both components of
+such questions.                                                     Dong, X., Zhang, P., Zang, Y., Cao, Y., Wang, B., Ouyang,
+Broadly, LISAT has impacts in numerous domains such                   L., Wei, X., Zhang, S., Duan, H., Cao, M., Zhang, W.,
+as environmental monitoring, urban planning, and search               Li, Y., Yan, H., Gao, Y., Zhang, X., Li, W., Li, J., Chen,
+and rescue. However, one of the biggest uses of satellite             K., He, C., Zhang, X., Qiao, Y., Lin, D., and Wang, J.
+imaging is surveillance. Being cognizant of this, our work is         Internlm-xcomposer2: Mastering free-form text-image
+primarily based on datasets that have been widely adopted             composition and comprehension in vision-language large
+by the remote sensing community over interesting, cluttered           model. arXiv preprint arXiv:2401.16420, 2024.
+scenes that do not capture any individual entity.                   Flotzinger, J., Rösch, P. J., Benz, C., Ahmad, M., Cankaya,
+We encourage responsible deployment and continued dis-                M., Mayer, H., Rodehorst, V., Oswald, N., and Braml,
+course on the implications of geospatial AI in real-world             T. dacl-challenge: Semantic segmentation during visual
+applications.                                                         bridge inspections. In Proceedings of the IEEE/CVF
+                                                                      Winter Conference on Applications of Computer Vision,
+                                                                      pp. 716–725, 2024.
+References
+Achiam, J., Adler, S., Agarwal, S., Ahmad, L., Akkaya, I.,          Gao, T., Ao, W., Wang, X.-A., Zhao, Y., Ma, P., Xie, M.,
+  Aleman, F. L., Almeida, D., Altenschmidt, J., Altman, S.,           Fu, H., Ren, J., and Gao, Z. Enrich distill and fuse:
+  Anadkat, S., et al. Gpt-4 technical report. arXiv preprint          Generalized few-shot semantic segmentation in remote
+  arXiv:2303.08774, 2023.                                             sensing leveraging foundation model’s assistance. In
+                                                                      Proceedings of the IEEE/CVF Conference on Computer
+Anderson, P., Fernando, B., Johnson, M., and Gould, S.               Vision and Pattern Recognition, pp. 2771–2780, 2024.
+  Spice: Semantic propositional image caption evaluation.
+  In Computer Vision–ECCV 2016: 14th European Confer-               Hansen, L. H., Jensen, S. B., Philipsen, M. P., Møgelmose,
+  ence, Amsterdam, The Netherlands, October 11-14, 2016,              A., Bodum, L., and Moeslund, T. B. Opentrench3d: A
+ Proceedings, Part V 14, pp. 382–398. Springer, 2016.                 photogrammetric 3d point cloud dataset for semantic seg-
+                                                                      mentation of underground utilities. In Proceedings of the
+Bazi, Y., Al Rahhal, M. M., Mekhalfi, M. L., Al Zuair, M. A.,         IEEE/CVF Conference on Computer Vision and Pattern
+  and Melgani, F. Bi-modal transformer-based approach                 Recognition, pp. 7646–7655, 2024.
+  for visual question answering in remote sensing imagery.
+  IEEE Transactions on Geoscience and Remote Sensing,               Hoxha, G. et al. A novel svm-based decoder for remote sens-
+  60:1–11, 2022.                                                      ing image captioning. IEEE Transactions on Geoscience
+                                                                      and Remote Sensing, 60:1–14, 2021.
+Chen, K., Zhang, Z., Zeng, W., Zhang, R., Zhu, F., and
+  Zhao, R. Shikra: Unleashing multimodal llm’s referential          Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang,
+  dialogue magic. arXiv preprint arXiv:2306.15195, 2023.              S., Wang, L., and Chen, W. Lora: Low-rank adaptation of
+                                                                      large language models. arXiv preprint arXiv:2106.09685,
+Chen, L., Qu, Z., Zhang, Y., Liu, J., Wang, R., and Zhang, D.         2021.
+  Edge enhanced gciffnet: A multiclass semantic segmenta-
+  tion network based on edge enhancement and multiscale             Hu, R., Rohrbach, M., and Darrell, T. Segmentation
+  attention mechanism. IEEE Journal of Selected Topics in             from natural language expressions. In Computer Vision–
+  Applied Earth Observations and Remote Sensing, 2024.               ECCV 2016: 14th European Conference, Amsterdam, The
+
+                                                                9
+                          LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+  Netherlands, October 11–14, 2016, Proceedings, Part I               Liu, H., Li, C., Wu, Q., and Lee, Y. J. Visual instruction tun-
+  14, pp. 108–124. Springer, 2016.                                      ing. Advances in neural information processing systems,
+                                                                        36, 2024c.
+Huang, S., Dong, L., Wang, W., Hao, Y., Singhal, S., Ma,
+  S., Lv, T., Cui, L., Mohammed, O. K., Patra, B., et al.             Lobry, S., Marcos, D., Murray, J., and Tuia, D. Rsvqa:
+  Language is not all you need: Aligning perception with                Visual question answering for remote sensing data. IEEE
+  language models. Advances in Neural Information Pro-                  Transactions on Geoscience and Remote Sensing, 58(12):
+  cessing Systems, 36:72096–72109, 2023.                                8555–8566, 2020.
+Irvin, J. A., Liu, E. R., Chen, J. C., Dormoy, I., Kim, J.,           Loshchilov, I. Decoupled weight decay regularization. arXiv
+   Khanna, S., Zheng, Z., and Ermon, S. Teochat: A large                preprint arXiv:1711.05101, 2017.
+   vision-language assistant for temporal earth observation
+   data. arXiv preprint arXiv:2410.06234, 2024.                       Lu, X., Wang, B., Zheng, X., and Li, X. Exploring models
+                                                                        and data for remote sensing image caption generation.
+Kirillov, A., Mintun, E., Ravi, N., Mao, H., Rolland, C.,               IEEE Transactions on Geoscience and Remote Sensing,
+  Gustafson, L., Xiao, T., Whitehead, S., Berg, A. C., Lo,              56(4):2183–2195, 2017.
+  W.-Y., et al. Segment anything. In Proceedings of the
+  IEEE/CVF International Conference on Computer Vision,               Papineni, K., Roukos, S., Ward, T., and Zhu, W.-J. Bleu:
+  pp. 4015–4026, 2023.                                                  a method for automatic evaluation of machine transla-
+                                                                        tion. In Proceedings of the 40th annual meeting of the
+Kuckreja, K., Danish, M. S., Naseer, M., Das, A., Khan,                 Association for Computational Linguistics, pp. 311–318,
+  S., and Khan, F. S. Geochat: Grounded large vision-                   2002.
+  language model for remote sensing. In Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern                  Peng, Z., Wang, W., Dong, L., Hao, Y., Huang, S., Ma,
+ Recognition, pp. 27831–27840, 2024.                                    S., Ye, Q., and Wei, F. Grounding multimodal large lan-
+                                                                        guage models to the world. In The Twelfth International
+Lai, X., Tian, Z., Chen, Y., Li, Y., Yuan, Y., Liu, S., and             Conference on Learning Representations, 2024.
+  Jia, J. Lisa: Reasoning segmentation via large language
+  model. In Proceedings of the IEEE/CVF Conference                    Qu, B., Li, X., Tao, D., and Lu, X. Deep semantic under-
+  on Computer Vision and Pattern Recognition, pp. 9579–                 standing of high resolution remote sensing image. In
+  9589, 2024.                                                          2016 International conference on computer, information
+                                                                        and telecommunication systems (Cits), pp. 1–5. IEEE,
+Lam, D., Kuzma, R., McGee, K., Dooley, S., Laielli, M.,                 2016.
+  Klaric, M., Bulatov, Y., and McCord, B. xview: Ob-
+  jects in context in overhead imagery. arXiv preprint                Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G.,
+  arXiv:1802.07856, 2018.                                               Agarwal, S., Sastry, G., Askell, A., Mishkin, P., Clark, J.,
+                                                                        et al. Learning transferable visual models from natural
+Li, L. Cpseg: Finer-grained image semantic segmentation
+                                                                        language supervision. In International conference on
+  via chain-of-thought language prompting. In Proceedings
+                                                                        machine learning, pp. 8748–8763. PMLR, 2021.
+  of the IEEE/CVF Winter Conference on Applications of
+  Computer Vision, pp. 513–522, 2024.                                 Rahnemoonfar, M., Chowdhury, T., Sarkar, A., Varshney, D.,
+                                                                        Yari, M., and Murphy, R. R. Floodnet: A high resolution
+Li, X., Yuan, A., and Lu, X. Multi-modal gated recurrent
+                                                                        aerial imagery dataset for post flood scene understanding.
+  units for image description. Multimedia Tools and Appli-
+                                                                        IEEE Access, 9:89644–89654, 2021.
+  cations, 77(22):29847–29869, 2018.
+
+Liu, C., Zhao, R., and Shi, Z. Remote-sensing image cap-              Rasheed, H., Maaz, M., Shaji, S., Shaker, A., Khan, S.,
+  tioning based on multilayer aggregated transformer. IEEE              Cholakkal, H., Anwer, R. M., Xing, E., Yang, M.-H., and
+  Geoscience and Remote Sensing Letters, 19:1–5, 2022.                  Khan, F. S. Glamm: Pixel grounding large multimodal
+                                                                        model. In Proceedings of the IEEE/CVF Conference on
+Liu, F., Chen, D., Guan, Z., Zhou, X., Zhu, J., Ye, Q.,                 Computer Vision and Pattern Recognition, pp. 13009–
+  Fu, L., and Zhou, J. Remoteclip: A vision language                    13018, 2024.
+  foundation model for remote sensing. IEEE Transactions
+  on Geoscience and Remote Sensing, 2024a.                            Ren, Z., Huang, Z., Wei, Y., Zhao, Y., Fu, D., Feng, J., and
+                                                                        Jin, X. Pixellm: Pixel reasoning with large multimodal
+Liu, H., Li, C., Li, Y., Li, B., Zhang, Y., Shen, S., and Lee,          model. In Proceedings of the IEEE/CVF Conference on
+  Y. J. Llava-next: Improved reasoning, ocr, and world                  Computer Vision and Pattern Recognition, pp. 26374–
+  knowledge, 2024b.                                                     26383, 2024.
+
+                                                                 10
+                          LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+Subudhi, S., Patro, R. N., Biswal, P. K., and Dell’Acqua, F.          Xuan, S., Guo, Q., Yang, M., and Zhang, S. Pink: Unveiling
+  A survey on superpixel segmentation as a preprocessing                the power of referential comprehension for multi-modal
+  step in hyperspectral image analysis. IEEE Journal of Se-             llms. In Proceedings of the IEEE/CVF Conference on
+  lected Topics in Applied Earth Observations and Remote                Computer Vision and Pattern Recognition, pp. 13838–
+  Sensing, 14:5015–5035, 2021.                                         13848, 2024.
+
+Sultana, R. I., Lia, C., Zhua, H., Khanduria, P., Brocanellib,        Yuan, Z., Mou, L., Wang, Q., and Zhu, X. X. From easy
+  M., and Zhua, D. Geosam: Fine-tuning sam with multi-                  to hard: Learning language-guided curriculum for vi-
+  modal prompts for mobility infrastructure segmentation.               sual question answering on remote sensing data. IEEE
+  arXiv preprint arXiv:2311.11319, 2023.                                transactions on geoscience and remote sensing, 60:1–11,
+                                                                        2022a.
+Sumbul, G., Nayak, S., and Demir, B.           Sd-rsic:
+  Summarization-driven deep remote sensing image cap-                 Yuan, Z., Zhang, W., Fu, K., Li, X., Deng, C., Wang, H.,
+  tioning. IEEE Transactions on Geoscience and Remote                   and Sun, X. Exploring a fine-grained multiscale method
+  Sensing, 59(8):6922–6934, 2020.                                       for cross-modal remote sensing image retrieval. arXiv
+                                                                        preprint arXiv:2204.09868, 2022b.
+Touvron, H., Lavril, T., Izacard, G., Martinet, X., Lachaux,
+                                                                      Zhan, Y., Xiong, Z., and Yuan, Y. Rsvg: Exploring data
+  M.-A., Lacroix, T., Rozière, B., Goyal, N., Hambro, E.,
+                                                                        and models for visual grounding on remote sensing data.
+  Azhar, F., et al. Llama: open and efficient foundation
+                                                                        IEEE Transactions on Geoscience and Remote Sensing,
+  language models. arxiv. arXiv preprint arXiv:2302.13971,
+                                                                        61:1–13, 2023.
+  2023.
+                                                                      Zhan, Y., Xiong, Z., and Yuan, Y. Skyeyegpt: Unify-
+Vedantam, R., Lawrence Zitnick, C., and Parikh, D. Cider:               ing remote sensing vision-language tasks via instruc-
+  Consensus-based image description evaluation. In Pro-                 tion tuning with large language model. arXiv preprint
+  ceedings of the IEEE conference on computer vision and                arXiv:2401.09712, 2024.
+  pattern recognition, pp. 4566–4575, 2015.
+                                                                      Zhang, M., Chen, F., and Li, B. Multi-step question-driven
+Wang, B., Zheng, X., Qu, B., and Lu, X. Retrieval topic                 visual question answering for remote sensing. IEEE
+ recurrent memory network for remote sensing image cap-                 Transactions on Geoscience and Remote Sensing, 2023a.
+ tioning. IEEE Journal of Selected Topics in Applied Earth
+ Observations and Remote Sensing, 13:256–270, 2020.                   Zhang, W., Cai, M., Zhang, T., Zhuang, Y., and Mao, X.
+                                                                        Earthgpt: A universal multi-modal large language model
+Weiss, M., Jacob, F., and Duveiller, G. Remote sensing for              for multi-sensor image comprehension in remote sensing
+ agricultural applications: A meta-review. Remote sensing               domain. IEEE Transactions on Geoscience and Remote
+ of environment, 236:111402, 2020.                                      Sensing, 2024a.
+
+Wu, T.-H., Biamby, G., Chan, D., Dunlap, L., Gupta, R.,               Zhang, X., Wang, X., Tang, X., Zhou, H., and Li, C. Descrip-
+ Wang, X., Gonzalez, J. E., and Darrell, T. See say and                 tion generation for remote sensing images using attribute
+ segment: Teaching lmms to overcome false premises. In                  attention mechanism. Remote Sensing, 11(6):612, 2019.
+ Proceedings of the IEEE/CVF Conference on Computer
+                                                                      Zhang, Y., Ma, Z., Gao, X., Shakiah, S., Gao, Q., and
+ Vision and Pattern Recognition, pp. 13459–13469, 2024.
+                                                                        Chai, J. Groundhog: Grounding large language models to
+Xia, Z., Han, D., Han, Y., Pan, X., Song, S., and Huang,                holistic segmentation. In Proceedings of the IEEE/CVF
+  G. Gsva: Generalized segmentation via multimodal large                conference on computer vision and pattern recognition,
+  language models. In Proceedings of the IEEE/CVF Con-                  pp. 14227–14238, 2024b.
+  ference on Computer Vision and Pattern Recognition, pp.             Zhang, Z., Jiao, L., Li, L., Liu, X., Chen, P., Liu, F., Li, Y.,
+  3858–3869, 2024.                                                      and Guo, Z. A spatial hierarchical reasoning network for
+                                                                        remote sensing visual question answering. IEEE Trans-
+Xu, K. Show, attend and tell: Neural image cap-
+                                                                        actions on Geoscience and Remote Sensing, 61:1–15,
+  tion generation with visual attention. arXiv preprint
+                                                                        2023b.
+  arXiv:1502.03044, 2015.
+                                                                      Zheng, X., Wang, B., Du, X., and Lu, X. Mutual attention
+Xu, L., Zhao, L., Guo, W., Li, Q., Long, K., Zou, K., Wang,             inception network for remote sensing visual question an-
+ Y., and Li, H. Rs-gpt4v: A unified multimodal instruction-             swering. IEEE Transactions on Geoscience and Remote
+  following dataset for remote sensing image understanding.             Sensing, 60:1–14, 2021.
+  arXiv preprint arXiv:2406.12479, 2024.
+
+                                                                 11
+                         LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+Appendix
+In this appendix, we include several additional discussions:
+
+
+   • Appendix A details the code release, including links to the codebases and datasets used in this project.
+
+   • Appendix B outlines the prompt structure used for engineering the GRES dataset for LISAT and provides further
+     details on its class distribution and quality verification.
+
+   • Appendix C presents additional details on the PreGRES dataset used to fine-tune LISAT PRE , discussing its composition
+     and further evaluations.
+
+   • Appendix D showcases qualitative results, highlighting both successful and failure cases, as well as instances where
+     LISAT was penalized due to incomplete Ground Truth annotations generated by GeoSAM (GT).
+
+
+A. Code Release
+The project page for this paper is available here. Our code for LISAT, derived from the Apache 2.0-licensed LISA codebase
+(Lai et al., 2024), as well as the curated datasets are publicly released under the MIT license (or their respective licenses)
+and could also be found on the same page.
+
+B. More on GRES
+B.1. Prompt Engineering
+As outlined in Section 3, we used GPT-4o to generate the final prompt in two stages, detailed below.
+
+B.1.1. P ROMT E NGINEERING S TAGE 1
+In the first stage, we input a 512 × 512 chip into the model and prompt it, following the template below, to generate a
+sentence that accurately describes the item within the bounding box provided, as specified by the Ground Truth from xView
+
+
+     The size of the original image is (512,512).
+     This original image, where the image’s origin is at the top left corner, contains the following objects: {
+          classes_list_str}.
+     Only focus on {class_name} in the image.
+     If {class_name} contains the word ’Other’, remove the word ’Other’ and use only the second word in {
+          class_name} describing the class. In that case, make sure that second word in {class_name} starts
+          with a lowercase letter.
+     The following are the bounding boxes [x, y, width, height] of objects of class {class_name}, where (x,y)
+          represents the top left corner of the bounding box, and ’width’ represents the bounding box’s width,
+          and ’height’ represents the bounding box’s height.
+     The bounding box of the {class_name} is at coordinates {bbox}.
+     Find visual features (color, shape, size, etc.) that can help find or segment {class_name} in the image.
+     Generate a sentence (not a question) that can uniquely segment or identify or find or locate {class_name}
+          in this image, be concise and clear.
+
+
+
+
+Where {classes list str}, {class name}, and {bbox} are the ground truth list of classes, the object class name
+or category, and the bounding box of the object from the xView dataset bounding box and class annotations.
+The model outputs a descriptive sentence in the variable {unique characteristics.query}, which is then used to
+query the model again in the second stage, as shown below.
+
+B.1.2. P ROMPT E NGINEERING STAGE 2
+Once the uniquely descriptive sentence is generated, we asked the model using the template below to come with a question
+to which the given sentence in {unique characteristics.query} will be the answer.
+
+                                                               12
+                         LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+     The size of the original image is (512,512).
+     Only focus on {class_name} in the image.
+     In the original image, where the image’s origin is at the top left corner, the object is a {class_name}
+          located at bounding box coordinates {bbox}.
+     The following are the bounding boxes [x, y, width, height] of objects of class {class_name}, where (x,y)
+          represents the top left corner of the bounding box, and ’width’ represents the bounding box’s width,
+          and ’height’ represents the bounding box’s height:
+     This original image, where the image’s origin is at the top left corner, contains the following objects: {
+          classes_list_str}.
+     If {class_name} contains the word ’Other’, remove the word ’Other’ and use only the second word in {
+          class_name} describing the class. In that case, make sure that second word in {class_name} starts
+          with a lowercase letter.
+     { ’ located at bounding box coordinates {bbox}.’ if include_bbox else ’.’}
+     Please generate a query that would help locate this {class_name} in the original image.
+     Your query will be the question to the answer provided by {unique_characteristics.query}.
+     For example, if the value contained in {unique_characteristics.query} is ’Look for a long rectangular
+          shape with distinct wheels, typically metallic or painted in color, connected to a truck cab at the
+          front’, your query should be:
+     ’Segment the blue car in the bottom right of the image with a long rectangular shape with distinct wheels,
+           typically metallic or painted in color, connected to a truck cab at the front’
+     ’Identify the blue car in the bottom right of the image with a long rectangular shape with distinct wheels
+          , typically metallic or painted in color, connected to a truck cab at the front’
+     ’Find the blue car in the bottom right of the image with a long rectangular shape with distinct wheels,
+          typically metallic or painted in color, connected to a truck cab at the front’
+     ’Locate the blue car in the bottom right of the image with a long rectangular shape with distinct wheels,
+          typically metallic or painted in color, connected to a truck cab at the front’
+     ’Show the blue car in the bottom right of the image with a long rectangular shape with distinct wheels,
+          typically metallic or painted in color, connected to a truck cab at the front’.
+     Generate the query considering the sentence: {unique_characteristics.query}
+     { ’and the location described by the bounding box.’ if include_bbox else ’.’}
+     Make sure to vary the start of your queries with key words such as ’Segment, Find, Locate, Show, Identify’
+           and similar synonyms. Do not overuse one over the others.
+     Rephrase the generated query to make it sound better.
+     { ’Do not mention or use any location-related info such as: top, near the center in your query.’ if not
+          include_bbox else ’’}
+     Do not output the exact bounding box coordinates, instead, output the locations such as: bottom-left, top-
+          right, top-left, bottom-right, center, etc.
+     The response to the generated queries should be a JSON object in the following format and contain nothing
+          else:
+     The response to the generated query should be a sentence, not a question.
+     Be concise and clear, start the sentence with: Locate, Segment, or Identify.
+     {"query": "<your_query_here>"}
+
+
+Where {class name}, {bbox}, {unique characteristics.query}, and {class name} are the ground truth
+class name or category of the object class name or category, its bounding box and the unique characteristics obtained from
+GPT-4 (Achiam et al., 2023) in the first stage.
+The final query is then treated as the principal query. To enhance query diversity, we ask GPT to rephrase the principal query
+into two additional variants, resulting in three distinct queries per image. We then use GeoSAM to generate corresponding
+masks, forming image-queries-mask tuples.
+
+B.2. Dataset Quality Assurance
+We use RGB images from the xView dataset (Lam et al., 2018), as referenced in our manuscript. We employ Human
+Verification, where multiple team members manually inspect randomly selected subsets of the dataset to verify the accuracy
+of query-image-annotation triplets.
+
+B.3. GRES Dataset Summary
+Table B.8 below shows the LISAT dataset distribution per class. We have also provided bar charts for the dataset distributions
+in Figures B.5 through B.9.
+
+C. More on PreGRES
+We conducted additional evaluations of LISAT PRE . We show evaluation results on the NWPU Caption in Table 5, RSICD in
+Table C.10, Sidney-Caption in Table C.11. We also ran Count, Presence, Comparisaon and Area evaluation as was done in
+(Xu et al., 2024) in Table C.13.
+
+
+
+                                                             13
+                         LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+                         Table B.8. Summary of Object Categories Across Train, Validation, and Test Sets
+ Object Category         2.5k Train    4.5k Train    7.2k Train     .5k Val   1.5k Test (All)   .5k Test (Large)   1k Test (Small)
+ Truck w/Trailer Bed         142           298           469          25           100                 34                66
+ Dump/Haul Truck             104           148           208          16            50                 18                32
+ Bus                         224           417           671          61           139                  8               131
+ Facility                    115           197           370          28            66                 44                22
+ Car                         247           546           914          65           182                  2               180
+ Truck                       240           518           932          75           173                 12               161
+ Small Plane                   6            18            39          2             7                  3                 4
+ Shed                         80           152           249           7            51                 16                35
+ Hut/Tent                     26            46            82           9           16                  8                 8
+ Storage Tank                 47            74           120          8            25                 14                11
+ Truck w/Liquid Tank          21            29            45           3           10                  4                 6
+ Building                    331           548           937          69           183                102                81
+ Helicopter                    6            12            19          2             4                  1                 3
+ Passenger/Cargo Plane       107           135           198          11            45                 25                20
+ Aircraft Hangar             25             39            73          6            13                  9                 4
+ Aircraft                      3            15            29          0             5                  3                 2
+ Container Ship               31            72           102          5            24                 11                13
+ Motor/Sail/Small Boat        32            58            87           7           20                  2                18
+ Maritime Vessel              41            92           134          12            31                 21                10
+ Crane Truck                  33            48            70          2            16                  5                11
+ Container Crane              12            25            38          4             9                  0                 9
+ Tower Crane                 18             42            57          6            14                  7                 7
+ Engineering Vehicle         82            115           166          15           39                 11                28
+ Excavator                   84            115           161          12           39                 10                29
+ Straddle Carrier              3             7            14          2             3                  2                 1
+ Passenger Vehicle            96           145           215          15            49                  0                49
+ Pylon                       104           140           177           6            47                 34                13
+ Helipad                      15            21            32          2             8                  6                 2
+ Loader/Dozer/Tractor        100           137           186           7            46                  7                39
+ Damaged Building            61            151           226          8            51                 37                14
+ Railway Vehicle              13            22            26          1             8                  8                 0
+ Locomotive                   13            21            32          3             8                  4                 4
+ Tower Structure             16             30            41          1            11                  6                 5
+ Barge                       17             42            59          5            14                 13                 1
+ Passenger Car                 5            14            27          1             5                  1                 4
+ Total                      2500          4489          7205         500          1500                488               1023
+
+
+
+D. Qualitative Analysis
+In this section, we present a qualitative analysis of the model’s performance, showcasing a range of success cases Ap-
+pendix D.1, failure cases Appendix D.2, and instances where the ground truth (GT) was erroneous Appendix D.3. Success
+cases shown in Table D.14, Table D.15, Table D.16, Table D.17, and Table D.18 highlight scenarios where the model
+successfully aligns with the expected outcomes, demonstrating its ability to handle complex tasks accurately. Failure cases
+shown in Table D.19, however, indicate situations where the model struggles due to challenges such as occlusion, poor
+lighting, or ambiguous object representations, leading to incorrect predictions or missed detections. These cases reveal areas
+where model improvements are needed, particularly in dynamic environments or with less structured input data. Finally,
+GT mistake cases as shown in Table D.20 refer to instances where the GT was erroneous but the model aligns with the
+expected ground truth annotations. The model is penalized here due to inherent inconsistencies in the dataset from the mask
+labeling with GeoSAM. These cases underscore the challenges posed by noisy or ambiguous ground truth data, highlighting
+the importance of dataset refinement and improved model calibration to reduce such errors. Together, these cases provide
+valuable insights into the model’s performance, guiding future research and optimizations.
+
+D.1. Success Cases of LISAT
+In this subsection, we present a selection of successful cases where LISAT accurately predicted object categories and
+configurations. These examples highlight the model’s ability to generalize and perform well under varied conditions,
+
+                                                               14
+                         LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+
+                                      Figure B.5. Class Distribution of 33% Training Set
+
+
+demonstrating its effectiveness in real-world applications.
+
+D.2. Failure Cases of LISAT
+We examined failure cases where LISAT struggled to make accurate predictions in subsection 5.3. Some of these instances,
+where the model’s performance could be improved, highlight the challenges it faces under complex conditions, such as
+cloudy or ambiguous scenes as shown in Table D.19.
+
+D.3. Ground Truth Error Cases
+Table D.20 displays cases where the model’s predictions are affected by errors in the ground truth data. These errors
+highlight discrepancies between the model’s output and the labeled data, shedding light on limitations within the dataset and
+the potential impact on evaluation metrics.
+
+
+
+
+                                                              15
+LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+
+            Figure B.6. Class Distribution of 66% Training Set
+
+
+
+
+            Figure B.7. Class Distribution of 100% Training Set
+
+
+
+
+                                    16
+LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+
+              Figure B.8. Class Distribution of Validation Set
+
+
+
+
+               Figure B.9. Class Distribution of Testing Set
+
+
+
+
+                                    17
+                      LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+
+                                 Table C.9. Overview of Task Data Sources and Statistics
+Task                             Data Source         Train Images      Train QA Pairs      Test Images   Test QA Pairs
+                               NWPU-Captions             25200             125894              3150           1093
+                                   RSICD                 8734               17813              1093           1093
+Image Captioning                  RSITMD                 4291               20096                -              -
+                               Sydney-Captions            497                2294               58             58
+                                UCM-Captions             1680               7999                210           210
+                                 RSVQA-LR                 572               57223              100           10004
+                                 RSVQA-HR                6251              625340              2226         222684
+Visual Question Answering
+                                  FloodNet               1448                4511                -              -
+                                  RSIVQA                 5401               19218                -              -
+Visual Grounding                 DIOR-RSVG                9466              19643              7936          18677
+Region-level Captioning          DIOR-RSVG                9466              19643                -              -
+Scene Classification          NWPU-RESISC45              31500              31500                -              -
+Total                                 -                 104506             951174             14773         253819
+
+
+
+
+                            Table C.10. Comparison of Various Models for LISAT PRE on RSICD
+Method                                     BLEU-1      BLEU-2       BLEU-3       BLEU-4       METEOR     ROUGE L     CIDEr
+VLAD + RNN (Lu et al., 2017)                49.38       30.91        22.09        16.77        19.96       42.42     103.92
+VLAD + LSTM (Lu et al., 2017)               50.04       31.95        23.19        17.78        20.46       43.34     118.01
+mRNN (Qu et al., 2016)                      45.58       28.25        18.09        12.13        15.69       31.26      19.15
+mLSTM (Qu et al., 2016)                     50.57       32.42        23.29        17.46        17.84       35.02      31.61
+mGRU (Li et al., 2018)                      42.56       29.99        22.91        17.98        19.41       37.97     124.82
+mGRU embedword (Li et al., 2018)            60.94       46.24        36.80        29.81        26.14       48.20     159.54
+CSMLF (Touvron et al., 2023)                57.59       38.59        28.32        22.17        21.28       44.55      52.97
+SAA (Lobry et al., 2020)                    59.35       45.11        35.29        28.08        26.11       49.57     132.35
+Soft-attention (Xu, 2015)                   65.13       49.04        39.00        32.30        26.39       49.69      90.58
+SD-RSIC (Sumbul et al., 2020)               64.50       47.10        36.40        29.40        24.90       51.90      77.50
+RTRMN (semantic) (Wang et al., 2020)        62.01       46.23        36.44        29.71        28.29       55.39     151.46
+RTRMN (statistical) (Wang et al., 2020)     61.02       45.14        35.35        28.59        27.51       54.52     148.20
+SVM-D BOW (Hoxha et al., 2021)              61.12       42.77        31.53        24.11        23.03       45.88      68.25
+SVM-D CONC (Hoxha et al., 2021)             59.99       43.47        33.55        26.89        22.99       45.57      68.54
+MLAT (Liu et al., 2022)                     66.90       51.13        41.14        34.21        27.31       50.57      94.27
+Post-processing (Huang et al., 2023)        62.90       45.99        35.68        28.68        25.30       47.34      75.56
+RS-GPT4V (Xu et al., 2024)                  70.32       54.23        44.02        36.83        30.10       53.34     102.94
+LLaVA-v1.5-7b (Liu et al., 2024c)           38.36       18.27         8.46         3.57        14.64       27.36      16.96
+LLaVA-v1.6-7b (Liu et al., 2024b)           29.31       13.40         6.00         2.44        13.11       24.40      10.69
+LISAT PRE (Ours)                            72.51       54.98        43.77        36.10        30.28       53.80     118.39
+
+
+
+
+                                                           18
+                       LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+
+                       Table C.11. Comparison of Various Models for LISAT PRE on Sydney-Captions
+Method                                 BLEU-1      BLEU-2      BLEU-3      BLEU-4      METEOR      ROUGE L   CIDEr
+VLAD + RNN (Lu et al., 2017)            56.58       45.14       38.07       32.79       26.72        52.71    93.72
+VLAD + LSTM (Lu et al., 2017)           49.13       34.12       27.60       23.14       19.30        42.01    91.64
+mRNN (Qu et al., 2016)                  51.30       37.50       20.40       19.30       18.50          -     161.00
+mLSTM(Qu et al., 2016)                  54.60       39.50       22.30       21.20       20.50          -     186.00
+mGRU (Li et al., 2018)                  69.64       60.92       52.39       44.21       31.12        59.17   171.55
+mGRU embedword (Li et al., 2018)        68.85       60.03       51.81       44.29       30.36        57.47   168.94
+CSMLF (Touvron et al., 2023)            59.98       45.83       38.69       34.33       24.75        50.18    75.55
+SAA (Lobry et al., 2020)                68.82       60.73       52.94       45.39       30.49        58.20   170.52
+Soft-attention (Xu, 2015)               73.22       66.74       62.23       58.20       39.42        71.27   249.93
+Hard-attention (Xu, 2015)               75.91       66.10       58.89       52.58       38.98        71.89   218.19
+SD-RSIC (Sumbul et al., 2020)           72.40       62.10       53.20       45.10       34.20        63.60   139.50
+SVM-D BOW (Hoxha et al., 2021)          77.87       68.35       60.23       53.05       37.97        69.92   227.22
+SVM-D CONC (Hoxha et al., 2021)         75.47       67.11       59.70       53.08       36.43        67.46   222.22
+Post-processing (Huang et al., 2023)    78.37       69.85       63.22       57.17       39.49        71.06   255.53
+LLaVA-v1.5-7b (Liu et al., 2024c)       41.04       19.62       10.80        4.69       13.71        31.38    10.89
+LLaVA-v1.6-7b (Liu et al., 2024b)       32.25       17.15        9.98        5.92       14.11        29.17    12.20
+RS-GPT4V (Xu et al., 2024)              82.26       75.28       68.57       62.23       41.37        74.77   273.08
+LISAT PRE (Ours)                        77.92       68.30       60.75       54.24       38.50        69.92   216.36
+
+
+
+
+                                                          19
+     Table C.12. Comparison of Vision and Language Encoders for LISAT PRE on UCM-Captions, NWPU-Captions, RSICD, and Sydney-Captions
+      Vision Encoder Language Encoder BLEU-1 BLEU-2 BLEU-3 BLEU-4 METEOR ROUGE L CIDEr SPICE
+                                                               UCM-Captions
+           CLIP              Llama 2           85.57      79.02      73.81      69.03       45.49       80.10      328.82   52.21
+         CLIP336             Llama 2           84.86      77.81      72.06      66.97       44.70       78.97      324.61   50.46
+         SAT-CLIP            Llama 2           41.24      32.38      12.74       8.82       13.90       28.30       30.41    8.15
+         Geo-CLIP            Llama 2           44.57      26.22      17.37      12.77       15.61       32.22       44.64   11.67
+       RemoteCLIP            Llama 2           85.95      79.00      73.38      68.31       45.80       79.99      330.94   52.17
+           CLIP               Vicuna           84.93      77.80      72.05      66.68       45.62       80.04      329.32   52.00
+         CLIP336              Vicuna           85.40      78.81      73.34      68.28       45.84       79.66      324.89   51.55
+         SAT-CLIP             Vicuna           47.21      29.55      21.21      16.87       17.35       34.20       63.92   15.08
+         Geo-CLIP             Vicuna           53.77      37.86      29.50      24.56       21.77       42.86      109.20   21.15
+       RemoteCLIP             Vicuna           88.23      82.07      77.08      72.34       47.78       83.13      355.32   54.15
+                                                              NWPU-Captions
+           CLIP              Llama 2           87.25      77.53      69.89      63.53       43.33       76.59      180.81   31.38
+         CLIP336             Llama 2           86.70      76.38      68.43      62.04       42.55       75.56      176.54   30.75
+         SAT-CLIP            Llama 2           69.51      50.90      39.28      31.48       25.83       52.34       68.94   16.15
+         Geo-CLIP            Llama 2           74.36      58.26      47.59      39.96       30.12       58.48       97.67   19.78
+       RemoteCLIP            Llama 2           87.25      77.67      70.06      63.76       43.44       76.64      181.01   31.48
+           CLIP               Vicuna           86.62      76.76      69.03      62.59       43.09       76.18      179.96   31.09
+         CLIP336              Vicuna           87.47      77.79      70.13      63.78       43.47       76.42      181.94   31.15
+         SAT-CLIP             Vicuna           75.87      60.51      50.35      43.00       31.78       60.51      105.53   21.25
+         Geo-CLIP             Vicuna           77.98      63.94      54.24      46.96       34.10       63.87      121.54   23.44
+
+
+
+
+20
+       RemoteCLIP             Vicuna            88.5       79.3        72.0      65.8        44.4        77.5       185.7    32.2
+                                                                   RSICD
+           CLIP              Llama 2           60.51      43.02      32.34      25.60       25.41       46.20       76.30   25.46
+         CLIP336             Llama 2           70.05      51.72      40.06      32.36       28.19       50.45      107.18   28.35
+         Geo-CLIP            Llama 2           45.86      21.97      11.90       7.16       15.73       28.46       22.60   12.88
+       RemoteCLIP            Llama 2           68.19      49.65      38.25      30.74       27.64       49.91      101.05   27.94
+         SAT-CLIP            Llama 2           43.68      19.17        9.82      5.60       14.61       26.65       16.71   10.95
+           CLIP               Vicuna           62.46      44.31      33.36      26.47       25.65       47.08       81.22   25.56
+         CLIP336              Vicuna           70.40      52.09      40.44      32.79       28.50       50.74      108.37   28.82
+         SAT-CLIP             Vicuna           45.95      22.68      13.00       8.23       16.02       29.02       24.77   12.76
+         Geo-CLIP             Vicuna           49.19      26.41      16.17      10.80       17.67       31.74       31.44   15.14
+       RemoteCLIP             Vicuna           72.51      54.98      43.77      36.10       30.28       53.80      118.39   30.54
+                                                              Sydney-Captions
+           CLIP              Llama 2           78.59      69.78      62.50      56.35       39.09       70.00      220.50   45.20
+                                                                                                                                       LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+
+         CLIP336             Llama 2           78.48      69.35      62.25      56.14       38.54       68.98      211.95   43.25
+         SAT-CLIP            Llama 2           58.40      45.47      37.93      32.27       25.75       46.95       85.67   22.96
+         Geo-CLIP            Llama 2           68.91      56.44      48.91      43.09       30.75       55.86      153.84   31.33
+       RemoteCLIP            Llama 2           76.19      66.31      58.57      52.27       37.30       68.12      201.64   43.99
+           CLIP               Vicuna           76.42      67.79      60.49      53.95       38.02       68.78      204.76   44.07
+         CLIP336              Vicuna           77.68      68.70      61.37      55.35       38.41       70.37      213.92   45.22
+         SAT-CLIP             Vicuna           69.58      58.86      51.80      46.45       32.24       58.43      182.93   34.65
+         Geo-CLIP             Vicuna           71.68      60.83      53.67      47.76       34.33       61.49      177.19   36.60
+       RemoteCLIP             Vicuna           77.92      68.30      60.75      54.24       38.50       69.92      216.36   44.04
+     LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+
+          Table C.13. Performance Metrics for LISAT PRE on the RSVQA LR
+Model                                Count    Presence     Comparison      Area
+RSVQA (Lobry et al., 2020)           67.01      87.46          81.50      85.24
+EasyToHard (Yuan et al., 2022a)      69.22      90.66          87.49      85.92
+Bi-Modal (Bazi et al., 2022)         72.22      91.06          91.16      86.27
+SHRNet (Zhang et al., 2023b)         73.87      91.03          90.48      86.35
+LLaVA-1.5 (Liu et al., 2024c)        26.81      54.72          66.22       1.45
+InternLM-XC2 (Dong et al., 2024)     26.91      55.74          64.89       5.94
+RS-GPT4V (Xu et al., 2024)             -        91.17          91.70         -
+GeoChat (Zhang et al., 2023a)          -        91.09          90.33         -
+Full-FT (Xu et al., 2024)            70.48      91.10          92.23      86.00
+LoRA (Xu et al., 2024)               70.34      92.24          92.10      85.84
+MoE LoRA (Xu et al., 2024)           71.06      91.10          92.55      85.82
+LLaVA-v1.5-7b (Liu et al., 2024c)    18.66      53.98          66.22      58.00
+LLaVA-v1.6-7b (Liu et al., 2024b)    19.65      57.53          62.32      62.00
+LISAT PRE (Ours)                     70.24      92.36          92.20      61.43
+
+
+
+
+                                       21
+                          LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+                            Table D.14. Comparison of Predictions and Ground Truth Across Models
+       Queries                  RGB                      LISA                  LISAT (Ours)         Ground Truth
+
+
+
+Identify the excavator
+by locating the bright
+   yellow arm and
+  bucket against the
+ darker background.
+
+
+
+
+ Locate the building
+ with a beige facade
+and a dark brown roof
+    in the image.
+
+
+
+
+   Locate the large,
+  elongated structure
+      with stacked
+rectangular containers
+ and a reddish-brown
+deck, characteristic of
+    a container ship,
+against the dark water
+      background.
+
+
+
+
+Locate the building in
+ the center-left of the
+        image.
+
+
+
+
+Locate the long, green
+    vehicle with
+rectangular windows
+     and wheels,
+     positioned
+ horizontally across
+      the image.
+
+
+
+
+Locate the building in
+  the top-left of the
+        image.
+
+
+
+
+                                                            22
+                           LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+                           Table D.15. Comparison of Predictions and Ground Truth Across Models (Cont.)
+       Queries                    RGB                       LISA                  LISAT (Ours)            Ground Truth
+
+
+
+Identify the triangular
+ metal structure with
+  intersecting lines,
+standing vertically in
+      the image.
+
+
+
+
+ Identify the circular
+   structure with a
+ metallic appearance
+ and distinct shadow,
+  contrasting against
+   the surrounding
+        terrain.
+
+
+
+
+ Identify the pylon in
+the top-left area of the
+        image.
+
+
+
+
+ Identify the pylon
+   located in the
+ bottom-right of the
+       image.
+
+
+
+
+     Identify the
+ engineering vehicle
+   with a metallic
+   appearance and
+  distinct geometric
+  shapes against the
+ brown background.
+
+
+Identify the damaged
+   building with an
+irregular, fragmented
+  roof structure and
+   scattered debris
+   contrasting with
+     surrounding
+      vegetation.
+
+
+
+
+                                                               23
+                          LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+                          Table D.16. Comparison of Predictions and Ground Truth Across Models (Cont.)
+       Queries                   RGB                       LISA                  LISAT (Ours)            Ground Truth
+
+
+
+
+Segment the damaged
+building located in the
+top-right of the image.
+
+
+
+
+Identify the building
+ in the center-left of
+      the image.
+
+
+
+
+Identify the building
+with a unique vertical
+dark brown structure
+with a slight curvature
+     on the edge.
+
+
+
+
+ Identify the large,
+rectangular building
+with a dark roof and
+multiple visible roof
+      fixtures.
+
+
+
+Locate the trailer bed
+in the top-right of the
+ image, characterized
+by a long rectangular
+  shape with distinct
+   wheels, typically
+metallic or painted in
+  color, attached to a
+       truck cab.
+
+
+  Identify the liquid
+ tank in the top-right
+ of the image with a
+   long rectangular
+shape connected to a
+truck cab at the front.
+
+
+
+
+                                                              24
+                          LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+                          Table D.17. Comparison of Predictions and Ground Truth Across Models (Cont.)
+       Queries                   RGB                       LISA                  LISAT (Ours)            Ground Truth
+
+
+
+ Locate the building
+with a reddish-brown
+ roof next to a dark
+black structure in the
+        image.
+
+
+
+
+Identify the damaged
+building in the center
+    of the image.
+
+
+
+
+Locate the maritime
+   vessel in the
+bottom-right of the
+      image.
+
+
+
+
+ Identify the building
+  with a rectangular
+shape, dark roof, and
+noticeable white lines
+across its surface, set
+  against a brownish
+   background with
+  green areas nearby.
+
+
+
+
+ Locate the barge in
+the bottom-left of the
+        image.
+
+
+
+
+      Locate the
+engineering vehicle in
+  the top-left of the
+        image.
+
+
+
+
+                                                              25
+                         LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+                         Table D.18. Comparison of Predictions and Ground Truth Across Models (Cont.)
+      Queries                   RGB                       LISA                  LISAT (Ours)            Ground Truth
+
+
+  Locate the large
+rectangular structure
+    with stacked,
+    multicolored
+containers floating on
+water as the container
+         ship.
+
+
+
+
+Locate the building in
+the top-left corner of
+      the image.
+
+
+
+
+Identify the maritime
+   vessel near the
+top-left corner of the
+        image.
+
+
+
+
+ Identify the aircraft
+hangar with the large
+rectangular structure
+   and curved roof,
+displaying a uniform
+beige coloration and
+ surrounded by open
+        areas.
+
+
+
+   Identify the large
+  rectangular brown
+ building with a flat
+ roof surrounded by
+      vegetation.
+
+
+
+
+ Identify the railway
+    vehicle with an
+elongated, rectangular
+ shape and a metallic
+  texture contrasting
+    against the dark
+      background.
+
+
+
+
+                                                             26
+                           LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+                                                  Table D.19. Failure Cases
+       Queries                   RGB                      LISA                 LISAT (Ours)          Ground Truth
+
+
+
+
+Locate the facility in
+the top-center of the
+      image for
+    identification.
+
+
+
+
+Find the facility in the
+bottom-left corner of
+      the image.
+
+
+
+
+ Identify the plane in
+  the bottom-right of
+       the image.
+
+
+
+
+ Locate the barge in
+  the top-left of the
+        image.
+
+
+
+
+ Locate the building
+with a distinctive light
+    gray color and
+  rectangular shape
+  against the darker
+     background.
+
+
+
+Identify the trailer in
+ the bottom-right of
+  the image with a
+    distinct shape,
+typically metallic or
+painted, connected to
+  a truck cab at the
+         front.
+
+
+
+
+                                                             27
+                         LISAT: Language-Instructed Segmentation Assistant for Satellite Imagery
+
+
+
+
+                                              Table D.20. GT Mistake Cases
+      Queries                  RGB                      LISA                 LISAT (Ours)          Ground Truth
+
+
+
+
+Identify the pylon in
+the top-right area of
+     the image.
+
+
+
+
+Identify the vertical,
+  metallic structure
+    with a lattice
+     framework
+ contrasting against
+  the brown, earthy
+     background.
+
+
+
+Identify the building
+     with a large,
+rectangular structure
+    and a distinct
+ reddish-brown roof,
+    surrounded by
+       greenery.
+
+
+
+
+                                                           28
+

@@ -1,58 +1,158 @@
 This is BibTeX, Version 0.99e
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
-Reallocating 'name_of_file' (item size: 1) to 16 items.
-The style file: elsarticle-harv.bst
-Reallocating 'name_of_file' (item size: 1) to 11 items.
-Database file #1: references.bib
-Reallocating 'singl_function' (item size: 4) to 100 items.
-Warning--empty pages in kirillov2023sam
-Warning--empty pages in lai2024lisa
+Reallocating 'name_of_file' (item size: 1) to 15 items.
+The style file: elsarticle-num.bst
+Reallocating 'name_of_file' (item size: 1) to 17 items.
+Database file #1: references_clean.bib
+Warning--empty pages in long2015fully
+Warning--empty pages in he2017mask
+Warning--empty pages in kirillov2019panoptic
+Warning--empty pages in radford2021learning
 Warning--empty pages in liang2023ovseg
-Warning--empty pages in luo2024pnpovss
-Warning--empty pages in rasheed2024glamm
-Warning--empty pages in xu2023odise
 Warning--empty pages in xu2023san
-Warning--empty pages in zou2023xdecoder
-You've used 10 entries,
-            2990 wiz_defined-function locations,
-            663 strings with 7318 characters,
-and the built_in function-call counts, 9369 in all, are:
-= -- 606
-> -- 636
-< -- 2
-+ -- 242
-- -- 231
-* -- 1158
-:= -- 1391
-add.period$ -- 20
-call.type$ -- 10
-change.case$ -- 127
-chr.to.int$ -- 9
-cite$ -- 18
-duplicate$ -- 616
-empty$ -- 538
-format.name$ -- 261
-if$ -- 1686
-int.to.chr$ -- 2
-int.to.str$ -- 1
-missing$ -- 139
-newline$ -- 55
-num.names$ -- 40
-pop$ -- 275
+Warning--empty pages in xu2023odise
+Warning--empty pages in xshanOpenvocabularySemanticSegmentation2024
+Warning--empty pages in xwangUseUniversalSegment2024
+Warning--empty pages in yxchngAligningVisionLanguageModel2026
+Warning--empty pages in kirillov2023sam
+Warning--empty pages in hwangXSAMSegmentAnything2026
+Warning--empty pages in sgxiaoOpenworldsamExtendingSam22026
+Warning--empty pages in xuPixelalignedLanguageModel2024
+Warning--empty pages in zhangLlavagroundingGroundedVisual2024
+Warning--empty pages in youFerretReferGround2024
+Warning--empty pages in rasheedGlammPixelGrounding2024
+Warning--empty pages in lai2024lisa
+Warning--empty pages in renPixellmPixelReasoning2024
+Warning--empty pages in rasheed2024glamm
+Warning--empty pages in luoConnectingDotsTrainingFree2026
+Warning--empty pages in zhuLensLearningSegment2026
+Warning--empty pages in zhouReasoningImplicitSelfsupervised2026
+Warning--empty pages in guoSeeingBelievingRichContext2026
+Warning--empty pages in xuVideosegr1ReasoningVideo2026
+Warning--empty pages in chen3DDRESDetailed3D2026
+Warning--empty pages in yanMedreasonerReinforcementLearning2026
+Warning--empty pages in wangAffordancer1ReinforcementLearning2026
+Warning--empty pages in hhuangRenovatingNamesOpenvocabulary2024
+Warning--empty pages in xhanBoostingSegmentAnything2025
+Warning--empty pages in zhuPopenPreferencebasedOptimization2025
+Warning--empty pages in yangExploringCLIPsDense2025
+Warning--empty pages in xlaiLisaReasoningSegmentation2024
+Warning--empty pages in luo2024pnpovss
+Warning--empty pages in xiaoOnerefUnifiedOnetower2024
+Warning--empty pages in zhangOmgllavaBridgingImagelevel2024
+Warning--empty pages in huangPixelsLogicPerceptionReasoning2026
+Warning--empty pages in sikdarPicazoPixelalignedContrastive2025
+Warning--empty pages in yanTaskPreferenceOptimization2025
+Warning--empty pages in huGroundingSuiteMeasuringComplex2025
+Warning--empty pages in vvatsGuidelineConsistentSegmentationMultiAgent2026
+Warning--empty pages in noorimTesttimeAdaptationVisionlanguage2026
+Warning--empty pages in ybenigmimFlossFreeLunch2025
+Warning--empty pages in chngMaskGroundingReferring2024
+Warning--empty pages in jwangLlmsegBridgingImage2024
+Warning--empty pages in atharVicasDatasetCombining2025
+Warning--empty pages in munasingheVideoglammLargeMultimodal2025
+Warning--empty pages in baiOneTokenSeg2024
+Warning--empty pages in sunSamaMultiturnReferential2026
+Warning--empty pages in yeRISLADBenchmarkModel2026
+Warning--empty pages in quenumLisatLanguageinstructedSegmentation2026
+Warning--empty pages in huangSurprise3dDatasetSpatial2026
+Warning--empty pages in xxuanReMEDataCentricFramework2025
+Warning--empty pages in xiaGsvaGeneralizedSegmentation2024
+Warning--empty pages in zhangGroundhogGroundingLarge2024
+Warning--empty pages in yuanOspreyPixelUnderstanding2024
+Warning--empty pages in liangReferdinoReferringVideo2025
+Warning--empty pages in zpengParameterefficientFinetuningHyperspherical2025
+Warning--empty pages in yliMaskadapterDevilMasks2025
+Warning--empty pages in zzhaoDPSegDualpromptCost2025
+Warning--empty pages in joseDinov2MeetsText2025
+Warning--empty pages in maaydinItaclipBoostingTrainingfree2025
+Warning--empty pages in lsunCliperHierarchicallyImproving2025
+Warning--empty pages in dzhangCorrclipReconstructingPatch2025
+Warning--empty pages in rqorbaniSemanticLibraryAdaptation2025
+Warning--empty pages in yliuSteppingOutSimilar2025
+Warning--empty pages in sduttaAerosegHarnessingSam2025
+Warning--empty pages in huangZoRIDiscriminativeZeroshot2025
+Warning--empty pages in zhaoOpenvocabularyRGBThermalSemantic2024
+Warning--empty pages in mleeEffectiveSAMCombination2025
+Warning--empty pages in ymiaoLanghopsLanguageGrounded2026
+Warning--empty pages in dengCoconutpancapJointPanoptic2026
+Warning--empty pages in dukangClassDistributioninducedAttention2025
+Warning--empty pages in sjinFeaturePurificationMatters2025
+Warning--empty pages in qchenTrainingFreeClassPurification2025
+Warning--empty pages in liuEfficientFoundationModel2025
+Warning--empty pages in huangFocsamDelvingDeeply2024
+Warning--empty pages in huangInter2FormerDynamicHybrid2025
+Warning--empty pages in zhouThinkYouSegment2026
+Warning--empty pages in huangUnleashingTemporalspatialReasoning2025
+Warning--empty pages in cuttanoSamwiseInfusingWisdom2025
+Warning--empty pages in cshangPromptdrivenReferringImage2024
+Warning--empty pages in daiCurriculumPointPrompting2024
+Warning--empty pages in caoReferAnySegmentation2025
+Warning--empty pages in pengGroundingMultimodalLarge2024
+Warning--empty pages in grosiShowTellBenchmark2025
+Warning--empty pages in wangIterprimeZeroshotReferring2025
+Warning--empty pages in wangSam2loveSegmentAnything2025
+Warning--empty pages in liuHybridGloballocalRepresentation2025
+Warning--empty pages in qianReasoningAttendTry2025
+Warning--empty pages in feiVitronUnifiedPixellevel2024
+Warning--empty pages in liuUnipixelUnifiedObject2026
+Warning--empty pages in wangAltoAdaptivelengthTokenizer2026
+Warning--empty pages in zongGroundvTeachingVlms2025
+Warning--empty pages in weiInstructsegUnifyingInstructed2025
+Warning--empty pages in jangMmrLargescaleBenchmark2025
+Warning--empty pages in ningEnhancingSpatialReasoning2025
+Warning--empty pages in wuSeeSaySegment2024
+Warning--empty pages in shenFinegrainedPreferenceOptimization2026
+Warning--empty pages in zhengVillaVideoReasoning2025
+Warning--empty pages in yingOmnimodalExpressionsReasoning2025
+Warning--empty pages in yyinSai3dSegmentAny2024
+Warning--empty pages in zwangXmask3dCrossmodalMask2024
+Warning--empty pages in mzhouOV3DCGOpenvocabulary3D2025
+Warning--empty pages in kuckrejaGeochatGroundedLarge2024
+Warning--empty pages in chenMIMOMedicalVision2025
+Warning--empty pages in qianAffordancellmGroundingAffordance2024
+Warning--empty pages in zhangOpenhoiOpenworldHandobject2026
+Warning--empty pages in zhengInstructionguidedVisualMasking2024
+You've used 134 entries,
+            2952 wiz_defined-function locations,
+            1245 strings with 34232 characters,
+and the built_in function-call counts, 43779 in all, are:
+= -- 3045
+> -- 2234
+< -- 32
++ -- 834
+- -- 700
+* -- 2870
+:= -- 5818
+add.period$ -- 134
+call.type$ -- 134
+change.case$ -- 134
+chr.to.int$ -- 0
+cite$ -- 243
+duplicate$ -- 1657
+empty$ -- 5730
+format.name$ -- 834
+if$ -- 11588
+int.to.chr$ -- 0
+int.to.str$ -- 134
+missing$ -- 134
+newline$ -- 425
+num.names$ -- 134
+pop$ -- 1402
 preamble$ -- 1
-purify$ -- 117
+purify$ -- 0
 quote$ -- 0
-skip$ -- 194
+skip$ -- 3094
 stack$ -- 0
-substring$ -- 206
-swap$ -- 516
-text.length$ -- 2
+substring$ -- 662
+swap$ -- 215
+text.length$ -- 32
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 90
-warning$ -- 8
-while$ -- 36
-width$ -- 0
-write$ -- 136
-(There were 8 warnings)
+type$ -- 0
+warning$ -- 109
+while$ -- 187
+width$ -- 137
+write$ -- 1126
+(There were 109 warnings)

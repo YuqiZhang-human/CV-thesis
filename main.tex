@@ -1,4 +1,4 @@
-\documentclass[preprint,12pt,authoryear]{elsarticle}
+\documentclass[final,5p,number,sort&compress]{elsarticle}
 
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -6,17 +6,26 @@
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage{url}
+\usepackage{graphicx}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{tikz}
+
+\usepackage{pgfplots}
 \usepackage[hidelinks]{hyperref}
+\pgfplotsset{compat=1.18}
+\lefthyphenmin=2
+\righthyphenmin=2
+\hyphenpenalty=50
+\exhyphenpenalty=50
+\emergencystretch=2em
+\setcounter{topnumber}{2}
+\setcounter{dbltopnumber}{2}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.80}
+\renewcommand{\dblfloatpagefraction}{0.80}
 
-\journal{Computer Vision Review}
-
-\newcommand{\placeholderfigure}[3]{%
-\begin{figure}[t]
-\centering
-\fbox{\begin{minipage}{0.90\linewidth}\centering\vspace{0.8em}#3\vspace{0.8em}\end{minipage}}
-\caption{#1}
-\label{#2}
-\end{figure}}
 
 \begin{document}
 
@@ -24,39 +33,38 @@
 
 \title{Open-Vocabulary and Reasoning Segmentation with Vision-Language Foundation Models: A Survey}
 
-\author{Author Name}
-\affiliation{organization={School or Department},
-            addressline={University or Institution},
-            city={},
-            postcode={},
-            state={},
-            country={}}
+\author{Yuqi Zhang\corref{cor1}}
+\affiliation{organization={School of Computing and Artificial Intelligence, Southwest Jiaotong University},}
 
 \begin{abstract}
-This survey outline reviews open-vocabulary and reasoning segmentation with vision-language foundation models. The planned manuscript follows the transition from closed-set segmentation to CLIP-based open-vocabulary segmentation, promptable segmentation with SAM, unified vision-language decoding, and multimodal large language model based reasoning segmentation and pixel grounding. The final manuscript will emphasize method taxonomy, datasets, evaluation metrics, advantages, limitations, and future challenges across representative work from 2023 to 2025.
+Dense segmentation is moving from fixed label sets toward language-conditioned, promptable, grounded, and reasoning-aware mask prediction. This shift is driven by vision-language foundation models, but it also creates new comparison problems: open vocabularies must preserve spatial precision, promptable masks must be tied to correct semantic targets, and multimodal reasoning must remain faithful to visual evidence. This survey reviews recent work on open-vocabulary and reasoning segmentation from this perspective. We first summarize the common foundations, datasets, annotation types, and evaluation protocols that determine whether methods can be compared fairly. We then organize the literature into four connected routes: open-vocabulary segmentation based on dense alignment, mask classification, and efficient adaptation; promptable and grounded segmentation based on SAM/SAM2, region-word alignment, and mask-text grounding; reasoning segmentation based on MLLMs, segmentation tokens, pixel decoders, rejection, and reward optimization; and extended scenarios including video, audio-visual grounding, 3D scenes, remote sensing, medical imaging, affordance, and embodied grounding. Across these routes, the central finding is that strong results are conditional on vocabulary design, prompt source, foundation modules, training exposure, output interface, and metric choice. The survey therefore emphasizes not a single leaderboard, but a structured map of assumptions, evidence, and trade-offs. It concludes with directions on transparent evaluation, faithful reasoning-to-mask grounding, efficient hybrid systems, domain-robust protocols, and accountable human-in-the-loop segmentation.
 \end{abstract}
 
 \begin{highlights}
 \item The survey is organized around technical routes rather than a paper-by-paper chronology.
-\item The core comparison covers CLIP-based OVSS, diffusion-based segmentation, SAM-based prompting, unified decoders, and MLLM-based reasoning segmentation.
-\item The outline records where each section should discuss content, figures, datasets, metrics, and cross-method limitations.
+\item The core comparison covers CLIP-based dense alignment, SAM-based prompting, region-word and mask-text grounding, and MLLM-based reasoning-to-mask generation.
+\item The outline records where each section should develop foundations, datasets, taxonomy figures, method tables, comparison axes, and future directions.
 \end{highlights}
 
 \begin{keyword}
-Open Vocabulary segmentation \sep reasoning segmentation \sep vision-language models \sep SAM \sep CLIP \sep pixel grounding
+Open-vocabulary segmentation \sep reasoning segmentation \sep vision-language foundation models \sep pixel grounding
 \end{keyword}
 
 \end{frontmatter}
 
 \input{section/01_introduction}
-\input{section/02_background_objective}
-\input{section/03_method_taxonomy}
-\input{section/04_datasets_metrics}
-\input{section/05_comparison}
-\input{section/06_challenges_future}
-\input{section/07_conclusion}
+\input{section/02_background}
+\input{section/03_foundations}
+\input{section/04_datasets_and_evaluation}
+\input{section/05_open_vocabulary_segmentation}
+\input{section/06_promptable_and_grounded_segmentation}
+\input{section/07_reasoning_segmentation}
+\input{section/08_extended_scenarios}
+\input{section/09_comparison_and_discussion}
+\input{section/10_future_directions}
+\input{section/11_conclusion}
 
-\bibliographystyle{elsarticle-harv}
-\bibliography{references}
+\bibliographystyle{elsarticle-num}
+\bibliography{references_clean}
 
 \end{document}

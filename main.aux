@@ -2,208 +2,824 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\citation{liang2023ovseg,xu2023san}
-\citation{kirillov2023sam}
-\citation{xu2023odise,zou2023xdecoder}
-\citation{lai2024lisa,rasheed2024glamm}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
-\newlabel{sec:introduction}{{1}{1}{Introduction}{section.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Closed-set segmentation in open-world scenes}{1}{subsection.1.1}\protected@file@percent }
-\newlabel{subsec:intro-closed-set}{{1.1}{1}{Closed-set segmentation in open-world scenes}{subsection.1.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Foundation models as the driver of open-vocabulary and reasoning segmentation}{1}{subsection.1.2}\protected@file@percent }
-\newlabel{subsec:intro-foundation-models}{{1.2}{1}{Foundation models as the driver of open-vocabulary and reasoning segmentation}{subsection.1.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Planned overview figure: timeline and taxonomy of open-vocabulary and reasoning segmentation from 2023 to 2025. The figure should place OVSeg, SAN, ODISE, SAM, X-Decoder, PnP-OVSS, LISA, GLaMM, ESC-Net, and Trident along both a temporal axis and a method-family axis.}}{2}{figure.1}\protected@file@percent }
-\newlabel{fig:intro-timeline}{{1}{2}{Planned overview figure: timeline and taxonomy of open-vocabulary and reasoning segmentation from 2023 to 2025. The figure should place OVSeg, SAN, ODISE, SAM, X-Decoder, PnP-OVSS, LISA, GLaMM, ESC-Net, and Trident along both a temporal axis and a method-family axis}{figure.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Scope and organization of this survey}{2}{subsection.1.3}\protected@file@percent }
-\newlabel{subsec:intro-scope}{{1.3}{2}{Scope and organization of this survey}{subsection.1.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Background and Objective}{2}{section.2}\protected@file@percent }
-\newlabel{sec:background}{{2}{2}{Background and Objective}{section.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Closed-set segmentation and its limitation}{2}{subsection.2.1}\protected@file@percent }
-\newlabel{subsec:closed-set}{{2.1}{2}{Closed-set segmentation and its limitation}{subsection.2.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Semantic segmentation}{2}{subsubsection.2.1.1}\protected@file@percent }
-\newlabel{subsubsec:semantic-segmentation}{{2.1.1}{2}{Semantic segmentation}{subsubsection.2.1.1}{}}
-\citation{xu2023odise}
-\citation{liang2023ovseg,xu2023san}
-\citation{lai2024lisa}
-\citation{rasheed2024glamm}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}Instance segmentation}{3}{subsubsection.2.1.2}\protected@file@percent }
-\newlabel{subsubsec:instance-segmentation}{{2.1.2}{3}{Instance segmentation}{subsubsection.2.1.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}Panoptic segmentation}{3}{subsubsection.2.1.3}\protected@file@percent }
-\newlabel{subsubsec:panoptic-segmentation}{{2.1.3}{3}{Panoptic segmentation}{subsubsection.2.1.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Open-vocabulary segmentation}{3}{subsection.2.2}\protected@file@percent }
-\newlabel{subsec:open-vocabulary-background}{{2.2}{3}{Open-vocabulary segmentation}{subsection.2.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Text-defined label spaces}{3}{subsubsection.2.2.1}\protected@file@percent }
-\newlabel{subsubsec:text-defined-labels}{{2.2.1}{3}{Text-defined label spaces}{subsubsection.2.2.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Zero-shot and cross-dataset transfer}{3}{subsubsection.2.2.2}\protected@file@percent }
-\newlabel{subsubsec:zero-shot-transfer}{{2.2.2}{3}{Zero-shot and cross-dataset transfer}{subsubsection.2.2.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Reasoning segmentation and pixel grounding}{3}{subsection.2.3}\protected@file@percent }
-\newlabel{subsec:reasoning-background}{{2.3}{3}{Reasoning segmentation and pixel grounding}{subsection.2.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Referring segmentation versus reasoning segmentation}{3}{subsubsection.2.3.1}\protected@file@percent }
-\newlabel{subsubsec:referring-vs-reasoning}{{2.3.1}{3}{Referring segmentation versus reasoning segmentation}{subsubsection.2.3.1}{}}
+\citation{long2015fully}
+\citation{he2017mask}
+\citation{kirillov2019panoptic}
+\citation{radford2021learning}
 \citation{liang2023ovseg}
 \citation{xu2023san}
-\citation{luo2024pnpovss}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Planned background figure: task hierarchy from closed-set segmentation to open-vocabulary segmentation, referring segmentation, reasoning segmentation, and grounded conversation.}}{4}{figure.2}\protected@file@percent }
-\newlabel{fig:background-task-hierarchy}{{2}{4}{Planned background figure: task hierarchy from closed-set segmentation to open-vocabulary segmentation, referring segmentation, reasoning segmentation, and grounded conversation}{figure.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Pixel grounding in multimodal conversation}{4}{subsubsection.2.3.2}\protected@file@percent }
-\newlabel{subsubsec:pixel-grounding}{{2.3.2}{4}{Pixel grounding in multimodal conversation}{subsubsection.2.3.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Method Taxonomy}{4}{section.3}\protected@file@percent }
-\newlabel{sec:method-taxonomy}{{3}{4}{Method Taxonomy}{section.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}CLIP-based open-vocabulary segmentation}{4}{subsection.3.1}\protected@file@percent }
-\newlabel{subsec:clip-based-ovss}{{3.1}{4}{CLIP-based open-vocabulary segmentation}{subsection.3.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Mask-adapted region classification}{4}{subsubsection.3.1.1}\protected@file@percent }
-\newlabel{subsubsec:mask-adapted-clip}{{3.1.1}{4}{Mask-adapted region classification}{subsubsection.3.1.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Efficient side adaptation}{4}{subsubsection.3.1.2}\protected@file@percent }
-\newlabel{subsubsec:side-adapter}{{3.1.2}{4}{Efficient side adaptation}{subsubsection.3.1.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Training-free VLM feature mining}{4}{subsubsection.3.1.3}\protected@file@percent }
-\newlabel{subsubsec:pnp-ovss}{{3.1.3}{4}{Training-free VLM feature mining}{subsubsection.3.1.3}{}}
 \citation{xu2023odise}
+\citation{xshanOpenvocabularySemanticSegmentation2024,xwangUseUniversalSegment2024,shinhOpenvocabularySemanticSegmentation2024,yxchngAligningVisionLanguageModel2026}
+\citation{kirillov2023sam}
+\citation{ravi2024sam2}
+\citation{hwangXSAMSegmentAnything2026}
+\citation{sgxiaoOpenworldsamExtendingSam22026}
+\citation{xuPixelalignedLanguageModel2024,zhangLlavagroundingGroundedVisual2024,youFerretReferGround2024,rasheedGlammPixelGrounding2024}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\citation{lai2024lisa}
+\citation{renPixellmPixelReasoning2024}
+\citation{rasheed2024glamm}
+\citation{luoConnectingDotsTrainingFree2026,zhuLensLearningSegment2026,zhouReasoningImplicitSelfsupervised2026,guoSeeingBelievingRichContext2026}
+\citation{xuVideosegr1ReasoningVideo2026,chen3DDRESDetailed3D2026,libExploringEfficientOpenvocabulary2026,yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\citation{hhuangRenovatingNamesOpenvocabulary2024,libExploringEfficientOpenvocabulary2026,guoSeeingBelievingRichContext2026}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Number of publications in the curated survey corpus from 2024 to 2026. The stacked bars group papers into grounded segmentation, reasoning segmentation, open-vocabulary segmentation, data and benchmarks, and promptable segmentation.}}{2}{figure.1}\protected@file@percent }
+\newlabel{fig-publication-statistics}{{1}{2}{Number of publications in the curated survey corpus from 2024 to 2026. The stacked bars group papers into grounded segmentation, reasoning segmentation, open-vocabulary segmentation, data and benchmarks, and promptable segmentation}{figure.1}{}}
+\citation{long2015fully}
+\citation{he2017mask}
+\citation{kirillov2019panoptic}
+\citation{liang2023ovseg}
+\citation{xu2023san}
 \citation{xu2023odise}
+\citation{xshanOpenvocabularySemanticSegmentation2024,xwangUseUniversalSegment2024,shinhOpenvocabularySemanticSegmentation2024,yxchngAligningVisionLanguageModel2026}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Overview and taxonomy of the field evolution and technical routes reviewed in this survey. The top row summarizes the transition from closed-set segmentation to open-vocabulary, promptable, unified vision-language, and reasoning segmentation. The middle row groups the core technical routes. The bottom row places representative methods along the temporal development.}}{3}{figure.2}\protected@file@percent }
+\newlabel{fig-intro-overview}{{2}{3}{Overview and taxonomy of the field evolution and technical routes reviewed in this survey. The top row summarizes the transition from closed-set segmentation to open-vocabulary, promptable, unified vision-language, and reasoning segmentation. The middle row groups the core technical routes. The bottom row places representative methods along the temporal development}{figure.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{3}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Segmentation paradigms from closed-set to reasoning}{3}{subsection.2.1}\protected@file@percent }
 \citation{kirillov2023sam}
-\citation{kirillov2023sam}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Planned figure: comparison of CLIP-based OVSS pipelines.}}{5}{figure.3}\protected@file@percent }
-\newlabel{fig:clip-ovss-pipelines}{{3}{5}{Planned figure: comparison of CLIP-based OVSS pipelines}{figure.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Planned figure: ODISE-style diffusion feature pipeline.}}{5}{figure.4}\protected@file@percent }
-\newlabel{fig:odise-pipeline}{{4}{5}{Planned figure: ODISE-style diffusion feature pipeline}{figure.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Diffusion-based open-vocabulary segmentation}{5}{subsection.3.2}\protected@file@percent }
-\newlabel{subsec:diffusion-ovss}{{3.2}{5}{Diffusion-based open-vocabulary segmentation}{subsection.3.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Diffusion features as spatial-semantic representations}{5}{subsubsection.3.2.1}\protected@file@percent }
-\newlabel{subsubsec:diffusion-features}{{3.2.1}{5}{Diffusion features as spatial-semantic representations}{subsubsection.3.2.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Combining generative and discriminative components}{5}{subsubsection.3.2.2}\protected@file@percent }
-\newlabel{subsubsec:diffusion-discriminative}{{3.2.2}{5}{Combining generative and discriminative components}{subsubsection.3.2.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Strengths and costs}{5}{subsubsection.3.2.3}\protected@file@percent }
-\newlabel{subsubsec:diffusion-costs}{{3.2.3}{5}{Strengths and costs}{subsubsection.3.2.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Promptable segmentation foundation models}{5}{subsection.3.3}\protected@file@percent }
-\newlabel{subsec:promptable-sam}{{3.3}{5}{Promptable segmentation foundation models}{subsection.3.3}{}}
-\citation{lee2025escnet}
-\citation{shi2025trident}
-\citation{zou2023xdecoder}
-\citation{lai2024lisa,rasheed2024glamm,zou2023xdecoder}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Planned figure: SAM and SAM-derived OVSS routes.}}{6}{figure.5}\protected@file@percent }
-\newlabel{fig:sam-routes}{{5}{6}{Planned figure: SAM and SAM-derived OVSS routes}{figure.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}SAM and promptable segmentation}{6}{subsubsection.3.3.1}\protected@file@percent }
-\newlabel{subsubsec:sam-promptable}{{3.3.1}{6}{SAM and promptable segmentation}{subsubsection.3.3.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2}SAM-enhanced open-vocabulary segmentation}{6}{subsubsection.3.3.2}\protected@file@percent }
-\newlabel{subsubsec:sam-enhanced-ovss}{{3.3.2}{6}{SAM-enhanced open-vocabulary segmentation}{subsubsection.3.3.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3}Training-free VFM composition}{6}{subsubsection.3.3.3}\protected@file@percent }
-\newlabel{subsubsec:vfm-composition}{{3.3.3}{6}{Training-free VFM composition}{subsubsection.3.3.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Unified vision-language segmentation models}{6}{subsection.3.4}\protected@file@percent }
-\newlabel{subsec:unified-vl-segmentation}{{3.4}{6}{Unified vision-language segmentation models}{subsection.3.4}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}Pixel, image, and language outputs in one decoder}{6}{subsubsection.3.4.1}\protected@file@percent }
-\newlabel{subsubsec:xdecoder-unified-output}{{3.4.1}{6}{Pixel, image, and language outputs in one decoder}{subsubsection.3.4.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.2}Generic queries and semantic queries}{6}{subsubsection.3.4.2}\protected@file@percent }
-\newlabel{subsubsec:xdecoder-queries}{{3.4.2}{6}{Generic queries and semantic queries}{subsubsection.3.4.2}{}}
+\citation{ravi2024sam2}
+\citation{xhanBoostingSegmentAnything2025,hwangXSAMSegmentAnything2026,sgxiaoOpenworldsamExtendingSam22026}
+\citation{xuPixelalignedLanguageModel2024,zhangLlavagroundingGroundedVisual2024,youFerretReferGround2024,rasheedGlammPixelGrounding2024}
 \citation{lai2024lisa}
+\citation{renPixellmPixelReasoning2024}
 \citation{rasheed2024glamm}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Planned figure: generalized decoding in X-Decoder.}}{7}{figure.6}\protected@file@percent }
-\newlabel{fig:xdecoder-generalized}{{6}{7}{Planned figure: generalized decoding in X-Decoder}{figure.6}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.3}Transition toward generalist vision-language models}{7}{subsubsection.3.4.3}\protected@file@percent }
-\newlabel{subsubsec:xdecoder-transition}{{3.4.3}{7}{Transition toward generalist vision-language models}{subsubsection.3.4.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}MLLM-based reasoning segmentation and pixel grounding}{7}{subsection.3.5}\protected@file@percent }
-\newlabel{subsec:mllm-reasoning}{{3.5}{7}{MLLM-based reasoning segmentation and pixel grounding}{subsection.3.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.1}Reasoning segmentation with segmentation tokens}{7}{subsubsection.3.5.1}\protected@file@percent }
-\newlabel{subsubsec:lisa-seg-token}{{3.5.1}{7}{Reasoning segmentation with segmentation tokens}{subsubsection.3.5.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.2}Grounded conversation generation}{7}{subsubsection.3.5.2}\protected@file@percent }
-\newlabel{subsubsec:glamm-grounded-conversation}{{3.5.2}{7}{Grounded conversation generation}{subsubsection.3.5.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.3}Risks: hallucination, evaluation, and mask precision}{7}{subsubsection.3.5.3}\protected@file@percent }
-\newlabel{subsubsec:mllm-risks}{{3.5.3}{7}{Risks: hallucination, evaluation, and mask precision}{subsubsection.3.5.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Extensions to video, 3D, and complex scenes}{7}{subsection.3.6}\protected@file@percent }
-\newlabel{subsec:video-3d-extensions}{{3.6}{7}{Extensions to video, 3D, and complex scenes}{subsection.3.6}{}}
+\citation{luoConnectingDotsTrainingFree2026,zhuLensLearningSegment2026,zhuPopenPreferencebasedOptimization2025,zhouReasoningImplicitSelfsupervised2026,guoSeeingBelievingRichContext2026}
+\citation{radford2021learning}
+\citation{xshanOpenvocabularySemanticSegmentation2024,xwangUseUniversalSegment2024,shinhOpenvocabularySemanticSegmentation2024,yxchngAligningVisionLanguageModel2026}
 \citation{kirillov2023sam}
-\citation{xu2023san,xu2023odise,lee2025escnet,shi2025trident}
-\citation{liang2023ovseg,xu2023san,luo2024pnpovss}
-\citation{liang2023ovseg,xu2023san}
-\citation{xu2023san,liang2023ovseg}
-\citation{xu2023odise,zou2023xdecoder}
-\citation{lai2024lisa,rasheed2024glamm,zou2023xdecoder}
+\citation{ravi2024sam2}
+\citation{xhanBoostingSegmentAnything2025,hwangXSAMSegmentAnything2026,sgxiaoOpenworldsamExtendingSam22026}
+\citation{xuPixelalignedLanguageModel2024,zhangLlavagroundingGroundedVisual2024,youFerretReferGround2024,rasheed2024glamm}
+\citation{lai2024lisa,renPixellmPixelReasoning2024,zhuLensLearningSegment2026,guoSeeingBelievingRichContext2026}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Development of vision-language foundation models for segmentation}{4}{subsection.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Illustration of development axes in open-vocabulary and reasoning segmentation. The three arrows summarize how the semantic space, segmentation framework, and downstream task setting evolve from closed-set segmentation toward language-defined vocabularies, unified or composed vision-language systems, and reasoning-intensive scenario grounding.}}{4}{figure.3}\protected@file@percent }
+\newlabel{figbackgrounddevelopmentaxes}{{3}{4}{Illustration of development axes in open-vocabulary and reasoning segmentation. The three arrows summarize how the semantic space, segmentation framework, and downstream task setting evolve from closed-set segmentation toward language-defined vocabularies, unified or composed vision-language systems, and reasoning-intensive scenario grounding}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Task family and terminology}{4}{subsection.2.3}\protected@file@percent }
+\citation{xuVideosegr1ReasoningVideo2026,chen3DDRESDetailed3D2026,libExploringEfficientOpenvocabulary2026,yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\citation{liang2023ovseg}
+\citation{xu2023san}
+\citation{yxchngAligningVisionLanguageModel2026}
+\citation{kirillov2023sam}
+\citation{ravi2024sam2}
+\citation{hwangXSAMSegmentAnything2026}
 \citation{lai2024lisa}
+\citation{renPixellmPixelReasoning2024}
 \citation{rasheed2024glamm}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Planned figure: MLLM-to-mask mechanisms.}}{8}{figure.7}\protected@file@percent }
-\newlabel{fig:mllm-to-mask}{{7}{8}{Planned figure: MLLM-to-mask mechanisms}{figure.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Planned figure: extension path from image segmentation to video, 3D, and multi-context grounding.}}{8}{figure.8}\protected@file@percent }
-\newlabel{fig:extensions}{{8}{8}{Planned figure: extension path from image segmentation to video, 3D, and multi-context grounding}{figure.8}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.1}Video reasoning segmentation}{8}{subsubsection.3.6.1}\protected@file@percent }
-\newlabel{subsubsec:video-reasoning}{{3.6.1}{8}{Video reasoning segmentation}{subsubsection.3.6.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.2}3D and multiview grounding}{8}{subsubsection.3.6.2}\protected@file@percent }
-\newlabel{subsubsec:three-d-grounding}{{3.6.2}{8}{3D and multiview grounding}{subsubsection.3.6.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.3}Complex multi-context scenes}{8}{subsubsection.3.6.3}\protected@file@percent }
-\newlabel{subsubsec:multi-context-scenes}{{3.6.3}{8}{Complex multi-context scenes}{subsubsection.3.6.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Datasets and Evaluation Metrics}{8}{section.4}\protected@file@percent }
-\newlabel{sec:datasets-metrics}{{4}{8}{Datasets and Evaluation Metrics}{section.4}{}}
+\citation{xuVideosegr1ReasoningVideo2026}
+\citation{xu2023odise}
+\citation{xwangUseUniversalSegment2024}
+\citation{renPixellmPixelReasoning2024}
+\citation{rasheed2024glamm}
+\citation{youFerretReferGround2024}
+\citation{zhuLensLearningSegment2026}
+\citation{zhouReasoningImplicitSelfsupervised2026}
+\citation{luoConnectingDotsTrainingFree2026}
+\citation{chen3DDRESDetailed3D2026}
+\citation{shinhOpenvocabularySemanticSegmentation2024}
+\citation{xshanOpenvocabularySemanticSegmentation2024}
+\citation{sgxiaoOpenworldsamExtendingSam22026}
+\citation{xhanBoostingSegmentAnything2025}
+\citation{zhangLlavagroundingGroundedVisual2024}
+\citation{zhuPopenPreferencebasedOptimization2025}
+\citation{guoSeeingBelievingRichContext2026}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{radford2021learning,liang2023ovseg,xshanOpenvocabularySemanticSegmentation2024}
+\citation{yangExploringCLIPsDense2025,yxchngAligningVisionLanguageModel2026}
+\citation{xwangUseUniversalSegment2024,kirillov2023sam,xhanBoostingSegmentAnything2025,lee2025escnet}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Relation to existing surveys}{5}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Foundations}{5}{section.3}\protected@file@percent }
+\newlabel{sec:foundations}{{3}{5}{Foundations}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Visual, textual, and mask representations}{5}{subsection.3.1}\protected@file@percent }
+\citation{xlaiLisaReasoningSegmentation2024,renPixellmPixelReasoning2024,rasheedGlammPixelGrounding2024}
+\citation{radford2021learning}
+\citation{liang2023ovseg,xu2023san,luo2024pnpovss,yangExploringCLIPsDense2025,yxchngAligningVisionLanguageModel2026}
+\citation{kirillov2023sam}
+\citation{xhanBoostingSegmentAnything2025,hwangXSAMSegmentAnything2026,sgxiaoOpenworldsamExtendingSam22026,shinhOpenvocabularySemanticSegmentation2024}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Taxonomy and section mapping for this survey. The main method sections are organized into open-vocabulary segmentation, promptable and grounded segmentation, reasoning segmentation, and extended scenarios. The bottom row links this taxonomy to the comparison axes and future directions used later in the manuscript.}}{6}{figure.4}\protected@file@percent }
+\newlabel{figbackgroundtaxonomy}{{4}{6}{Taxonomy and section mapping for this survey. The main method sections are organized into open-vocabulary segmentation, promptable and grounded segmentation, reasoning segmentation, and extended scenarios. The bottom row links this taxonomy to the comparison axes and future directions used later in the manuscript}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Foundation components}{6}{subsection.3.2}\protected@file@percent }
+\citation{xuPixelalignedLanguageModel2024,zhangLlavagroundingGroundedVisual2024,youFerretReferGround2024,xiaoOnerefUnifiedOnetower2024,rasheedGlammPixelGrounding2024}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{renPixellmPixelReasoning2024,rasheedGlammPixelGrounding2024,zhangOmgllavaBridgingImagelevel2024}
+\citation{luoConnectingDotsTrainingFree2026,huangPixelsLogicPerceptionReasoning2026}
+\citation{sikdarPicazoPixelalignedContrastive2025,yangExploringCLIPsDense2025}
+\citation{xuPixelalignedLanguageModel2024,zhangLlavagroundingGroundedVisual2024,xiaoOnerefUnifiedOnetower2024,rasheedGlammPixelGrounding2024}
+\citation{xu2023san,shinhOpenvocabularySemanticSegmentation2024,libExploringEfficientOpenvocabulary2026}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Four foundation paradigms used in this survey. Closed-set segmentation fixes the label space; open-vocabulary segmentation introduces text-defined categories; promptable and grounded segmentation combines reusable mask priors with language grounding; reasoning segmentation adds an inference stage before mask generation.}}{7}{figure.5}\protected@file@percent }
+\newlabel{fig:foundation_paradigms}{{5}{7}{Four foundation paradigms used in this survey. Closed-set segmentation fixes the label space; open-vocabulary segmentation introduces text-defined categories; promptable and grounded segmentation combines reusable mask priors with language grounding; reasoning segmentation adds an inference stage before mask generation}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Learning and adaptation objectives}{7}{subsection.3.3}\protected@file@percent }
+\citation{yanTaskPreferenceOptimization2025,zhuLensLearningSegment2026,zhouReasoningImplicitSelfsupervised2026,yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\citation{hhuangRenovatingNamesOpenvocabulary2024,libExploringEfficientOpenvocabulary2026}
+\citation{youFerretReferGround2024,rasheedGlammPixelGrounding2024,huGroundingSuiteMeasuringComplex2025}
+\citation{guoSeeingBelievingRichContext2026,vvatsGuidelineConsistentSegmentationMultiAgent2026,xuVideosegr1ReasoningVideo2026,chen3DDRESDetailed3D2026,yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\citation{everingham2015pascal,lin2014microsoft,caesar2018cocostuff,zhou2017scene,cordts2016cityscapes}
+\citation{hhuangRenovatingNamesOpenvocabulary2024,noorimTesttimeAdaptationVisionlanguage2026,ybenigmimFlossFreeLunch2025}
+\citation{kirillov2023sam}
+\citation{xhanBoostingSegmentAnything2025,hwangXSAMSegmentAnything2026,sgxiaoOpenworldsamExtendingSam22026}
+\citation{kazemzadeh2014referitgame,yu2016modeling,mao2016generation}
+\citation{xuPixelalignedLanguageModel2024,xiaoOnerefUnifiedOnetower2024,chngMaskGroundingReferring2024}
+\citation{rasheedGlammPixelGrounding2024,huGroundingSuiteMeasuringComplex2025}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Evaluation setups}{8}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Datasets and Evaluation}{8}{section.4}\protected@file@percent }
+\newlabel{sec:datasets-evaluation}{{4}{8}{Datasets and Evaluation}{section.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Dataset groups}{8}{subsection.4.1}\protected@file@percent }
-\newlabel{subsec:dataset-groups}{{4.1}{8}{Dataset groups}{subsection.4.1}{}}
-\citation{liang2023ovseg,xu2023san,luo2024pnpovss,lee2025escnet,shi2025trident}
-\citation{xu2023odise,zou2023xdecoder}
-\citation{lai2024lisa,rasheed2024glamm}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Core datasets for open-vocabulary and promptable segmentation.}}{9}{table.1}\protected@file@percent }
-\newlabel{tab:datasets-core}{{1}{9}{Core datasets for open-vocabulary and promptable segmentation}{table.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Evaluation metrics}{9}{subsection.4.2}\protected@file@percent }
-\newlabel{subsec:evaluation-metrics}{{4.2}{9}{Evaluation metrics}{subsection.4.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Dense segmentation metrics}{9}{subsubsection.4.2.1}\protected@file@percent }
-\newlabel{subsubsec:dense-metrics}{{4.2.1}{9}{Dense segmentation metrics}{subsubsection.4.2.1}{}}
-\citation{xu2023san,luo2024pnpovss,lee2025escnet,shi2025trident}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Datasets for language-guided, reasoning, grounding, and future video settings.}}{10}{table.2}\protected@file@percent }
-\newlabel{tab:datasets-grounding}{{2}{10}{Datasets for language-guided, reasoning, grounding, and future video settings}{table.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Planned figure: dataset and metric map.}}{10}{figure.9}\protected@file@percent }
-\newlabel{fig:dataset-metric-map}{{9}{10}{Planned figure: dataset and metric map}{figure.9}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Language-guided and reasoning metrics}{10}{subsubsection.4.2.2}\protected@file@percent }
-\newlabel{subsubsec:reasoning-metrics}{{4.2.2}{10}{Language-guided and reasoning metrics}{subsubsection.4.2.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Efficiency and deployment metrics}{10}{subsubsection.4.2.3}\protected@file@percent }
-\newlabel{subsubsec:efficiency-metrics}{{4.2.3}{10}{Efficiency and deployment metrics}{subsubsection.4.2.3}{}}
-\citation{liang2023ovseg,xu2023san,luo2024pnpovss}
+\citation{xlaiLisaReasoningSegmentation2024,jwangLlmsegBridgingImage2024}
+\citation{zhouReasoningImplicitSelfsupervised2026,zhuLensLearningSegment2026,vvatsGuidelineConsistentSegmentationMultiAgent2026,guoSeeingBelievingRichContext2026}
+\citation{atharVicasDatasetCombining2025,munasingheVideoglammLargeMultimodal2025,baiOneTokenSeg2024,sunSamaMultiturnReferential2026}
+\citation{libExploringEfficientOpenvocabulary2026,yeRISLADBenchmarkModel2026,quenumLisatLanguageinstructedSegmentation2026}
+\citation{chen3DDRESDetailed3D2026,huangSurprise3dDatasetSpatial2026}
+\citation{yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\citation{everingham2015pascal}
+\citation{lin2014microsoft}
+\citation{caesar2018cocostuff}
+\citation{zhou2017scene}
+\citation{cordts2016cityscapes}
+\citation{hhuangRenovatingNamesOpenvocabulary2024}
+\citation{noorimTesttimeAdaptationVisionlanguage2026}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{xxuanReMEDataCentricFramework2025}
+\citation{shiyHarnessingVisionFoundation2025}
+\citation{kirillov2023sam}
+\citation{kirillov2023sam}
+\citation{ravi2024sam2}
+\citation{hwangXSAMSegmentAnything2026}
+\citation{kazemzadeh2014referitgame}
+\citation{yu2016modeling}
+\citation{mao2016generation}
+\citation{xiaGsvaGeneralizedSegmentation2024}
+\citation{rasheedGlammPixelGrounding2024}
+\citation{huGroundingSuiteMeasuringComplex2025}
+\citation{zhangGroundhogGroundingLarge2024}
+\citation{yuanOspreyPixelUnderstanding2024}
+\citation{xuPixelalignedLanguageModel2024}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{jwangLlmsegBridgingImage2024}
+\citation{zhouReasoningImplicitSelfsupervised2026}
+\citation{zhuLensLearningSegment2026}
+\citation{atharVicasDatasetCombining2025}
+\citation{munasingheVideoglammLargeMultimodal2025}
+\citation{baiOneTokenSeg2024}
+\citation{sunSamaMultiturnReferential2026}
+\citation{chen3DDRESDetailed3D2026}
+\citation{huangSurprise3dDatasetSpatial2026}
+\citation{yeRISLADBenchmarkModel2026}
+\citation{quenumLisatLanguageinstructedSegmentation2026}
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{hhuangRenovatingNamesOpenvocabulary2024,ybenigmimFlossFreeLunch2025}
+\citation{kirillov2023sam,xhanBoostingSegmentAnything2025,shiyHarnessingVisionFoundation2025}
+\citation{rasheedGlammPixelGrounding2024,huGroundingSuiteMeasuringComplex2025,xuPixelalignedLanguageModel2024}
+\citation{xlaiLisaReasoningSegmentation2024,yanMedreasonerReinforcementLearning2026,quenumLisatLanguageinstructedSegmentation2026,wangAffordancer1ReinforcementLearning2026}
+\citation{lin2014microsoft,kirillov2019panoptic}
+\citation{xiaGsvaGeneralizedSegmentation2024,huangPixelsLogicPerceptionReasoning2026}
+\citation{atharVicasDatasetCombining2025,munasingheVideoglammLargeMultimodal2025,liangReferdinoReferringVideo2025}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Annotation granularity}{9}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Evaluation metrics}{9}{subsection.4.3}\protected@file@percent }
+\citation{rasheedGlammPixelGrounding2024,guoSeeingBelievingRichContext2026}
+\citation{shiyHarnessingVisionFoundation2025,noorimTesttimeAdaptationVisionlanguage2026,zpengParameterefficientFinetuningHyperspherical2025}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Representative datasets and benchmark families used in open-vocabulary, promptable, grounded, and reasoning segmentation. The table emphasizes annotation form and evaluation role rather than leaderboard results.}}{10}{table.1}\protected@file@percent }
+\newlabel{tab:dataset-index}{{1}{10}{Representative datasets and benchmark families used in open-vocabulary, promptable, grounded, and reasoning segmentation. The table emphasizes annotation form and evaluation role rather than leaderboard results}{table.1}{}}
+\citation{everingham2015pascal}
+\citation{caesar2018cocostuff}
+\citation{zhou2017scene}
+\citation{cordts2016cityscapes}
+\citation{hhuangRenovatingNamesOpenvocabulary2024,ybenigmimFlossFreeLunch2025}
+\citation{lin2014microsoft}
+\citation{kirillov2019panoptic}
+\citation{yu2016modeling}
+\citation{mao2016generation}
+\citation{xiaGsvaGeneralizedSegmentation2024}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{kirillov2023sam}
+\citation{ravi2024sam2}
+\citation{hwangXSAMSegmentAnything2026}
+\citation{atharVicasDatasetCombining2025}
+\citation{munasingheVideoglammLargeMultimodal2025}
+\citation{liangReferdinoReferringVideo2025}
+\citation{baiOneTokenSeg2024}
+\citation{rasheedGlammPixelGrounding2024}
+\citation{huGroundingSuiteMeasuringComplex2025}
+\citation{guoSeeingBelievingRichContext2026}
+\citation{shiyHarnessingVisionFoundation2025}
+\citation{noorimTesttimeAdaptationVisionlanguage2026}
+\citation{zpengParameterefficientFinetuningHyperspherical2025}
+\citation{hhuangRenovatingNamesOpenvocabulary2024,ybenigmimFlossFreeLunch2025}
+\citation{xshanOpenvocabularySemanticSegmentation2024,shinhOpenvocabularySemanticSegmentation2024,zhouReasoningImplicitSelfsupervised2026,zhuLensLearningSegment2026}
+\citation{atharVicasDatasetCombining2025,chen3DDRESDetailed3D2026,yanMedreasonerReinforcementLearning2026,libExploringEfficientOpenvocabulary2026,wangAffordancer1ReinforcementLearning2026}
+\citation{liang2023ovseg}
+\citation{xu2023san}
+\citation{yliMaskadapterDevilMasks2025}
 \citation{xu2023odise}
-\citation{kirillov2023sam,lee2025escnet,shi2025trident}
-\citation{zou2023xdecoder}
-\citation{lai2024lisa,rasheed2024glamm}
-\citation{liang2023ovseg,xu2023san,kirillov2023sam}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Comparison of segmentation-centered method families.}}{11}{table.3}\protected@file@percent }
-\newlabel{tab:method-comparison-segmentation}{{3}{11}{Comparison of segmentation-centered method families}{table.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Comparison of Advantages and Shortcomings}{11}{section.5}\protected@file@percent }
-\newlabel{sec:comparison}{{5}{11}{Comparison of Advantages and Shortcomings}{section.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Cross-method comparison}{11}{subsection.5.1}\protected@file@percent }
-\newlabel{subsec:cross-method-comparison}{{5.1}{11}{Cross-method comparison}{subsection.5.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Trade-off axes}{11}{subsection.5.2}\protected@file@percent }
-\newlabel{subsec:tradeoff-axes}{{5.2}{11}{Trade-off axes}{subsection.5.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Semantic openness versus spatial precision}{11}{subsubsection.5.2.1}\protected@file@percent }
-\newlabel{subsubsec:semantic-vs-spatial}{{5.2.1}{11}{Semantic openness versus spatial precision}{subsubsection.5.2.1}{}}
-\citation{liang2023ovseg,xu2023san,lee2025escnet,luo2024pnpovss,shi2025trident}
-\citation{zou2023xdecoder,lai2024lisa,rasheed2024glamm}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparison of generalist, reasoning, and extension-oriented method families.}}{12}{table.4}\protected@file@percent }
-\newlabel{tab:method-comparison-generalist}{{4}{12}{Comparison of generalist, reasoning, and extension-oriented method families}{table.4}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Training-based adaptation versus training-free composition}{12}{subsubsection.5.2.2}\protected@file@percent }
-\newlabel{subsubsec:training-vs-training-free}{{5.2.2}{12}{Training-based adaptation versus training-free composition}{subsubsection.5.2.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Task-specific segmentation versus generalist reasoning}{12}{subsubsection.5.2.3}\protected@file@percent }
-\newlabel{subsubsec:specialist-vs-generalist}{{5.2.3}{12}{Task-specific segmentation versus generalist reasoning}{subsubsection.5.2.3}{}}
-\citation{lee2025escnet,shi2025trident}
-\citation{lai2024lisa,rasheed2024glamm}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Planned figure: capability trade-off map.}}{13}{figure.10}\protected@file@percent }
-\newlabel{fig:capability-tradeoff}{{10}{13}{Planned figure: capability trade-off map}{figure.10}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Challenges and Future Directions}{13}{section.6}\protected@file@percent }
-\newlabel{sec:future-directions}{{6}{13}{Challenges and Future Directions}{section.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}From open vocabulary to reliable open-world segmentation}{13}{subsection.6.1}\protected@file@percent }
-\newlabel{subsec:reliable-open-world}{{6.1}{13}{From open vocabulary to reliable open-world segmentation}{subsection.6.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Integrating semantic alignment and mask priors}{13}{subsection.6.2}\protected@file@percent }
-\newlabel{subsec:semantic-mask-integration}{{6.2}{13}{Integrating semantic alignment and mask priors}{subsection.6.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Reducing hallucination in reasoning segmentation}{13}{subsection.6.3}\protected@file@percent }
-\newlabel{subsec:hallucination-reasoning}{{6.3}{13}{Reducing hallucination in reasoning segmentation}{subsection.6.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Evaluation beyond mIoU}{13}{subsection.6.4}\protected@file@percent }
-\newlabel{subsec:evaluation-beyond-miou}{{6.4}{13}{Evaluation beyond mIoU}{subsection.6.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Video, 3D, and multi-context grounding}{13}{subsection.6.5}\protected@file@percent }
-\newlabel{subsec:future-video-3d}{{6.5}{13}{Video, 3D, and multi-context grounding}{subsection.6.5}{}}
-\bibstyle{elsarticle-harv}
-\bibdata{references}
-\bibcite{kirillov2023sam}{{1}{2023}{{Kirillov et~al.}}{{Kirillov, Mintun, Ravi, Mao, Rolland, Gustafson, Xiao, Whitehead, Berg, Lo, Dollar and Girshick}}}
-\bibcite{lai2024lisa}{{2}{2024}{{Lai et~al.}}{{Lai, Tian, Chen, Li, Yuan, Liu and Jia}}}
-\bibcite{lee2025escnet}{{3}{2025}{{Lee et~al.}}{{Lee, Cho, Lee, Yang, Choi, Kim and Lee}}}
-\bibcite{liang2023ovseg}{{4}{2023}{{Liang et~al.}}{{Liang, Wu, Dai, Li, Zhao, Zhang, Zhang, Vajda and Marculescu}}}
-\bibcite{luo2024pnpovss}{{5}{2024}{{Luo et~al.}}{{Luo, Khandelwal, Sigal and Li}}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Planned figure: open problems map.}}{14}{figure.11}\protected@file@percent }
-\newlabel{fig:open-problems}{{11}{14}{Planned figure: open problems map}{figure.11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{14}{section.7}\protected@file@percent }
-\newlabel{sec:conclusion}{{7}{14}{Conclusion}{section.7}{}}
-\bibcite{rasheed2024glamm}{{6}{2024}{{Rasheed et~al.}}{{Rasheed, Maaz, Shaji, Shaker, Khan, Cholakkal, Anwer, Xing, Yang and Khan}}}
-\bibcite{shi2025trident}{{7}{2025}{{Shi et~al.}}{{Shi, Dong and Xu}}}
-\bibcite{xu2023odise}{{8}{2023a}{{Xu et~al.}}{{Xu, Liu, Vahdat, Byeon, Wang and De~Mello}}}
-\bibcite{xu2023san}{{9}{2023b}{{Xu et~al.}}{{Xu, Zhang, Wei, Hu and Bai}}}
-\bibcite{zou2023xdecoder}{{10}{2023}{{Zou et~al.}}{{Zou, Dou, Yang, Gan, Li, Li, Dai, Behl, Wang, Yuan, Peng, Wang, Lee and Gao}}}
-\gdef \@abspage@last{16}
+\citation{xwangUseUniversalSegment2024}
+\citation{xxuanReMEDataCentricFramework2025}
+\citation{luo2024pnpovss}
+\citation{zzhaoDPSegDualpromptCost2025}
+\citation{joseDinov2MeetsText2025}
+\citation{gejCLIPAdaptedRegiontoTextLearning2025}
+\citation{maaydinItaclipBoostingTrainingfree2025}
+\citation{lsunCliperHierarchicallyImproving2025}
+\citation{dzhangCorrclipReconstructingPatch2025}
+\citation{shiyHarnessingVisionFoundation2025}
+\citation{zpengParameterefficientFinetuningHyperspherical2025}
+\citation{rqorbaniSemanticLibraryAdaptation2025}
+\citation{noorimTesttimeAdaptationVisionlanguage2026}
+\citation{hhuangRenovatingNamesOpenvocabulary2024}
+\citation{ybenigmimFlossFreeLunch2025}
+\citation{yliuSteppingOutSimilar2025}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{sduttaAerosegHarnessingSam2025}
+\citation{huangZoRIDiscriminativeZeroshot2025}
+\citation{zhaoOpenvocabularyRGBThermalSemantic2024}
+\citation{liang2023ovseg}
+\citation{xu2023san}
+\citation{zzhaoDPSegDualpromptCost2025}
+\citation{joseDinov2MeetsText2025}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Benchmark comparability}{11}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Open-Vocabulary Segmentation}{11}{section.5}\protected@file@percent }
+\newlabel{sec:open-vocabulary-segmentation}{{5}{11}{Open-Vocabulary Segmentation}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}CLIP-based dense alignment}{11}{subsection.5.1}\protected@file@percent }
+\citation{lsunCliperHierarchicallyImproving2025}
+\citation{lsunCliperHierarchicallyImproving2025}
+\citation{luo2024pnpovss}
+\citation{maaydinItaclipBoostingTrainingfree2025}
+\citation{lsunCliperHierarchicallyImproving2025}
+\citation{dzhangCorrclipReconstructingPatch2025}
+\citation{shiyHarnessingVisionFoundation2025}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Metric and protocol families for comparing open-vocabulary and reasoning segmentation. The limitation column records what each metric can fail to capture.}}{12}{table.2}\protected@file@percent }
+\newlabel{tab:metric-protocols}{{2}{12}{Metric and protocol families for comparing open-vocabulary and reasoning segmentation. The limitation column records what each metric can fail to capture}{table.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Representative open-vocabulary segmentation methods. The table is an index for Section~\ref {sec:open-vocabulary-segmentation}; detailed limitations are discussed in the corresponding subsections.}}{13}{table.3}\protected@file@percent }
+\newlabel{tab:open-vocab-methods}{{3}{13}{Representative open-vocabulary segmentation methods. The table is an index for Section~\ref {sec:open-vocabulary-segmentation}; detailed limitations are discussed in the corresponding subsections}{table.3}{}}
+\citation{liang2023ovseg}
+\citation{yliMaskadapterDevilMasks2025}
+\citation{mleeEffectiveSAMCombination2025,xhanBoostingSegmentAnything2025}
+\citation{yliMaskadapterDevilMasks2025}
+\citation{yliMaskadapterDevilMasks2025}
+\citation{xwangUseUniversalSegment2024}
+\citation{xxuanReMEDataCentricFramework2025}
+\citation{xwangUseUniversalSegment2024}
+\citation{ymiaoLanghopsLanguageGrounded2026}
+\citation{dengCoconutpancapJointPanoptic2026}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Training-free spatial repair for CLIP-based open-vocabulary segmentation. Self-self attention based methods replace CLIP's original last-layer attention to improve patch coherence, while VFM-attention based methods borrow attention maps from an external vision foundation model. CLIPer instead fuses early-layer CLIP information to form a coarse text-aligned segmentation map and then applies fine-grained compensation to recover local details~\citep  {lsunCliperHierarchicallyImproving2025}.}}{14}{figure.6}\protected@file@percent }
+\newlabel{fig:open-vocab-cliper}{{6}{14}{Training-free spatial repair for CLIP-based open-vocabulary segmentation. Self-self attention based methods replace CLIP's original last-layer attention to improve patch coherence, while VFM-attention based methods borrow attention maps from an external vision foundation model. CLIPer instead fuses early-layer CLIP information to form a coarse text-aligned segmentation map and then applies fine-grained compensation to recover local details~\citep {lsunCliperHierarchicallyImproving2025}}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Proposal-then-classification pipelines}{14}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Fine-grained semantic and part-level segmentation}{14}{subsection.5.3}\protected@file@percent }
+\citation{hhuangRenovatingNamesOpenvocabulary2024}
+\citation{ybenigmimFlossFreeLunch2025,yliuSteppingOutSimilar2025}
+\citation{xwangUseUniversalSegment2024}
+\citation{xwangUseUniversalSegment2024}
+\citation{xu2023san}
+\citation{zpengParameterefficientFinetuningHyperspherical2025,rqorbaniSemanticLibraryAdaptation2025}
+\citation{dukangClassDistributioninducedAttention2025,sjinFeaturePurificationMatters2025,qchenTrainingFreeClassPurification2025}
+\citation{shinhOpenvocabularySemanticSegmentation2024}
+\citation{liuEfficientFoundationModel2025,libExploringEfficientOpenvocabulary2026}
+\citation{noorimTesttimeAdaptationVisionlanguage2026}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Mask embedding extraction in proposal-then-classification pipelines. Mask cropping feeds cropped masked regions into CLIP, while mask pooling aggregates CLIP features directly inside proposal masks. Mask-Adapter adds an adapter that converts proposal masks and CLIP features into semantic activation maps before pooling, thereby injecting contextual and mask-aware cues into the final mask embedding~\citep  {yliMaskadapterDevilMasks2025}.}}{15}{figure.7}\protected@file@percent }
+\newlabel{fig:open-vocab-maskadapter}{{7}{15}{Mask embedding extraction in proposal-then-classification pipelines. Mask cropping feeds cropped masked regions into CLIP, while mask pooling aggregates CLIP features directly inside proposal masks. Mask-Adapter adds an adapter that converts proposal masks and CLIP features into semantic activation maps before pooling, thereby injecting contextual and mask-aware cues into the final mask embedding~\citep {yliMaskadapterDevilMasks2025}}{figure.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Efficiency, adaptation, and distillation}{15}{subsection.5.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Universal segment embeddings for open-vocabulary segmentation. USE first builds segment-text pairs, such as object, part, and context descriptions associated with masks, and then trains a segment embedding head on top of an image encoder. At inference time, the same image features can be reused with different input segments, producing text-aligned segment embeddings for classification, retrieval, or ranking~\citep  {xwangUseUniversalSegment2024}.}}{15}{figure.8}\protected@file@percent }
+\newlabel{fig:open-vocab-use}{{8}{15}{Universal segment embeddings for open-vocabulary segmentation. USE first builds segment-text pairs, such as object, part, and context descriptions associated with masks, and then trains a segment embedding head on top of an image encoder. At inference time, the same image features can be reused with different input segments, producing text-aligned segment embeddings for classification, retrieval, or ranking~\citep {xwangUseUniversalSegment2024}}{figure.8}{}}
+\citation{kirillov2023sam}
+\citation{ravi2024sam2}
+\citation{huangFocsamDelvingDeeply2024}
+\citation{huangInter2FormerDynamicHybrid2025}
+\citation{xhanBoostingSegmentAnything2025}
+\citation{mleeEffectiveSAMCombination2025}
+\citation{sgxiaoOpenworldsamExtendingSam22026}
+\citation{hwangXSAMSegmentAnything2026}
+\citation{liu2024groundingdino}
+\citation{kirillov2023sam}
+\citation{ravi2024sam2}
+\citation{zhouThinkYouSegment2026}
+\citation{huangUnleashingTemporalspatialReasoning2025}
+\citation{cuttanoSamwiseInfusingWisdom2025}
+\citation{cshangPromptdrivenReferringImage2024}
+\citation{daiCurriculumPointPrompting2024}
+\citation{chngMaskGroundingReferring2024}
+\citation{xiaoOnerefUnifiedOnetower2024}
+\citation{caoReferAnySegmentation2025}
+\citation{pengGroundingMultimodalLarge2024}
+\citation{youFerretReferGround2024}
+\citation{yuanOspreyPixelUnderstanding2024}
+\citation{xuPixelalignedLanguageModel2024}
+\citation{zhangLlavagroundingGroundedVisual2024}
+\citation{rasheedGlammPixelGrounding2024}
+\citation{huGroundingSuiteMeasuringComplex2025}
+\citation{grosiShowTellBenchmark2025}
+\citation{tangVisualPositionPrompt2026}
+\citation{yangRepurposingSAMEfficient2026}
+\citation{wangIterprimeZeroshotReferring2025}
+\citation{kirillov2023sam}
+\citation{ravi2024sam2}
+\citation{ravi2024sam2}
+\citation{ravi2024sam2}
+\citation{huangFocsamDelvingDeeply2024}
+\citation{huangInter2FormerDynamicHybrid2025}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Summary and discussion}{16}{subsection.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Promptable and Grounded Segmentation}{16}{section.6}\protected@file@percent }
+\newlabel{sec:promptable-grounded-segmentation}{{6}{16}{Promptable and Grounded Segmentation}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}SAM and SAM2 as mask priors}{16}{subsection.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Representative promptable and grounded segmentation methods. The table follows the same indexing function as Table~\ref {tab:open-vocab-methods}: it records the route, foundation prior, prompt or grounding interface, and the main contribution or limitation rather than serving as a leaderboard.}}{17}{table.4}\protected@file@percent }
+\newlabel{tab:promptable-grounded-methods}{{4}{17}{Representative promptable and grounded segmentation methods. The table follows the same indexing function as Table~\ref {tab:open-vocab-methods}: it records the route, foundation prior, prompt or grounding interface, and the main contribution or limitation rather than serving as a leaderboard}{table.4}{}}
+\citation{xhanBoostingSegmentAnything2025}
+\citation{mleeEffectiveSAMCombination2025}
+\citation{sgxiaoOpenworldsamExtendingSam22026}
+\citation{hwangXSAMSegmentAnything2026}
+\citation{liu2024groundingdino}
+\citation{zhouThinkYouSegment2026}
+\citation{huangUnleashingTemporalspatialReasoning2025}
+\citation{cuttanoSamwiseInfusingWisdom2025,wangSam2loveSegmentAnything2025}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces SAM2 as a promptable mask prior for images and videos. A frame is encoded by the image encoder, combined with previous-frame memories through memory attention, and decoded with user prompts such as masks, points, or boxes. The predicted mask is then encoded into a memory bank, enabling later frames to reuse temporal information for interactive video segmentation~\citep  {ravi2024sam2}.}}{18}{figure.9}\protected@file@percent }
+\newlabel{fig:promptable-sam2}{{9}{18}{SAM2 as a promptable mask prior for images and videos. A frame is encoded by the image encoder, combined with previous-frame memories through memory attention, and decoded with user prompts such as masks, points, or boxes. The predicted mask is then encoded into a memory bank, enabling later frames to reuse temporal information for interactive video segmentation~\citep {ravi2024sam2}}{figure.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Grounded-SAM composition}{18}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Region-word and mask-text grounding}{18}{subsection.6.3}\protected@file@percent }
+\citation{cshangPromptdrivenReferringImage2024}
+\citation{daiCurriculumPointPrompting2024}
+\citation{chngMaskGroundingReferring2024}
+\citation{xiaoOnerefUnifiedOnetower2024}
+\citation{liu2024groundingdino}
+\citation{liu2024groundingdino}
+\citation{xiaoOnerefUnifiedOnetower2024}
+\citation{xiaoOnerefUnifiedOnetower2024}
+\citation{caoReferAnySegmentation2025}
+\citation{wangIterprimeZeroshotReferring2025}
+\citation{liuHybridGloballocalRepresentation2025}
+\citation{pengGroundingMultimodalLarge2024}
+\citation{youFerretReferGround2024}
+\citation{xuPixelalignedLanguageModel2024}
+\citation{yuanOspreyPixelUnderstanding2024}
+\citation{zhangLlavagroundingGroundedVisual2024}
+\citation{rasheedGlammPixelGrounding2024}
+\citation{huGroundingSuiteMeasuringComplex2025}
+\citation{huGroundingSuiteMeasuringComplex2025,guoSeeingBelievingRichContext2026}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Grounding DINO as a language-guided localization module for Grounded-SAM pipelines. Text and image backbones first produce modality-specific features, a feature enhancer updates both streams, language-guided query selection initializes cross-modality queries, and the decoder predicts localized outputs under contrastive and localization losses. This architecture explains why Grounded-SAM systems often use Grounding DINO to convert text into boxes before SAM produces precise masks~\citep  {liu2024groundingdino}.}}{19}{figure.10}\protected@file@percent }
+\newlabel{fig:promptable-groundingdino}{{10}{19}{Grounding DINO as a language-guided localization module for Grounded-SAM pipelines. Text and image backbones first produce modality-specific features, a feature enhancer updates both streams, language-guided query selection initializes cross-modality queries, and the decoder predicts localized outputs under contrastive and localization losses. This architecture explains why Grounded-SAM systems often use Grounding DINO to convert text into boxes before SAM produces precise masks~\citep {liu2024groundingdino}}{figure.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Pixel-grounded multimodal interfaces}{19}{subsection.6.4}\protected@file@percent }
+\citation{grosiShowTellBenchmark2025}
+\citation{cshangPromptdrivenReferringImage2024}
+\citation{tangVisualPositionPrompt2026}
+\citation{yangRepurposingSAMEfficient2026}
+\citation{rasheedGlammPixelGrounding2024}
+\citation{rasheedGlammPixelGrounding2024}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces OneRef's one-tower referring model. The image branch applies referring-aware dynamic image masking, while the text branch masks the words related to the referred target. A shared multi-head self-attention encoder feeds referring mask image modeling and referring mask language modeling heads, which reconstruct visual content and language content while scoring target-relation consistency~\citep  {xiaoOnerefUnifiedOnetower2024}.}}{20}{figure.11}\protected@file@percent }
+\newlabel{fig:promptable-oneref}{{11}{20}{OneRef's one-tower referring model. The image branch applies referring-aware dynamic image masking, while the text branch masks the words related to the referred target. A shared multi-head self-attention encoder feeds referring mask image modeling and referring mask language modeling heads, which reconstruct visual content and language content while scoring target-relation consistency~\citep {xiaoOnerefUnifiedOnetower2024}}{figure.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Prompt learning and adapter-based transfer}{20}{subsection.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Summary and discussion}{20}{subsection.6.6}\protected@file@percent }
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{jwangLlmsegBridgingImage2024}
+\citation{xiaGsvaGeneralizedSegmentation2024}
+\citation{qianReasoningAttendTry2025}
+\citation{renPixellmPixelReasoning2024}
+\citation{zhangOmgllavaBridgingImagelevel2024}
+\citation{feiVitronUnifiedPixellevel2024}
+\citation{liuUnipixelUnifiedObject2026}
+\citation{wangAltoAdaptivelengthTokenizer2026}
+\citation{zongGroundvTeachingVlms2025}
+\citation{weiInstructsegUnifyingInstructed2025}
+\citation{jangMmrLargescaleBenchmark2025}
+\citation{huGroundingSuiteMeasuringComplex2025}
+\citation{jwangLlmsegBridgingImage2024}
+\citation{luoConnectingDotsTrainingFree2026}
+\citation{huangPixelsLogicPerceptionReasoning2026}
+\citation{ningEnhancingSpatialReasoning2025}
+\citation{zhuPopenPreferencebasedOptimization2025}
+\citation{yanTaskPreferenceOptimization2025}
+\citation{zhuLensLearningSegment2026}
+\citation{zhouReasoningImplicitSelfsupervised2026}
+\citation{huangSamr1LeveragingSam2026}
+\citation{wuSeeSaySegment2024}
+\citation{xiaGsvaGeneralizedSegmentation2024}
+\citation{zhangLlavagroundingGroundedVisual2024}
+\citation{rasheedGlammPixelGrounding2024}
+\citation{guoSeeingBelievingRichContext2026}
+\citation{vvatsGuidelineConsistentSegmentationMultiAgent2026}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{jwangLlmsegBridgingImage2024}
+\citation{xiaGsvaGeneralizedSegmentation2024}
+\citation{qianReasoningAttendTry2025}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces GLaMM as a pixel-grounded multimodal conversation interface. Global image features and region features are converted into image-region prompts for the LLM, while grounding image features are passed to a pixel decoder through output prompts. The same interface supports referring expression segmentation, image-level captioning, region-level captioning, phrase grounding, and grounded conversation in which generated object mentions are linked to masks~\citep  {rasheedGlammPixelGrounding2024}.}}{21}{figure.12}\protected@file@percent }
+\newlabel{fig:promptable-glamm}{{12}{21}{GLaMM as a pixel-grounded multimodal conversation interface. Global image features and region features are converted into image-region prompts for the LLM, while grounding image features are passed to a pixel decoder through output prompts. The same interface supports referring expression segmentation, image-level captioning, region-level captioning, phrase grounding, and grounded conversation in which generated object mentions are linked to masks~\citep {rasheedGlammPixelGrounding2024}}{figure.12}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Reasoning Segmentation and Pixel Grounding}{21}{section.7}\protected@file@percent }
+\newlabel{sec:reasoning-segmentation}{{7}{21}{Reasoning Segmentation and Pixel Grounding}{section.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}MLLM-guided segmentation}{21}{subsection.7.1}\protected@file@percent }
+\citation{renPixellmPixelReasoning2024}
+\citation{zhangOmgllavaBridgingImagelevel2024}
+\citation{feiVitronUnifiedPixellevel2024}
+\citation{liuUnipixelUnifiedObject2026,wangAltoAdaptivelengthTokenizer2026}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Representative reasoning segmentation and pixel-grounding methods. The table indexes Section~\ref {sec:reasoning-segmentation}; detailed limitations are discussed in the corresponding subsections.}}{22}{table.5}\protected@file@percent }
+\newlabel{tab:reasoning-methods}{{5}{22}{Representative reasoning segmentation and pixel-grounding methods. The table indexes Section~\ref {sec:reasoning-segmentation}; detailed limitations are discussed in the corresponding subsections}{table.5}{}}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{jwangLlmsegBridgingImage2024}
+\citation{luoConnectingDotsTrainingFree2026}
+\citation{huangPixelsLogicPerceptionReasoning2026}
+\citation{zongGroundvTeachingVlms2025}
+\citation{weiInstructsegUnifyingInstructed2025}
+\citation{jangMmrLargescaleBenchmark2025}
+\citation{huGroundingSuiteMeasuringComplex2025}
+\citation{ningEnhancingSpatialReasoning2025}
+\citation{vvatsGuidelineConsistentSegmentationMultiAgent2026}
+\citation{zhuLensLearningSegment2026}
+\citation{zhuLensLearningSegment2026}
+\citation{zhuPopenPreferencebasedOptimization2025}
+\citation{zhuLensLearningSegment2026}
+\citation{zhouReasoningImplicitSelfsupervised2026}
+\citation{huangSamr1LeveragingSam2026}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Reasoning-to-mask generation}{23}{subsection.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}RL and preference optimization}{23}{subsection.7.3}\protected@file@percent }
+\citation{yanTaskPreferenceOptimization2025}
+\citation{shenFinegrainedPreferenceOptimization2026}
+\citation{wuSeeSaySegment2024}
+\citation{xiaGsvaGeneralizedSegmentation2024}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces LISA's embedding-as-mask pipeline for reasoning segmentation. This placeholder should be replaced by the original pipeline figure from LISA, which shows the image and text query entering an MLLM, the generated \texttt  {<SEG>} token, and the decoding of its hidden embedding into a segmentation mask~\citep  {xlaiLisaReasoningSegmentation2024}.}}{24}{figure.13}\protected@file@percent }
+\newlabel{fig:reasoning-lisa-placeholder}{{13}{24}{LISA's embedding-as-mask pipeline for reasoning segmentation. This placeholder should be replaced by the original pipeline figure from LISA, which shows the image and text query entering an MLLM, the generated \texttt {<SEG>} token, and the decoding of its hidden embedding into a segmentation mask~\citep {xlaiLisaReasoningSegmentation2024}}{figure.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces LENS RL framework for text-prompted segmentation. This placeholder should be replaced by the original LENS overview figure, which contrasts supervised \texttt  {<seg>} prompting with an end-to-end RL framework using context queries, a connector to SAM, and unified rewards over reasoning format, localization, and mask quality~\citep  {zhuLensLearningSegment2026}.}}{24}{figure.14}\protected@file@percent }
+\newlabel{fig:reasoning-lens-placeholder}{{14}{24}{LENS RL framework for text-prompted segmentation. This placeholder should be replaced by the original LENS overview figure, which contrasts supervised \texttt {<seg>} prompting with an end-to-end RL framework using context queries, a connector to SAM, and unified rewards over reasoning format, localization, and mask quality~\citep {zhuLensLearningSegment2026}}{figure.14}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Grounded dialogue and hallucination control}{24}{subsection.7.4}\protected@file@percent }
+\citation{zhangLlavagroundingGroundedVisual2024,rasheedGlammPixelGrounding2024}
+\citation{huGroundingSuiteMeasuringComplex2025,zongGroundvTeachingVlms2025}
+\citation{guoSeeingBelievingRichContext2026}
+\citation{vvatsGuidelineConsistentSegmentationMultiAgent2026}
+\citation{baiOneTokenSeg2024}
+\citation{zhengVillaVideoReasoning2025}
+\citation{xuVideosegr1ReasoningVideo2026}
+\citation{sunSamaMultiturnReferential2026}
+\citation{munasingheVideoglammLargeMultimodal2025}
+\citation{atharVicasDatasetCombining2025}
+\citation{baiOneTokenSeg2024}
+\citation{zhengVillaVideoReasoning2025}
+\citation{sunSamaMultiturnReferential2026}
+\citation{sunSamaMultiturnReferential2026}
+\citation{zhouThinkYouSegment2026}
+\citation{huangUnleashingTemporalspatialReasoning2025}
+\citation{yingOmnimodalExpressionsReasoning2025}
+\citation{zhongOmnir1ReinforcementLearning2026}
+\citation{zhouThinkYouSegment2026}
+\citation{zhouThinkYouSegment2026}
+\citation{yingOmnimodalExpressionsReasoning2025}
+\citation{chen3DDRESDetailed3D2026}
+\citation{huangSurprise3dDatasetSpatial2026}
+\citation{jianglOpenvocabulary3dSemantic2024}
+\citation{yyinSai3dSegmentAny2024}
+\citation{zwangXmask3dCrossmodalMask2024}
+\citation{mzhouOV3DCGOpenvocabulary3D2025}
+\citation{chen3DDRESDetailed3D2026}
+\citation{huangSurprise3dDatasetSpatial2026}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{sduttaAerosegHarnessingSam2025}
+\citation{huangZoRIDiscriminativeZeroshot2025}
+\citation{yeRISLADBenchmarkModel2026}
+\citation{quenumLisatLanguageinstructedSegmentation2026}
+\citation{kuckrejaGeochatGroundedLarge2024}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{yeRISLADBenchmarkModel2026}
+\citation{quenumLisatLanguageinstructedSegmentation2026}
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{chenMIMOMedicalVision2025}
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{qianAffordancellmGroundingAffordance2024}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{zhangOpenhoiOpenworldHandobject2026}
+\citation{zhengInstructionguidedVisualMasking2024}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{zhengInstructionguidedVisualMasking2024}
+\citation{baiOneTokenSeg2024}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Summary and discussion}{25}{subsection.7.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Extended Scenarios}{25}{section.8}\protected@file@percent }
+\newlabel{sec:extended-scenarios}{{8}{25}{Extended Scenarios}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Video reasoning and tracking-aware segmentation}{25}{subsection.8.1}\protected@file@percent }
+\citation{zhengVillaVideoReasoning2025}
+\citation{xuVideosegr1ReasoningVideo2026}
+\citation{atharVicasDatasetCombining2025,munasingheVideoglammLargeMultimodal2025,sunSamaMultiturnReferential2026}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Representative extended scenarios for open-vocabulary, promptable, grounded, and reasoning segmentation. Dataset and protocol facts are taken from the cited papers rather than inferred from method names; detailed evaluation limitations are discussed in the corresponding subsections.}}{26}{table.6}\protected@file@percent }
+\newlabel{tab:extended-scenario-index}{{6}{26}{Representative extended scenarios for open-vocabulary, promptable, grounded, and reasoning segmentation. Dataset and protocol facts are taken from the cited papers rather than inferred from method names; detailed evaluation limitations are discussed in the corresponding subsections}{table.6}{}}
+\citation{zhengVillaVideoReasoning2025}
+\citation{zhengVillaVideoReasoning2025}
+\citation{ravi2024sam2}
+\citation{zhouThinkYouSegment2026}
+\citation{huangUnleashingTemporalspatialReasoning2025}
+\citation{yingOmnimodalExpressionsReasoning2025}
+\citation{zhongOmnir1ReinforcementLearning2026}
+\citation{chen3DDRESDetailed3D2026}
+\citation{chen3DDRESDetailed3D2026}
+\citation{chen3DDRESDetailed3D2026}
+\citation{huangSurprise3dDatasetSpatial2026}
+\citation{ningEnhancingSpatialReasoning2025}
+\citation{jianglOpenvocabulary3dSemantic2024}
+\citation{yyinSai3dSegmentAny2024}
+\citation{zwangXmask3dCrossmodalMask2024}
+\citation{mzhouOV3DCGOpenvocabulary3D2025}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Audio-visual and omnimodal grounding}{27}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}3D and multiview referring segmentation}{27}{subsection.8.3}\protected@file@percent }
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{sduttaAerosegHarnessingSam2025}
+\citation{huangZoRIDiscriminativeZeroshot2025}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{yeRISLADBenchmarkModel2026}
+\citation{quenumLisatLanguageinstructedSegmentation2026}
+\citation{kuckrejaGeochatGroundedLarge2024,zhangFineRSFinegrainedReasoning2026}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces ViLLa's video reasoning segmentation framework. This placeholder should be replaced by the original overall framework figure from ViLLa, which shows the key segment extractor, context synthesizer, and hierarchical temporal synchronizer that connect user intent, selected video segments, and multi-scale segmentation tokens~\citep  {zhengVillaVideoReasoning2025}.}}{28}{figure.15}\protected@file@percent }
+\newlabel{fig:extended-villa-placeholder}{{15}{28}{ViLLa's video reasoning segmentation framework. This placeholder should be replaced by the original overall framework figure from ViLLa, which shows the key segment extractor, context synthesizer, and hierarchical temporal synchronizer that connect user intent, selected video segments, and multi-scale segmentation tokens~\citep {zhengVillaVideoReasoning2025}}{figure.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces 3D-DRES task formulation and phrase-to-instance grounding. This placeholder should be replaced by the original task illustration comparing 3D-REC, 3D-RES, 3D-GRES, and 3D-DRES~\citep  {chen3DDRESDetailed3D2026}.}}{28}{figure.16}\protected@file@percent }
+\newlabel{fig:extended-3ddres-placeholder}{{16}{28}{3D-DRES task formulation and phrase-to-instance grounding. This placeholder should be replaced by the original task illustration comparing 3D-REC, 3D-RES, 3D-GRES, and 3D-DRES~\citep {chen3DDRESDetailed3D2026}}{figure.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Remote sensing and aerial imagery}{28}{subsection.8.4}\protected@file@percent }
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{chenMIMOMedicalVision2025}
+\citation{qianAffordancellmGroundingAffordance2024}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{zhangOpenhoiOpenworldHandobject2026}
+\citation{zhengInstructionguidedVisualMasking2024}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces OVRSISBench and RSKT-Seg for remote-sensing open-vocabulary segmentation. This placeholder should be replaced by the original benchmark or framework figure showing the open-vocabulary dataset division, vocabulary overlap, and remote-sensing examples~\citep  {libExploringEfficientOpenvocabulary2026}.}}{29}{figure.17}\protected@file@percent }
+\newlabel{fig:extended-ovrsis-placeholder}{{17}{29}{OVRSISBench and RSKT-Seg for remote-sensing open-vocabulary segmentation. This placeholder should be replaced by the original benchmark or framework figure showing the open-vocabulary dataset division, vocabulary overlap, and remote-sensing examples~\citep {libExploringEfficientOpenvocabulary2026}}{figure.17}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.5}Medical, affordance, and embodied grounding}{29}{subsection.8.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces MedReasoner's clinical reasoning-to-grounding pipeline. This placeholder should be replaced by the original framework figure showing how implicit clinical prompts are transformed into spatial prompts and pixel-level masks with RL rewards~\citep  {yanMedreasonerReinforcementLearning2026}.}}{29}{figure.18}\protected@file@percent }
+\newlabel{fig:extended-medreasoner-placeholder}{{18}{29}{MedReasoner's clinical reasoning-to-grounding pipeline. This placeholder should be replaced by the original framework figure showing how implicit clinical prompts are transformed into spatial prompts and pixel-level masks with RL rewards~\citep {yanMedreasonerReinforcementLearning2026}}{figure.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.6}Summary and discussion}{29}{subsection.8.6}\protected@file@percent }
+\citation{luo2024pnpovss}
+\citation{zzhaoDPSegDualpromptCost2025}
+\citation{maaydinItaclipBoostingTrainingfree2025}
+\citation{lsunCliperHierarchicallyImproving2025}
+\citation{dzhangCorrclipReconstructingPatch2025}
+\citation{shiyHarnessingVisionFoundation2025}
+\citation{liang2023ovseg}
+\citation{xu2023san}
+\citation{yliMaskadapterDevilMasks2025}
+\citation{xwangUseUniversalSegment2024}
+\citation{xxuanReMEDataCentricFramework2025}
+\citation{kirillov2023sam}
+\citation{ravi2024sam2}
+\citation{liu2024groundingdino}
+\citation{zhouThinkYouSegment2026}
+\citation{huangUnleashingTemporalspatialReasoning2025}
+\citation{sgxiaoOpenworldsamExtendingSam22026}
+\citation{xiaoOnerefUnifiedOnetower2024}
+\citation{chngMaskGroundingReferring2024}
+\citation{renPixellmPixelReasoning2024}
+\citation{yuanOspreyPixelUnderstanding2024}
+\citation{rasheedGlammPixelGrounding2024}
+\citation{huGroundingSuiteMeasuringComplex2025}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{jwangLlmsegBridgingImage2024}
+\citation{xiaGsvaGeneralizedSegmentation2024}
+\citation{renPixellmPixelReasoning2024}
+\citation{zhangOmgllavaBridgingImagelevel2024}
+\citation{zhuLensLearningSegment2026}
+\citation{zhouReasoningImplicitSelfsupervised2026}
+\citation{huangSamr1LeveragingSam2026}
+\citation{baiOneTokenSeg2024}
+\citation{zhengVillaVideoReasoning2025}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{chen3DDRESDetailed3D2026}
+\citation{huangSurprise3dDatasetSpatial2026}
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{liang2023ovseg}
+\citation{caesar2018cocostuff}
+\citation{chen2015microsoft}
+\citation{zhou2017scene}
+\citation{mottaghi2014role}
+\citation{everingham2015pascal}
+\citation{zhou2017scene}
+\citation{liang2023ovseg}
+\citation{xu2023san}
+\citation{caesar2018cocostuff}
+\citation{radford2021learning}
+\citation{zhou2017scene}
+\citation{mottaghi2014role}
+\citation{zhou2017scene}
+\citation{mottaghi2014role}
+\citation{everingham2015pascal}
+\citation{xu2023san}
+\citation{shiyHarnessingVisionFoundation2025}
+\citation{radford2021learning}
+\citation{caron2021emerging}
+\citation{kirillov2023sam}
+\citation{everingham2015pascal}
+\citation{mottaghi2014role}
+\citation{lin2014microsoft,caesar2018cocostuff}
+\citation{cordts2016cityscapes}
+\citation{zhou2017scene}
+\citation{shiyHarnessingVisionFoundation2025}
+\citation{lsunCliperHierarchicallyImproving2025}
+\citation{radford2021learning}
+\citation{rombach2022high}
+\citation{lsunCliperHierarchicallyImproving2025}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{renPixellmPixelReasoning2024}
+\citation{renPixellmPixelReasoning2024}
+\citation{kirillov2023sam}
+\citation{renPixellmPixelReasoning2024}
+\citation{zhengVillaVideoReasoning2025}
+\citation{zhengVillaVideoReasoning2025}
+\citation{zhengVillaVideoReasoning2025}
+\citation{zhengVillaVideoReasoning2025}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{libExploringEfficientOpenvocabulary2026}
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{yanMedreasonerReinforcementLearning2026}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{wangAffordancer1ReinforcementLearning2026}
+\citation{radford2021learning,kirillov2023sam,xlaiLisaReasoningSegmentation2024}
+\citation{liang2023ovseg,xu2023san,shiyHarnessingVisionFoundation2025,liu2024groundingdino,renPixellmPixelReasoning2024}
+\citation{wuSeeSaySegment2024,guoSeeingBelievingRichContext2026,yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\citation{luo2024pnpovss,maaydinItaclipBoostingTrainingfree2025,lsunCliperHierarchicallyImproving2025,dzhangCorrclipReconstructingPatch2025,shiyHarnessingVisionFoundation2025}
+\citation{liang2023ovseg}
+\citation{liang2023ovseg}
+\citation{liang2023ovseg}
+\citation{xu2023san,yliMaskadapterDevilMasks2025,xwangUseUniversalSegment2024,xxuanReMEDataCentricFramework2025}
+\citation{kirillov2023sam,ravi2024sam2}
+\citation{liu2024groundingdino,zhouThinkYouSegment2026,huangUnleashingTemporalspatialReasoning2025}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Comparison and Discussion}{30}{section.9}\protected@file@percent }
+\newlabel{sec:comparison-discussion}{{9}{30}{Comparison and Discussion}{section.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Comparison across method families}{30}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Semantic openness versus spatial precision}{30}{subsection.9.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces OVSeg's oracle analysis of the two-stage open-vocabulary segmentation bottleneck. This placeholder should be replaced by the original Fig.~1 from \emph  {Open-Vocabulary Semantic Segmentation with Mask-adapted CLIP}, which contrasts ordinary CLIP classification on masked regions with an oracle classifier and shows why masked-region recognition, not only mask proposal quality, limits two-stage pipelines~\citep  {liang2023ovseg}.}}{30}{figure.19}\protected@file@percent }
+\newlabel{fig:comparison-ovseg-oracle-placeholder}{{19}{30}{OVSeg's oracle analysis of the two-stage open-vocabulary segmentation bottleneck. This placeholder should be replaced by the original Fig.~1 from \emph {Open-Vocabulary Semantic Segmentation with Mask-adapted CLIP}, which contrasts ordinary CLIP classification on masked regions with an oracle classifier and shows why masked-region recognition, not only mask proposal quality, limits two-stage pipelines~\citep {liang2023ovseg}}{figure.19}{}}
+\citation{liang2023ovseg,xu2023san,yliMaskadapterDevilMasks2025,renPixellmPixelReasoning2024,xlaiLisaReasoningSegmentation2024,zhuLensLearningSegment2026,yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\citation{shiyHarnessingVisionFoundation2025}
+\citation{lsunCliperHierarchicallyImproving2025}
+\citation{xxuanReMEDataCentricFramework2025,luoConnectingDotsTrainingFree2026}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Comparison of major method families. The table records the interface and the main reporting condition required for fair comparison.}}{31}{table.7}\protected@file@percent }
+\newlabel{tab:family-comparison}{{7}{31}{Comparison of major method families. The table records the interface and the main reporting condition required for fair comparison}{table.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Training-based adaptation versus training-free composition}{31}{subsection.9.3}\protected@file@percent }
+\citation{zhuPopenPreferencebasedOptimization2025,zhuLensLearningSegment2026,zhouReasoningImplicitSelfsupervised2026,huangSamr1LeveragingSam2026,xuVideosegr1ReasoningVideo2026,yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\citation{xlaiLisaReasoningSegmentation2024}
+\citation{renPixellmPixelReasoning2024}
+\citation{zhuLensLearningSegment2026,zhouReasoningImplicitSelfsupervised2026}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Representative quantitative and protocol evidence from original papers. The rows are not directly comparable across tasks; they are included to show the settings behind common comparison claims.}}{32}{table.8}\protected@file@percent }
+\newlabel{tab:representative-comparison-evidence}{{8}{32}{Representative quantitative and protocol evidence from original papers. The rows are not directly comparable across tasks; they are included to show the settings behind common comparison claims}{table.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Reasoning capability versus grounding faithfulness}{32}{subsection.9.4}\protected@file@percent }
+\citation{wuSeeSaySegment2024,xiaGsvaGeneralizedSegmentation2024,zhangLlavagroundingGroundedVisual2024,rasheedGlammPixelGrounding2024,huGroundingSuiteMeasuringComplex2025,guoSeeingBelievingRichContext2026}
+\citation{zhengVillaVideoReasoning2025,libExploringEfficientOpenvocabulary2026,yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\citation{hhuangRenovatingNamesOpenvocabulary2024,ybenigmimFlossFreeLunch2025}
+\citation{liang2023ovseg,kirillov2023sam,ravi2024sam2,liu2024groundingdino,xxuanReMEDataCentricFramework2025}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Representative quantitative and protocol evidence for extended scenarios. These rows use task-specific metrics and should not be compared as a single leaderboard.}}{33}{table.9}\protected@file@percent }
+\newlabel{tab:extended-comparison-evidence}{{9}{33}{Representative quantitative and protocol evidence for extended scenarios. These rows use task-specific metrics and should not be compared as a single leaderboard}{table.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Benchmark and reproducibility gaps}{33}{subsection.9.5}\protected@file@percent }
+\citation{radford2021learning,kirillov2023sam,ravi2024sam2,xlaiLisaReasoningSegmentation2024,renPixellmPixelReasoning2024}
+\citation{liang2023ovseg,xu2023san,hhuangRenovatingNamesOpenvocabulary2024,ybenigmimFlossFreeLunch2025,shiyHarnessingVisionFoundation2025}
+\citation{chngMaskGroundingReferring2024,rasheedGlammPixelGrounding2024,huGroundingSuiteMeasuringComplex2025,yanMedreasonerReinforcementLearning2026,zhengVillaVideoReasoning2025}
+\citation{xlaiLisaReasoningSegmentation2024,renPixellmPixelReasoning2024,zhuLensLearningSegment2026,zhouReasoningImplicitSelfsupervised2026}
+\citation{xiaGsvaGeneralizedSegmentation2024,wuSeeSaySegment2024,zhangLlavagroundingGroundedVisual2024,guoSeeingBelievingRichContext2026}
+\citation{shiyHarnessingVisionFoundation2025,lsunCliperHierarchicallyImproving2025,liu2024groundingdino,luoConnectingDotsTrainingFree2026}
+\citation{xu2023san,yliMaskadapterDevilMasks2025,xwangUseUniversalSegment2024,renPixellmPixelReasoning2024,huangSamr1LeveragingSam2026}
+\citation{baiOneTokenSeg2024,zhengVillaVideoReasoning2025,chen3DDRESDetailed3D2026,huangSurprise3dDatasetSpatial2026,libExploringEfficientOpenvocabulary2026,yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Future Directions}{34}{section.10}\protected@file@percent }
+\newlabel{sec:future-directions}{{10}{34}{Future Directions}{section.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Unified and transparent evaluation protocols}{34}{subsection.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Faithful reasoning and verifiable pixel grounding}{34}{subsection.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Efficient and reproducible hybrid segmentation systems}{34}{subsection.10.3}\protected@file@percent }
+\citation{zhengVillaVideoReasoning2025,yanMedreasonerReinforcementLearning2026,wangAffordancer1ReinforcementLearning2026}
+\citation{kirillov2023sam,ravi2024sam2,rasheedGlammPixelGrounding2024,wuSeeSaySegment2024}
+\citation{radford2021learning,kirillov2023sam,ravi2024sam2,liang2023ovseg,xu2023san,xlaiLisaReasoningSegmentation2024,renPixellmPixelReasoning2024}
+\bibstyle{elsarticle-num}
+\bibdata{references_clean}
+\bibcite{long2015fully}{{1}{}{{}}{{}}}
+\bibcite{he2017mask}{{2}{}{{}}{{}}}
+\bibcite{kirillov2019panoptic}{{3}{}{{}}{{}}}
+\bibcite{radford2021learning}{{4}{}{{}}{{}}}
+\bibcite{liang2023ovseg}{{5}{}{{}}{{}}}
+\bibcite{xu2023san}{{6}{}{{}}{{}}}
+\bibcite{xu2023odise}{{7}{}{{}}{{}}}
+\bibcite{xshanOpenvocabularySemanticSegmentation2024}{{8}{}{{}}{{}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.4}Domain-robust segmentation beyond ordinary 2D images}{35}{subsection.10.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.5}Human-in-the-loop and accountable segmentation}{35}{subsection.10.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Conclusion}{35}{section.11}\protected@file@percent }
+\bibcite{xwangUseUniversalSegment2024}{{9}{}{{}}{{}}}
+\bibcite{shinhOpenvocabularySemanticSegmentation2024}{{10}{}{{}}{{}}}
+\bibcite{yxchngAligningVisionLanguageModel2026}{{11}{}{{}}{{}}}
+\bibcite{kirillov2023sam}{{12}{}{{}}{{}}}
+\bibcite{ravi2024sam2}{{13}{}{{}}{{}}}
+\bibcite{hwangXSAMSegmentAnything2026}{{14}{}{{}}{{}}}
+\bibcite{sgxiaoOpenworldsamExtendingSam22026}{{15}{}{{}}{{}}}
+\bibcite{xuPixelalignedLanguageModel2024}{{16}{}{{}}{{}}}
+\bibcite{zhangLlavagroundingGroundedVisual2024}{{17}{}{{}}{{}}}
+\bibcite{youFerretReferGround2024}{{18}{}{{}}{{}}}
+\bibcite{rasheedGlammPixelGrounding2024}{{19}{}{{}}{{}}}
+\bibcite{lai2024lisa}{{20}{}{{}}{{}}}
+\bibcite{renPixellmPixelReasoning2024}{{21}{}{{}}{{}}}
+\bibcite{rasheed2024glamm}{{22}{}{{}}{{}}}
+\bibcite{luoConnectingDotsTrainingFree2026}{{23}{}{{}}{{}}}
+\bibcite{zhuLensLearningSegment2026}{{24}{}{{}}{{}}}
+\bibcite{zhouReasoningImplicitSelfsupervised2026}{{25}{}{{}}{{}}}
+\bibcite{guoSeeingBelievingRichContext2026}{{26}{}{{}}{{}}}
+\bibcite{xuVideosegr1ReasoningVideo2026}{{27}{}{{}}{{}}}
+\bibcite{chen3DDRESDetailed3D2026}{{28}{}{{}}{{}}}
+\bibcite{libExploringEfficientOpenvocabulary2026}{{29}{}{{}}{{}}}
+\bibcite{yanMedreasonerReinforcementLearning2026}{{30}{}{{}}{{}}}
+\bibcite{wangAffordancer1ReinforcementLearning2026}{{31}{}{{}}{{}}}
+\bibcite{hhuangRenovatingNamesOpenvocabulary2024}{{32}{}{{}}{{}}}
+\bibcite{xhanBoostingSegmentAnything2025}{{33}{}{{}}{{}}}
+\bibcite{zhuPopenPreferencebasedOptimization2025}{{34}{}{{}}{{}}}
+\bibcite{yangExploringCLIPsDense2025}{{35}{}{{}}{{}}}
+\bibcite{lee2025escnet}{{36}{}{{}}{{}}}
+\bibcite{xlaiLisaReasoningSegmentation2024}{{37}{}{{}}{{}}}
+\bibcite{luo2024pnpovss}{{38}{}{{}}{{}}}
+\bibcite{xiaoOnerefUnifiedOnetower2024}{{39}{}{{}}{{}}}
+\bibcite{zhangOmgllavaBridgingImagelevel2024}{{40}{}{{}}{{}}}
+\bibcite{huangPixelsLogicPerceptionReasoning2026}{{41}{}{{}}{{}}}
+\bibcite{sikdarPicazoPixelalignedContrastive2025}{{42}{}{{}}{{}}}
+\bibcite{yanTaskPreferenceOptimization2025}{{43}{}{{}}{{}}}
+\bibcite{huGroundingSuiteMeasuringComplex2025}{{44}{}{{}}{{}}}
+\bibcite{vvatsGuidelineConsistentSegmentationMultiAgent2026}{{45}{}{{}}{{}}}
+\bibcite{everingham2015pascal}{{46}{}{{}}{{}}}
+\bibcite{lin2014microsoft}{{47}{}{{}}{{}}}
+\bibcite{caesar2018cocostuff}{{48}{}{{}}{{}}}
+\bibcite{zhou2017scene}{{49}{}{{}}{{}}}
+\bibcite{cordts2016cityscapes}{{50}{}{{}}{{}}}
+\bibcite{noorimTesttimeAdaptationVisionlanguage2026}{{51}{}{{}}{{}}}
+\bibcite{ybenigmimFlossFreeLunch2025}{{52}{}{{}}{{}}}
+\bibcite{kazemzadeh2014referitgame}{{53}{}{{}}{{}}}
+\bibcite{yu2016modeling}{{54}{}{{}}{{}}}
+\bibcite{mao2016generation}{{55}{}{{}}{{}}}
+\bibcite{chngMaskGroundingReferring2024}{{56}{}{{}}{{}}}
+\bibcite{jwangLlmsegBridgingImage2024}{{57}{}{{}}{{}}}
+\bibcite{atharVicasDatasetCombining2025}{{58}{}{{}}{{}}}
+\bibcite{munasingheVideoglammLargeMultimodal2025}{{59}{}{{}}{{}}}
+\bibcite{baiOneTokenSeg2024}{{60}{}{{}}{{}}}
+\bibcite{sunSamaMultiturnReferential2026}{{61}{}{{}}{{}}}
+\bibcite{yeRISLADBenchmarkModel2026}{{62}{}{{}}{{}}}
+\bibcite{quenumLisatLanguageinstructedSegmentation2026}{{63}{}{{}}{{}}}
+\bibcite{huangSurprise3dDatasetSpatial2026}{{64}{}{{}}{{}}}
+\bibcite{xxuanReMEDataCentricFramework2025}{{65}{}{{}}{{}}}
+\bibcite{shiyHarnessingVisionFoundation2025}{{66}{}{{}}{{}}}
+\bibcite{xiaGsvaGeneralizedSegmentation2024}{{67}{}{{}}{{}}}
+\bibcite{zhangGroundhogGroundingLarge2024}{{68}{}{{}}{{}}}
+\bibcite{yuanOspreyPixelUnderstanding2024}{{69}{}{{}}{{}}}
+\bibcite{liangReferdinoReferringVideo2025}{{70}{}{{}}{{}}}
+\bibcite{zpengParameterefficientFinetuningHyperspherical2025}{{71}{}{{}}{{}}}
+\bibcite{yliMaskadapterDevilMasks2025}{{72}{}{{}}{{}}}
+\bibcite{zzhaoDPSegDualpromptCost2025}{{73}{}{{}}{{}}}
+\bibcite{joseDinov2MeetsText2025}{{74}{}{{}}{{}}}
+\bibcite{gejCLIPAdaptedRegiontoTextLearning2025}{{75}{}{{}}{{}}}
+\bibcite{maaydinItaclipBoostingTrainingfree2025}{{76}{}{{}}{{}}}
+\bibcite{lsunCliperHierarchicallyImproving2025}{{77}{}{{}}{{}}}
+\bibcite{dzhangCorrclipReconstructingPatch2025}{{78}{}{{}}{{}}}
+\bibcite{rqorbaniSemanticLibraryAdaptation2025}{{79}{}{{}}{{}}}
+\bibcite{yliuSteppingOutSimilar2025}{{80}{}{{}}{{}}}
+\bibcite{sduttaAerosegHarnessingSam2025}{{81}{}{{}}{{}}}
+\bibcite{huangZoRIDiscriminativeZeroshot2025}{{82}{}{{}}{{}}}
+\bibcite{zhaoOpenvocabularyRGBThermalSemantic2024}{{83}{}{{}}{{}}}
+\bibcite{mleeEffectiveSAMCombination2025}{{84}{}{{}}{{}}}
+\bibcite{ymiaoLanghopsLanguageGrounded2026}{{85}{}{{}}{{}}}
+\bibcite{dengCoconutpancapJointPanoptic2026}{{86}{}{{}}{{}}}
+\bibcite{dukangClassDistributioninducedAttention2025}{{87}{}{{}}{{}}}
+\bibcite{sjinFeaturePurificationMatters2025}{{88}{}{{}}{{}}}
+\bibcite{qchenTrainingFreeClassPurification2025}{{89}{}{{}}{{}}}
+\bibcite{liuEfficientFoundationModel2025}{{90}{}{{}}{{}}}
+\bibcite{huangFocsamDelvingDeeply2024}{{91}{}{{}}{{}}}
+\bibcite{huangInter2FormerDynamicHybrid2025}{{92}{}{{}}{{}}}
+\bibcite{liu2024groundingdino}{{93}{}{{}}{{}}}
+\bibcite{zhouThinkYouSegment2026}{{94}{}{{}}{{}}}
+\bibcite{huangUnleashingTemporalspatialReasoning2025}{{95}{}{{}}{{}}}
+\bibcite{cuttanoSamwiseInfusingWisdom2025}{{96}{}{{}}{{}}}
+\bibcite{cshangPromptdrivenReferringImage2024}{{97}{}{{}}{{}}}
+\bibcite{daiCurriculumPointPrompting2024}{{98}{}{{}}{{}}}
+\bibcite{caoReferAnySegmentation2025}{{99}{}{{}}{{}}}
+\bibcite{pengGroundingMultimodalLarge2024}{{100}{}{{}}{{}}}
+\bibcite{grosiShowTellBenchmark2025}{{101}{}{{}}{{}}}
+\bibcite{tangVisualPositionPrompt2026}{{102}{}{{}}{{}}}
+\bibcite{yangRepurposingSAMEfficient2026}{{103}{}{{}}{{}}}
+\bibcite{wangIterprimeZeroshotReferring2025}{{104}{}{{}}{{}}}
+\bibcite{wangSam2loveSegmentAnything2025}{{105}{}{{}}{{}}}
+\bibcite{liuHybridGloballocalRepresentation2025}{{106}{}{{}}{{}}}
+\bibcite{qianReasoningAttendTry2025}{{107}{}{{}}{{}}}
+\bibcite{feiVitronUnifiedPixellevel2024}{{108}{}{{}}{{}}}
+\bibcite{liuUnipixelUnifiedObject2026}{{109}{}{{}}{{}}}
+\bibcite{wangAltoAdaptivelengthTokenizer2026}{{110}{}{{}}{{}}}
+\bibcite{zongGroundvTeachingVlms2025}{{111}{}{{}}{{}}}
+\bibcite{weiInstructsegUnifyingInstructed2025}{{112}{}{{}}{{}}}
+\bibcite{jangMmrLargescaleBenchmark2025}{{113}{}{{}}{{}}}
+\bibcite{ningEnhancingSpatialReasoning2025}{{114}{}{{}}{{}}}
+\bibcite{huangSamr1LeveragingSam2026}{{115}{}{{}}{{}}}
+\bibcite{wuSeeSaySegment2024}{{116}{}{{}}{{}}}
+\bibcite{shenFinegrainedPreferenceOptimization2026}{{117}{}{{}}{{}}}
+\bibcite{zhengVillaVideoReasoning2025}{{118}{}{{}}{{}}}
+\bibcite{yingOmnimodalExpressionsReasoning2025}{{119}{}{{}}{{}}}
+\bibcite{zhongOmnir1ReinforcementLearning2026}{{120}{}{{}}{{}}}
+\bibcite{jianglOpenvocabulary3dSemantic2024}{{121}{}{{}}{{}}}
+\bibcite{yyinSai3dSegmentAny2024}{{122}{}{{}}{{}}}
+\bibcite{zwangXmask3dCrossmodalMask2024}{{123}{}{{}}{{}}}
+\bibcite{mzhouOV3DCGOpenvocabulary3D2025}{{124}{}{{}}{{}}}
+\bibcite{kuckrejaGeochatGroundedLarge2024}{{125}{}{{}}{{}}}
+\bibcite{chenMIMOMedicalVision2025}{{126}{}{{}}{{}}}
+\bibcite{qianAffordancellmGroundingAffordance2024}{{127}{}{{}}{{}}}
+\bibcite{zhangOpenhoiOpenworldHandobject2026}{{128}{}{{}}{{}}}
+\bibcite{zhengInstructionguidedVisualMasking2024}{{129}{}{{}}{{}}}
+\bibcite{zhangFineRSFinegrainedReasoning2026}{{130}{}{{}}{{}}}
+\bibcite{chen2015microsoft}{{131}{}{{}}{{}}}
+\bibcite{mottaghi2014role}{{132}{}{{}}{{}}}
+\bibcite{caron2021emerging}{{133}{}{{}}{{}}}
+\bibcite{rombach2022high}{{134}{}{{}}{{}}}
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\gdef \@abspage@last{40}

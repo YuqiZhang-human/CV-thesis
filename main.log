@@ -1,32 +1,36 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.5.18)  18 MAY 2026 18:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.5.18)  26 MAY 2026 17:39
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**e:/SWJTU/ComputerVision/article/main.tex
-(e:/SWJTU/ComputerVision/article/main.tex
+**./main.tex
+(main.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
 (elsarticle.cls
 Document Class: elsarticle 2024/04/04, 3.4: Elsevier Ltd
 (D:\ProgramFiles\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-) (D:\ProgramFiles\MiKTeX\tex/latex/l3kernel\expl3.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/l3kernel\expl3.sty
 Package: expl3 2026-03-20 L3 programming layer (loader) 
- (D:\ProgramFiles\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+
+(D:\ProgramFiles\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count275
-)) (D:\ProgramFiles\MiKTeX\tex/latex/l3packages/xparse\xparse.sty
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/l3packages/xparse\xparse.sty
 Package: xparse 2025-10-09 L3 Experimental document command parser
-) (D:\ProgramFiles\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count276
 )
 \@bls=\dimen150
- (D:\ProgramFiles\MiKTeX\tex/latex/base\article.cls
+
+(D:\ProgramFiles\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
-(D:\ProgramFiles\MiKTeX\tex/latex/base\size12.clo
-File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+(D:\ProgramFiles\MiKTeX\tex/latex/base\size10.clo
+File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count277
 \c@section=\count278
@@ -39,20 +43,26 @@ File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen151
-) (D:\ProgramFiles\MiKTeX\tex/latex/graphics\graphicx.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
- (D:\ProgramFiles\MiKTeX\tex/latex/graphics\keyval.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks17
-) (D:\ProgramFiles\MiKTeX\tex/latex/graphics\graphics.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
- (D:\ProgramFiles\MiKTeX\tex/latex/graphics\trig.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-) (D:\ProgramFiles\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
- (D:\ProgramFiles\MiKTeX\tex/latex/graphics-def\pdftex.def
+
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen152
@@ -77,7 +87,8 @@ File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 \@enLab=\toks19
 \@sep=\skip51
 \@@sep=\skip52
- (main.spl) (D:\ProgramFiles\MiKTeX\tex/latex/natbib\natbib.sty
+ (main.spl)
+(D:\ProgramFiles\MiKTeX\tex/latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip53
 \bibsep=\skip54
@@ -87,42 +98,82 @@ LaTeX Info: Redefining \cite on input line 694.
 \splwrite=\write3
 \openout3 = `main.spl'.
 
-\appnamewidth=\dimen157
-) (D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\amssymb.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/geometry\geometry.sty
+Package: geometry 2026/03/07 v6.0 Page Geometry
+
+(D:\ProgramFiles\MiKTeX\tex/generic/iftex\ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(D:\ProgramFiles\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+))
+\Gm@cnth=\count292
+\Gm@cntv=\count293
+\c@Gm@tempcnt=\count294
+\Gm@bindingoffset=\dimen157
+\Gm@wd@mp=\dimen158
+\Gm@odd@mp=\dimen159
+\Gm@even@mp=\dimen160
+\Gm@layoutwidth=\dimen161
+\Gm@layoutheight=\dimen162
+\Gm@layouthoffset=\dimen163
+\Gm@layoutvoffset=\dimen164
+\Gm@dimlist=\toks20
+
+(D:\ProgramFiles\MiKTeX\tex/latex/geometry\geometry.cfg))
+(D:\ProgramFiles\MiKTeX\tex/latex/base\fleqn.clo
+File: fleqn.clo 2016/12/29 v1.2b Standard LaTeX option (flush left equations)
+\mathindent=\skip55
+Applying: [2015/01/01] Make \[ robust on input line 50.
+LaTeX Info: Redefining \[ on input line 51.
+Already applied: [0000/00/00] Make \[ robust on input line 62.
+Applying: [2015/01/01] Make \] robust on input line 74.
+LaTeX Info: Redefining \] on input line 75.
+Already applied: [0000/00/00] Make \] robust on input line 83.
+)
+\appnamewidth=\dimen165
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
- (D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\@emptytoks=\toks20
+\@emptytoks=\toks21
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsmath.sty
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
-\@mathmargin=\skip55
+\@mathmargin=\skip56
 
 For additional information on amsmath, use the `?' option.
 (D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amstext.sty
 Package: amstext 2024/11/17 v2.01 AMS text
- (D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsgen.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks21
-\ex@=\dimen158
-)) (D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsbsy.sty
+\@emptytoks=\toks22
+\ex@=\dimen166
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen159
-) (D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsopn.sty
+\pmbraise@=\dimen167
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count292
+\inf@bad=\count295
 LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count293
-\leftroot@=\count294
+\uproot@=\count296
+\leftroot@=\count297
 LaTeX Info: Redefining \overline on input line 398.
 LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count295
-\DOTSCASE@=\count296
+\classnum@=\count298
+\DOTSCASE@=\count299
 LaTeX Info: Redefining \ldots on input line 495.
 LaTeX Info: Redefining \dots on input line 498.
 LaTeX Info: Redefining \cdots on input line 619.
@@ -132,128 +183,539 @@ LaTeX Info: Redefining \big on input line 721.
 LaTeX Info: Redefining \Big on input line 722.
 LaTeX Info: Redefining \bigg on input line 723.
 LaTeX Info: Redefining \Bigg on input line 724.
-\big@size=\dimen160
+\big@size=\dimen168
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count297
+\macc@depth=\count300
 LaTeX Info: Redefining \bmod on input line 904.
 LaTeX Info: Redefining \pmod on input line 909.
 LaTeX Info: Redefining \smash on input line 939.
 LaTeX Info: Redefining \relbar on input line 969.
 LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count298
+\c@MaxMatrixCols=\count301
 \dotsspace@=\muskip17
-\c@parentequation=\count299
-\dspbrk@lvl=\count300
-\tag@help=\toks22
-\row@=\count301
-\column@=\count302
-\maxfields@=\count303
-\andhelp@=\toks23
-\eqnshift@=\dimen161
-\alignsep@=\dimen162
-\tagshift@=\dimen163
-\tagwidth@=\dimen164
-\totwidth@=\dimen165
-\lineht@=\dimen166
-\@envbody=\toks24
-\multlinegap=\skip56
-\multlinetaggap=\skip57
-\mathdisplay@stack=\toks25
+\c@parentequation=\count302
+\dspbrk@lvl=\count303
+\tag@help=\toks23
+\row@=\count304
+\column@=\count305
+\maxfields@=\count306
+\andhelp@=\toks24
+\eqnshift@=\dimen169
+\alignsep@=\dimen170
+\tagshift@=\dimen171
+\tagwidth@=\dimen172
+\totwidth@=\dimen173
+\lineht@=\dimen174
+\@envbody=\toks25
+\multlinegap=\skip57
+\multlinetaggap=\skip58
+\mathdisplay@stack=\toks26
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
-) (D:\ProgramFiles\MiKTeX\tex/latex/booktabs\booktabs.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen167
-\lightrulewidth=\dimen168
-\cmidrulewidth=\dimen169
-\belowrulesep=\dimen170
-\belowbottomsep=\dimen171
-\aboverulesep=\dimen172
-\abovetopsep=\dimen173
-\cmidrulesep=\dimen174
-\cmidrulekern=\dimen175
-\defaultaddspace=\dimen176
-\@cmidla=\count304
-\@cmidlb=\count305
-\@aboverulesep=\dimen177
-\@belowrulesep=\dimen178
-\@thisruleclass=\count306
-\@lastruleclass=\count307
-\@thisrulewidth=\dimen179
-) (D:\ProgramFiles\MiKTeX\tex/latex/tools\tabularx.sty
+\heavyrulewidth=\dimen175
+\lightrulewidth=\dimen176
+\cmidrulewidth=\dimen177
+\belowrulesep=\dimen178
+\belowbottomsep=\dimen179
+\aboverulesep=\dimen180
+\abovetopsep=\dimen181
+\cmidrulesep=\dimen182
+\cmidrulekern=\dimen183
+\defaultaddspace=\dimen184
+\@cmidla=\count307
+\@cmidlb=\count308
+\@aboverulesep=\dimen185
+\@belowrulesep=\dimen186
+\@thisruleclass=\count309
+\@lastruleclass=\count310
+\@thisrulewidth=\dimen187
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
- (D:\ProgramFiles\MiKTeX\tex/latex/tools\array.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
-\col@sep=\dimen180
+\col@sep=\dimen188
 \ar@mcellbox=\box61
-\extrarowheight=\dimen181
-\NC@list=\toks26
-\extratabsurround=\skip58
-\backup@length=\skip59
+\extrarowheight=\dimen189
+\NC@list=\toks27
+\extratabsurround=\skip59
+\backup@length=\skip60
 \ar@cellbox=\box62
 )
-\TX@col@width=\dimen182
-\TX@old@table=\dimen183
-\TX@old@col=\dimen184
-\TX@target=\dimen185
-\TX@delta=\dimen186
-\TX@cols=\count308
-\TX@ftn=\toks27
-) (D:\ProgramFiles\MiKTeX\tex/latex/url\url.sty
+\TX@col@width=\dimen190
+\TX@old@table=\dimen191
+\TX@old@col=\dimen192
+\TX@target=\dimen193
+\TX@delta=\dimen194
+\TX@cols=\count311
+\TX@ftn=\toks28
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-) (D:\ProgramFiles\MiKTeX\tex/latex/hyperref\hyperref.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/microtype\microtype.sty
+Package: microtype 2026/03/01 v3.2d Micro-typographical refinements (RS)
+\MT@toks=\toks29
+\MT@tempbox=\box63
+\MT@count=\count312
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1084.
+LaTeX Info: Redefining \leftprotrusion on input line 1085.
+\MT@prot@toks=\toks30
+LaTeX Info: Redefining \rightprotrusion on input line 1104.
+LaTeX Info: Redefining \textls on input line 1449.
+\MT@outer@kern=\dimen195
+LaTeX Info: Redefining \microtypecontext on input line 2053.
+LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
+\MT@listname@count=\count313
+
+(D:\ProgramFiles\MiKTeX\tex/latex/microtype\microtype-pdftex.def
+File: microtype-pdftex.def 2026/03/01 v3.2d Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 944.
+LaTeX Info: Redefining \lslig on input line 944.
+\MT@outer@space=\skip61
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(D:\ProgramFiles\MiKTeX\tex/latex/microtype\microtype.cfg
+File: microtype.cfg 2026/03/01 v3.2d microtype main configuration file (RS)
+)
+LaTeX Info: Redefining \microtypesetup on input line 3065.
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/frontendlayer\tikz.sty
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex
+\pgfutil@everybye=\toks31
+\pgfutil@tempdima=\dimen196
+\pgfutil@tempdimb=\dimen197
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfutil-latex.def
+\pgfutil@abb=\box64
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfrcs.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf\pgf.revision.tex)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
+))
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.sty
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.sty
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgfsys.code.tex
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks32
+\pgfkeys@temptoks=\toks33
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfkeyslibraryfiltered.code.t
+ex
+\pgfkeys@tmptoks=\toks34
+))
+\pgf@x=\dimen198
+\pgf@y=\dimen199
+\pgf@xa=\dimen256
+\pgf@ya=\dimen257
+\pgf@xb=\dimen258
+\pgf@yb=\dimen259
+\pgf@xc=\dimen260
+\pgf@yc=\dimen261
+\pgf@xd=\dimen262
+\pgf@yd=\dimen263
+\w@pgf@writea=\write4
+\r@pgf@reada=\read2
+\c@pgf@counta=\count314
+\c@pgf@countb=\count315
+\c@pgf@countc=\count316
+\c@pgf@countd=\count317
+\t@pgf@toka=\toks35
+\t@pgf@tokb=\toks36
+\t@pgf@tokc=\toks37
+\pgf@sys@id@count=\count318
+ (D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count319
+\pgfsyssoftpath@bigbuffer@items=\count320
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/systemlayer\pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+
+(D:\ProgramFiles\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcore.code.tex
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathutil.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathparser.code.tex
+\pgfmath@dimen=\dimen264
+\pgfmath@count=\count321
+\pgfmath@box=\box65
+\pgfmath@toks=\toks38
+\pgfmath@stack@operand=\toks39
+\pgfmath@stack@operation=\toks40
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.trigonometric.cod
+e.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.random.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.comparison.code.t
+ex) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.base.code.tex
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.round.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.misc.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.integerarithmetic
+s.code.tex) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathcalc.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count322
+))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfint.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen265
+\pgf@picmaxx=\dimen266
+\pgf@picminy=\dimen267
+\pgf@picmaxy=\dimen268
+\pgf@pathminx=\dimen269
+\pgf@pathmaxx=\dimen270
+\pgf@pathminy=\dimen271
+\pgf@pathmaxy=\dimen272
+\pgf@xx=\dimen273
+\pgf@xy=\dimen274
+\pgf@yx=\dimen275
+\pgf@yy=\dimen276
+\pgf@zx=\dimen277
+\pgf@zy=\dimen278
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathconstruct.code.te
+x
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen279
+\pgf@path@lasty=\dimen280
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen281
+\pgf@shorten@start@additional=\dimen282
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box66
+\pgf@hbox=\box67
+\pgf@layerbox@main=\box68
+\pgf@picture@serial@count=\count323
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen283
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransformations.code.
+tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen284
+\pgf@pt@y=\dimen285
+\pgf@pt@temp=\dimen286
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathprocessing.code.t
+ex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen287
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen288
+\pgf@sys@shading@range@num=\count324
+\pgf@shadingcount=\count325
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box69
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransparency.code.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/basiclayer\pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/modules\pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box70
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/modules\pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-0-65.sty
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen289
+\pgf@nodesepend=\dimen290
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-1-18.sty
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/utilities\pgffor.sty
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/utilities\pgfkeys.sty
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/latex/pgf/math\pgfmath.sty
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/utilities\pgffor.code.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen291
+\pgffor@skip=\dimen292
+\pgffor@stack=\toks41
+\pgffor@toks=\toks42
+))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/libraries\pgflibraryplothandlers.code.t
+ex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count326
+\pgfplotmarksize=\dimen293
+)
+\tikz@lastx=\dimen294
+\tikz@lasty=\dimen295
+\tikz@lastxsaved=\dimen296
+\tikz@lastysaved=\dimen297
+\tikz@lastmovetox=\dimen298
+\tikz@lastmovetoy=\dimen299
+\tikzleveldistance=\dimen300
+\tikzsiblingdistance=\dimen301
+\tikz@figbox=\box71
+\tikz@figbox@bg=\box72
+\tikz@tempbox=\box73
+\tikz@tempbox@bg=\box74
+\tikztreelevel=\count327
+\tikznumberofchildren=\count328
+\tikznumberofcurrentchild=\count329
+\tikz@fig@count=\count330
+ (D:\ProgramFiles\MiKTeX\tex/generic/pgf/modules\pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count331
+\pgfmatrixcurrentcolumn=\count332
+\pgf@matrix@numberofcolumns=\count333
+)
+\tikz@expandcount=\count334
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrar
+ytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (D:\ProgramFiles\MiKTeX\tex/latex/pgfplots\pgfplots.sty
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.revision.tex)
+Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotscore.code.tex
+\t@pgfplots@toka=\toks43
+\t@pgfplots@tokb=\toks44
+\t@pgfplots@tokc=\toks45
+\pgfplots@tmpa=\dimen302
+\c@pgfplots@coordindex=\count335
+\c@pgfplots@scanlineindex=\count336
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/sys\pgfplotssysgeneric.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/libs\pgfplotslibrary.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/oldpgfcompatib\pgfplotsoldpgfsupp_
+loader.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/libraries\pgflibraryfpu.code.tex)
+Package pgfplots: loading complementary utilities for your pgf version...
+\t@pgf@toka=\toks46
+\t@pgf@tokb=\toks47
+\t@pgf@tokc=\toks48
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/oldpgfcompatib\pgfplotsoldpgfsupp_
+pgfutil-common-lists.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotsutil.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsliststructur
+e.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsliststructur
+eext.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsarray.code.t
+ex
+\c@pgfplotsarray@tmp=\count337
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsmatrix.code.
+tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/numtable\pgfplotstableshared.code.
+tex
+\c@pgfplotstable@counta=\count338
+\t@pgfplotstable@a=\toks49
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsdeque.code.t
+ex) (D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotsbinary.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotsbinary.data.code.tex)
+) (D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotsutil.verb.code.tex)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/libs\pgflibrarypgfplots.surfshadin
+g.code.tex
+\c@pgfplotslibrarysurf@no=\count339
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/sys\pgflibrarypgfplots.surfshading
+.pgfsys-pdftex.def)))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotscolormap.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/util\pgfplotscolor.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotsstackedplots.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotsplothandlers.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotsmeshplothandler.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotsmeshplotimage.code.tex)))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.scaling.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotscoordprocessing.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.errorbars.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.markers.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplotsticks.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots\pgfplots.paths.code.tex)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrar
+ydecorations.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/modules\pgfmoduledecorations.code.tex
+\pgfdecoratedcompleteddistance=\dimen303
+\pgfdecoratedremainingdistance=\dimen304
+\pgfdecoratedinputsegmentcompleteddistance=\dimen305
+\pgfdecoratedinputsegmentremainingdistance=\dimen306
+\pgf@decorate@distancetomove=\dimen307
+\pgf@decorate@repeatstate=\count340
+\pgfdecorationsegmentamplitude=\dimen308
+\pgfdecorationsegmentlength=\dimen309
+)
+\tikz@lib@dec@box=\box75
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrar
+ydecorations.pathmorphing.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/libraries/decorations\pgflibrarydecorat
+ions.pathmorphing.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrar
+ydecorations.pathreplacing.code.tex
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/libraries/decorations\pgflibrarydecorat
+ions.pathreplacing.code.tex))
+(D:\ProgramFiles\MiKTeX\tex/generic/pgfplots/libs\tikzlibrarypgfplots.contourlu
+a.code.tex)
+\pgfplots@numplots=\count341
+\pgfplots@xmin@reg=\dimen310
+\pgfplots@xmax@reg=\dimen311
+\pgfplots@ymin@reg=\dimen312
+\pgfplots@ymax@reg=\dimen313
+\pgfplots@zmin@reg=\dimen314
+\pgfplots@zmax@reg=\dimen315
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrar
+yplotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/pgf/libraries\pgflibraryplotmarks.code.tex
+File: pgflibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (D:\ProgramFiles\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2026-04-24 v7.01q Hypertext links for LaTeX
- (D:\ProgramFiles\MiKTeX\tex/generic/iftex\iftex.sty
-Package: iftex 2024/12/12 v1.0g TeX engine tests
-) (D:\ProgramFiles\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-) (D:\ProgramFiles\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (D:\ProgramFiles\MiKTeX\tex/generic/pdfescape\pdfescape.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pdfescape\pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
- (D:\ProgramFiles\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+
+(D:\ProgramFiles\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-) (D:\ProgramFiles\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
- (D:\ProgramFiles\MiKTeX\tex/generic/infwarerr\infwarerr.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/infwarerr\infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)) (D:\ProgramFiles\MiKTeX\tex/latex/hycolor\hycolor.sty
+))
+(D:\ProgramFiles\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (D:\ProgramFiles\MiKTeX\tex/latex/hyperref\nameref.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
- (D:\ProgramFiles\MiKTeX\tex/latex/refcount\refcount.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (D:\ProgramFiles\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
- (D:\ProgramFiles\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+
+(D:\ProgramFiles\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count309
-) (D:\ProgramFiles\MiKTeX\tex/generic/stringenc\stringenc.sty
-Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
+\c@section@level=\count342
 )
-\@linkdim=\dimen187
-\Hy@linkcounter=\count310
-\Hy@pagecounter=\count311
- (D:\ProgramFiles\MiKTeX\tex/latex/hyperref\pd1enc.def
+(D:\ProgramFiles\MiKTeX\tex/generic/stringenc\stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+\@linkdim=\dimen316
+\Hy@linkcounter=\count343
+\Hy@pagecounter=\count344
+
+(D:\ProgramFiles\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2026-04-24 v7.01q Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (D:\ProgramFiles\MiKTeX\tex/generic/intcalc\intcalc.sty
+)
+(D:\ProgramFiles\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count312
- (D:\ProgramFiles\MiKTeX\tex/latex/hyperref\puenc.def
+\Hy@SavedSpaceFactor=\count345
+
+(D:\ProgramFiles\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2026-04-24 v7.01q Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
+Package hyperref Info: Option `final' set `true' on input line 4070.
 Package hyperref Info: Hyper figures OFF on input line 4199.
 Package hyperref Info: Link nesting OFF on input line 4204.
 Package hyperref Info: Hyper index ON on input line 4207.
@@ -261,17 +723,20 @@ Package hyperref Info: Plain pages OFF on input line 4214.
 Package hyperref Info: Backreferencing OFF on input line 4219.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4466.
-\c@Hy@tempcnt=\count313
+\c@Hy@tempcnt=\count346
 LaTeX Info: Redefining \url on input line 4805.
-\XeTeXLinkMargin=\dimen188
- (D:\ProgramFiles\MiKTeX\tex/generic/bitset\bitset.sty
+\XeTeXLinkMargin=\dimen317
+
+(D:\ProgramFiles\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
- (D:\ProgramFiles\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+
+(D:\ProgramFiles\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
 ))
-\Fld@menulength=\count314
-\Field@Width=\dimen189
-\Fld@charsize=\dimen190
+\Fld@menulength=\count347
+\Field@Width=\dimen318
+\Fld@charsize=\dimen319
 Package hyperref Info: Hyper figures OFF on input line 6091.
 Package hyperref Info: Link nesting OFF on input line 6096.
 Package hyperref Info: Hyper index ON on input line 6099.
@@ -279,551 +744,823 @@ Package hyperref Info: backreferencing OFF on input line 6106.
 Package hyperref Info: Link coloring OFF on input line 6111.
 Package hyperref Info: Link coloring with OCG OFF on input line 6116.
 Package hyperref Info: PDF/A mode OFF on input line 6121.
-\Hy@abspage=\count315
-\c@Item=\count316
-\c@Hfootnote=\count317
+\Hy@abspage=\count348
+\c@Item=\count349
+\c@Hfootnote=\count350
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
- (D:\ProgramFiles\MiKTeX\tex/latex/hyperref\hpdftex.def
+
+(D:\ProgramFiles\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2026-04-24 v7.01q Hyperref driver for pdfTeX
-\Fld@listcount=\count318
-\c@bookmark@seq@number=\count319
- (D:\ProgramFiles\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
+\Fld@listcount=\count351
+\c@bookmark@seq@number=\count352
+
+(D:\ProgramFiles\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
- (D:\ProgramFiles\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
+
+(D:\ProgramFiles\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+84.
 )
-\Hy@SectionHShift=\skip60
-) (main.aux)
+\Hy@SectionHShift=\skip62
+)
+(main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
  (D:\ProgramFiles\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count320
-\scratchdimen=\dimen191
-\scratchbox=\box63
-\nofMPsegments=\count321
-\nofMParguments=\count322
-\everyMPshowfont=\toks28
-\MPscratchCnt=\count323
-\MPscratchDim=\dimen192
-\MPnumerator=\count324
-\makeMPintoPDFobject=\count325
-\everyMPtoPDFconversion=\toks29
+\scratchcounter=\count353
+\scratchdimen=\dimen320
+\scratchbox=\box76
+\nofMPsegments=\count354
+\nofMParguments=\count355
+\everyMPshowfont=\toks50
+\MPscratchCnt=\count356
+\MPscratchDim=\dimen321
+\MPnumerator=\count357
+\makeMPintoPDFobject=\count358
+\everyMPtoPDFconversion=\toks51
 ) (D:\ProgramFiles\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (D:\ProgramFiles\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(D:\ProgramFiles\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 21.
- (main.out) (main.out)
-\@outlinefile=\write4
-\openout4 = `main.out'.
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: custom
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* hratio: 1:1
+* vratio: 1:1
+* modes: 
+* h-part:(L,W,R)=(37.75394pt, 522.0pt, 37.75394pt)
+* v-part:(T,H,B)=(81.52342pt, 682.0pt, 81.52342pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=522.0pt
+* \textheight=682.0pt
+* \oddsidemargin=-34.51605pt
+* \evensidemargin=-34.51605pt
+* \topmargin=-52.74657pt
+* \headheight=50.0pt
+* \headsep=12.0pt
+* \topskip=10.0pt
+* \footskip=18.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=18.0pt
+* \skip\footins=24.0pt plus 2.0pt minus 12.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumntrue
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Info: Redefining \microtypecontext on input line 30.
+Package microtype Info: Applying patch `item' on input line 30.
+Package microtype Info: Applying patch `toc' on input line 30.
+Package microtype Info: Applying patch `eqnum' on input line 30.
+Package microtype Info: Applying patch `footnote' on input line 30.
+Package microtype Info: Applying patch `verbatim' on input line 30.
+LaTeX Info: Redefining \microtypesetup on input line 30.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: No font expansion.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+(D:\ProgramFiles\MiKTeX\tex/latex/microtype\mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+Package pgfplots notification 'compat/show suggested version=true': document ha
+s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
+
+Package hyperref Info: Link coloring OFF on input line 30.
+(main.out) (main.out)
+\@outlinefile=\write5
+\openout5 = `main.out'.
 
 
-Overfull \hbox (13.63466pt too wide) in paragraph at lines 39--39
-\T1/cmr/bx/n/12 Open-Vocabulary and Rea-son-ing Seg-men-ta-tion with Vision-Language
+Underfull \hbox (badness 2401) in paragraph at lines 45--46
+[]\T1/cmr/m/n/10 The core com-par-i-son cov-ers CLIP-based dense
  []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 53.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\cnotenum' on input line 53.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 53.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@corref' on input line 53.
 
 [1
 
-{C:/Users/YuqiZhang/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 49.
- (D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\umsa.fd
+{C:/Users/YuqiZhang/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}
+
+]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 53.
+
+
+(D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 49.
- (D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\umsb.fd
+(D:\ProgramFiles\MiKTeX\tex/latex/microtype\mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 53.
+
+
+(D:\ProgramFiles\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (section/01_introduction.tex
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+)
+(D:\ProgramFiles\MiKTeX\tex/latex/microtype\mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+(section/01_introduction.tex
+
+pdfTeX warning: pdflatex.exe (file ./Fig/Numberofpublications.pdf): PDF inclusi
+on: found PDF version <1.7>, but at most version <1.5> allowed
+<Fig/Numberofpublications.pdf, id=244, 796.41547pt x 511.09343pt>
+File: Fig/Numberofpublications.pdf Graphic file (type pdf)
+<use Fig/Numberofpublications.pdf>
+Package pdftex.def Info: Fig/Numberofpublications.pdf  used on input line 9.
+(pdftex.def)             Requested size: 214.20154pt x 137.45895pt.
+<Fig/intro_overview.png, id=245, 1927.2pt x 1084.05pt>
+File: Fig/intro_overview.png Graphic file (type png)
+<use Fig/intro_overview.png>
+Package pdftex.def Info: Fig/intro_overview.png  used on input line 16.
+(pdftex.def)             Requested size: 511.55777pt x 287.75157pt.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.11 
+l.22 
       [1
 
 
-]) (section/02_background_objective.tex [2]
-Overfull \hbox (0.39212pt too wide) in paragraph at lines 34--35
-[]\T1/cmr/m/n/12 Writing plan: in-tro-duce the shift from cat-e-gory names to com-plex natural-
+]
+Underfull \hbox (badness 1019) in paragraph at lines 28--29
+\T1/cmr/m/n/10 la-bels and dense se-man-tic align-ment, where-as re-cent
  []
 
-[3]) (section/03_method_taxonomy.tex [4] [5] [6] [7]) (section/04_datasets_metrics.tex
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Promptable seg-
+
+Underfull \hbox (badness 1616) in paragraph at lines 34--35
+[]\T1/cmr/m/n/10 This sur-vey pro-vides a struc-tured view of open-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 agnostic mask
+Underfull \hbox (badness 3229) in paragraph at lines 34--35
+\T1/cmr/m/n/10 vocabulary and rea-son-ing seg-men-ta-tion with vision-
  []
 
 
-Underfull \hbox (badness 6542) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 Net, Tri-dent ([]Xu
+Underfull \hbox (badness 1648) in paragraph at lines 34--35
+\T1/cmr/m/n/10 region-word and mask-text ground-ing, MLLM-guided
  []
+
+) (section/02_background.tex [2 <./Fig/Numberofpublications.pdf>] [3 <./Fig/int
+ro_overview.png>]
 
+pdfTeX warning: pdflatex.exe (file ./Fig/background_development_axes.pdf): PDF 
+inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+<Fig/background_development_axes.pdf, id=339, 464.30765pt x 231.01205pt>
+File: Fig/background_development_axes.pdf Graphic file (type pdf)
+<use Fig/background_development_axes.pdf>
+Package pdftex.def Info: Fig/background_development_axes.pdf  used on input lin
+e 21.
+(pdftex.def)             Requested size: 246.95892pt x 122.8729pt.
 
-Underfull \hbox (badness 7631) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 et al.[], []2025[]; []Shi
+Underfull \hbox (badness 1509) in paragraph at lines 34--35
+\T1/cmr/m/n/10 but not in-ter-change-able. Open-vocabulary se-man-tic
  []
 
 
-Underfull \hbox (badness 1019) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Rich scene cat-e-
+Underfull \hbox (badness 1629) in paragraph at lines 34--35
+\T1/cmr/m/n/10 Open-vocabulary in-stance and panop-tic seg-men-ta-tion
  []
 
-
-Underfull \hbox (badness 2591) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 gories for open-
+[4 <./Fig/background_development_axes.pdf>]) (section/03_foundations.tex
+Underfull \hbox (badness 1067) in paragraph at lines 4--5
+\T1/cmr/m/n/10 lat-er method sec-tions, in-clud-ing CLIP-style en-coders,
  []
+
+[5]
 
+pdfTeX warning: pdflatex.exe (file ./Fig/foundation_paradigms.pdf): PDF inclusi
+on: found PDF version <1.6>, but at most version <1.5> allowed
+<Fig/foundation_paradigms.pdf, id=448, 609.09558pt x 209.92026pt>
+File: Fig/foundation_paradigms.pdf Graphic file (type pdf)
+<use Fig/foundation_paradigms.pdf>
+Package pdftex.def Info: Fig/foundation_paradigms.pdf  used on input line 26.
+(pdftex.def)             Requested size: 511.55777pt x 176.30298pt.
 
-Underfull \hbox (badness 1681) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Semantic seg-men-
+Underfull \hbox (badness 2818) in paragraph at lines 35--36
+\T1/cmr/m/n/10 cal-i-bra-tion, and fine-grained se-man-tic re-con-struc-tion
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 OVSS meth-ods
+Underfull \hbox (badness 2293) in paragraph at lines 37--38
+[]\T1/cmr/bx/n/10 Mask gen-er-a-tors and de-coders. \T1/cmr/m/n/10 SAM-style
  []
 
 
-Underfull \hbox (badness 3590) in paragraph at lines 24--24
-[]\T1/cmr/m/n/10.95 Xu et al.[], []2023b[];
+Underfull \hbox (badness 1226) in paragraph at lines 37--38
+\T1/cmr/m/n/10 seg-men-ta-tion foun-da-tion mod-els pro-vide strong class-
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Compact and
+[6]
+Underfull \hbox (badness 3354) in paragraph at lines 39--40
+\T1/cmr/m/n/10 aligned lan-guage mod-els, LLaVA-Grounding, Fer-ret,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 com-mon zero-
+Underfull \hbox (badness 1810) in paragraph at lines 55--56
+[]\T1/cmr/m/n/10 The sec-ond fam-i-ly is region-word and mask-text
  []
 
 
-Underfull \hbox (badness 1681) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Semantic seg-men-
+Underfull \hbox (badness 1496) in paragraph at lines 55--56
+\T1/cmr/m/n/10 Works such as Pix-elLM, LLaVA-Grounding, OneRef,
  []
-
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 OVSS meth-ods
+[7 <./Fig/foundation_paradigms.pdf>]
+Underfull \hbox (badness 1389) in paragraph at lines 59--60
+\T1/cmr/m/n/10 Su-per-vised in-struc-tion tun-ing teach-es the MLLM to
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Broader dense
+Underfull \hbox (badness 3439) in paragraph at lines 59--60
+\T1/cmr/m/n/10 seg-men-ta-tion, task align-ment, af-for-dance ground-ing,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 se-man-tic la-bels
+Underfull \hbox (badness 1748) in paragraph at lines 59--60
+\T1/cmr/m/n/10 med-i-cal ground-ing, and im-plic-it rea-son-ing seg-men-ta-
  []
 
 
-Underfull \hbox (badness 1681) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Semantic seg-men-
+Underfull \hbox (badness 1275) in paragraph at lines 63--64
+\T1/cmr/m/n/10 through text; gen-er-al-ized open-vocabulary eval-u-a-tion,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 eval-u-a-tion ([]Xu
+Underfull \hbox (badness 1406) in paragraph at lines 65--66
+[]\T1/cmr/m/n/10 Promptable and ground-ed eval-u-a-tion changes the
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Stuff cat-e-gories
+) (section/04_datasets_and_evaluation.tex
+Underfull \hbox (badness 1092) in paragraph at lines 4--5
+\T1/cmr/m/n/10 used by open-vocabulary and rea-son-ing seg-men-ta-tion
  []
 
 
-Underfull \hbox (badness 1460) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 and dense scene
+Underfull \hbox (badness 1097) in paragraph at lines 8--9
+[]\T1/cmr/m/n/10 Open-vocabulary se-man-tic seg-men-ta-tion still re-lies
  []
 
 
-Underfull \hbox (badness 3118) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Panoptic seg-men-
+Underfull \hbox (badness 1077) in paragraph at lines 8--9
+\T1/cmr/m/n/10 CAL VOC, MS CO-CO, COCO-Stuff, ADE20K, and
  []
 
 
-Underfull \hbox (badness 3657) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 ODISE, X-Decoder
+Underfull \hbox (badness 1275) in paragraph at lines 8--9
+\T1/cmr/m/n/10 datasets are of-ten re-or-ga-nized in-to base/novel splits,
  []
 
-
-Underfull \hbox (badness 1817) in paragraph at lines 24--24
-\T1/cmr/m/n/10.95 ([]Xu et al.[], []2023a[];
+[8]
+Underfull \hbox (badness 1281) in paragraph at lines 16--17
+[]\T1/cmr/m/n/10 Extended-scenario datasets stress-test whether the
  []
 
 
-Underfull \hbox (badness 2753) in paragraph at lines 24--24
-[]|\T1/cmr/m/n/10.95 Joint thing and
+Underfull \hbox (badness 2073) in paragraph at lines 95--96
+\T1/cmr/m/n/10 over-Union (IoU), com-mon-ly re-port-ed as mean IoU
  []
 
 
-Underfull \hbox (badness 1442) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 f-COCO+ / Re-f-
+Underfull \hbox (badness 2478) in paragraph at lines 109--110
+[]\T1/cmr/m/n/10 Promptable and video seg-men-ta-tion add prompt
  []
 
+[9] [10]
+Underfull \hbox (badness 2418) in paragraph at lines 162--163
+[]\T1/cmr/m/n/10 Second, train-ing da-ta and foun-da-tion back-bones
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]\T1/cmr/m/n/10.95 2024[]; []Rasheed
+) (section/05_open_vocabulary_segmentation.tex
+Underfull \hbox (badness 1648) in paragraph at lines 35--36
+\T1/cmr/m/n/10 pipelines are bot-tle-necked by CLIP clas-si-fi-ca-tion on
  []
 
 
-Underfull \hbox (badness 2617) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 et al.[], []2024[]; []Zou
+Underfull \hbox (badness 1092) in paragraph at lines 35--36
+\T1/cmr/m/n/10 masked crops rather than by mask pro-pos-al qual-i-ty,
  []
 
+[11]
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Language-
- []
+pdfTeX warning: pdflatex.exe (file ./Fig/fig_CLIPer.pdf): PDF inclusion: found 
+PDF version <1.6>, but at most version <1.5> allowed
+<Fig/fig_CLIPer.pdf, id=987, 310.08247pt x 304.19547pt>
+File: Fig/fig_CLIPer.pdf Graphic file (type pdf)
+<use Fig/fig_CLIPer.pdf>
+Package pdftex.def Info: Fig/fig_CLIPer.pdf  used on input line 39.
+(pdftex.def)             Requested size: 226.79846pt x 222.49251pt.
 
+Underfull \hbox (badness 2564) in paragraph at lines 40--40
+[]\T1/cmr/m/n/8 Figure 6: []Training-free spa-tial re-pair for CLIP-based open-
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 guided ob-ject
  []
-
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Reasoning seg-
+[12] [13]
+Underfull \hbox (badness 4492) in paragraph at lines 50--51
+[]\T1/cmr/m/n/10 Proposal-then-classification pipelines de-cou-ple the
  []
 
 
-Underfull \hbox (badness 1953) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 LISA ([]Lai et al.[],
+Underfull \hbox (badness 1147) in paragraph at lines 52--53
+\T1/cmr/m/n/10 Com-bi-na-tion and sev-er-al SAM-based open-vocabulary
  []
 
+<Fig/fig_MASK.pdf, id=1024, 924.26984pt x 143.71573pt>
+File: Fig/fig_MASK.pdf Graphic file (type pdf)
+<use Fig/fig_MASK.pdf>
+Package pdftex.def Info: Fig/fig_MASK.pdf  used on input line 56.
+(pdftex.def)             Requested size: 511.55777pt x 79.54387pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Complex im-
+Underfull \hbox (badness 1137) in paragraph at lines 67--68
+[]\T1/cmr/m/n/10 The USE frame-work in Fig. []8[] al-so clar-i-fies why
  []
 
+[14 <./Fig/fig_CLIPer.pdf>]
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 plicit queries
+pdfTeX warning: pdflatex.exe (file ./Fig/fig_USE.pdf): PDF inclusion: found PDF
+ version <1.6>, but at most version <1.5> allowed
+<Fig/fig_USE.pdf, id=1050, 180.08983pt x 75.75623pt>
+File: Fig/fig_USE.pdf Graphic file (type pdf)
+<use Fig/fig_USE.pdf>
+Package pdftex.def Info: Fig/fig_USE.pdf  used on input line 81.
+(pdftex.def)             Requested size: 246.95892pt x 103.89056pt.
+
+Underfull \hbox (badness 3838) in paragraph at lines 90--91
+[]\T1/cmr/m/n/10 The fourth route stud-ies how to de-ploy open-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 re-quir-ing rea-
+Underfull \hbox (badness 7099) in paragraph at lines 90--91
+\T1/cmr/m/n/10 vocabulary seg-men-ta-tion un-der lim-it-ed su-per-vi-sion,
  []
 
 
-Underfull \hbox (badness 2753) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 GLaMM ([]Rasheed
+Underfull \hbox (badness 1997) in paragraph at lines 94--95
+\T1/cmr/m/n/10 or remote-sensing meth-ods fur-ther adapt foun-da-tion
  []
-
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Phrase-level
+[15 <./Fig/fig_MASK.pdf> <./Fig/fig_USE.pdf>]
+Underfull \hbox (badness 1057) in paragraph at lines 104--105
+[]\T1/cmr/m/n/10 Third, the bench-mark it-self is part of the open-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 masks for
+Underfull \hbox (badness 1275) in paragraph at lines 104--105
+\T1/cmr/m/n/10 vocabulary prob-lem. Class names, syn-onyms, la-bel
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T1/cmr/m/n/10.95 gen-er-ated re-
+) (section/06_promptable_and_grounded_segmentation.tex
+Underfull \hbox (badness 1137) in paragraph at lines 6--7
+\T1/cmr/m/n/10 pixel-grounded mul-ti-modal in-ter-faces, where a mod-el
  []
+
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Video rea-son-ing
+pdfTeX warning: pdflatex.exe (file ./Fig/fig_SAM2.pdf): PDF inclusion: found PD
+F version <1.7>, but at most version <1.5> allowed
+<Fig/fig_SAM2.pdf, id=1211, 1273.75874pt x 321.2pt>
+File: Fig/fig_SAM2.pdf Graphic file (type pdf)
+<use Fig/fig_SAM2.pdf>
+Package pdftex.def Info: Fig/fig_SAM2.pdf  used on input line 35.
+(pdftex.def)             Requested size: 511.55777pt x 128.99724pt.
+[16] [17]
+Underfull \hbox (badness 1668) in paragraph at lines 49--50
+[]\T1/cmr/m/n/10 Grounded-SAM com-po-si-tion sep-a-rates a language-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T1/cmr/m/n/10.95 Video rea-son-ing
+Underfull \hbox (badness 1199) in paragraph at lines 49--50
+\T1/cmr/m/n/10 be-cause it mar-ries open-set de-tec-tion with ground-ed
  []
 
-[8] [9]) (section/05_comparison.tex [10]
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 Representative pa-
+
+Underfull \hbox (badness 1107) in paragraph at lines 49--50
+\T1/cmr/m/n/10 pre-training and ac-cepts cat-e-go-ry names or re-fer-ring
  []
 
+[18 <./Fig/fig_SAM2.pdf>]
+<Fig/fig_DINO.pdf, id=1419, 1280.785pt x 882.29625pt>
+File: Fig/fig_DINO.pdf Graphic file (type pdf)
+<use Fig/fig_DINO.pdf>
+Package pdftex.def Info: Fig/fig_DINO.pdf  used on input line 66.
+(pdftex.def)             Requested size: 246.95892pt x 170.11517pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 CLIP-based
- []
 
+pdfTeX warning: pdflatex.exe (file ./Fig/fig_OneRef.pdf): PDF inclusion: found 
+PDF version <1.7>, but at most version <1.5> allowed
+<Fig/fig_OneRef.pdf, id=1422, 550.49463pt x 201.00093pt>
+File: Fig/fig_OneRef.pdf Graphic file (type pdf)
+<use Fig/fig_OneRef.pdf>
+Package pdftex.def Info: Fig/fig_OneRef.pdf  used on input line 74.
+(pdftex.def)             Requested size: 511.55777pt x 186.79091pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]\T1/cmr/m/n/10.95 2023[]; []Xu et al.[],
+Underfull \hbox (badness 1990) in paragraph at lines 87--88
+\T1/cmr/m/n/10 goes fur-ther by gen-er-at-ing natural-language re-spons-
  []
 
+[19 <./Fig/fig_DINO.pdf>]
+<Fig/fig_Glamm.pdf, id=1528, 1195.46625pt x 424.58624pt>
+File: Fig/fig_Glamm.pdf Graphic file (type pdf)
+<use Fig/fig_Glamm.pdf>
+Package pdftex.def Info: Fig/fig_Glamm.pdf  used on input line 103.
+(pdftex.def)             Requested size: 511.55777pt x 181.68742pt.
 
-Underfull \hbox (badness 1655) in paragraph at lines 21--21
-[]\T1/cmr/m/n/10.95 2023b[]; []Luo et al.[],
+Underfull \hbox (badness 1721) in paragraph at lines 112--113
+\T1/cmr/m/n/10 de-com-po-si-tion. Grounded-SAM pipelines de-com-pose
  []
+
+[20 <./Fig/fig_OneRef.pdf>]) (section/07_reasoning_segmentation.tex [21 <./Fig/
+fig_Glamm.pdf>] [22]
 
+pdfTeX warning: pdflatex.exe (file ./Fig/fig_LISA.pdf): PDF inclusion: found PD
+F version <1.7>, but at most version <1.5> allowed
+<Fig/fig_LISA.pdf, id=1842, 484.72894pt x 140.74783pt>
+File: Fig/fig_LISA.pdf Graphic file (type pdf)
+<use Fig/fig_LISA.pdf>
+Package pdftex.def Info: Fig/fig_LISA.pdf  used on input line 45.
+(pdftex.def)             Requested size: 511.55777pt x 148.53908pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 Strong open-
+Underfull \hbox (badness 2229) in paragraph at lines 59--60
+\T1/cmr/m/n/10 R$[]$S de-com-pos-es com-plex 3D spa-tial rea-son-ing in-to
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 vocabulary
+Underfull \hbox (badness 1721) in paragraph at lines 59--60
+\T1/cmr/m/n/10 relevant-element iden-ti-fi-ca-tion fol-lowed by in-struc-tion
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 se-man-tics and
- []
 
+pdfTeX warning: pdflatex.exe (file ./Fig/fig_LENS.pdf): PDF inclusion: found PD
+F version <1.7>, but at most version <1.5> allowed
+<Fig/fig_LENS.pdf, id=1854, 961.37036pt x 170.6375pt>
+File: Fig/fig_LENS.pdf Graphic file (type pdf)
+<use Fig/fig_LENS.pdf>
+Package pdftex.def Info: Fig/fig_LENS.pdf  used on input line 65.
+(pdftex.def)             Requested size: 511.55777pt x 90.79935pt.
+[23]
+Underfull \hbox (badness 2744) in paragraph at lines 82--83
+\T1/cmr/m/n/10 In ex-tend-ed sce-nar-ios, MedRea-son-er, Affordance-R1,
+ []
 
-Underfull \hbox (badness 2626) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 prompt sen-si-tiv-
+[24 <./Fig/fig_LISA.pdf> <./Fig/fig_LENS.pdf>]
+Underfull \hbox (badness 2635) in paragraph at lines 92--93
+[]\T1/cmr/m/n/10 Grounded vi-su-al chat meth-ods ex-pose a sec-ond
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 Diffusion-based
+Underfull \hbox (badness 2865) in paragraph at lines 92--93
+\T1/cmr/m/n/10 LLaVA-Grounding con-nects gen-er-at-ed visual-chat re-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 pro-vide rich
+Underfull \hbox (badness 2856) in paragraph at lines 92--93
+\T1/cmr/m/n/10 natural-language re-spons-es with ob-ject seg-men-ta-tion
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 spatial-semantic
+) (section/08_extended_scenarios.tex
+Underfull \hbox (badness 1205) in paragraph at lines 33--34
+\T1/cmr/m/n/10 as-so-ci-at-ed Rea-son-VOS bench-mark con-tains 91 videos
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 rep-re-sen-ta-tions
+Underfull \hbox (badness 1496) in paragraph at lines 33--34
+\T1/cmr/m/n/10 ob-ject de-scrip-tions and longer rea-son-ing in-struc-tions.
  []
-
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 and sup-port
+[25]
+Underfull \hbox (badness 1270) in paragraph at lines 39--40
+\T1/cmr/m/n/10 SAMA uni-fies video re-fer-ring un-der-stand-ing, ground-
  []
 
 
-Underfull \hbox (badness 2671) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 and the sys-tem
+Underfull \hbox (badness 1253) in paragraph at lines 39--40
+\T1/cmr/m/n/10 ground gen-er-at-ed ob-ject men-tions in spatio-temporal
  []
 
+[26]
 
-Underfull \hbox (badness 3302) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 than lightweight
- []
+pdfTeX warning: pdflatex.exe (file ./Fig/fig_ViLLa.pdf): PDF inclusion: found P
+DF version <1.7>, but at most version <1.5> allowed
+<Fig/fig_ViLLa.pdf, id=2109, 959.98653pt x 193.9245pt>
+File: Fig/fig_ViLLa.pdf Graphic file (type pdf)
+<use Fig/fig_ViLLa.pdf>
+Package pdftex.def Info: Fig/fig_ViLLa.pdf  used on input line 43.
+(pdftex.def)             Requested size: 522.0pt x 105.45149pt.
+
 
+pdfTeX warning: pdflatex.exe (file ./Fig/fig_3D-DRES.pdf): PDF inclusion: found
+ PDF version <1.7>, but at most version <1.5> allowed
+<Fig/fig_3D-DRES.pdf, id=2119, 961.69286pt x 355.62862pt>
+File: Fig/fig_3D-DRES.pdf Graphic file (type pdf)
+<use Fig/fig_3D-DRES.pdf>
+Package pdftex.def Info: Fig/fig_3D-DRES.pdf  used on input line 70.
+(pdftex.def)             Requested size: 511.55777pt x 189.17142pt.
 
-Underfull \hbox (badness 6364) in paragraph at lines 21--21
-[]\T1/cmr/m/n/10.95 2023[]; []Lee et al.[],
+Underfull \hbox (badness 1490) in paragraph at lines 77--78
+\T1/cmr/m/n/10 rep-re-sen-ta-tions with 2D-text em-bed-ding spaces [[]].
  []
 
 
-Underfull \hbox (badness 7631) in paragraph at lines 21--21
-[]\T1/cmr/m/n/10.95 2025[]; []Shi et al.[],
+Underfull \hbox (badness 2635) in paragraph at lines 77--78
+\T1/cmr/m/n/10 OV3D-CG then in-tro-duces con-tex-tu-al guid-ance and
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 High-quality
+[27]
+Underfull \hbox (badness 1939) in paragraph at lines 83--84
+\T1/cmr/m/n/10 cost-map ag-gre-ga-tion, ef-fi-cient cost-map fu-sion, and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 gen-er-al-iza-tion
- []
 
+pdfTeX warning: pdflatex.exe (file ./Fig/fig_Exp.pdf): PDF inclusion: found PDF
+ version <1.6>, but at most version <1.5> allowed
+<Fig/fig_Exp.pdf, id=2135, 623.32875pt x 244.28766pt>
+File: Fig/fig_Exp.pdf Graphic file (type pdf)
+<use Fig/fig_Exp.pdf>
+Package pdftex.def Info: Fig/fig_Exp.pdf  used on input line 87.
+(pdftex.def)             Requested size: 246.95892pt x 96.78517pt.
 
-Underfull \hbox (badness 1281) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 or com-po-si-tional
+Underfull \hbox (badness 2443) in paragraph at lines 92--93
+[]\T1/cmr/m/n/10 Referring and rea-son-ing remote-sensing seg-men-ta-
  []
 
+[28 <./Fig/fig_ViLLa.pdf> <./Fig/fig_3D-DRES.pdf>]
+<Fig/fig_Med.pdf, id=2221, 2978.12625pt x 1350.04375pt>
+File: Fig/fig_Med.pdf Graphic file (type pdf)
+<use Fig/fig_Med.pdf>
+Package pdftex.def Info: Fig/fig_Med.pdf  used on input line 102.
+(pdftex.def)             Requested size: 246.95892pt x 111.94029pt.
 
-Underfull \hbox (badness 1077) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 foun-da-tion mod-
+Underfull \hbox (badness 2538) in paragraph at lines 111--112
+[]\T1/cmr/m/n/10 Embodied sys-tems add plan-ning and in-ter-ac-tion.
  []
-
 
-Underfull \hbox (badness 5681) in paragraph at lines 21--21
-[]|\T1/cmr/m/n/10.95 Native se-man-tic
+) (section/09_comparison_and_discussion.tex [29 <./Fig/fig_Exp.pdf> <./Fig/fig_
+Med.pdf>]
+<Fig/fig_CLIP.pdf, id=2691, 701.62125pt x 287.0725pt>
+File: Fig/fig_CLIP.pdf Graphic file (type pdf)
+<use Fig/fig_CLIP.pdf>
+Package pdftex.def Info: Fig/fig_CLIP.pdf  used on input line 83.
+(pdftex.def)             Requested size: 246.95892pt x 101.04195pt.
+ [30 <./Fig/fig_CLIP.pdf>] [31] [32] [33])
+(section/10_future_directions.tex
+Underfull \hbox (badness 3407) in paragraph at lines 4--5
+\T1/cmr/m/n/10 mod-els make high-quality masks ac-ces-si-ble through
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 un-der-stand-ing
+Underfull \hbox (badness 1400) in paragraph at lines 26--27
+\T1/cmr/m/n/10 Video meth-ods must pre-serve tem-po-ral iden-ti-ty and
  []
 
 
-Underfull \hbox (badness 5490) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 is lim-ited; ad-
+Underfull \hbox (badness 1009) in paragraph at lines 26--27
+\T1/cmr/m/n/10 in ge-om-e-try and view-points; remote-sensing meth-ods
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 di-tional CLIP,
+[34]
+Underfull \hbox (badness 3009) in paragraph at lines 32--33
+[]\T1/cmr/m/n/10 Open-vocabulary and rea-son-ing seg-men-ta-tion are
  []
 
+) (section/11_conclusion.tex
+Underfull \hbox (badness 3942) in paragraph at lines 3--4
+\T1/cmr/m/n/10 vocabulary seg-men-ta-tion, prompt-able and ground-ed
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-\T1/cmr/m/n/10.95 com-po-nents are
+)
+Underfull \hbox (badness 1490) in paragraph at lines 7--66
+\T1/cmr/m/n/10 marks, faith-ful reasoning-to-mask ground-ing, ef-fi-cient
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T1/cmr/m/n/10.95 Representative pa-
+Underfull \hbox (badness 1087) in paragraph at lines 7--66
+\T1/cmr/m/n/10 di-rec-tions fol-low di-rect-ly from the ev-i-dence re-viewed
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T1/cmr/m/n/10.95 X-Decoder ([]Zou
+Underfull \hbox (badness 1360) in paragraph at lines 7--66
+\T1/cmr/m/n/10 above: as seg-men-ta-tion sys-tems be-come more open
  []
 
+(main.bbl
+Underfull \hbox (badness 1052) in paragraph at lines 29--33
+[]\T1/cmr/m/n/8 F. Liang, B. Wu, X. Dai, K. Li, Y. Zhao, H. Zhang,
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 lan-guage tasks
+[35]
+Underfull \hbox (badness 1270) in paragraph at lines 66--70
+[]\T1/cmr/m/n/8 A. Kir-illov, E. Mintun, N. Ravi, H. Mao, C. Rol-land,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T1/cmr/m/n/10.95 MLLM-based
+Underfull \hbox (badness 1681) in paragraph at lines 120--124
+[]\T1/cmr/m/n/8 H. Rasheed, M. Maaz, S. Sha-ji, A. Shak-er, S. Khan,
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 rea-son-ing seg-
+[36]
+Underfull \hbox (badness 1231) in paragraph at lines 274--281
+\T1/cmr/m/n/8 M. Yaz-dan-panah, S. Das-tani, F. Beiza-ee, I. Ben Ayed,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 language in-
+Underfull \hbox (badness 10000) in paragraph at lines 274--281
+\T1/cmr/m/n/8 URL []$\T1/cmtt/m/n/8 https : / / proceedings . neurips .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 struc-tions,
+Underfull \hbox (badness 10000) in paragraph at lines 274--281
+\T1/cmtt/m/n/8 cc / paper _ files / paper / 2025 / hash /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 com-mon-sense
+Underfull \hbox (badness 10000) in paragraph at lines 274--281
+\T1/cmtt/m/n/8 6c5b82193c5d8e6aa5806239676ddc97-[]Abstract-[]Conference .
  []
+
 
+Underfull \hbox (badness 10000) in paragraph at lines 350--356
+\T1/cmr/m/n/8 URL []$\T1/cmtt/m/n/8 https : / / neurips . cc / virtual / 2025 /
+ loc / san-[]diego /
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 rea-son-ing, and
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 469--475
+\T1/cmr/m/n/8 URL []$\T1/cmtt/m/n/8 https : / / proceedings . neurips .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 pixel ground-ing
+Underfull \hbox (badness 10000) in paragraph at lines 469--475
+\T1/cmtt/m/n/8 cc / paper _ files / paper / 2025 / file /
  []
+
 
+Underfull \hbox (badness 10000) in paragraph at lines 469--475
+\T1/cmtt/m/n/8 528470fcd715697580bc06a16f4129fd-[]Paper-[]Datasets _ and _
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T1/cmr/m/n/10.95 Hallucination,
+[38]
+Underfull \hbox (badness 1158) in paragraph at lines 598--603
+\T1/cmr/m/n/8 au-tore-gres-sive mask gen-er-a-tion[], in: Ad-vances in Neu-ral
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 fine bound-ary
+Underfull \hbox (badness 10000) in paragraph at lines 598--603
+\T1/cmr/m/n/8 URL []$\T1/cmtt/m/n/8 https : / / proceedings . neurips .
  []
 
 
-Underfull \hbox (badness 5345) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 ac-cu-racy, heavy
+Underfull \hbox (badness 10000) in paragraph at lines 598--603
+\T1/cmtt/m/n/8 cc / paper _ files / paper / 2025 / hash /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 train-ing cost,
+Underfull \hbox (badness 10000) in paragraph at lines 598--603
+\T1/cmtt/m/n/8 17a9ab4190289f0e1504bbb98d1d111a-[]Abstract-[]Conference .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 and eval-u-a-tion
+Underfull \hbox (badness 10000) in paragraph at lines 615--621
+\T1/cmr/m/n/8 URL []$\T1/cmtt/m/n/8 https : / / proceedings . iclr .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 complex-scene
+Underfull \hbox (badness 10000) in paragraph at lines 615--621
+\T1/cmtt/m/n/8 cc / paper _ files / paper / 2025 / hash /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T1/cmr/m/n/10.95 Closer to real
+Underfull \hbox (badness 10000) in paragraph at lines 615--621
+\T1/cmtt/m/n/8 a8661ab3440964c27794607f0ea73624-[]Abstract-[]Conference .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 mem-ory, com-
+Underfull \hbox (badness 10000) in paragraph at lines 641--647
+\T1/cmr/m/n/8 URL []$\T1/cmtt/m/n/8 https : / / papers . neurips .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 pu-ta-tion, and
+Underfull \hbox (badness 10000) in paragraph at lines 641--647
+\T1/cmtt/m/n/8 cc / paper _ files / paper / 2025 / file /
  []
 
 
-Underfull \hbox (badness 6825) in paragraph at lines 37--37
-\T1/cmr/m/n/10.95 than in single-
+Underfull \hbox (badness 2119) in paragraph at lines 702--708
+\T1/cmr/m/n/8 hoi: Open-world hand-object in-ter-ac-tion syn-the-sis with
  []
 
-[11]) (section/06_challenges_future.tex
-Overfull \hbox (2.08897pt too wide) in paragraph at lines 6--7
-[]\T1/cmr/m/n/12 Writing plan: ar-gue that rec-og-niz-ing un-seen cat-e-gory names is not enough.
+
+Underfull \hbox (badness 10000) in paragraph at lines 702--708
+\T1/cmr/m/n/8 URL []$\T1/cmtt/m/n/8 https : / / proceedings . neurips .
  []
+
 
-[12]
-Overfull \hbox (4.23688pt too wide) in paragraph at lines 14--15
-[]\T1/cmr/m/n/12 Writing plan: dis-cuss hal-lu-ci-na-tion and faith-ful-ness in LISA- and GLaMM-
+Underfull \hbox (badness 10000) in paragraph at lines 702--708
+\T1/cmtt/m/n/8 cc / paper _ files / paper / 2025 / file /
  []
 
-) (section/07_conclusion.tex) [13] (main.bbl [14]) [15] (main.aux)
+) [39] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 1688C082EA8735C7C47C604F3D0AFF4D;14707.
+(rerunfilecheck)             Checksum: 48FF06A2CB17EE69B714552B5E021E58;12389.
  ) 
 Here is how much of TeX's memory you used:
- 11225 strings out of 467691
- 169960 string characters out of 5425557
- 594101 words of memory out of 5000000
- 40024 multiletter control sequences out of 15000+600000
- 640225 words of font info for 73 fonts, out of 8000000 for 9000
+ 34918 strings out of 467691
+ 801078 string characters out of 5425557
+ 1355539 words of memory out of 5000000
+ 63161 multiletter control sequences out of 15000+600000
+ 642867 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,79p,690b,572s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk>
-Output written on main.pdf (16 pages, 238789 bytes).
+ 84i,12n,104p,1712b,1032s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
+ectt0800.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/
+ec/dpi600\ectt0900.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour
+/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts
+/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\YuqiZhang\AppData\Local\Mi
+KTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0800.pk> <C:\Users\YuqiZhang\AppDat
+a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\YuqiZh
+ang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0800.pk> <C:\Us
+ers\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.
+pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600
+\ecti0800.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen
+/ec/dpi600\tcrm1000.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\fonts/pk/ljfou
+r/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\YuqiZhang\AppData\Local\MiKTeX\font
+s/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\YuqiZhang\AppData\Local\M
+iKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk><D:/ProgramFiles/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmex10.pfb><D:/ProgramFiles/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmmi10.pfb><D:/ProgramFiles/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmmi5.pfb><D:/ProgramFiles/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><
+D:/ProgramFiles/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/ProgramFile
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/ProgramFiles/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr7.pfb><D:/ProgramFiles/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmr9.pfb><D:/ProgramFiles/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><D:/ProgramFiles/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Prog
+ramFiles/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><D:/ProgramFiles/MiKTe
+X/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (40 pages, 14458644 bytes).
 PDF statistics:
- 1056 PDF objects out of 1200 (max. 8388607)
- 101 named destinations out of 1000 (max. 500000)
- 473 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3686 PDF objects out of 4296 (max. 8388607)
+ 261 named destinations out of 1000 (max. 500000)
+ 10783 words of extra memory for PDF output out of 12000 (max. 10000000)
 

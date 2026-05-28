@@ -1,113 +1,743 @@
-\begin{thebibliography}{10}
-\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
-\providecommand{\url}[1]{\texttt{#1}}
-\providecommand{\href}[2]{#2}
-\providecommand{\path}[1]{#1}
-\providecommand{\DOIprefix}{doi:}
-\providecommand{\ArXivprefix}{arXiv:}
-\providecommand{\URLprefix}{URL: }
-\providecommand{\Pubmedprefix}{pmid:}
-\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
-\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
-\providecommand{\bibinfo}[2]{#2}
-\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
-%Type = Inproceedings
-\bibitem[{Kirillov et~al.(2023)Kirillov, Mintun, Ravi, Mao, Rolland, Gustafson,
-  Xiao, Whitehead, Berg, Lo, Dollar and Girshick}]{kirillov2023sam}
-\bibinfo{author}{Kirillov, A.}, \bibinfo{author}{Mintun, E.},
-  \bibinfo{author}{Ravi, N.}, \bibinfo{author}{Mao, H.},
-  \bibinfo{author}{Rolland, C.}, \bibinfo{author}{Gustafson, L.},
-  \bibinfo{author}{Xiao, T.}, \bibinfo{author}{Whitehead, S.},
-  \bibinfo{author}{Berg, A.C.}, \bibinfo{author}{Lo, W.Y.},
-  \bibinfo{author}{Dollar, P.}, \bibinfo{author}{Girshick, R.},
-  \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Segment anything}, in:
-  \bibinfo{booktitle}{Proceedings of the IEEE/CVF International Conference on
-  Computer Vision (ICCV)}.
-%Type = Inproceedings
-\bibitem[{Lai et~al.(2024)Lai, Tian, Chen, Li, Yuan, Liu and Jia}]{lai2024lisa}
-\bibinfo{author}{Lai, X.}, \bibinfo{author}{Tian, Z.}, \bibinfo{author}{Chen,
-  Y.}, \bibinfo{author}{Li, Y.}, \bibinfo{author}{Yuan, Y.},
-  \bibinfo{author}{Liu, S.}, \bibinfo{author}{Jia, J.}, \bibinfo{year}{2024}.
-\newblock \bibinfo{title}{Lisa: Reasoning segmentation via large language
-  model}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference on
-  Computer Vision and Pattern Recognition (CVPR)}.
-%Type = Inproceedings
-\bibitem[{Lee et~al.(2025)Lee, Cho, Lee, Yang, Choi, Kim and
-  Lee}]{lee2025escnet}
-\bibinfo{author}{Lee, M.}, \bibinfo{author}{Cho, S.}, \bibinfo{author}{Lee,
-  J.}, \bibinfo{author}{Yang, S.}, \bibinfo{author}{Choi, H.},
-  \bibinfo{author}{Kim, I.J.}, \bibinfo{author}{Lee, S.}, \bibinfo{year}{2025}.
-\newblock \bibinfo{title}{Effective sam combination for open-vocabulary
-  semantic segmentation}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF
-  Conference on Computer Vision and Pattern Recognition (CVPR)}, pp.
-  \bibinfo{pages}{26081--26090}.
-%Type = Inproceedings
-\bibitem[{Liang et~al.(2023)Liang, Wu, Dai, Li, Zhao, Zhang, Zhang, Vajda and
-  Marculescu}]{liang2023ovseg}
-\bibinfo{author}{Liang, F.}, \bibinfo{author}{Wu, B.}, \bibinfo{author}{Dai,
-  X.}, \bibinfo{author}{Li, K.}, \bibinfo{author}{Zhao, Y.},
-  \bibinfo{author}{Zhang, H.}, \bibinfo{author}{Zhang, P.},
-  \bibinfo{author}{Vajda, P.}, \bibinfo{author}{Marculescu, D.},
-  \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Open-vocabulary semantic segmentation with
-  mask-adapted clip}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF
-  Conference on Computer Vision and Pattern Recognition (CVPR)}.
-%Type = Inproceedings
-\bibitem[{Luo et~al.(2024)Luo, Khandelwal, Sigal and Li}]{luo2024pnpovss}
-\bibinfo{author}{Luo, J.}, \bibinfo{author}{Khandelwal, S.},
-  \bibinfo{author}{Sigal, L.}, \bibinfo{author}{Li, B.}, \bibinfo{year}{2024}.
-\newblock \bibinfo{title}{Emergent open-vocabulary semantic segmentation from
-  off-the-shelf vision-language models}, in: \bibinfo{booktitle}{Proceedings of
-  the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}.
-%Type = Inproceedings
-\bibitem[{Rasheed et~al.(2024)Rasheed, Maaz, Shaji, Shaker, Khan, Cholakkal,
-  Anwer, Xing, Yang and Khan}]{rasheed2024glamm}
-\bibinfo{author}{Rasheed, H.}, \bibinfo{author}{Maaz, M.},
-  \bibinfo{author}{Shaji, S.}, \bibinfo{author}{Shaker, A.},
-  \bibinfo{author}{Khan, S.}, \bibinfo{author}{Cholakkal, H.},
-  \bibinfo{author}{Anwer, R.M.}, \bibinfo{author}{Xing, E.},
-  \bibinfo{author}{Yang, M.H.}, \bibinfo{author}{Khan, F.S.},
-  \bibinfo{year}{2024}.
-\newblock \bibinfo{title}{Glamm: Pixel grounding large multimodal model}, in:
-  \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference on Computer Vision
-  and Pattern Recognition (CVPR)}.
-%Type = Inproceedings
-\bibitem[{Shi et~al.(2025)Shi, Dong and Xu}]{shi2025trident}
-\bibinfo{author}{Shi, Y.}, \bibinfo{author}{Dong, M.}, \bibinfo{author}{Xu,
-  C.}, \bibinfo{year}{2025}.
-\newblock \bibinfo{title}{Harnessing vision foundation models for
-  high-performance, training-free open vocabulary segmentation}, in:
-  \bibinfo{booktitle}{Proceedings of the IEEE/CVF International Conference on
-  Computer Vision (ICCV)}, pp. \bibinfo{pages}{23487--23497}.
-%Type = Inproceedings
-\bibitem[{Xu et~al.(2023a)Xu, Liu, Vahdat, Byeon, Wang and
-  De~Mello}]{xu2023odise}
-\bibinfo{author}{Xu, J.}, \bibinfo{author}{Liu, S.}, \bibinfo{author}{Vahdat,
-  A.}, \bibinfo{author}{Byeon, W.}, \bibinfo{author}{Wang, X.},
-  \bibinfo{author}{De~Mello, S.}, \bibinfo{year}{2023}a.
-\newblock \bibinfo{title}{Open-vocabulary panoptic segmentation with
-  text-to-image diffusion models}, in: \bibinfo{booktitle}{Proceedings of the
-  IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}.
-%Type = Inproceedings
-\bibitem[{Xu et~al.(2023b)Xu, Zhang, Wei, Hu and Bai}]{xu2023san}
-\bibinfo{author}{Xu, M.}, \bibinfo{author}{Zhang, Z.}, \bibinfo{author}{Wei,
-  F.}, \bibinfo{author}{Hu, H.}, \bibinfo{author}{Bai, X.},
-  \bibinfo{year}{2023}b.
-\newblock \bibinfo{title}{Side adapter network for open-vocabulary semantic
-  segmentation}, in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference
-  on Computer Vision and Pattern Recognition (CVPR)}.
-%Type = Inproceedings
-\bibitem[{Zou et~al.(2023)Zou, Dou, Yang, Gan, Li, Li, Dai, Behl, Wang, Yuan,
-  Peng, Wang, Lee and Gao}]{zou2023xdecoder}
-\bibinfo{author}{Zou, X.}, \bibinfo{author}{Dou, Z.Y.}, \bibinfo{author}{Yang,
-  J.}, \bibinfo{author}{Gan, Z.}, \bibinfo{author}{Li, L.},
-  \bibinfo{author}{Li, C.}, \bibinfo{author}{Dai, X.}, \bibinfo{author}{Behl,
-  H.}, \bibinfo{author}{Wang, J.}, \bibinfo{author}{Yuan, L.},
-  \bibinfo{author}{Peng, N.}, \bibinfo{author}{Wang, L.}, \bibinfo{author}{Lee,
-  Y.J.}, \bibinfo{author}{Gao, J.}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Generalized decoding for pixel, image, and language},
-  in: \bibinfo{booktitle}{Proceedings of the IEEE/CVF Conference on Computer
-  Vision and Pattern Recognition (CVPR)}.
+\begin{thebibliography}{100}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{long2015fully}
+J.~Long, E.~Shelhamer, T.~Darrell, Fully convolutional networks for semantic
+  segmentation, in: Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR), 2015.
+
+\bibitem{he2017mask}
+K.~He, G.~Gkioxari, P.~Doll{\'a}r, R.~Girshick, Mask r-cnn, in: Proceedings of
+  the IEEE International Conference on Computer Vision (ICCV), 2017.
+
+\bibitem{kirillov2019panoptic}
+A.~Kirillov, K.~He, R.~Girshick, C.~Rother, P.~Doll{\'a}r, Panoptic
+  segmentation, in: Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition (CVPR), 2019.
+
+\bibitem{radford2021learning}
+A.~Radford, J.~W. Kim, C.~Hallacy, A.~Ramesh, G.~Goh, S.~Agarwal, G.~Sastry,
+  A.~Askell, P.~Mishkin, J.~Clark, G.~Krueger, I.~Sutskever, Learning
+  transferable visual models from natural language supervision, in: Proceedings
+  of the International Conference on Machine Learning (ICML), 2021.
+
+\bibitem{liang2023ovseg}
+F.~Liang, B.~Wu, X.~Dai, K.~Li, Y.~Zhao, H.~Zhang, P.~Zhang, P.~Vajda,
+  D.~Marculescu, Open-vocabulary semantic segmentation with mask-adapted clip,
+  in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR), 2023.
+
+\bibitem{xu2023san}
+M.~Xu, Z.~Zhang, F.~Wei, H.~Hu, X.~Bai, Side adapter network for
+  open-vocabulary semantic segmentation, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2023.
+
+\bibitem{xu2023odise}
+J.~Xu, S.~Liu, A.~Vahdat, W.~Byeon, X.~Wang, S.~De~Mello, Open-vocabulary
+  panoptic segmentation with text-to-image diffusion models, in: Proceedings of
+  the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR),
+  2023.
+
+\bibitem{xshanOpenvocabularySemanticSegmentation2024}
+X.~Shan, D.~Wu, G.~Zhu, Y.~Shao, Open-vocabulary semantic segmentation with
+  image embedding balancing, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{xwangUseUniversalSegment2024}
+X.~Wang, W.~He, X.~Xuan, C.~Sebastian, Use: Universal segment embeddings for
+  open-vocabulary image segmentation, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{shinhOpenvocabularySemanticSegmentation2024}
+H.~Shin, C.~Kim, S.~Hong, Towards open-vocabulary semantic segmentation without
+  semantic labels, in: Advances in Neural Information Processing Systems
+  (NeurIPS), 2024, pp. 9153--9177.
+
+\bibitem{yxchngAligningVisionLanguageModel2026}
+Y.~X. Chng, X.~Qiu, Y.~Han, K.~Ding, Aligning vision-language model with
+  fine-grained semantics for open-vocabulary segmentation, in: Proceedings of
+  the International Conference on Learning Representations (ICLR), 2026.
+
+\bibitem{kirillov2023sam}
+A.~Kirillov, E.~Mintun, N.~Ravi, H.~Mao, C.~Rolland, L.~Gustafson, T.~Xiao,
+  S.~Whitehead, A.~C. Berg, W.-Y. Lo, P.~Dollar, R.~Girshick, Segment anything,
+  in: Proceedings of the IEEE/CVF International Conference on Computer Vision
+  (ICCV), 2023.
+
+\bibitem{ravi2024sam2}
+N.~Ravi, V.~Gabeur, Y.-T. Hu, R.~Hu, C.~Ryali, T.~Ma, H.~Khedr, R.~R{\"a}dle,
+  C.~Rolland, L.~Gustafson, E.~Mintun, J.~Pan, K.~V. Alwala, N.~Carion, C.-Y.
+  Wu, R.~Girshick, P.~Doll{\'a}r, C.~Feichtenhofer, Sam 2: Segment anything in
+  images and videos, arXiv preprint arXiv:2408.00714 (2024).
+
+\bibitem{hwangXSAMSegmentAnything2026}
+H.~Wang, L.~Qiao, Z.~Jie, Z.~Huang, C.~Feng, X-sam: From segment anything to
+  any segmentation, in: Proceedings of the AAAI Conference on Artificial
+  Intelligence (AAAI), Vol.~40, 2026.
+
+\bibitem{sgxiaoOpenworldsamExtendingSam22026}
+S.~Xiao, R.~Kabra, Y.~Li, D.~Lee, J.~Carreira, P.~Panda,
+  \href{https://neurips.cc/virtual/2025/poster/116847}{Openworldsam: Extending
+  sam2 for universal image segmentation with language prompts}, in: Advances in
+  Neural Information Processing Systems 38 (NeurIPS), 2025.
+\newline\urlprefix\url{https://neurips.cc/virtual/2025/poster/116847}
+
+\bibitem{xuPixelalignedLanguageModel2024}
+J.~Xu, X.~Zhou, S.~Yan, X.~Gu, A.~Arnab, Pixel-aligned language model, in:
+  Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR), 2024.
+
+\bibitem{zhangLlavagroundingGroundedVisual2024}
+H.~Zhang, H.~Li, F.~Li, T.~Ren, X.~Zou, S.~Liu, Llava-grounding: Grounded
+  visual chat with large multimodal models, in: Proceedings of the European
+  Conference on Computer Vision (ECCV), 2024.
+
+\bibitem{youFerretReferGround2024}
+H.~You, H.~Zhang, Z.~Gan, X.~Du, B.~Zhang, Ferret: Refer and ground anything
+  anywhere at any granularity, in: Proceedings of the International Conference
+  on Learning Representations (ICLR), 2024.
+
+\bibitem{rasheedGlammPixelGrounding2024}
+H.~Rasheed, M.~Maaz, S.~Shaji, Glamm: Pixel grounding large multimodal model,
+  in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR), 2024.
+
+\bibitem{lai2024lisa}
+X.~Lai, Z.~Tian, Y.~Chen, Y.~Li, Y.~Yuan, S.~Liu, J.~Jia, Lisa: Reasoning
+  segmentation via large language model, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{renPixellmPixelReasoning2024}
+Z.~Ren, Z.~Huang, Y.~Wei, Y.~Zhao, D.~Fu, Pixellm: Pixel reasoning with large
+  multimodal model, in: Proceedings of the IEEE/CVF Conference on Computer
+  Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{rasheed2024glamm}
+H.~Rasheed, M.~Maaz, S.~Shaji, A.~Shaker, S.~Khan, H.~Cholakkal, R.~M. Anwer,
+  E.~Xing, M.-H. Yang, F.~S. Khan, Glamm: Pixel grounding large multimodal
+  model, in: Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR), 2024.
+
+\bibitem{luoConnectingDotsTrainingFree2026}
+L.~Luo, G.~Chen, X.~Zheng, Y.~Dai, Y.~Zou, Connecting the dots: Training-free
+  visual grounding via agentic reasoning, in: Proceedings of the AAAI
+  Conference on Artificial Intelligence (AAAI), 2026.
+
+\bibitem{zhuLensLearningSegment2026}
+L.~Zhu, B.~Ouyang, Y.~Zhang, T.~Cheng, R.~Hu, Lens: Learning to segment
+  anything with unified reinforced reasoning, in: Proceedings of the AAAI
+  Conference on Artificial Intelligence (AAAI), Vol.~40, 2026.
+
+\bibitem{zhouReasoningImplicitSelfsupervised2026}
+Q.~Zhou, L.~Yang, Y.~Jia, J.~Gao, W.~Ni, J.~Wu, Q.~Wang, Reasoning via implicit
+  self-supervised emergence for instruction segmentation, in: Proceedings of
+  the AAAI Conference on Artificial Intelligence (AAAI), Vol.~40, 2026.
+
+\bibitem{guoSeeingBelievingRichContext2026}
+P.~Guo, C.~Wu, X.~Zhou, L.~Hong, Z.~Chen, J.~Li, Seeing is believing:
+  Rich-context hallucination detection for mllms via backward visual grounding,
+  in: Proceedings of the AAAI Conference on Artificial Intelligence (AAAI),
+  Vol.~40, 2026.
+
+\bibitem{xuVideosegr1ReasoningVideo2026}
+Z.~Xu, Y.~Guo, Y.~Lu, F.~Yang, J.~Li, L.~Cai, Videoseg-r1: reasoning video
+  object segmentation via reinforcement learning, in: Proceedings of the AAAI
+  Conference on Artificial Intelligence (AAAI), 2026.
+
+\bibitem{chen3DDRESDetailed3D2026}
+Q.~Chen, C.~Wu, J.~Ji, Y.~Ma, L.~Cao, 3d-dres: Detailed 3d referring expression
+  segmentation, in: Proceedings of the AAAI Conference on Artificial
+  Intelligence (AAAI), Vol.~40, 2026.
+
+\bibitem{libExploringEfficientOpenvocabulary2026}
+B.~Li, H.~Dong, D.~Zhang, Exploring efficient open-vocabulary segmentation in
+  the remote sensing, in: Proceedings of the AAAI Conference on Artificial
+  Intelligence (AAAI), Vol.~40, 2026, pp. 5982--5991.
+
+\bibitem{yanMedreasonerReinforcementLearning2026}
+Z.~Yan, M.~Diao, Y.~Yang, R.~Jing, J.~Xu, K.~Zhang, Medreasoner: Reinforcement
+  learning drives reasoning grounding from clinical thought to pixel-level
+  precision, in: Proceedings of the AAAI Conference on Artificial Intelligence
+  (AAAI), 2026.
+
+\bibitem{wangAffordancer1ReinforcementLearning2026}
+H.~Wang, S.~Wang, Y.~Zhong, Z.~Yang, J.~Wang, Affordance-r1: Reinforcement
+  learning for generalizable affordance reasoning in multimodal large language
+  models, in: Proceedings of the AAAI Conference on Artificial Intelligence
+  (AAAI), Vol.~40, 2026.
+
+\bibitem{hhuangRenovatingNamesOpenvocabulary2024}
+H.~Huang, S.~Peng, D.~Zhang, Renovating names in open-vocabulary segmentation
+  benchmarks, in: Advances in Neural Information Processing Systems (NeurIPS),
+  2024.
+
+\bibitem{xhanBoostingSegmentAnything2025}
+X.~Han, L.~Wei, X.~Yu, Z.~Dou, X.~He, K.~Wang, Boosting segment anything model
+  towards open-vocabulary learning, in: Proceedings of the AAAI Conference on
+  Artificial Intelligence (AAAI), Vol.~39, 2025.
+
+\bibitem{zhuPopenPreferencebasedOptimization2025}
+L.~Zhu, T.~Chen, Q.~Xu, X.~Liu, D.~Ji, Popen: Preference-based optimization and
+  ensemble for lvlm-based reasoning segmentation, in: Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{yangExploringCLIPsDense2025}
+Z.~Yang, Y.~Meng, K.~Fu, F.~Tang, Exploring clip's dense knowledge for weakly
+  supervised semantic segmentation, in: Proceedings of the IEEE/CVF Conference
+  on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{lee2025escnet}
+M.~Lee, S.~Cho, J.~Lee, S.~Yang, H.~Choi, I.-J. Kim, S.~Lee, Effective sam
+  combination for open-vocabulary semantic segmentation, in: Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025,
+  pp. 26081--26090.
+
+\bibitem{xlaiLisaReasoningSegmentation2024}
+X.~Lai, Z.~Tian, Y.~Chen, Y.~Li, Y.~Yuan, S.~Liu, J.~Jia, Lisa: Reasoning
+  segmentation via large language model, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{luo2024pnpovss}
+J.~Luo, S.~Khandelwal, L.~Sigal, B.~Li, Emergent open-vocabulary semantic
+  segmentation from off-the-shelf vision-language models, in: Proceedings of
+  the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR),
+  2024.
+
+\bibitem{xiaoOnerefUnifiedOnetower2024}
+L.~Xiao, X.~Yang, F.~Peng, Y.~Wang, Oneref: Unified one-tower expression
+  grounding and segmentation with mask referring modeling, in: Advances in
+  Neural Information Processing Systems (NeurIPS), 2024.
+
+\bibitem{zhangOmgllavaBridgingImagelevel2024}
+T.~Zhang, X.~Li, H.~Fei, H.~Yuan, et~al., Omg-llava: Bridging image-level,
+  object-level, pixel-level reasoning and understanding, in: Advances in Neural
+  Information Processing Systems (NeurIPS), 2024.
+
+\bibitem{huangPixelsLogicPerceptionReasoning2026}
+L.~Huang, S.~Zhong, Z.~Zhang, Y.~Liu, From pixels to logic: A
+  perception-reasoning decomposition framework for open-world referring
+  expression comprehension, in: Proceedings of the AAAI Conference on
+  Artificial Intelligence (AAAI), Vol.~40, 2026.
+
+\bibitem{sikdarPicazoPixelalignedContrastive2025}
+A.~Sikdar, A.~Kishor, I.~Kadam, Picazo: Pixel-aligned contrastive learning for
+  zero-shot domain adaptation, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{yanTaskPreferenceOptimization2025}
+Z.~Yan, Z.~Li, Y.~He, C.~Wang, K.~Li, X.~Li, Task preference optimization:
+  Improving multimodal large language models with vision task alignment, in:
+  Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR), 2025.
+
+\bibitem{huGroundingSuiteMeasuringComplex2025}
+R.~Hu, L.~Zhu, Y.~Zhang, T.~Cheng, L.~Liu, Groundingsuite: Measuring complex
+  multi-granular pixel grounding, in: Proceedings of the IEEE/CVF International
+  Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{vvatsGuidelineConsistentSegmentationMultiAgent2026}
+V.~Vats, A.~Rathee, J.~Davis, Guideline-consistent segmentation via multi-agent
+  refinement, in: Proceedings of the AAAI Conference on Artificial Intelligence
+  (AAAI), Vol.~40, 2026.
+
+\bibitem{everingham2015pascal}
+M.~Everingham, S.~M.~A. Eslami, L.~Van~Gool, C.~K.~I. Williams, J.~Winn,
+  A.~Zisserman, The pascal visual object classes challenge: A retrospective,
+  International Journal of Computer Vision 111~(1) (2015) 98--136.
+
+\bibitem{lin2014microsoft}
+T.-Y. Lin, M.~Maire, S.~Belongie, J.~Hays, P.~Perona, D.~Ramanan, P.~Dollar,
+  C.~L. Zitnick, Microsoft coco: Common objects in context, in: Proceedings of
+  the European Conference on Computer Vision (ECCV), 2014, pp. 740--755.
+
+\bibitem{caesar2018cocostuff}
+H.~Caesar, J.~Uijlings, V.~Ferrari, Coco-stuff: Thing and stuff classes in
+  context, in: Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR), 2018, pp. 1209--1218.
+
+\bibitem{zhou2017scene}
+B.~Zhou, H.~Zhao, X.~Puig, S.~Fidler, A.~Barriuso, A.~Torralba, Scene parsing
+  through ade20k dataset, in: Proceedings of the IEEE Conference on Computer
+  Vision and Pattern Recognition (CVPR), 2017, pp. 633--641.
+
+\bibitem{cordts2016cityscapes}
+M.~Cordts, M.~Omran, S.~Ramos, T.~Rehfeld, M.~Enzweiler, R.~Benenson,
+  U.~Franke, S.~Roth, B.~Schiele, The cityscapes dataset for semantic urban
+  scene understanding, in: Proceedings of the IEEE Conference on Computer
+  Vision and Pattern Recognition (CVPR), 2016, pp. 3213--3223.
+
+\bibitem{noorimTesttimeAdaptationVisionlanguage2026}
+M.~Noori, D.~Osowiechi, G.~A. Vargas~Hakim, A.~Bahri, M.~Yazdanpanah,
+  S.~Dastani, F.~Beizaee, I.~Ben~Ayed, C.~Desrosiers,
+  \href{https://proceedings.neurips.cc/paper_files/paper/2025/hash/6c5b82193c5d8e6aa5806239676ddc97-Abstract-Conference.html}{Test-time
+  adaptation of vision-language models for open-vocabulary semantic
+  segmentation}, in: Advances in Neural Information Processing Systems 38
+  (NeurIPS), 2025.
+\newline\urlprefix\url{https://proceedings.neurips.cc/paper_files/paper/2025/hash/6c5b82193c5d8e6aa5806239676ddc97-Abstract-Conference.html}
+
+\bibitem{ybenigmimFlossFreeLunch2025}
+Y.~Benigmim, M.~Fahes, T.~Vu, et~al., Floss: Free lunch in open-vocabulary
+  semantic segmentation, in: Proceedings of the IEEE/CVF International
+  Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{kazemzadeh2014referitgame}
+S.~Kazemzadeh, V.~Ordonez, M.~Matten, T.~L. Berg, Referitgame: Referring to
+  objects in photographs of natural scenes, in: Proceedings of the 2014
+  Conference on Empirical Methods in Natural Language Processing (EMNLP), 2014,
+  pp. 787--798.
+
+\bibitem{yu2016modeling}
+L.~Yu, P.~Poirson, S.~Yang, A.~C. Berg, T.~L. Berg, Modeling context in
+  referring expressions, in: Proceedings of the European Conference on Computer
+  Vision (ECCV), 2016, pp. 69--85.
+
+\bibitem{mao2016generation}
+J.~Mao, J.~Huang, A.~Toshev, O.~Camburu, A.~L. Yuille, K.~Murphy, Generation
+  and comprehension of unambiguous object descriptions, in: Proceedings of the
+  IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2016, pp.
+  11--20.
+
+\bibitem{chngMaskGroundingReferring2024}
+Y.~Chng, H.~Zheng, Y.~Han, X.~Qiu, Mask grounding for referring image
+  segmentation, in: Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition (CVPR), 2024.
+
+\bibitem{jwangLlmsegBridgingImage2024}
+J.~Wang, L.~Ke, Llm-seg: Bridging image segmentation and large language model
+  reasoning, in: Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR), 2024.
+
+\bibitem{atharVicasDatasetCombining2025}
+A.~Athar, X.~Deng, L.~Chen, Vicas: A dataset for combining holistic and
+  pixel-level video understanding using captions with grounded segmentation,
+  in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR), 2025.
+
+\bibitem{munasingheVideoglammLargeMultimodal2025}
+S.~Munasinghe, H.~Gani, W.~Zhu, J.~Cao, Videoglamm: A large multimodal model
+  for pixel-level visual grounding in videos, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{baiOneTokenSeg2024}
+Z.~Bai, T.~He, H.~Mei, P.~Wang, Z.~G. in, et~al., One token to seg them all:
+  Language instructed reasoning segmentation in videos, in: Advances in Neural
+  Information Processing Systems (NeurIPS), 2024.
+
+\bibitem{sunSamaMultiturnReferential2026}
+Y.~Sun, H.~Zhang, H.~Ding, T.~Zhang, X.~Ma, Y.-G. Jiang,
+  \href{https://nips.cc/virtual/2025/poster/117034}{Sama: Towards multi-turn
+  referential grounded video chat with large language models}, in: Advances in
+  Neural Information Processing Systems 38 (NeurIPS), 2025.
+\newline\urlprefix\url{https://nips.cc/virtual/2025/poster/117034}
+
+\bibitem{yeRISLADBenchmarkModel2026}
+K.~Ye, Y.~Luan, Z.~Chen, G.~Meng, P.~Dai, Ris-lad: A benchmark and model for
+  referring image segmentation in low-altitude drone imagery, in: Proceedings
+  of the AAAI Conference on Artificial Intelligence (AAAI), Vol.~40, 2026.
+
+\bibitem{quenumLisatLanguageinstructedSegmentation2026}
+J.~Quenum, W.-H. Hsieh, T.-H. Wu, R.~Gupta, T.~Darrell, D.~M. Chan,
+  \href{https://nips.cc/virtual/2025/poster/121596}{Lisat: Language-instructed
+  segmentation assistant for satellite imagery}, in: Advances in Neural
+  Information Processing Systems 38 (NeurIPS), 2025.
+\newline\urlprefix\url{https://nips.cc/virtual/2025/poster/121596}
+
+\bibitem{huangSurprise3dDatasetSpatial2026}
+J.~Huang, Z.~Li, H.~Zhang, R.~Chen, Z.~Gao, X.~He, Y.~Guo, W.~Wang, T.~Liu,
+  M.~Gong,
+  \href{https://neurips.cc/virtual/2025/loc/san-diego/poster/121718}{Surprise3d:
+  A dataset for spatial understanding and reasoning in complex 3d scenes}, in:
+  Advances in Neural Information Processing Systems 38 (NeurIPS), 2025.
+\newline\urlprefix\url{https://neurips.cc/virtual/2025/loc/san-diego/poster/121718}
+
+\bibitem{xxuanReMEDataCentricFramework2025}
+X.~Xuan, Z.~Deng, K.~Ma, et~al., Reme: A data-centric framework for
+  training-free open-vocabulary segmentation, in: Proceedings of the IEEE/CVF
+  International Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{shiyHarnessingVisionFoundation2025}
+Y.~Shi, M.~Dong, C.~Xu, Harnessing vision foundation models for
+  high-performance, training-free open vocabulary segmentation, in: Proceedings
+  of the IEEE/CVF International Conference on Computer Vision (ICCV), 2025, pp.
+  23487--23497.
+
+\bibitem{xiaGsvaGeneralizedSegmentation2024}
+Z.~Xia, D.~Han, Y.~Han, X.~Pan, S.~Song, Gsva: Generalized segmentation via
+  multimodal large language models, in: Proceedings of the IEEE/CVF Conference
+  on Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{zhangGroundhogGroundingLarge2024}
+Y.~Zhang, Z.~Ma, X.~Gao, S.~Shakiah, Groundhog: Grounding large language models
+  to holistic segmentation, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{yuanOspreyPixelUnderstanding2024}
+Y.~Yuan, W.~Li, J.~Liu, D.~Tang, X.~Luo, Osprey: Pixel understanding with
+  visual instruction tuning, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{liangReferdinoReferringVideo2025}
+T.~Liang, K.~Lin, C.~Tan, J.~Zhang, Referdino: Referring video object
+  segmentation with visual grounding foundations, in: Proceedings of the
+  IEEE/CVF International Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{zpengParameterefficientFinetuningHyperspherical2025}
+Z.~Peng, Z.~Xu, Z.~Zeng, Y.~Huang, et~al., Parameter-efficient fine-tuning in
+  hyperspherical space for open-vocabulary semantic segmentation, in:
+  Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR), 2025.
+
+\bibitem{yliMaskadapterDevilMasks2025}
+Y.~Li, T.~Cheng, B.~Feng, W.~Liu, et~al., Mask-adapter: The devil is in the
+  masks for open-vocabulary segmentation, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{zzhaoDPSegDualpromptCost2025}
+X.~Zhao, D.~Sheng, Z.~Tan, Z.~Zhao, T.~Gong, Dpseg: dual-prompt cost volume
+  learning for open-vocabulary semantic segmentation, in: Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{joseDinov2MeetsText2025}
+C.~Jose, T.~Moutakanni, D.~Kang, Dinov2 meets text: A unified framework for
+  image-and pixel-level vision-language alignment, in: Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{gejCLIPAdaptedRegiontoTextLearning2025}
+J.~Ge, L.~Xie, H.~Xie, Clip-adapted region-to-text learning for generative
+  open-vocabulary semantic segmentation, in: Proceedings of the IEEE/CVF
+  International Conference on Computer Vision (ICCV), 2025, pp. 24034--24044.
+
+\bibitem{maaydinItaclipBoostingTrainingfree2025}
+M.~Aydn, E.~Crpar, E.~Abdinli, et~al., Itaclip: Boosting training-free semantic
+  segmentation with image, text, and architectural enhancements, in:
+  Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR), 2025.
+
+\bibitem{lsunCliperHierarchicallyImproving2025}
+L.~Sun, J.~Cao, J.~Xie, X.~Jiang, et~al., Cliper: Hierarchically improving
+  spatial representation of clip for open-vocabulary semantic segmentation, in:
+  Proceedings of the IEEE/CVF International Conference on Computer Vision
+  (ICCV), 2025.
+
+\bibitem{dzhangCorrclipReconstructingPatch2025}
+D.~Zhang, F.~Liu, Q.~Tang, et~al., Corrclip: Reconstructing patch correlations
+  in clip for open-vocabulary semantic segmentation, in: Proceedings of the
+  IEEE/CVF International Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{rqorbaniSemanticLibraryAdaptation2025}
+R.~Qorbani, G.~Villani, et~al., Semantic library adaptation: Lora retrieval and
+  fusion for open-vocabulary semantic segmentation, in: Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{yliuSteppingOutSimilar2025}
+Y.~Liu, S.~Wu, S.~Bai, J.~Wang, et~al., Stepping out of similar semantic space
+  for open-vocabulary segmentation, in: Proceedings of the IEEE/CVF Conference
+  on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{sduttaAerosegHarnessingSam2025}
+S.~Dutta, A.~Vasim, S.~Gole, et~al., Aeroseg: Harnessing sam for
+  open-vocabulary segmentation in remote sensing images, in: Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{huangZoRIDiscriminativeZeroshot2025}
+S.~Huang, S.~He, B.~Wen, Zori: Towards discriminative zero-shot remote sensing
+  instance segmentation, in: Proceedings of the AAAI Conference on Artificial
+  Intelligence (AAAI), Vol.~39, 2025.
+
+\bibitem{zhaoOpenvocabularyRGBThermalSemantic2024}
+G.~Zhao, J.~Huang, X.~Yan, Z.~Wang, J.~Tang, Y.~Ou, Open-vocabulary rgb-thermal
+  semantic segmentation, in: Proceedings of the European Conference on Computer
+  Vision (ECCV), 2024.
+
+\bibitem{mleeEffectiveSAMCombination2025}
+M.~Lee, S.~Cho, J.~Lee, S.~Yang, H.~Choi, et~al., Effective sam combination for
+  open-vocabulary semantic segmentation, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{ymiaoLanghopsLanguageGrounded2026}
+Y.~Miao, J.~N. Zaech, X.~Wang,
+  \href{https://arxiv.org/abs/2510.25263}{Langhops: Language grounded
+  hierarchical open-vocabulary part segmentation}, in: Advances in Neural
+  Information Processing Systems 38 (NeurIPS), 2025.
+\newline\urlprefix\url{https://arxiv.org/abs/2510.25263}
+
+\bibitem{dengCoconutpancapJointPanoptic2026}
+X.~Deng, L.~Yang, Q.~Yu, A.~Athar, C.~Yang, X.~Jin, X.~Shen, L.-C. Chen,
+  \href{https://proceedings.neurips.cc/paper_files/paper/2025/file/528470fcd715697580bc06a16f4129fd-Paper-Datasets_and_Benchmarks_Track.pdf}{Coconut-pancap:
+  Joint panoptic segmentation and grounded captions for fine-grained
+  understanding and generation}, in: Advances in Neural Information Processing
+  Systems 38 (NeurIPS), 2025.
+\newline\urlprefix\url{https://proceedings.neurips.cc/paper_files/paper/2025/file/528470fcd715697580bc06a16f4129fd-Paper-Datasets_and_Benchmarks_Track.pdf}
+
+\bibitem{dukangClassDistributioninducedAttention2025}
+D.~Kang, H.~Kim, S.~Chun, et~al., Class distribution-induced attention map for
+  open-vocabulary semantic segmentations, in: Proceedings of the International
+  Conference on Learning Representations (ICLR), 2025.
+
+\bibitem{sjinFeaturePurificationMatters2025}
+S.~Jin, S.~Yu, B.~Zhang, M.~Sun, et~al., Feature purification matters:
+  Suppressing outlier propagation for training-free open-vocabulary semantic
+  segmentation, in: Proceedings of the IEEE/CVF International Conference on
+  Computer Vision (ICCV), 2025.
+
+\bibitem{qchenTrainingFreeClassPurification2025}
+Q.~Chen, L.~Yang, Y.~Chen, N.~Zhao, et~al., Training-free class purification
+  for open-vocabulary semantic segmentation, in: Proceedings of the IEEE/CVF
+  International Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{liuEfficientFoundationModel2025}
+Z.~Liu, L.~Qiao, X.~Chu, L.~Ma, Towards efficient foundation model for
+  zero-shot amodal segmentation, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{huangFocsamDelvingDeeply2024}
+Y.~Huang, Z.~Lan, L.~Cao, X.~Lin, Focsam: Delving deeply into focused objects
+  in segmenting anything, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{huangInter2FormerDynamicHybrid2025}
+Y.~Huang, L.~Chen, J.~Ji, L.~Cao, Inter2former: Dynamic hybrid attention for
+  efficient high-precision interactive segmentation, in: Proceedings of the
+  IEEE/CVF International Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{liu2024groundingdino}
+S.~Liu, Z.~Zeng, T.~Ren, F.~Li, H.~Zhang, J.~Yang, Q.~Jiang, C.~Li, J.~Yang,
+  H.~Su, J.~Zhu, L.~Zhang, Grounding dino: Marrying dino with grounded
+  pre-training for open-set object detection, in: Proceedings of the European
+  Conference on Computer Vision (ECCV), 2024, pp. 38--55.
+
+\bibitem{zhouThinkYouSegment2026}
+J.~Zhou, Y.~Zhou, M.~Han, T.~Wang, X.~Chang, Think before you segment: An
+  object-aware reasoning agent for referring audio-visual segmentation, in:
+  Proceedings of the AAAI Conference on Artificial Intelligence (AAAI),
+  Vol.~40, 2026.
+
+\bibitem{huangUnleashingTemporalspatialReasoning2025}
+S.~Huang, R.~Ling, H.~Li, T.~Hui, Z.~Tang, X.~Wei, Unleashing the
+  temporal-spatial reasoning capacity of gpt for training-free audio and
+  language referenced video object segmentation, in: Proceedings of the AAAI
+  Conference on Artificial Intelligence (AAAI), Vol.~39, 2025.
+
+\bibitem{cuttanoSamwiseInfusingWisdom2025}
+C.~Cuttano, G.~Trivigno, G.~Rosi, Samwise: Infusing wisdom in sam2 for
+  text-driven video segmentation, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{cshangPromptdrivenReferringImage2024}
+C.~Shang, Z.~Song, H.~Qiu, L.~Wang, et~al., Prompt-driven referring image
+  segmentation with instance contrasting, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{daiCurriculumPointPrompting2024}
+Q.~Dai, S.~Yang, Curriculum point prompting for weakly-supervised referring
+  image segmentation, in: Proceedings of the IEEE/CVF Conference on Computer
+  Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{caoReferAnySegmentation2025}
+S.~Cao, Z.~Wei, J.~Kuen, K.~Liu, L.~Zhang, Refer to any segmentation mask group
+  with vision-language prompts, in: Proceedings of the IEEE/CVF International
+  Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{pengGroundingMultimodalLarge2024}
+Z.~Peng, W.~Wang, L.~Dong, Y.~Hao, Grounding multimodal large language models
+  to the world, in: Proceedings of the International Conference on Learning
+  Representations (ICLR), 2024.
+
+\bibitem{grosiShowTellBenchmark2025}
+G.~Rosi, F.~Cermelli, Show or tell- a benchmark to evaluate visual and textual
+  prompts in semantic segmentation, in: Proceedings of the IEEE/CVF Conference
+  on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{tangVisualPositionPrompt2026}
+W.~Tang, Y.~Sun, Q.~Gu, Z.~Li, Visual position prompt for mllm based visual
+  grounding, IEEE Transactions on Multimedia (2026).
+
+\bibitem{yangRepurposingSAMEfficient2026}
+X.~Yang, X.~Gong, Re-purposing sam into efficient visual projectors for
+  mllm-based referring image segmentation, IEEE Transactions on Multimedia
+  (2026).
+
+\bibitem{wangIterprimeZeroshotReferring2025}
+Y.~Wang, J.~Ni, Y.~Liu, C.~Yuan, Y.~Tang, Iterprime: Zero-shot referring image
+  segmentation with iterative grad-cam refinement and primary word emphasis,
+  in: Proceedings of the AAAI Conference on Artificial Intelligence (AAAI),
+  Vol.~39, 2025.
+
+\bibitem{wangSam2loveSegmentAnything2025}
+Y.~Wang, H.~Xu, Y.~Liu, J.~Li, Sam2-love: Segment anything model 2 in
+  language-aided audio-visual scenes, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{liuHybridGloballocalRepresentation2025}
+T.~Liu, S.~Li, Hybrid global-local representation with augmented spatial
+  guidance for zero-shot referring image segmentation, in: Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{qianReasoningAttendTry2025}
+R.~Qian, X.~Yin, D.~Dou, et~al., Reasoning to attend: Try to understand
+  how\textless seg\textgreater token works, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{feiVitronUnifiedPixellevel2024}
+H.~Fei, S.~Wu, H.~Zhang, T.~Chua, Vitron: A unified pixel-level vision llm for
+  understanding, generating, segmenting, editing, in: Advances in Neural
+  Information Processing Systems (NeurIPS), 2024.
+
+\bibitem{liuUnipixelUnifiedObject2026}
+Y.~Liu, Z.~Ma, J.~Pu, Z.~Qi, Y.~Wu, Y.~Shan, C.~W. Chen,
+  \href{https://arxiv.org/abs/2509.18094}{Unipixel: Unified object referring
+  and segmentation for pixel-level visual reasoning}, in: Advances in Neural
+  Information Processing Systems 38 (NeurIPS), 2025.
+\newline\urlprefix\url{https://arxiv.org/abs/2509.18094}
+
+\bibitem{wangAltoAdaptivelengthTokenizer2026}
+L.~Wang, H.~Lin, S.~Chen, T.~Wang, C.~Cheng, Y.~Zhong, D.~Zheng, W.~Zhao,
+  \href{https://proceedings.neurips.cc/paper_files/paper/2025/hash/17a9ab4190289f0e1504bbb98d1d111a-Abstract-Conference.html}{Alto:
+  Adaptive-length tokenizer for autoregressive mask generation}, in: Advances
+  in Neural Information Processing Systems 38 (NeurIPS), 2025.
+\newline\urlprefix\url{https://proceedings.neurips.cc/paper_files/paper/2025/hash/17a9ab4190289f0e1504bbb98d1d111a-Abstract-Conference.html}
+
+\bibitem{zongGroundvTeachingVlms2025}
+Y.~Zong, Q.~Zhang, D.~An, Z.~Li, X.~Xu, Ground-v: Teaching vlms to ground
+  complex instructions in pixels, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2025.
+
+\bibitem{weiInstructsegUnifyingInstructed2025}
+C.~Wei, Y.~Zhong, H.~Tan, Y.~Zeng, Y.~Liu, Instructseg: Unifying instructed
+  visual segmentation with multi-modal large language models, in: Proceedings
+  of the IEEE/CVF International Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{jangMmrLargescaleBenchmark2025}
+D.~Jang, Y.~Cho, S.~Lee, T.~Kim, D.-S. Kim,
+  \href{https://proceedings.iclr.cc/paper_files/paper/2025/hash/a8661ab3440964c27794607f0ea73624-Abstract-Conference.html}{Mmr:
+  A large-scale benchmark dataset for multi-target and multi-granularity
+  reasoning segmentation}, in: Proceedings of the International Conference on
+  Learning Representations (ICLR), 2025.
+\newline\urlprefix\url{https://proceedings.iclr.cc/paper_files/paper/2025/hash/a8661ab3440964c27794607f0ea73624-Abstract-Conference.html}
+
+\bibitem{ningEnhancingSpatialReasoning2025}
+Z.~Ning, Z.~Tian, S.~Shi, G.~Lu, D.~He, Enhancing spatial reasoning in
+  multimodal large language models through reasoning-based segmentation, in:
+  Proceedings of the IEEE/CVF International Conference on Computer Vision
+  (ICCV), 2025.
+
+\bibitem{huangSamr1LeveragingSam2026}
+J.~Huang, Z.~Xu, J.~Zhou, T.~Liu, Y.~Xiao, M.~Ou, B.~Ji, X.~Li, K.~Yuan,
+  \href{https://arxiv.org/abs/2505.22596}{Sam-r1: Leveraging sam for reward
+  feedback in multimodal segmentation via reinforcement learning}, arXiv
+  preprint arXiv:2505.22596 (2025).
+\newline\urlprefix\url{https://arxiv.org/abs/2505.22596}
+
+\bibitem{wuSeeSaySegment2024}
+T.~H. Wu, G.~Biamby, D.~Chan, L.~Dunlap, See say and segment: Teaching lmms to
+  overcome false premises, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{shenFinegrainedPreferenceOptimization2026}
+Y.~Shen, Y.~Liu, J.~Zhu, X.~Cao, X.~Zhang, Y.~He, W.~Ye, J.~M. Rehg,
+  I.~Lourentzou,
+  \href{https://papers.neurips.cc/paper_files/paper/2025/file/1a17a06de88cf77f25cda0da91615a54-Paper-Conference.pdf}{Fine-grained
+  preference optimization improves spatial reasoning in vlms}, in: Advances in
+  Neural Information Processing Systems 38 (NeurIPS), 2025.
+\newline\urlprefix\url{https://papers.neurips.cc/paper_files/paper/2025/file/1a17a06de88cf77f25cda0da91615a54-Paper-Conference.pdf}
+
+\bibitem{zhengVillaVideoReasoning2025}
+R.~Zheng, L.~Qi, X.~Chen, Y.~Wang, Villa: Video reasoning segmentation with
+  large language model, in: Proceedings of the IEEE/CVF International
+  Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{yingOmnimodalExpressionsReasoning2025}
+K.~Ying, H.~Ding, G.~Jie, Y.~G. Jiang, Towards omnimodal expressions and
+  reasoning in referring audio-visual segmentation, in: Proceedings of the
+  IEEE/CVF International Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{zhongOmnir1ReinforcementLearning2026}
+H.~Zhong, M.~Zhu, Z.~Du, Z.~Huang, C.~Zhao, M.~Liu, W.~Wang, H.~Chen, C.~Shen,
+  \href{https://arxiv.org/abs/2505.20256}{Omni-r1: Reinforcement learning for
+  omnimodal reasoning via two-system collaboration}, arXiv preprint
+  arXiv:2505.20256 (2025).
+\newline\urlprefix\url{https://arxiv.org/abs/2505.20256}
+
+\bibitem{jianglOpenvocabulary3dSemantic2024}
+L.~Jiang, S.~Shi, B.~Schiele, Open-vocabulary 3d semantic segmentation with
+  foundation models, in: Proceedings of the IEEE/CVF Conference on Computer
+  Vision and Pattern Recognition (CVPR), 2024, pp. 21284--21294.
+
+\bibitem{yyinSai3dSegmentAny2024}
+Y.~Yin, Y.~Liu, Y.~Xiao, D.~Cohen-Or, et~al., Sai3d: Segment any instance in 3d
+  scenes, in: Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR), 2024.
+
+\bibitem{zwangXmask3dCrossmodalMask2024}
+Z.~Wang, Y.~Wang, X.~Yu, J.~Zhou, Xmask3d: Cross-modal mask reasoning for open
+  vocabulary 3d semantic segmentation, in: Advances in Neural Information
+  Processing Systems (NeurIPS), 2024.
+
+\bibitem{mzhouOV3DCGOpenvocabulary3D2025}
+M.~Zhou, C.~He, R.~Wang, X.~Chen, et~al., Ov3d-cg: Open-vocabulary 3d instance
+  segmentation with contextual guidance, in: Proceedings of the IEEE/CVF
+  International Conference on Computer Vision (ICCV), 2025.
+
+\bibitem{kuckrejaGeochatGroundedLarge2024}
+K.~Kuckreja, M.~Danish, M.~Naseer, Geochat: Grounded large vision-language
+  model for remote sensing, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{chenMIMOMedicalVision2025}
+Y.~Chen, D.~Xu, Y.~Huang, S.~Zhan, Mimo: A medical vision language model with
+  visual referring multimodal input and pixel grounding multimodal output, in:
+  Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR), 2025.
+
+\bibitem{qianAffordancellmGroundingAffordance2024}
+S.~Qian, W.~Chen, M.~Bai, X.~Zhou, Affordancellm: Grounding affordance from
+  vision language models, in: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR), 2024.
+
+\bibitem{zhangOpenhoiOpenworldHandobject2026}
+Z.~Zhang, Y.~Shi, L.~Yang, S.~Ni, Q.~Ye, J.~Wang,
+  \href{https://proceedings.neurips.cc/paper_files/paper/2025/file/f376f5dff6f6ec6364aea7a46ab49574-Paper-Conference.pdf}{Openhoi:
+  Open-world hand-object interaction synthesis with multimodal large language
+  model}, in: Advances in Neural Information Processing Systems 38 (NeurIPS),
+  2025.
+\newline\urlprefix\url{https://proceedings.neurips.cc/paper_files/paper/2025/file/f376f5dff6f6ec6364aea7a46ab49574-Paper-Conference.pdf}
+
+\bibitem{zhengInstructionguidedVisualMasking2024}
+J.~Zheng, J.~Li, S.~Cheng, Y.~Zheng, et~al., Instruction-guided visual masking,
+  in: Advances in Neural Information Processing Systems (NeurIPS), 2024.
+
+\bibitem{zhangFineRSFinegrainedReasoning2026}
+L.~Zhang, J.~Yu, H.~Xiong, P.~Hu, Y.~Zhuge, H.~Lu, Y.~He,
+  \href{https://arxiv.org/abs/2510.21311}{Finers: Fine-grained reasoning and
+  segmentation of small objects with reinforcement learning}, arXiv preprint
+  arXiv:2510.21311 (2025).
+\newline\urlprefix\url{https://arxiv.org/abs/2510.21311}
+
+\bibitem{chen2015microsoft}
+X.~Chen, H.~Fang, T.-Y. Lin, R.~Vedantam, S.~Gupta, P.~Doll{\'a}r, C.~L.
+  Zitnick, Microsoft coco captions: Data collection and evaluation server,
+  arXiv preprint arXiv:1504.00325 (2015).
+
+\bibitem{mottaghi2014role}
+R.~Mottaghi, X.~Chen, X.~Liu, N.-G. Cho, S.-W. Lee, S.~Fidler, R.~Urtasun,
+  A.~Yuille, The role of context for object detection and semantic segmentation
+  in the wild, in: Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR), 2014, pp. 891--898.
+
+\bibitem{caron2021emerging}
+M.~Caron, H.~Touvron, I.~Misra, H.~J{\'e}gou, J.~Mairal, P.~Bojanowski,
+  A.~Joulin, Emerging properties in self-supervised vision transformers, in:
+  Proceedings of the IEEE/CVF International Conference on Computer Vision
+  (ICCV), 2021, pp. 9650--9660.
+
+\bibitem{rombach2022high}
+R.~Rombach, A.~Blattmann, D.~Lorenz, P.~Esser, B.~Ommer, High-resolution image
+  synthesis with latent diffusion models, in: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2022, pp.
+  10684--10695.
 
 \end{thebibliography}

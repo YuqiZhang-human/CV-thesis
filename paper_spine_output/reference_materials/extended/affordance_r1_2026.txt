@@ -1,0 +1,670 @@
+                                        The Fortieth AAAI Conference on Artificial Intelligence (AAAI-26)
+
+
+
+
+Affordance-R1: Reinforcement Learning for Generalizable Affordance Reasoning
+                    in Multimodal Large Language Model
+          Hanqing Wang1,2, * , Shaoyang Wang3, * , Yiming Zhong4 , Zemin Yang4 , Jiamin Wang4 ,
+                Zhiqing Cui5 , Jiahao Yuan6 , Yifan Han7 , Mingyu Liu8,2 , Yuexin Ma4,†
+                                    1
+                                   The Hong Kong University of Science and Technology (GZ)
+                                                        2
+                                                          Shanghai AI Laboratory
+                                                  3
+                                                    National University of Singapore
+                                                       4
+                                                         ShanghaiTech University
+                                  5
+                                    Nanjing University of Information Science and Technology
+                                                    6
+                                                      East China Normal University
+                                     7
+                                       Institute of Automation, Chinese Academy of Science
+                                                           8
+                                                             Zhejiang University
+                               hwang201@connect.hkust-gz.edu.cn, mayuexin@shanghaitech.edu.cn
+
+
+                            Abstract                                                                        ReasonAff
+                                                                                                AGD20K                        ReasonAff
+  Affordance grounding focuses on predicting the specific re-                                                    gIOU
+                                                                                                 NSS             67.41           cIOU
+  gions of objects that are associated with the actions to be                                        0.98                    62.72
+  performed by robots. It plays a vital role in the fields of                        AGD20K                                                ReasonAff
+                                                                                      SIM 0.36                                          74.50 P50
+  human-robot interaction, human-object interaction, embod-
+  ied manipulation, and embodied perception. Existing mod-
+  els often neglect the affordance shared among different ob-                   AGD20K                                                           ReasonAff
+                                                                                 KLD 8.90                                                    55.22 P50-95
+  jects because they lack the Chain-of-Thought(CoT) reasoning
+  abilities, limiting their out-of-domain generalization and ex-
+  plicit reasoning capabilities. To address these challenges, we               AGD20K 7.99                                                    49.85 UMD
+  propose Affordance-R1, the first unified affordance ground-                   P50-95                                                              gIOU
+  ing framework that integrates cognitive CoT guided Group
+  Relative Policy Optimization (GRPO) within a reinforce-
+  ment learning paradigm. Specifically, we designed a sophis-                    AGD20K 20.49                                              42.24 UMD
+
+  ticated affordance function, which contains format, percep-                      P50                                                           cIOU
+                                                                                            27.85                                   53.35
+  tion, and cognition rewards to effectively guide optimiza-                            AGD20K                                        UMD
+  tion directions. Furthermore, we constructed a high-quality                                            31.78           34.08
+                                                                                             cIOU     AGD20K              UMD           P50
+  affordance-centric reasoning dataset, ReasonAff, to support                                           gIOU              P50-95
+  training. Trained exclusively via reinforcement learning with
+  GRPO and without explicit reasoning data, Affordance-R1                            LISA-7B         SAM4MLLM                Seg-Zero         InternVL3-7B
+  achieves robust zero-shot generalization and exhibits emer-                       Qwen2.5VL-7B            Vision Reasoner             Affordance-R1(Ours)
+  gent test-time reasoning capabilities. Comprehensive ex-
+  periments demonstrate that our model outperforms well-                    Figure 1: Affordance-R1 demonstrates extraordinary affor-
+  established methods and exhibits open-world generalization.
+                                                                            dance reasoning ability and powerful generalization ability.
+
+                        Introduction
+Affordance is a crucial lens through which humans and em-                   from human-object-interaction (HOI) images (Yang et al.
+bodied agents interact with various objects of the physical                 2023; Wang et al. 2025b; Yang et al. 2024; Luo et al. 2024;
+world, reflecting the possibility of where and how to act.                  Wang et al. 2025a; Rai, Buettner, and Kovashka 2024), hu-
+Given an open-ended, complex, and implicit task instruction                 man videos (Ma et al. 2025; Luo et al. 2023; Chen et al.
+specified in natural language, affordance grounding aims to                 2023), and 3D perception modeling approaches such as ob-
+highlight the actionable possibilities of these objects, linking            ject and scene point clouds (Deng et al. 2021; Chu et al.
+visual perception with robotic manipulation.                                2025; Nguyen et al. 2023; Delitzas et al. 2024) and 3D
+   Recent efforts have made remarkable progress in affor-                   Gaussian Splatting (wei et al. 2025). However, these meth-
+dance learning, such as extracting affordance knowledge                     ods cannot actively reason about complex and implicit user
+   * These authors contributed equally.                                     intentions. Real-world physical interactions often require
+   †
+     Corresponding Author.                                                  models to understand the human intention and reason about:
+Copyright © 2026, Association for the Advancement of Artificial             “What object can afford this? Why can this object afford
+Intelligence (www.aaai.org). All rights reserved.                           such an affordance? Where is the affordance area?”. Specif-
+
+
+                                                                     9738
+ically, given a kitchen scene and the question “How would                the same scale. To summarize, our contributions are as fol-
+you reheat the food?”, the model must reason deeply to iden-             lows:
+tify that the oven can heat food and requires the “open-
+                                                                          • We introduce Affordance-R1, which is capable of gener-
+able” affordance. This lack of affordance reasoning cre-
+                                                                            ating explicit reasoning alongside the final answer. With
+ates a gap in real-world applications. Some research (Yu
+                                                                            the help of proposed affordance reasoning reward, which
+et al. 2025; Qian et al. 2024) has utilized MLLM reason-
+                                                                            contains format, perception, and affordance recognition
+ing abilities to assist affordance grounding, but they only
+                                                                            reward, it achieves robust zero-shot generalization and
+provide final affordance areas without the reasoning pro-
+                                                                            exhibits emergent test-time reasoning capabilities.
+cess—they cannot explain why an object affords such ca-
+pabilities. To address this limitation, reinforcement learn-              • We construct a high-quality affordance dataset Reason-
+ing offers a promising solution by enabling step-by-step                    Aff for MLLM-based instruction-tuning, which is crucial
+reasoning through reward feedback, helping models under-                    for embodied perception and reasoning.
+stand both the answer and the reasoning process. Recent ad-               • We implement extensive experiments to demonstrate the
+vances (OpenAI 2024; Guo et al. 2025; Liu et al. 2025a;                     effectiveness of our learning pipeline and observe notice-
+Shen et al. 2025; Liu et al. 2025b; Huang et al. 2025; Zhang                able gains over baselines with strong generalization capa-
+et al. 2025b) have demonstrated this capability through veri-               bility, which highlights the effectiveness and adaptability
+fiable reward mechanisms. However, these models focus pri-                  of our approach in real-world applications.
+marily on object-level reasoning and cannot handle embod-
+ied perception tasks requiring fine-grained analysis, such as                                  Related Work
+affordance reasoning.
+   To fill this gap, we propose Affordance-R1, a reinforce-
+                                                                         Affordance Learning
+ment learning framework that enhances affordance ground-                 The concept of affordance was popularized by psychologist
+ing models with deep reasoning capabilities. We employ                   James Gibson (Gibson 1977), which reveals how embodied
+GRPO to fine-tune MLLMs without supervised training, in-                 agents should interact with objects in dynamic, complex,
+vestigating their self-evolution potential to develop reason-            and physical environments. Many researchers have made
+ing abilities rather than relying on explicitly annotated pro-           great efforts in affordance learning. Specifically, some works
+cesses. To closely link reasoning with affordance ground-                utilize affordance to link perception with robotic manipula-
+ing, we design rewards from cognitive and perceptual per-                tions (Tang et al. 2025; Tong et al. 2024; Ma et al. 2025;
+spectives: perception rewards and affordance recognition re-             Ju et al. 2024) and grasping (Wei et al. 2025; Zhang et al.
+wards. Inspired by “Think twice before you act”, we add                  2023, 2025a). Other studies, from a perceptual perspective,
+a rethinking reward to help the model verify its reasoning               focus on endowing robots with an understanding of the af-
+process, addressing the transparency issue in current affor-             fordance of objects and have explored numerous methods
+dance models. Additionally, a box-num reward ensures the                 to obtain affordance knowledge from demonstrations, such
+model outputs all possible affordance areas. Through these               as learning from HOI images (Yang et al. 2023; Gao et al.
+integrated rewards, Affordance-R1 achieves comprehensive                 2024; Shao et al. 2024a), human videos (Ma et al. 2025), and
+reasoning at both perceptual and cognitive levels.                       3D perception modeling approaches including object (Deng
+   To facilitate such reasoning capabilities, existing datasets          et al. 2021; Qian et al. 2024; Yu et al. 2025; Chu et al. 2025;
+are insufficient for complex affordance reasoning. They are              Nguyen et al. 2023) and scene (Delitzas et al. 2024) point
+overly simplistic, lack real-world contextual complexity, and            clouds and 3DGS (wei et al. 2025). With the remarkable
+are specifically tailored for training visual segmentation               progress of LLMs, impressive reasoning capabilities have
+models, making them unsuitable for MLLM instruction tun-                 been demonstrated that can simulate human thinking. Some
+ing.To address these limitations, we construct ReasonAff,                studies have explored how to transfer the inherent reasoning
+a high-quality dataset with fine-grained affordance masks                ability of LLMs to affordance learning. These works (Qian
+and reasoning-based implicit instructions that promote deep              et al. 2024; Yu et al. 2025; Chu et al. 2025) adopt the strategy
+affordance understanding, specifically tailored for MLLM                 of introducing a special token into the vocabulary of LLMs
+training. We utilize GPT-4o (Achiam et al. 2023) to con-                 and then utilize the embedding of this special token to per-
+struct the implicit instructions by providing it with an HOI             form affordance grounding. However, they still fail in gener-
+image related to the affordance and the original instruction             alization and cannot perform well when encountering OOD
+to help the agent better understand “affordance” and allevi-             data, because they only establish a mapping between the af-
+ate hallucination problems.                                              fordance areas and the special token and cannot grasp gen-
+   Through the synergy of our reinforcement learning                     eral affordance knowledge. To address this issue, we utilize
+framework and reasoning-oriented dataset, Affordance-R1                  the GRPO (Shao et al. 2024b) algorithm to conduct a post-
+demonstrates exceptional performance on both in-domain                   training process on the multimodal large language model,
+and out-of-domain data, which is crucial for real-world de-              enabling the model to think and reason like humans to per-
+ployment. Furthermore, Affordance-R1 maintains robust                    form affordance perception.
+visual QA capabilities without the need for VQA training
+data. Experimental results show that Affordance-R1 ex-                   Multimodal Large Language Models
+hibits strong test-time reasoning capabilities and achieves              MLLMs (Yang et al. 2025; Achiam et al. 2023) have made
+superior generalization performance compared to models of                remarkable progress, which can achieve human-like or even
+
+
+                                                                  9739
+          Raw Image               Affordance Map             Instruction A:                                        Too direct, simple, and
+                                                               Where is the seat of the chair that                    straightforward
+                                                               can support in this image?                         (Require simple grounding)
+
+                                                                 Instruction B:                                       Highlights user’s
+                                                                  Where would you sit if you want to                 intention and goal
+                                                                  have a rest?                                       (Require reasoning)
+
+
+                    (a) Difference between grounding-based instructions and reasoning-based instructions
+
+
+                                                                        GPT-4o Rewriting
+
+                                                           System Prompt:                                          Reasoning-based
+                                                                                                                     Instruction
+                                                           [Role]:       Creating questions that
+         Exo Image              HOI Image                                enabling robots to reason               Where would you sit if
+                                                           [Guidelines]: 1.Diversity; 2. Daily Tasks;           you want to have a rest?
+                         Where is the seat of                            3. Leakage Avoidance;
+        Original         the chair that can
+       Instruction                                         [Examples]: xxxxx
+                         support in this image?
+
+                                       (b) Pipeline of generating affordance reasoning instructions
+
+
+Figure 2: Affordance reasoning instruction generation and comparison. (a) Comparison between grounding-based and
+reasoning-based instructions. Instruction A directly asks for the faucet handle location (simple grounding), while Instruction B
+asks how to interact with the faucet to achieve opening (requires reasoning). (b) Pipeline for generating affordance reasoning
+instructions using GPT-4o to rewrite original instructions based on exo images, HOI images, and system prompts with guide-
+lines for diversity, daily tasks, and leakage avoidance.
+
+
+                  Results on AGD20K              Results on UMD                    Dataset        #Object #Aff #Diversity #Reasoning #Q&A
+   Source
+                 KLD↓ SIM↑ NSS↑         gIoU↑    cIoU↑ P50−95 ↑     P50 ↑
+ Instruct-Part   10.79   0.30   0.89     44.37   38.06   26.24      47.13          UMD              17      7
+  ReasonAff       9.73   0.36   0.98     49.85   42.24   34.08      53.35          IIT-AFF          10      9
+                                                                                   ADE-Af           150     7
+     Table 1: Evaluating Cross-Dataset Generalization.                             PAD              72     31
+                                                                                   PADv2            103    39
+                                                                                   AGD20K           50     36
+                                                                                   InstructPart     48     30
+superhuman intelligence in many aspects, such as visual un-                        Ours             48     30       ✓            ✓             ✓
+derstanding, generation, and multimodal reasoning. How-
+ever, for many practical applications, such as segmentation                        Table 2: Comparison of Existing 2D Affordance Dateset.
+and grounding, these models lack the necessary fine-grained                        #Diversity: diverse contextual instructions. #Obj: num-
+perception required for detailed visual tasks. To address this                     ber of object categories. #Af f : number of affordance cate-
+issue, research efforts (Wang et al. 2024; Lan et al. 2024; Wu                     gories. #Q&A: Q&A instruction-tuning for MLLM.
+et al. 2024) enable the localization of specific regions within
+images by encoding spatial coordinates as tokens, improv-
+ing the models’ ability to reason about precise areas within                       affordance-level understanding.
+the visual data. Moreover, OpenAI o1 (OpenAI 2024) in-                                Addressing this limitation, this paper aims to endow
+troduces inference-time scaling by extending the Chain-of-                         MLLMs with general affordance-aware perception by en-
+Thought (CoT) reasoning process, significantly enhancing                           abling them to interpret and interact with objects through
+its multimodal reasoning performance. DeepSeek-R1 (Guo                             reasoning in context-sensitive scenarios.
+et al. 2025) further utilizes the GRPO (Shao et al. 2024b) al-
+gorithm to advance the reasoning ability, achieving superior
+performance with only a few thousand RL training steps.
+                                                                                                            Dataset
+Several recent works (Shen et al. 2025; Liu et al. 2025a;                          Previous affordance-centric datasets fall short in supporting
+Huang et al. 2025; Liu et al. 2025b; Song et al. 2025) have                        complex affordance reasoning. Moreover, these datasets are
+expanded this success into fine-grained visual tasks. How-                         specifically designed for training visual segmentation mod-
+ever, these works primarily address high-level object reason-                      els (e.g., SAM (Ravi et al. 2024)), making them difficult to
+ing and do not consider fine-grained part-level, especially                        seamlessly integrate into the instruction fine-tuning of mul-
+
+
+                                                                            9740
+                        Instruction from Instruct-Part(Part-Affordance)                        Instruction from ReasonAff
+
+                      Where is the stem of the wine glass that                  Where would you place your thumb and forefinger to
+                      can be held in this image?                                pour wine into this glass?
+
+    Raw Image                           Reasoning Output                                            Reasoning Output
+
+                      The stem of the wine glass is the narrow                  The wine glasses have stems that are designed
+                      part that connects the bowl to the base of                to be held securely. The grip area is
+                      the glass. In this image, the stems are                   typically the part of the stem that is wider
+                      visible and appear to be the narrowest                    and more stable, allowing for a firm hold.
+  Affordance Map      part of the glass.
+
+
+Figure 3: Comparison of instructions and reasoning outputs between ReasonAff and Instruct-Part datasets on the same images.
+
+
+timodal large language models (MLLMs). As a result, mod-                 and a segmentation model. The overall architecture is illus-
+els trained on such datasets tend to rely on grounding rather            trated in Figure 4. Specifically, given an image I and a high-
+than in-depth reasoning. This prevents them from acquiring               level text instruction T, Affordance-R1 F generates an in-
+generalizable affordance knowledge, severely undermining                 terpretable reasoning process and subsequently produces the
+their generalization capabilities.                                       expected output corresponding to T. The model output is
+   To better enhance the affordance grounding ability of                 represented in a structured format, from which we extract
+MLLMs and improve their generalization performance, we                   the bounding boxes B and points P to serve as input to seg-
+have constructed the high-quality dataset ReasonAff, which               mentation models such as SAM (Kirillov et al. 2023). This
+can be utilized for MLLM instruction tuning. Specifically,               process can be formulated as follows:
+we construct ReasonAff based on Instruct-Part (Wan et al.
+2025). As shown in Figure 2 (b), we rewrite the instruc-                                  ({Bi , Pi })N
+                                                                                                      i=1 = F(I, T).                 (1)
+tions in the Instruct-Part dataset because we find the instruc-
+tions are too direct and simple, and there are many sen-
+                                                                         Subsequently, the affordance masks Af f are predicted by
+tences with consistent structures and many sentences are
+                                                                         the segmentation model M using the extracted bounding
+completely identical, which may limit the reasoning abil-
+                                                                         boxes B and points P:
+ity of the model. We utilize GPT-4o (Achiam et al. 2023) to
+rewrite the instructions by providing it with an HOI image
+related to the affordance and the original instruction to alle-                               Ai = M(Bi , Pi ).                      (2)
+viate hallucination issues and avoid identical instructions to
+enhance diversity. Specifically, for a given binary mask of
+affordance, we determine its bounding box (x1, y1, x2, y2)               Group Relative Policy Optimization (GRPO)
+by extracting the leftmost, topmost, rightmost, and bottom-
+most pixel coordinates. Additionally, we compute the cen-                Unlike reinforcement learning algorithms such as
+troid of the mask as point coordinates (xp , yp ). We show the           PPO (Schulman et al. 2017), which require an additional
+comparison of ReasonAff with previous datasets in Table 2,               critic model to estimate policy performance, GRPO (Shao
+and more dataset details are provided in the Appendix.                   et al. 2024b) directly compares groups of candidate re-
+   As can be seen in Figure 3, we present the different rea-             sponses, thereby eliminating the need for a separate critic
+soning output (highlight areas) between the original Instruct-           network. Given a question q, GRPO (Shao et al. 2024b)
+Part Affordance-related instructions and our reasoning-                  samples N candidate responses {o1 , o2 , . . . , oN } from
+based instructions. Our implicit instructions based on rea-              the policy πθ and evaluates each response oi using a
+soning can better enhance the reasoning ability of the model             reward function R(q, oi ), which quantifies the quality of
+compared to previous instructions, enabling the model to                 the candidate response in the context of the given ques-
+learn more general affordance knowledge through the rea-                 tion. To determine the relative quality of these responses,
+soning process and improve its generalization ability, as                GRPO (Shao et al. 2024b) normalizes the rewards by com-
+demonstrated by our experimental results shown in Ta-                    puting their mean and standard deviation, and subsequently
+ble 1. The model trained on the reasoning-based Reason-                  derives the advantage as:
+Aff dataset shows better performance and generalization on
+OOD datasets.                                                                                ri − mean{r1 , r2 , . . . , rN }
+                                                                                      Ai =                                    ,      (3)
+                                                                                                 std{r1 , r2 , . . . , rN }
+             Affordance-R1 Framework
+                                                                         where Ai represents the advantage of candidate re-
+Architecture                                                             sponse oi relative to other sampled responses within the
+Following Seg-Zero (Liu et al. 2025a), Affordance-R1                     group.GRPO (Shao et al. 2024b) encourages the model to
+adopts a two-stage strategy comprising a reasoning model                 generate responses with higher advantages by optimizing the
+
+
+                                                                  9741
+ To hold these mugs                     <think>                        <rethink>
+ securely, which areas
+
+
+
+
+                                                                                                                              Segmentation
+                                        To securely hold the mugs, The mugs   have   a <answer>
+
+
+
+
+                         Policy Model
+ should your palm and
+ fingers grip?                          the palm and fingers cylindrical    shape……The “Box”: {535, 202, 919, 634}
+
+
+
+
+                                                                                                                                 Model
+                                        should grip the main body handle is on the side, so “Points”: [748, 467]
+                                        of the mug, which is …… so the grip should be around “Affordance”: “hold”;
+                                        the grip should be around the main body of the </answer>
+                                        the main body of the mug. mug.
+                                                                                                                                             Affordance
+                                        </think>                       </rethink>                                                               Mask
+                                                                      Policy Optimization
+
+
+      Policy Model                      (a) Format Reward                    (b) Perception Reward                   R1                         A1
+                                         1. Thinking Format:
+                                                                                                                     R2                         A2
+    O1   O2   ⋯   ON                        <think>… </think>
+                                                                                                                     R3        Group            A3
+                  KL
+              Divergence
+                                         2. Rethinking Format:    Box-Num       IOU           L1                            Computation
+                                         <rethink>… </rethink>                                                       R4                         A4
+                                                                         (c) Recognition Reward
+    O1   O2   ⋯    ON
+
+
+
+
+                                                                                                                                                ⋯
+                                                                                                                     ⋯
+                                         3. Answer Format:       Predict text                         Similarity
+                                                                                   Word2Vec
+   Reference Model                       <rethink>… </rethink>     GT text                             Reward        RN                         AN
+
+                                                                      Affordance Reward                            Reward                    Advantages
+
+Figure 4: Affordance-R1 framework overview. The model processes queries through policy-based reasoning with < think >
+and < rethink > stages to generate affordance predictions. The policy optimization uses a sophisticated reward system
+comprising (a) format rewards for reasoning structure, (b) perception rewards for spatial accuracy (Box-Num, IOU, L1), and
+(c) recognition rewards for semantic similarity, enabling effective GRPO-based training for affordance reasoning.
+
+
+policy πθ through the following objective:                                             truth bounding boxes. If IoU > 0.5, the reward is 1; oth-
+                                                                                       erwise, the reward is 0; 2) L1 Reward: We compute the L1
+  JGRP O (θ) = E[{oi }N  i=1 ∼ πθold (q)]                   (4)                        distance between output and ground truth bounding boxes
+         PN                                                                            (including points). If the L1 distance < 10, the reward is 1;
+            i=1 {min[s1 Ai , s2 Ai ] − βDKL [πθ ||πref ]}
+                                                                                       otherwise, the reward is 0; 3) Box-Num Reward: We in-
+                                 N                                                     troduce the box-num reward to ensure the model outputs all
+                                                            (5)
+                                                                                       possible affordance areas.
+              πθ (oi |q)                                                                  Affordance Recognition Reward. As the ancient wis-
+      s1 =                 ; s2 = clip (s1 , 1 + ϵ, 1 − ϵ) .
+             πθold (oi |q)                                                             dom states, “to know what it is and to know why it is”, affor-
+                                                            (6)                        dance reasoning requires not only perception but also recog-
+                                                                                       nition. Specifically, we use the word2vec model to calculate
+Reward Functions. As can be seen in Figure 4, we de-                                   affordance text similarity. If similarity > 0.8, the reward is
+signed a sophisticated affordance reward system that con-                              1; otherwise, the reward is 0.
+tains format, perception, and recognition rewards to better
+guide the optimization of affordance reasoning.                                                                Experiment
+   Format Reward. We utilize the format reward to ensure
+the model’s response strictly adheres to the required format.                          Experimental Settings
+It can be divided into three parts: 1) Thinking Reward: To                             Dataset and Out-of-Domain Datasets. As mentioned in
+force the model to think deeply before answering, we add                               Section , we construct a high-quality dataset ReasonAff
+the format < think > Thinking Process Here < /think >                                  based on the Instruct-Part (Wan et al. 2025) dataset. We train
+to constrain the model; 2) Rethinking Reward: Inspired                                 our model on this dataset, and to assess our model’s gener-
+by the proverb: “Think twice before you act”, we add the                               alization capability, we conduct experiments to evaluate its
+rethinking reward < rethink > Rethinking Process Here                                  performance under OOD scenarios. Specifically, we lever-
+< /rethink > to force the model to evaluate the thinking                               age subsets from the UMD Part Affordance dataset (Myers
+process itself, which double-checks the correctness of the                             et al. 2015) and AGD20K (Luo et al. 2022) as our OOD
+reasoning process; 3) Answer Reward: < answer > Final                                  benchmarks for affordance task evaluation. For the UMD
+Answer Here < /answer >.                                                               Part Affordance dataset (Myers et al. 2015), to better assess
+   Perception Reward. To help the model ground the affor-                              the zero-shot performance of different models, we select all
+dance area, we utilize the perception reward, which mainly                             objects from all categories. Since one in every three frames
+contains: 1) IoU Reward: We calculate the Intersection over                            is manually annotated, we sample one-tenth of these anno-
+Union (IoU) between output bounding boxes and ground                                   tated frames as our test split, resulting in a total of 1,922 test
+
+
+                                                                                9742
+ Model                 LLM   Reasoning   gIoU↑   cIoU↑   P50−95 ↑   P50 ↑            Model                 Reasoning   gIoU↑   cIoU↑   P50−95 ↑   P50 ↑
+ VLPart                                   4.21    3.88      1.31     0.85            LISA-7B                           41.90   41.23    19.33     39.65
+ OVSeg                                   16.52   10.59      9.89     4.12            SAM4MLLM                          12.40   8.41     0.05      4.12
+ SAN                                     10.21   13.45      7.18     3.17
+                                                                                     AffordanceLLM                     43.11   38.97    22.36     41.56
+ LISA-7B               ✓                 38.17   40.58     33.62    19.69
+ SAM4MLLM              ✓                 45.51   33.64     43.48    22.79            Qwen2.5VL-7B                      33.21   29.83    10.45     25.17
+ AffordanceLLM         ✓                 48.49   38.61     42.11    20.19            InternVL3-7B                      30.46   28.73     9.94     18.67
+ InternVL3-8B          ✓                 31.79   24.68     35.41    21.93            Seg-Zero                 ✓        44.26   39.30    16.53     39.93
+ Qwen2.5VL-7B          ✓                 25.18   20.54     26.00    15.82            Vision Reasoner          ✓        44.00   39.71    16.10     39.04
+ Seg-Zero              ✓         ✓       59.26   48.03     61.33    45.87            Affordance-R1(Ours)      ✓        49.85   42.24    34.08     53.35
+ Vision Reasoner       ✓         ✓       63.04   52.70     67.33    47.23
+ Affordance-R1(Ours)   ✓         ✓       67.41   62.72     74.50    55.22
+                                                                                    Table 4: MLLM based zero-shot affordance reasoning com-
+ Table 3: Affordance reasoning comparison on ReasonAff.                             parison results on UMD dataset.
+
+  Affordance      Where should you Where would you How would you
+                  sit if you want to grip if you want to lift this bucket?          Quantitative Analysis
+  Instruciton     have a rest?       pick them up ?
+                                                                                    We conducted extensive experiments to comprehensively
+      Raw                                                                           evaluate the affordance reasoning ability of Affordance-R1,
+     Image                                                                          including both in-domain and OOD datasets.
+                                                                                    Results on ReasonAff. As presented in Table 3,
+Qwen2.5VL-7B
+                                                                                    Affordance-R1 establishes a new SOTA on our ReasonAff
+                                                                                    benchmark, consistently outperforming all baseline meth-
+    Vision                                                                          ods across every evaluation metric. The performance gains
+   Reasoner                                                                         are particularly pronounced on the high-precision metrics,
+                                                                                    P@50 and P@50:95, underscoring the high quality and ac-
+ Affordance-R1                                                                      curacy. We show some qualitative comparison results of af-
+     (Ours)                                                                         fordance reasoning in Figure 5. More results can be seen in
+                                                                                    Appendix.
+    Ground                                                                             We attribute this superior performance directly to
+     Truth                                                                          our novel framework. Unlike conventional methods that
+                                                                                    rely on supervised fine-tuning, Affordance-R1 leverages
+                                                                                    GRPO (Shao et al. 2024b) to unlock the MLLM’s intrinsic
+Figure 5: Qualitative Comparison of Affordance Reasoning                            reasoning capabilities. This approach is uniquely suited for
+                                                                                    the challenges posed by ReasonAff, which demands deep
+                                                                                    reasoning over implicit, complex, and real-world contex-
+images. For the AGD20K (Luo et al. 2022) dataset, we use                            tual instructions. The core of our success lies in the meticu-
+the test split of the Seen partition for zero-shot evaluation,                      lously designed affordance reward function. Specifically, the
+which comprises 1,710 object-affordance pairs.                                      Format Reward, which encourages a thinking and rethink-
+Baselines. For a thorough comparison, we evaluate our                               ing process, compels the model to build a coherent reason-
+method against several representative baselines, includ-                            ing chain and self-correct before committing to an answer.
+ing open-vocabulary segmentation methods such as VL-                                This iterative refinement process, guided by the Perception
+Part (Sun et al. 2023), OVSeg (Liang et al. 2023), and                              and Affordance Recognition rewards, allows Affordance-
+SAN (Xu et al. 2023); and powerful open-source MLLMs                                R1 to deconstruct complex problems and accurately ground
+such as LISA (Lai et al. 2024), SAM4MLLM (Chen                                      abstract instructions to visual evidence, a capability where
+et al. 2024), AffordanceLLM (Qian et al. 2024), Qwen2.5-                            other baselines fall short.
+VL (Bai et al. 2025), InternVL3 (Zhu et al. 2025), Seg-
+                                                                                    Results on Out-of-Domain Datasets. To assess the gen-
+Zero (Liu et al. 2025a), and Vision Reasoner (Liu et al.
+                                                                                    eralization power of Affordance-R1, we performed a zero-
+2025b) to compare their affordance reasoning capabilities
+                                                                                    shot evaluation on the AGD20K (Luo et al. 2022) and
+with Affordance-R1.
+                                                                                    UMD (Myers et al. 2015) datasets. The results, summarized
+Evaluation Metrics and Implementation Details. Fol-                                 in Table 5 and Table 4, reveal that Affordance-R1 main-
+lowing Instruct-Part, we use standard metrics gIoU, cIoU,                           tains its significant performance edge, demonstrating ex-
+Precision@50 (P@50), and Precision@50:95 (P@50:95).                                 ceptional generalization to unseen object types and visual
+We employ Qwen2.5-VL-7B (Bai et al. 2025) and SAM2-                                 domains. This strong generalization is a direct outcome of
+Large (Ravi et al. 2024) as our default configuration.                              our methodology. By forgoing traditional SFT in favor of
+Affordance-R1 is trained on a 4×A100 GPU server using                               GRPO (Shao et al. 2024b), Affordance-R1 learns a robust
+the DeepSpeed library. During training, we use a total batch                        and generalizable policy for affordance reasoning, rather
+size of 8 with a sampling number of 8 per training step. The                        than merely memorizing patterns from the training data. The
+initial learning rate is set to 1e-6, the weight decay is 0.01,                     reinforcement learning process, guided by our comprehen-
+and the KL loss coefficient is set to 5e-3. The entire training                     sive reward signals, teaches the model the fundamental prin-
+process takes approximately 7 hours.                                                ciples of identifying functional regions based on reasoning.
+
+
+                                                                             9743
+  Model                      gIoU↑    cIoU↑       P50−95 ↑          P50 ↑           In order to          <think>To control a knife more safely,
+                                                                                    control this         the handl…….The blade is the cutting
+  LISA-7B                     13.18    11.96           1.45         5.31            knife more           part and should be held with care to
+  SAM4MLLM                    15.27    13.22           2.40          6.95           safely,              avoid injury.</think> <rethink>The
+  Qwen2.5VL-7B                20.28    16.35           5.61         15.49           which part           handle of the knife is the ……handled
+                                                                                    should I             with caution.</rethink>
+  InternVL3-7B                18.18    14.63           3.79         13.37
+                                                                                    hold?
+  Seg-Zero                    26.99    22.01           6.52         17.82
+                                                                                                         <think>The question asks for a place
+  Vision Reasoner             26.98    21.98           6.31         17.31           Where                to lay down for rest, which typically
+  Affordance-R1(Ours)         31.78    27.85           7.99         20.49           should I lay         refers to a bed.</think>
+                                                                                    on if I want         <rethink>The image shows two beds
+                                                                                    to have a            with bedding, which are are suitable
+Table 5: MLLM-based zero-shot affordance reasoning com-                             rest?                for resting.</rethink>
+parison results on AGD20K dataset.
+                                                                                                         <think>The faucet is visible in the
+                                                                                    Where
+                                                                                                         image, and ……The handle is likely
+ Rethinking   Recognition   Box-Num   gIoU↑    cIoU↑     P50−95 ↑    P50 ↑          should I
+                                                                                                         the part that controls the water
+                                                                                    turn on if I
+                                      60.58    51.94      66.89      45.55                               flow.</think> <rethink>The faucet
+                                                                                    want to
+     ✓                                63.04    56.33      67.02      51.55                               handle is ……general location of the
+     ✓            ✓                                       68.33      50.07          wash my
+                                      65.25    61.22                                                     faucet handle, which is usually near
+     ✓            ✓            ✓      67.41    62.72      74.50      55.22          hand?
+                                                                                                         the spout.</rethink>
+
+Table 6: Ablation Study. We investigate the improvement of                          Figure 6: Visualization on Web Image. Our model can un-
+Rethinking Reward and Affordance Reward.                                            derstand complex scenarios and shows good generalization.
+
+
+Consequently, this learned policy is less sensitive to domain-                      reward can help the model understand the concept of affor-
+specific visual features and translates effectively to novel                        dance and general affordance knowledge.
+scenarios presented in OOD datasets. In contrast, compet-
+ing models show a more significant performance drop, indi-                          Box-Num Reward. As can be seen in Table 6, we con-
+cating a degree of overfitting to their training distributions                      ducted ablation experiments to study the influence of the
+and a weaker grasp of the underlying affordance concepts.                           box-num reward. We found that without this reward func-
+This confirms that Affordance-R1 learns a more fundamen-                            tion, the model would tend to output a single affordance
+tal and transferable understanding of object affordance.                            reasoning answer and ignore other possibilities, resulting in
+                                                                                    performance degradation.
+Visualization Results on Web Image. To evaluate the
+generalization ability of Affordance-R1, we collect some
+kitchen and household scene pictures from the EPIC-                                                Conclusion and Future Work
+KITCHENS dataset (Damen et al. 2018) and the internet. As                           In this paper, we introduce the first affordance-centric
+can be seen in Figure 6, Affordance-R1 can still maintain                           reasoning model Affordance-R1 and a high-quality
+strong affordance reasoning ability and effectively handle                          affordance-centric reasoning dataset ReasonAff, which can
+complex scenarios. More results can be seen in Appendix.                            be integrated into the instruction-tuning training process of
+                                                                                    multimodal large language models. With the help of the pro-
+                                                                                    posed sophisticated affordance reasoning reward function,
+Ablation Study Results                                                              we adopt pure reinforcement learning, specifically GRPO, to
+We conduct various ablation studies to assess the impact of                         fine-tune the MLLM without supervised fine-tuning (SFT).
+different components on our model Affordance-R1’s per-                              Affordance-R1 advances affordance reasoning by integrat-
+formance, including the proposed rethinking reward, the af-                         ing LLM capabilities, enhancing the model’s ability to han-
+fordance recognition reward, and the Box-Num reward.                                dle complex and real-world contexts. It not only achieves
+                                                                                    state-of-the-art performance on ReasonAff but also shows
+Rethinking Reward. As ancient wisdom states: “Think                                 superior generalization on out-of-domain datasets. For fu-
+twice before you act”. The results Table 6 demonstrate that                         ture work, we will explore how to utilize the excellent af-
+the introduction of the rethinking reward can force the model                       fordance reasoning abilities of Affordance-R1 to construct
+to reconsider and re-examine the question and image, mak-                           an automatic data engine pipeline for affordance reasoning,
+ing it think twice before giving final answers, resulting in an                     thereby advancing the scaling law of embodied perception.
+improvement over the baseline.
+Affordance Recognition Reward. As the saying goes,                                                     Acknowledgments
+“to know what it is and to know why it is”, affordance rea-
+                                                                                    I would like to express my deepest gratitude to the Red Bird
+soning not only requires the model to know where the af-
+                                                                                    MPhil Program at the Hong Kong University of Science
+fordance area is but also the type of affordance this object
+                                                                                    and Technology (Guangzhou) for providing me with gen-
+affords. Table 6 presents the performance comparison with
+                                                                                    erous support, resources, and funding, which have been in-
+and without the affordance recognition reward. The model
+                                                                                    strumental in the successful completion of my research.
+achieves better results when trained using the affordance
+recognition reward, which means the affordance recognition
+
+
+                                                                             9744
+                       References                                      Kirillov, A.; Mintun, E.; Ravi, N.; Mao, H.; Rolland, C.;
+Achiam, J.; Adler, S.; Agarwal, S.; Ahmad, L.; Akkaya, I.;             Gustafson, L.; Xiao, T.; Whitehead, S.; Berg, A. C.; Lo, W.-
+Aleman, F. L.; Almeida, D.; Altenschmidt, J.; Altman, S.;              Y.; et al. 2023. Segment anything. In Proceedings of the
+Anadkat, S.; et al. 2023. Gpt-4 technical report. arXiv                IEEE/CVF International Conference on Computer Vision,
+preprint arXiv:2303.08774.                                             4015–4026.
+Bai, S.; Chen, K.; Liu, X.; Wang, J.; Ge, W.; Song, S.; Dang,          Lai, X.; Tian, Z.; Chen, Y.; Li, Y.; Yuan, Y.; Liu, S.; and
+K.; Wang, P.; Wang, S.; et al. 2025. Qwen2.5-VL Technical              Jia, J. 2024. Lisa: Reasoning segmentation via large lan-
+Report. arXiv:2502.13923.                                              guage model. In Proceedings of the IEEE/CVF Conference
+                                                                       on Computer Vision and Pattern Recognition, 9579–9589.
+Chen, J.; Gao, D.; Lin, K. Q.; and Shou, M. Z. 2023. Affor-
+dance grounding from demonstration video to target image.              Lan, M.; Chen, C.; Zhou, Y.; Xu, J.; Ke, Y.; Wang, X.;
+In Proceedings of the IEEE/CVF Conference on Computer                  Feng, L.; and Zhang, W. 2024. Text4seg: Reimagining
+Vision and Pattern Recognition, 6799–6808.                             image segmentation as text generation. arXiv preprint
+                                                                       arXiv:2410.09855.
+Chen, Y.-C.; Li, W.-H.; Sun, C.; Wang, Y.-C. F.; and Chen,
+C.-S. 2024. SAM4MLLM: Enhance Multi-Modal Large                        Liang, F.; Wu, B.; Dai, X.; Li, K.; Zhao, Y.; Zhang, H.;
+Language Model for Referring Expression Segmentation.                  Zhang, P.; Vajda, P.; and Marculescu, D. 2023. Open-
+In European Conference on Computer Vision, 323–340.                    vocabulary semantic segmentation with mask-adapted clip.
+Springer.                                                              In Proceedings of the IEEE/CVF conference on computer
+Chu, H.; Deng, X.; Chen, X.; Li, Y.; Hao, J.; and Nie, L.              vision and pattern recognition, 7061–7070.
+2025. 3D-AffordanceLLM: Harnessing Large Language                      Liu, Y.; Peng, B.; Zhong, Z.; Yue, Z.; Lu, F.; Yu, B.; and Jia,
+Models for Open-Vocabulary Affordance Detection in 3D                  J. 2025a. Seg-Zero: Reasoning-Chain Guided Segmentation
+Worlds. arXiv preprint arXiv:2502.20041.                               via Cognitive Reinforcement. ArXiv, abs/2503.06520.
+Damen, D.; Doughty, H.; Farinella, G. M.; Fidler, S.;                  Liu, Y.; Qu, T.; Zhong, Z.; Peng, B.; Liu, S.; Yu, B.; and Jia,
+Furnari, A.; Kazakos, E.; Moltisanti, D.; Munro, J.; Perrett,          J. 2025b. VisionReasoner: Unified Visual Perception and
+T.; Price, W.; et al. 2018. Scaling egocentric vision: The             Reasoning via Reinforcement Learning.
+epic-kitchens dataset. In Proceedings of the European con-             Luo, H.; Zhai, W.; Wang, J.; Cao, Y.; and Zha, Z.-J. 2024.
+ference on computer vision (ECCV), 720–736.                            Visual-Geometric Collaborative Guidance for Affordance
+Delitzas, A.; Takmaz, A.; Tombari, F.; Sumner, R.; Polle-              Learning. arXiv preprint arXiv:2410.11363.
+feys, M.; and Engelmann, F. 2024. SceneFun3D: Fine-
+                                                                       Luo, H.; Zhai, W.; Zhang, J.; Cao, Y.; and Tao, D. 2022.
+Grained Functionality and Affordance Understanding in 3D
+                                                                       Learning affordance grounding from exocentric images. In
+Scenes. In Proceedings of the IEEE/CVF Conference on
+                                                                       Proceedings of the IEEE/CVF conference on computer vi-
+Computer Vision and Pattern Recognition (CVPR), 14531–
+                                                                       sion and pattern recognition, 2252–2261.
+14542.
+Deng, S.; Xu, X.; Wu, C.; Chen, K.; and Jia, K. 2021. 3d af-           Luo, H.; Zhai, W.; Zhang, J.; Cao, Y.; and Tao, D. 2023.
+fordancenet: A benchmark for visual object affordance un-              Learning visual affordance grounding from demonstration
+derstanding. In proceedings of the IEEE/CVF conference on              videos. IEEE Transactions on Neural Networks and Learn-
+computer vision and pattern recognition, 1778–1787.                    ing Systems.
+Gao, X.; Zhang, P.; Qu, D.; Wang, D.; Wang, Z.; Ding, Y.;              Ma, T.; Zheng, J.; Wang, Z.; Gao, Z.; Zhou, J.; and Liang, J.
+Zhao, B.; and Li, X. 2024. Learning 2d invariant affordance            2025. GLOVER++: Unleashing the Potential of Affordance
+knowledge for 3d affordance grounding. arXiv preprint                  Learning from Human Behaviors for Robotic Manipulation.
+arXiv:2408.13024.                                                      arXiv preprint arXiv:2505.11865.
+Gibson, J. J. 1977. The theory of affordances. Hilldale,               Myers, A.; Teo, C. L.; Fermüller, C.; and Aloimonos, Y.
+USA, 1(2): 67–82.                                                      2015. Affordance detection of tool parts from geometric fea-
+                                                                       tures. In 2015 IEEE International Conference on Robotics
+Guo, D.; Yang, D.; Zhang, H.; Song, J.; Zhang, R.; Xu, R.;             and Automation (ICRA), 1374–1381.
+Zhu, Q.; Ma, S.; Wang, P.; Bi, X.; et al. 2025. Deepseek-r1:
+Incentivizing reasoning capability in llms via reinforcement           Nguyen, T.; Vu, M. N.; Vuong, A.; Nguyen, D.; Vo, T.;
+learning. arXiv preprint arXiv:2501.12948.                             Le, N.; and Nguyen, A. 2023. Open-vocabulary affordance
+                                                                       detection in 3d point clouds. In 2023 IEEE/RSJ Interna-
+Huang, W.; Jia, B.; Zhai, Z.; Cao, S.; Ye, Z.; Zhao, F.; Xu,
+                                                                       tional Conference on Intelligent Robots and Systems (IROS),
+Z.; Hu, Y.; and Lin, S. 2025. Vision-R1: Incentivizing Rea-
+                                                                       5692–5698. IEEE.
+soning Capability in Multimodal Large Language Models.
+ArXiv, abs/2503.06749.                                                 OpenAI. 2024. OpenAI o1. https://openai.com/o1/.
+Ju, Y.; Hu, K.; Zhang, G.; Zhang, G.; Jiang, M.; and Xu,               Qian, S.; Chen, W.; Bai, M.; Zhou, X.; Tu, Z.; and Li, L. E.
+H. 2024. Robo-abc: Affordance generalization beyond cat-               2024. Affordancellm: Grounding affordance from vision
+egories via semantic correspondence for robot manipula-                language models. In Proceedings of the IEEE/CVF Con-
+tion. In European Conference on Computer Vision, 222–                  ference on Computer Vision and Pattern Recognition, 7587–
+239. Springer.                                                         7597.
+
+
+                                                                9745
+Rai, A.; Buettner, K.; and Kovashka, A. 2024. Strategies to              Wei, Y.-L.; Lin, M.; Lin, Y.; Jiang, J.-J.; Wu, X.-M.; Zeng,
+Leverage Foundational Model Knowledge in Object Affor-                   L.-A.; and Zheng, W.-S. 2025. Afforddexgrasp: Open-
+dance Grounding. In Proceedings of the IEEE/CVF Confer-                  set language-guided dexterous grasp with generalizable-
+ence on Computer Vision and Pattern Recognition (CVPR)                   instructive affordance. arXiv preprint arXiv:2503.07360.
+Workshops, 1714–1723.                                                    wei, Z.; Lin, J.; Liu, Y.; Chen, W.; Luo, J.; Li, G.; and Lin, L.
+Ravi, N.; Gabeur, V.; Hu, Y.-T.; Hu, R.; Ryali, C.; Ma, T.;              2025. 3DAffordSplat: Efficient Affordance Reasoning with
+Khedr, H.; Rädle, R.; Rolland, C.; Gustafson, L.; et al. 2024.          3D Gaussians. arXiv:2504.11218.
+Sam 2: Segment anything in images and videos. arXiv                      Wu, J.; Zhong, M.; Xing, S.; Lai, Z.; Liu, Z.; Chen, Z.;
+preprint arXiv:2408.00714.                                               Wang, W.; Zhu, X.; Lu, L.; Lu, T.; et al. 2024. Visionllm v2:
+Schulman, J.; Wolski, F.; Dhariwal, P.; Radford, A.; and                 An end-to-end generalist multimodal large language model
+Klimov, O. 2017. Proximal policy optimization algorithms.                for hundreds of vision-language tasks. Advances in Neural
+arXiv preprint arXiv:1707.06347.                                         Information Processing Systems, 37: 69925–69975.
+Shao, Y.; Zhai, W.; Yang, Y.; Luo, H.; Cao, Y.; and Zha, Z.-             Xu, M.; Zhang, Z.; Wei, F.; Hu, H.; and Bai, X. 2023. Side
+J. 2024a. GREAT: Geometry-Intention Collaborative Infer-                 adapter network for open-vocabulary semantic segmenta-
+ence for Open-Vocabulary 3D Object Affordance Ground-                    tion. In Proceedings of the IEEE/CVF conference on com-
+ing. arXiv preprint arXiv:2411.19626.                                    puter vision and pattern recognition, 2945–2954.
+Shao, Z.; Wang, P.; Zhu, Q.; Xu, R.; Song, J.; Bi, X.; Zhang,            Yang, A.; Li, A.; Yang, B.; Zhang, B.; Hui, B.; Zheng, B.;
+H.; Zhang, M.; Li, Y.; Wu, Y.; et al. 2024b. Deepseekmath:               Yu, B.; Gao, C.; Huang, C.; Lv, C.; et al. 2025. Qwen3
+Pushing the limits of mathematical reasoning in open lan-                technical report. arXiv preprint arXiv:2505.09388.
+guage models. arXiv preprint arXiv:2402.03300.                           Yang, Y.; Zhai, W.; Luo, H.; Cao, Y.; Luo, J.; and Zha, Z.-J.
+Shen, H.; Liu, P.; Li, J.; Fang, C.; Ma, Y.; Liao, J.; Shen,             2023. Grounding 3d object affordance from 2d interactions
+Q.; Zhang, Z.; Zhao, K.; Zhang, Q.; Xu, R.; and Zhao, T.                 in images. In Proceedings of the IEEE/CVF International
+2025. VLM-R1: A Stable and Generalizable R1-style Large                  Conference on Computer Vision, 10905–10915.
+Vision-Language Model. ArXiv, abs/2504.07615.
+                                                                         Yang, Y.; Zhai, W.; Wang, C.; Yu, C.; Cao, Y.; and Zha,
+Song, Z.; Ouyang, G.; Li, M.; Ji, Y.; Wang, C.; Xu, Z.;                  Z.-J. 2024. Egochoir: Capturing 3d human-object in-
+Zhang, Z.; Zhang, X.; Jiang, Q.; Chen, Z.; et al. 2025.                  teraction regions from egocentric views. arXiv preprint
+Maniplvm-r1: Reinforcement learning for reasoning in em-                 arXiv:2405.13659.
+bodied manipulation with large vision-language models.
+arXiv preprint arXiv:2505.16517.                                         Yu, C.; Wang, H.; Shi, Y.; Luo, H.; Yang, S.; Yu, J.; and
+                                                                         Wang, J. 2025. Seqafford: Sequential 3d affordance reason-
+Sun, P.; Chen, S.; Zhu, C.; Xiao, F.; Luo, P.; Xie, S.; and              ing via multimodal large language model. In Proceedings of
+Yan, Z. 2023. Going denser with open-vocabulary part seg-                the Computer Vision and Pattern Recognition Conference,
+mentation. In Proceedings of the IEEE/CVF International                  1691–1701.
+Conference on Computer Vision, 15453–15465.
+                                                                         Zhang, X.; Wang, D.; Han, S.; Li, W.; Zhao, B.; Wang, Z.;
+Tang, Y.; Huang, W.; Wang, Y.; Li, C.; Yuan, R.; Zhang, R.;              Duan, X.; Fang, C.; Li, X.; and He, J. 2023. Affordance-
+Wu, J.; and Fei-Fei, L. 2025. UAD: Unsupervised Affor-                   driven next-best-view planning for robotic grasping. arXiv
+dance Distillation for Generalization in Robotic Manipula-               preprint arXiv:2309.09556.
+tion. arXiv preprint arXiv:2506.09284.
+                                                                         Zhang, Z.; Shi, Y.; Yang, L.; Ni, S.; Ye, Q.; and Wang,
+Tong, E.; Opipari, A.; Lewis, S.; Zeng, Z.; and Jenkins,
+                                                                         J. 2025a. OpenHOI: Open-World Hand-Object Interaction
+O. C. 2024. OVAL-prompt: Open-vocabulary affordance lo-
+                                                                         Synthesis with Multimodal Large Language Model. arXiv
+calization for robot manipulation through LLM affordance-
+                                                                         preprint arXiv:2505.18947.
+grounding. arXiv preprint arXiv:2404.11000.
+Wan, Z.; Xie, Y.; Zhang, C.; Lin, Z.; Wang, Z.; Stepput-                 Zhang, Z.; Wang, H.; Zeng, X.; Cheng, Z.; Liu, J.; Yan, H.;
+tis, S.; Ramanan, D.; and Sycara, K. 2025. InstructPart:                 Liu, Z.; Ji, K.; Gui, T.; Hu, K.; Chen, K.; Fan, Y.; and Pan,
+Task-Oriented Part Segmentation with Instruction Reason-                 M. 2025b. HOID-R1: Reinforcement Learning for Open-
+ing. arXiv preprint arXiv:2505.18291.                                    World Human-Object Interaction Detection Reasoning with
+                                                                         Multimodal Large Language Model. arXiv:2508.11350.
+Wang, C.; Zhai, W.; Yang, Y.; Cao, Y.; and Zha, Z. 2025a.
+GRACE: Estimating Geometry-level 3D Human-Scene                          Zhu, J.; Wang, W.; Chen, Z.; Liu, Z.; Ye, S.; Gu, L.; Tian,
+Contact from 2D Images. arXiv preprint arXiv:2505.06575.                 H.; Duan, Y.; et al. 2025. InternVL3: Exploring Advanced
+                                                                         Training and Test-Time Recipes for Open-Source Multi-
+Wang, H.; Zhang, Z.; Ji, K.; Liu, M.; Yin, W.; Chen, Y.; Liu,            modal Models. arXiv:2504.10479.
+Z.; Zeng, X.; Gui, T.; and Zhang, H. 2025b. DAG: Unleash
+the Potential of Diffusion Model for Open-Vocabulary 3D
+Affordance Grounding. arXiv preprint arXiv:2508.01651.
+Wang, W.; Chen, Z.; Chen, X.; Wu, J.; Zhu, X.; Zeng, G.;
+Luo, P.; Lu, T.; Zhou, J.; Qiao, Y.; et al. 2024. Visionllm:
+Large language model is also an open-ended decoder for
+vision-centric tasks. Advances in Neural Information Pro-
+cessing Systems, 36.
+
+
+                                                                  9746
+
